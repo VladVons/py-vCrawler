@@ -10,7 +10,7 @@ source ./common.sh
 cUser="VladVons"
 cMail="vladvons@gmail.com"
 cUrl="https://github.com/$cUser/py-vCrawler.git"
-cBranch="master2"
+cBranch="master"
 
 
 Clean()
