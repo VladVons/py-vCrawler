@@ -7,9 +7,9 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 
 class TMain(TCtrlBase):
-    async def Main(self, aData: dict) -> dict:
+    async def Get_Tables(self, aData: dict) -> dict:
         Dbl = await self.ExecModelImport(
-            'system/test',
+            'tables',
             {
                 'method': 'Get_Tables',
                 'param': {

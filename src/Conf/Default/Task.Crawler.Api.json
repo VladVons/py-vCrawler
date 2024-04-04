@@ -1,0 +1,7 @@
+{
+    "auth": {
+        "user": "crawler01",
+        "password": "passw01"
+    },
+    "fs_api": true
+}

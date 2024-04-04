@@ -4,7 +4,7 @@
         "db_auth" : {
             "host": "10.10.1.1",
             "port": 5433,
-            "database": "scraper1",
+            "database": "crawler1",
             "user": "admin",
             "password": "098iop"
         }

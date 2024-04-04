@@ -1,0 +1,835 @@
+2024-04-04, 06:04:42, 1, 1, i, os: Linux, 6.5.0-26-generic, x86_64, python: (3, 12, 2), uptime: 8 hours, 4 minutes
+2024-04-04, 06:04:42, 2, 1, i, Run() vCrawler
+2024-04-04, 06:04:42, 3, 1, i, Add task SrvModel
+2024-04-04, 06:04:42, 4, 1, i, Add task SrvCtrl
+2024-04-04, 06:04:42, 5, 1, i, SrvModel.RunApi() only
+2024-04-04, 06:04:42, 6, 1, i, Connect(), ['10.10.1.1', 5433, 'scraper1', 'admin']
+2024-04-04, 06:04:42, 7, 1, i, SrvCrawler.RunApp() on port 8082
+2024-04-04, 06:04:43, 8, 1, i, Server: PostgreSQL 16.1, Uptime: 6 hours, 17 minutes, DbName: scraper1, DbSize: 9.18M, Tables 10
+2024-04-04, 23:05:27, 1, 1, i, os: Linux, 6.5.0-26-generic, x86_64, python: (3, 12, 2), uptime: 1 days, 1 hours
+2024-04-04, 23:05:27, 2, 1, i, Run() vCrawler
+2024-04-04, 23:05:28, 3, 1, i, Add task SrvModel
+2024-04-04, 23:05:28, 4, 1, i, Add task SrvCtrl
+2024-04-04, 23:05:28, 5, 1, i, SrvModel.RunApi() only
+2024-04-04, 23:05:28, 6, 1, i, Connect(), ['10.10.1.1', 5433, 'scraper1', 'admin']
+2024-04-04, 23:05:28, 7, 1, i, SrvCrawler.RunApp() on port 8082
+2024-04-04, 23:05:29, 8, 1, i, Server: PostgreSQL 16.1, Uptime: 23 hours, 18 minutes, DbName: scraper1, DbSize: 9.18M, Tables 10
+2024-04-04, 23:06:19, 9, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 30, in Exec
+    Res = self.GetMethod(self.Ctrls, aRoute, aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/ApiBase.py", line 57, in GetMethod
+    aPlugin.LoadMod(aRoute)
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Plugin.py", line 46, in LoadMod
+    Obj = self._Create(Mod, aPath)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/Plugins.py", line 40, in _Create
+    return aModule.TMain(self.ApiCtrl)
+           ^^^^^^^^^^^^^
+AttributeError: module 'MVC.main.ctrl.system.def_route' has no attribute 'TMain'. Did you mean: 'Main'?
+, module 'MVC.main.ctrl.system.def_route' has no attribute 'TMain'
+2024-04-04, 23:09:50, 1, 1, i, os: Linux, 6.5.0-26-generic, x86_64, python: (3, 12, 2), uptime: 1 days, 1 hours
+2024-04-04, 23:09:50, 2, 1, i, Run() vCrawler
+2024-04-04, 23:09:51, 3, 1, i, Add task SrvModel
+2024-04-04, 23:09:51, 4, 1, i, Add task SrvCtrl
+2024-04-04, 23:09:51, 5, 1, i, SrvModel.RunApi() only
+2024-04-04, 23:09:51, 6, 1, i, Connect(), ['10.10.1.1', 5433, 'scraper1', 'admin']
+2024-04-04, 23:09:51, 7, 1, i, SrvCrawler.RunApp() on port 8082
+2024-04-04, 23:09:52, 8, 1, i, Server: PostgreSQL 16.1, Uptime: 23 hours, 22 minutes, DbName: scraper1, DbSize: 9.18M, Tables 10
+2024-04-04, 23:36:44, 9, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 17, in Get_UserConf
+    'aUserId': {{aUserId}}
+               ^^^^^^^^^^^
+TypeError: unhashable type: 'set'
+, unhashable type: 'set'
+2024-04-04, 23:36:48, 10, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 17, in Get_UserConf
+    'aUserId': {{aUserId}}
+               ^^^^^^^^^^^
+TypeError: unhashable type: 'set'
+, unhashable type: 'set'
+2024-04-04, 23:37:37, 11, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 17, in Get_UserConf
+    'aUserId': {{aUserId}}
+               ^^^^^^^^^^^
+TypeError: unhashable type: 'set'
+, unhashable type: 'set'
+2024-04-04, 23:38:13, 1, 1, i, os: Linux, 6.5.0-26-generic, x86_64, python: (3, 12, 2), uptime: 1 days, 1 hours
+2024-04-04, 23:38:13, 2, 1, i, Run() vCrawler
+2024-04-04, 23:38:14, 3, 1, i, Add task SrvModel
+2024-04-04, 23:38:14, 4, 1, i, Add task SrvCtrl
+2024-04-04, 23:38:14, 5, 1, i, SrvModel.RunApi() only
+2024-04-04, 23:38:14, 6, 1, i, Connect(), ['10.10.1.1', 5433, 'scraper1', 'admin']
+2024-04-04, 23:38:14, 7, 1, i, SrvCrawler.RunApp() on port 8082
+2024-04-04, 23:38:15, 8, 1, i, Server: PostgreSQL 16.1, Uptime: 23 hours, 51 minutes, DbName: scraper1, DbSize: 9.18M, Tables 10
+2024-04-04, 23:38:17, 9, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 17, in Get_UserConf
+    'aUserId': {{aUserId}}
+               ^^^^^^^^^^^
+TypeError: unhashable type: 'set'
+, unhashable type: 'set'
+2024-04-04, 23:39:17, 1, 1, i, os: Linux, 6.5.0-26-generic, x86_64, python: (3, 12, 2), uptime: 1 days, 1 hours
+2024-04-04, 23:39:17, 2, 1, i, Run() vCrawler
+2024-04-04, 23:39:18, 3, 1, i, Add task SrvModel
+2024-04-04, 23:39:18, 4, 1, i, Add task SrvCtrl
+2024-04-04, 23:39:18, 5, 1, i, SrvModel.RunApi() only
+2024-04-04, 23:39:18, 6, 1, i, Connect(), ['10.10.1.1', 5433, 'scraper1', 'admin']
+2024-04-04, 23:39:18, 7, 1, i, SrvCrawler.RunApp() on port 8082
+2024-04-04, 23:39:19, 8, 1, i, Server: PostgreSQL 16.1, Uptime: 23 hours, 52 minutes, DbName: scraper1, DbSize: 9.18M, Tables 10
+2024-04-04, 23:39:19, 9, 1, e, -- fmtGet_UserConf.sql
+-- in: aUserId
+
+select
+    attr,
+    array_agg(val order by user_id desc) as val
+from
+    ref_conf rc
+where
+    rc.enabled and
+    (
+        (rc.user_id = 0) or
+        (rc.user_id = 0)
+    )
+group by
+    attr
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:39:19, 10, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 12, in Get_UserConf
+    Dbl = await self.ExecModelImport(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/CtrlBase.py", line 29, in ExecModelImport
+    Data = await self.ApiModel(aMethod, aData)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Loader/Api.py", line 28, in Get
+    Res = await self.Api[self.Name].Exec(aPath, aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvModel/Api.py", line 40, in Exec
+    Res = await Res['method'](**Param)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/model/user/__init__.py", line 10, in Get_UserConf
+    return await self.ExecQuery(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:39:23, 11, 1, e, -- fmtGet_UserConf.sql
+-- in: aUserId
+
+select
+    attr,
+    array_agg(val order by user_id desc) as val
+from
+    ref_conf rc
+where
+    rc.enabled and
+    (
+        (rc.user_id = 0) or
+        (rc.user_id = 0)
+    )
+group by
+    attr
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:39:23, 12, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 12, in Get_UserConf
+    Dbl = await self.ExecModelImport(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/CtrlBase.py", line 29, in ExecModelImport
+    Data = await self.ApiModel(aMethod, aData)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Loader/Api.py", line 28, in Get
+    Res = await self.Api[self.Name].Exec(aPath, aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvModel/Api.py", line 40, in Exec
+    Res = await Res['method'](**Param)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/model/user/__init__.py", line 10, in Get_UserConf
+    return await self.ExecQuery(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:39:40, 13, 1, e, -- fmtGet_UserConf.sql
+-- in: aUserId
+
+select
+    attr,
+    array_agg(val order by user_id desc) as val
+from
+    ref_conf rc
+where
+    rc.enabled and
+    (
+        (rc.user_id = 0) or
+        (rc.user_id = 0)
+    )
+group by
+    attr
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:39:40, 14, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 12, in Get_UserConf
+    Dbl = await self.ExecModelImport(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/CtrlBase.py", line 29, in ExecModelImport
+    Data = await self.ApiModel(aMethod, aData)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Loader/Api.py", line 28, in Get
+    Res = await self.Api[self.Name].Exec(aPath, aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvModel/Api.py", line 40, in Exec
+    Res = await Res['method'](**Param)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/model/user/__init__.py", line 10, in Get_UserConf
+    return await self.ExecQuery(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:43:09, 15, 1, e, -- fmtGet_UserConf.sql
+-- in: aUserId
+
+select
+    attr,
+    array_agg(val order by user_id desc) as val
+from
+    ref_conf rc
+where
+    rc.enabled and
+    (
+        (rc.user_id = 0) or
+        (rc.user_id = 0)
+    )
+group by
+    attr
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:43:09, 16, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 12, in Get_UserConf
+    Dbl = await self.ExecModelImport(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/CtrlBase.py", line 29, in ExecModelImport
+    Data = await self.ApiModel(aMethod, aData)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Loader/Api.py", line 28, in Get
+    Res = await self.Api[self.Name].Exec(aPath, aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvModel/Api.py", line 40, in Exec
+    Res = await Res['method'](**Param)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/model/user/__init__.py", line 10, in Get_UserConf
+    return await self.ExecQuery(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:45:02, 1, 1, i, os: Linux, 6.5.0-26-generic, x86_64, python: (3, 12, 2), uptime: 1 days, 1 hours
+2024-04-04, 23:45:02, 2, 1, i, Run() vCrawler
+2024-04-04, 23:45:03, 3, 1, i, Add task SrvModel
+2024-04-04, 23:45:03, 4, 1, i, Add task SrvCtrl
+2024-04-04, 23:45:03, 5, 1, i, SrvModel.RunApi() only
+2024-04-04, 23:45:03, 6, 1, i, Connect(), ['10.10.1.1', 5433, 'scraper1', 'admin']
+2024-04-04, 23:45:03, 7, 1, i, SrvCrawler.RunApp() on port 8082
+2024-04-04, 23:45:04, 8, 1, i, Server: PostgreSQL 16.1, Uptime: 23 hours, 58 minutes, DbName: scraper1, DbSize: 9.18M, Tables 10
+2024-04-04, 23:45:12, 1, 1, i, os: Linux, 6.5.0-26-generic, x86_64, python: (3, 12, 2), uptime: 1 days, 1 hours
+2024-04-04, 23:45:12, 2, 1, i, Run() vCrawler
+2024-04-04, 23:45:13, 3, 1, i, Add task SrvModel
+2024-04-04, 23:45:13, 4, 1, i, Add task SrvCtrl
+2024-04-04, 23:45:13, 5, 1, i, SrvModel.RunApi() only
+2024-04-04, 23:45:13, 6, 1, i, Connect(), ['10.10.1.1', 5433, 'scraper1', 'admin']
+2024-04-04, 23:45:13, 7, 1, i, SrvCrawler.RunApp() on port 8082
+2024-04-04, 23:45:14, 8, 1, i, Server: PostgreSQL 16.1, Uptime: 23 hours, 58 minutes, DbName: scraper1, DbSize: 9.18M, Tables 10
+2024-04-04, 23:45:27, 9, 1, e, -- fmtGet_UserConf.sql
+-- in: aUserId
+
+select
+    attr,
+    array_agg(val order by user_id desc) as val
+from
+    ref_conf rc
+where
+    rc.enabled and
+    (
+        (rc.user_id = 0) or
+        (rc.user_id = 1)
+    )
+group by
+    attr
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:45:27, 10, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 12, in Get_UserConf
+    Dbl = await self.ExecModelImport(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/CtrlBase.py", line 29, in ExecModelImport
+    Data = await self.ApiModel(aMethod, aData)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Loader/Api.py", line 28, in Get
+    Res = await self.Api[self.Name].Exec(aPath, aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvModel/Api.py", line 40, in Exec
+    Res = await Res['method'](**Param)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/model/user/__init__.py", line 10, in Get_UserConf
+    return await self.ExecQuery(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:46:51, 11, 1, e, -- fmtGet_UserConf.sql
+-- in: aUserId
+
+select
+    attr,
+    array_agg(val order by user_id desc) as val
+from
+    ref_conf rc
+where
+    rc.enabled and
+    (
+        (rc.user_id = 0) or
+        (rc.user_id = 1)
+    )
+group by
+    attr
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:46:51, 12, 1, x, ErroMiddleware()
+Traceback (most recent call last):
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/SrvWeb/ErroMiddleware.py", line 18, in ErroMiddleware
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/SrvBaseEx.py", line 42, in _rApi
+    DataOut = await Apis[Path].Exec(Name, DataIn)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvCtrl/Api.py", line 32, in Exec
+    Res = await Res['method'](aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/ctrl/user/__init__.py", line 12, in Get_UserConf
+    Dbl = await self.ExecModelImport(
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/IncP/CtrlBase.py", line 29, in ExecModelImport
+    Data = await self.ApiModel(aMethod, aData)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Loader/Api.py", line 28, in Get
+    Res = await self.Api[self.Name].Exec(aPath, aData)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Task/SrvModel/Api.py", line 40, in Exec
+    Res = await Res['method'](**Param)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/MVC/main/model/user/__init__.py", line 10, in Get_UserConf
+    return await self.ExecQuery(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 159, in ExecQuery
+    Res = await self.ExecQueryText(Query)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/DbModel.py", line 144, in ExecQueryText
+    Dbl = await TDbExecPool(self.DbMeta.Db.Pool).Exec(aQuery)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 117, in Exec
+    return await self._ExecToDbl(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 73, in _ExecToDbl
+    Data = await self._Exec(aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 127, in _Exec
+    return await self.ExecCursor(Cursor, aSql)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/vladvons/Projects/py/py-vCrawler/src/Inc/Sql/ADb.py", line 96, in ExecCursor
+    await aCursor.execute(aSql)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 426, in execute
+    await self._conn._poll(waiter, timeout)
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 881, in _poll
+    await asyncio.wait_for(self._waiter, timeout)
+  File "/usr/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/home/vladvons/VirtEnv/python3.12/lib/python3.12/site-packages/aiopg/connection.py", line 788, in _ready
+    state = self._conn.poll()
+            ^^^^^^^^^^^^^^^^^
+psycopg2.errors.UndefinedTable: relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+, relation "ref_conf" does not exist
+LINE 8:     ref_conf rc
+            ^
+
+2024-04-04, 23:56:59, 1, 1, i, os: Linux, 6.5.0-26-generic, x86_64, python: (3, 12, 2), uptime: 1 days, 1 hours
+2024-04-04, 23:56:59, 2, 1, i, Run() vCrawler
+2024-04-04, 23:57:00, 3, 1, i, Add task SrvModel
+2024-04-04, 23:57:00, 4, 1, i, Add task SrvCtrl
+2024-04-04, 23:57:00, 5, 1, i, SrvModel.RunApi() only
+2024-04-04, 23:57:00, 6, 1, i, Connect(), ['10.10.1.1', 5433, 'crawler1', 'admin']
+2024-04-04, 23:57:00, 7, 1, i, SrvCrawler.RunApp() on port 8082
+2024-04-04, 23:57:01, 8, 1, i, Server: PostgreSQL 16.1, Uptime: 10 minutes, 7 seconds, DbName: crawler1, DbSize: 8.24M, Tables 6
+2024-04-05, 00:19:20, 1, 1, i, os: Linux, 6.5.0-26-generic, x86_64, python: (3, 12, 2), uptime: 1 days, 2 hours
+2024-04-05, 00:19:20, 2, 1, i, Run() vCrawler
+2024-04-05, 00:19:20, 3, 1, i, Add task SrvModel
+2024-04-05, 00:19:20, 4, 1, i, Add task SrvCtrl
+2024-04-05, 00:19:20, 5, 1, i, SrvModel.RunApi() only
+2024-04-05, 00:19:20, 6, 1, i, Connect(), ['10.10.1.1', 5433, 'crawler1', 'admin']
+2024-04-05, 00:19:20, 7, 1, i, SrvCrawler.RunApp() on port 8082
+2024-04-05, 00:19:21, 8, 1, i, Server: PostgreSQL 16.1, Uptime: 32 minutes, 27 seconds, DbName: crawler1, DbSize: 8.24M, Tables 6
