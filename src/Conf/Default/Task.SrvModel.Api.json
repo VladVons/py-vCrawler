@@ -1,12 +1,10 @@
 {
-    "main": {
-        "dir_route": "MVC/main/model",
-        "db_auth" : {
-            "host": "10.10.1.1",
-            "port": 5433,
-            "database": "crawler1",
-            "user": "admin",
-            "password": "098iop"
-        }
+    "dir_route": "MVC/model",
+    "db_auth" : {
+        "host": "10.10.1.1",
+        "port": 5433,
+        "database": "crawler1",
+        "user": "admin",
+        "password": "098iop"
     }
 }

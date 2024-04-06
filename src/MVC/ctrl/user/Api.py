@@ -7,19 +7,6 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 
 class TMain(TCtrlBase):
-    async def Get_UserConf(self, aData: dict) -> dict:
-        aUserId = Lib.DeepGetByList(aData, ['param', 'user_id'], 0)
-        Dbl = await self.ExecModelImport(
-            'user',
-            {
-                'method': 'Get_UserConf',
-                'param': {
-                   'aUserId': aUserId
-                }
-            }
-        )
-        return Dbl.Export()
-
     async def Get_UserId(self, aData: dict) -> dict:
         aLogin, aPassw = Lib.GetDictDefs(
             aData.get('param'),
@@ -34,6 +21,19 @@ class TMain(TCtrlBase):
                 'param': {
                    'aLogin': aLogin,
                    'aPassw': aPassw
+                }
+            }
+        )
+        return Dbl.Export()
+
+    async def Get_UserConf(self, aData: dict) -> dict:
+        aUserId = Lib.DeepGetByList(aData, ['param', 'user_id'], 0)
+        Dbl = await self.ExecModelImport(
+            'user',
+            {
+                'method': 'Get_UserConf',
+                'param': {
+                   'aUserId': aUserId
                 }
             }
         )

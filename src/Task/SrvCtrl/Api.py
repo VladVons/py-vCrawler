@@ -8,12 +8,11 @@ from IncP.Plugins import TCtrls
 
 
 class TApiCtrl(TApiBase):
-    def __init__(self, aName: str):
+    def __init__(self):
         super().__init__()
 
-        self.Name = aName
-        Conf = self.GetConf()[aName]
-        self.Ctrls = TCtrls(Conf['dir_route'], self)
+        Conf = self.GetConf()
+        self.Plugin = TCtrls(Conf['dir_route'], self)
         self.InitLoader(Conf['loader'])
         self.DefRoute = 'system/def_route'
 
@@ -27,11 +26,10 @@ class TApiCtrl(TApiBase):
             await self.ExecOnce(aData)
         self.ExecCnt += 1
 
-        Res = self.GetMethod(self.Ctrls, aRoute, aData)
+        Res = self.GetMethod(self.Plugin, aRoute, aData)
         if ('err' not in Res):
             Res = await Res['method'](aData)
         return Res
 
-ApiCtrls = {
-    'main': TApiCtrl('main')
-}
+ApiCtrl = TApiCtrl()
+

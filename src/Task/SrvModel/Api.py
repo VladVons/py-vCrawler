@@ -13,11 +13,10 @@ from IncP.Log import Log, TEchoDb
 
 
 class TApiModel(TApiBase):
-    def __init__(self, aName: str):
+    def __init__(self):
         super().__init__()
 
-        self.Name = aName
-        Conf = self.GetConf()[aName]
+        Conf = self.GetConf()
         DbAuth = Conf['db_auth']
         self.DbAuth = TDbAuth(**DbAuth)
         Db = TDbPg(self.DbAuth)
@@ -26,19 +25,8 @@ class TApiModel(TApiBase):
         Loader = TFileSystemLoader()
         self.Env = TEnvironment(loader = Loader)
 
-        self.Models = TModels(Conf['dir_route'], self)
+        self.Plugin = TModels(Conf['dir_route'], self)
         self.Helper = {'route': 'system', 'method': 'Api'}
-
-    async def Exec(self, aRoute: str, aData: dict) -> dict:
-        if (self.ExecCnt == 0):
-            await self.ExecOnce(aData)
-        self.ExecCnt += 1
-
-        Res = self.GetMethod(self.Models, aRoute, aData)
-        if ('err' not in Res):
-            Param = aData.get('param', {})
-            Res = await Res['method'](**Param)
-        return Res
 
     async def DbConnect(self):
         await self.DbMeta.Db.Connect()
@@ -59,9 +47,9 @@ class TApiModel(TApiBase):
 
         if (Dbl.Rec.tables == 0):
             Log.Print(1, 'i', 'Database is empty. Creating tables ...')
-            await TDbExecPool(self.DbMeta.Db.Pool).ExecFile(f'{self.Models.Dir}/dbTable.sql')
-            await TDbExecPool(self.DbMeta.Db.Pool).ExecFile(f'{self.Models.Dir}/dbMeta.sql')
-            await TDbExecPool(self.DbMeta.Db.Pool).ExecFile(f'{self.Models.Dir}/dbApp.sql')
+            await TDbExecPool(self.DbMeta.Db.Pool).ExecFile(f'{self.Plugin.Dir}/dbTable.sql')
+            await TDbExecPool(self.DbMeta.Db.Pool).ExecFile(f'{self.Plugin.Dir}/dbMeta.sql')
+            await TDbExecPool(self.DbMeta.Db.Pool).ExecFile(f'{self.Plugin.Dir}/dbApp.sql')
             #await TDbExecPool(self.DbMeta.Db.Pool).ExecFile(f'{self.Models.Dir}/dbData.sql')
 
         Log.AddEcho(TEchoDb(self.DbMeta.Db))
@@ -75,6 +63,4 @@ class TApiModel(TApiBase):
             await self.DbMeta.Db.Close()
 
 
-ApiModels = {
-    'main': TApiModel('main')
-}
+ApiModel = TApiModel()

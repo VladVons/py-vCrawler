@@ -7,7 +7,7 @@ from aiohttp import web
 #
 from IncP.SrvBaseEx import TSrvBaseEx
 from IncP.Log import Log
-from .Api import ApiCtrls
+from .Api import ApiCtrl
 
 
 class TSrvCtrl(TSrvBaseEx):
@@ -17,11 +17,11 @@ class TSrvCtrl(TSrvBaseEx):
             web.post('/api/{name:.*}', self._rApi)
         ]
 
-    def _GetApis(self) -> object:
-        return ApiCtrls
+    def _GetApi(self) -> object:
+        return ApiCtrl
 
     async def RunApp(self):
-        Log.Print(1, 'i', f'SrvCrawler.RunApp() on port {self._SrvConf.port}')
+        Log.Print(1, 'i', f'{self.__class__.__name__}.RunApp() on port {self._SrvConf.port}')
 
         ErroMiddleware = {
             404: self._Err_404,
@@ -31,4 +31,4 @@ class TSrvCtrl(TSrvBaseEx):
         await self.Run(App)
 
     async def RunApi(self):
-        Log.Print(1, 'i', 'SrvCrawler.RunApi() only')
+        Log.Print(1, 'i', f'{self.__class__.__name__}.RunApi() only')

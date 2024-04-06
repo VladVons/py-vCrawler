@@ -1,7 +1,20 @@
 {
-    "auth": {
-        "user": "crawler01",
-        "password": "passw01"
+    "dir_route": "MVC/crawler",
+    "loader": {
+        "ctrl": {
+            "type": "fs",
+            "module": "Task.SrvCtrl.Api",
+            "class": "ApiCtrl"
+        },
+        "_ctrl": {
+            "type": "url",
+            "url": "http://localhost:8082/api",
+            "user": "user01",
+            "password": "passw01"
+        }
     },
-    "fs_api": true
+    "auth" : {
+        "login": "crawler01",
+        "passw": "passw01"
+    }
 }

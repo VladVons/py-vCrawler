@@ -1,3 +1,8 @@
+-- Created: 2024.04.03
+-- Author: Vladimir Vons <VladVons@gmail.com>
+-- License: GNU, see LICENSE for more details
+
+
 create table if not exists ref_guard (
     id                  serial primary key,
     title               varchar(16) not null unique
@@ -6,9 +11,9 @@ create table if not exists ref_guard (
 create table if not exists ref_site (
     id                  serial primary key,
     create_date         timestamp default current_timestamp,
-    update_date         timestamp,
-    update_h            int default 72,
-    sleep_s             numeric(3, 1) not null default 3,
+    unlock_date         timestamp,
+    update_hours        int default 72,
+    sleep_seconds       numeric(3, 1) not null default 3,
     enabled             boolean,
     url                 varchar(64) not null unique,
     sitemap             varchar(32),
@@ -26,12 +31,19 @@ create table if not exists ref_url (
     id                  serial primary key,
     create_date         timestamp default current_timestamp,
     update_date         timestamp,
-    site_id             int not null references ref_site(id),
+    enabled             boolean default true,
     url                 varchar(256) not null unique,
     data_size           int default 0,
     url_count           smallint default 0,
     status_code         smallint,
-    parsed              json
+    parsed_data         json,
+    site_id             int not null references ref_site(id) on delete cascade
+);
+
+create table if not exists ref_url_skip (
+    enabled             boolean default true,
+    url                 varchar(256) not null unique,
+    site_id             int not null references ref_site(id) on delete cascade
 );
 
 create table if not exists ref_user (

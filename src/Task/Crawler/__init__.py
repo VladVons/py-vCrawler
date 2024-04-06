@@ -4,13 +4,12 @@
 
 
 from Inc.SrvWeb.SrvBase import TSrvConf
-from .Api import ApiCtrls
-from .Main import TSrvCtrl
+from .Main import TCrawler
 
 
 def Main(aConf) -> tuple:
     SrvConf = aConf.get('srv_conf')
-    Obj = TSrvCtrl(TSrvConf(**SrvConf))
+    Obj = TCrawler(TSrvConf(**SrvConf))
     if (aConf.get('fs_api')):
         Res = (Obj, Obj.RunApi())
     else:

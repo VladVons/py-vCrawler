@@ -7,22 +7,20 @@ from aiohttp import web
 #
 from IncP.Log import Log
 from IncP.SrvBaseEx import TSrvBaseEx
-from .Api import ApiModels
+from .Api import ApiModel
 
 
 class TSrvModel(TSrvBaseEx):
-    def _GetApis(self) -> object:
-        return ApiModels
+    def _GetApi(self) -> object:
+        return ApiModel
 
     @staticmethod
     async def _DbConnect():
-        for Val in ApiModels.values():
-            await Val.DbConnect()
+        await ApiModel.DbConnect()
 
     @staticmethod
     async def _DbClose():
-        for Val in ApiModels.values():
-            await Val.DbClose()
+        await ApiModel.DbClose()
 
     async def _cbOnStartup(self, aApp: web.Application):
         try:
@@ -43,7 +41,7 @@ class TSrvModel(TSrvBaseEx):
         ]
 
     async def RunApp(self):
-        Log.Print(1, 'i', f'SrvModel.RunApp() on port {self._SrvConf.port}')
+        Log.Print(1, 'i', f'{self.__class__.__name__}.RunApp() on port {self._SrvConf.port}')
 
         ErroMiddleware = {
             404: self._Err_404,
@@ -55,7 +53,7 @@ class TSrvModel(TSrvBaseEx):
         await self.Run(App)
 
     async def RunApi(self):
-        Log.Print(1, 'i', 'SrvModel.RunApi() only')
+        Log.Print(1, 'i', f'{self.__class__.__name__}.RunApi() only')
 
         #import asyncio
         #ApiModel.AEvent = asyncio.Event()

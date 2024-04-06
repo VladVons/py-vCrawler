@@ -1,5 +1,6 @@
-# Created: 2024.04.03
+# Created: 2024.04.04
 # Author: Vladimir Vons <VladVons@gmail.com>
 # License: GNU, see LICENSE for more details
 
-plugins= 'SrvModel SrvCtrl Crawler'
+
+from .Api import TMain

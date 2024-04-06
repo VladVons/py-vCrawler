@@ -6,6 +6,7 @@
 from Inc.Loader.Api import TLoaderApiFs, TLoaderApiHttp
 from Inc.Plugin import TPlugin
 from Inc.Util.ModHelp import GetHelp, GetMethod
+from IncP.Plugins import TPluginMVC
 from Task import LoadClassConf
 
 
@@ -16,6 +17,7 @@ class TApiBase():
         self.AEvent = None
         self.Name = None
         self.DefRoute = None
+        self.Plugin: TPluginMVC = None
 
     async def ExecOnce(self, aData: dict):
         pass
@@ -63,6 +65,17 @@ class TApiBase():
 
             Res = {'method': MethodObj, 'module': RouteObj}
             aPlugin.Cache[Key] = Res
+        return Res
+
+    async def Exec(self, aRoute: str, aData: dict) -> dict:
+        if (self.ExecCnt == 0):
+            await self.ExecOnce(aData)
+        self.ExecCnt += 1
+
+        Res = self.GetMethod(self.Plugin, aRoute, aData)
+        if ('err' not in Res):
+            Param = aData.get('param', {})
+            Res = await Res['method'](**Param)
         return Res
 
     def InitLoader(self, aConf: dict):
