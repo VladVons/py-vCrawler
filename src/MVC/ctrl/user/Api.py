@@ -3,21 +3,15 @@
 # License: GNU, see LICENSE for more details
 
 
-from IncP.CtrlBase import TCtrlBase, Lib
+from IncP.CtrlBase import TCtrlBase
 
 
 class TMain(TCtrlBase):
-    async def Get_UserId(self, aData: dict) -> dict:
-        aLogin, aPassw = Lib.GetDictDefs(
-            aData.get('param'),
-            ('login', 'passw'),
-            ('', '')
-        )
-
+    async def GetUserId(self, aLogin: str, aPassw: str) -> dict:
         Dbl = await self.ExecModelImport(
             'user',
             {
-                'method': 'Get_UserId',
+                'method': 'GetUserId',
                 'param': {
                    'aLogin': aLogin,
                    'aPassw': aPassw
@@ -26,12 +20,11 @@ class TMain(TCtrlBase):
         )
         return Dbl.Export()
 
-    async def Get_UserConf(self, aData: dict) -> dict:
-        aUserId = Lib.DeepGetByList(aData, ['param', 'user_id'], 0)
+    async def GetUserExt(self, aUserId: int) -> dict:
         Dbl = await self.ExecModelImport(
             'user',
             {
-                'method': 'Get_UserConf',
+                'method': 'GetUserExt',
                 'param': {
                    'aUserId': aUserId
                 }

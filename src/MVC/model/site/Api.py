@@ -8,8 +8,14 @@ import IncP.LibModel as Lib
 
 
 class TMain(TDbModel):
+    async def GetSiteExt(self, aSiteId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_SiteExt.sql',
+            {'aSiteId': aSiteId}
+        )
+
     @Lib.DTransaction
-    async def _Get_SiteUrlToUpdate(self, aData: dict, aCursor = None) -> dict:
+    async def _DtGet_SiteUrlToUpdate(self, aData: dict, aCursor = None) -> dict:
         aLimit = aData.get('aLimit')
 
         DblData = await self.ExecQueryCursor(
@@ -28,12 +34,11 @@ class TMain(TDbModel):
             )
         return DblData
 
-    async def Get_UrlToUpdate(self) -> dict:
+    async def GetUrlToUpdate(self) -> dict:
         return await self.ExecQuery(
             'fmtGet_UrlToUpdate.sql',
             {}
         )
 
-    async def Get_SiteUrlToUpdate(self, aLimit: int) -> dict:
-        Res = await self._Get_SiteUrlToUpdate(locals())
-        return Res
+    async def GetSiteUrlToUpdate(self, aLimit: int) -> dict:
+        return await self._DtGet_SiteUrlToUpdate(locals())

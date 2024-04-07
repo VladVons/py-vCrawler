@@ -3,7 +3,6 @@
 # License: GNU, see LICENSE for more details
 
 
-from Inc.DbList import TDbList
 from IncP.ApiBase import TApiBase
 from IncP.Plugins import TCrawlers
 
@@ -18,53 +17,23 @@ class TApiCrawler(TApiBase):
         self.Conf = {
             'auth': Conf['auth']
         }
-        self.Plugin = TCrawlers(Conf['dir_route'])
+        self.Plugin = TCrawlers(Conf['dir_route'], self)
         self.InitLoader(Conf['loader'])
         self.DefRoute = 'system/def_route'
 
-    async def Exec(self, aRoute: str, aData: dict) -> dict:
-        if (self.ExecCnt == 0):
-            await self.ExecOnce(aData)
-        self.ExecCnt += 1
-
-        Res = self.GetMethod(self.Plugin, aRoute, aData)
-        if ('err' not in Res):
-            Param = aData['param']
-            Res = await Res['method'](Res['module'], **Param)
-        return Res
-
-    async def ExecCtrl(self, aRoute: str, aData: dict) -> dict:
-        Res = await self.Loader['ctrl'].Get(aRoute, aData)
-        if (isinstance(Res, dict) and ('tag' in Res)):
-            Res = TDbList().Import(Res)
-        return Res
-
 class TApiCrawlerEx(TApiCrawler):
-    async def GetUserConfig(self):
-        Dbl = await self.ExecCtrl(
+    async def GetUserExt(self):
+        Res = await self.Exec(
             'user',
             {
-                'method': 'Get_UserId',
+                'method': 'GetUserExt',
                 'param': {
-                   'login': self.Conf['auth']['login'],
-                   'passw': self.Conf['auth']['passw'],
+                   'aLogin': self.Conf['auth']['login'],
+                   'aPassw': self.Conf['auth']['passw'],
                 }
             }
         )
-        if (Dbl):
-            UserId = Dbl.Rec.id
-            Dbl = await self.ExecCtrl(
-                'user',
-                {
-                    'method': 'Get_UserConf',
-                    'param': {
-                    'aUserId': UserId
-                    }
-                }
-            )
-            Res = {Rec.attr: Rec.val[0] for Rec in Dbl if Rec.val}
-            Res['user_id'] = UserId
-            return Res
+        return Res
 
     async def GetMaxWorkers(self) -> int:
         Res = int(self.DbConf.get('max_workers', 0))
@@ -82,10 +51,10 @@ class TApiCrawlerEx(TApiCrawler):
         return Res
 
     async def GetSiteUrlToUpdate(self):
-        Res = await self.ExecCtrl(
+        Res = await self.Exec(
             'site',
             {
-                'method': 'Get_SiteUrlToUpdate',
+                'method': 'GetSiteUrlToUpdate',
                 'param': {
                     'aLimit': 10
                 }

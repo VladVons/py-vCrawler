@@ -2,8 +2,7 @@
 
 select
     rs.id as site_id,
-    ru.id as url_id,
-    ru.update_date
+    ru.id as url_id
 from
     ref_site rs
 left join

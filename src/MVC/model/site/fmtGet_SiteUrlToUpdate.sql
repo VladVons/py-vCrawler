@@ -5,7 +5,7 @@ with wt1 as (
     {% include './fmtGet_UrlToUpdate.sql' %}
 )
 
-select 
+select
     ru.site_id,
     ru.id as url_id,
     ru.url

@@ -7,15 +7,29 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 
 class TMain(TCtrlBase):
-    async def Get_SiteUrlToUpdate(self, aData: dict) -> dict:
-        aLimit = 10
-        Dbl = await self.ExecModelImport(
+    async def GetSiteUrlToUpdate(self, aLimit: int) -> dict:
+        DblUrls = await self.ExecModelImport(
             'site',
             {
-                'method': 'Get_SiteUrlToUpdate',
+                'method': 'GetSiteUrlToUpdate',
                 'param': {
                    'aLimit': aLimit
                 }
             }
         )
-        return Dbl.Export()
+
+        if (DblUrls):
+            DblSite = await self.ExecModelImport(
+                'site',
+                {
+                    'method': 'GetSiteInfo',
+                    'param': {
+                        'aSiteId': DblUrls.Rec.site_id
+                    }
+                }
+            )
+
+            return {
+                'urls': DblUrls.Export(),
+                'conf': ''
+            }

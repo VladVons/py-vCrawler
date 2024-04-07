@@ -37,45 +37,29 @@ class TCrawler(TSrvBaseEx):
         await asyncio.sleep(WaitLocalHost)
 
         while (True):
-            ApiCrawler.DbConf = await ApiCrawler.GetUserConfig()
-            try:
-                MaxWorkers = await ApiCrawler.GetMaxWorkers()
-                await self._CreateTasks(MaxWorkers)
-            except Exception as E:
-                Log.Print(1, 'x', 'Run()', aE = E)
+            ApiCrawler.DbConf = await ApiCrawler.GetUserExt()
+            if (ApiCrawler.DbConf):
+                try:
+                    MaxWorkers = await ApiCrawler.GetMaxWorkers()
+                    await self._CreateTasks(MaxWorkers)
+                except Exception as E:
+                    Log.Print(1, 'x', 'Run()', aE = E)
+            else:
+                Log.Print(1, 'i', 'Auth error')
             await asyncio.sleep(60)
 
     async def _Worker(self, aTaskId: int):
         Log.Print(1, 'i', '_Worker(). Start Id %d' % (aTaskId))
         while (True):
-            Wait = random.randint(2, 5)
-            #Log.Print(1, 'i', '_Worker(). Ready for task. Id %d, wait %d sec' % (aTaskId, Wait))
+            Wait = random.randint(1, 2)
             await asyncio.sleep(Wait)
-
-            #await self.WebSock.Send({'data': 'Hellow from client. Id %s' % aTaskId})
-            #continue
-
-            DataApi = await ApiCrawler.GetSiteUrlToUpdate()
-            # Data = DeepGet(DataApi, 'data.data')
-            # if (Data):
-            #     Scheme = TScheme(Data['scheme'])
-            #     Type = Data.get('type')
-            #     if (Type == 'full'):
-            #         if (Data['sitemap']):
-            #             Scraper = TWebScraperSitemap(self, Scheme, Data['url'], Data['id'], Data['sleep'])
-            #         else:
-            #             Scraper = TWebScraperFull(self, Scheme, Data['url'], Data['id'], Data['sleep'])
-            #     elif (Type == 'update'):
-            #         Scraper = TWebScraperUpdate(self, Scheme, Data['urls'], Data['sleep'])
-            #     elif (Type == 'update_selenium'):
-            #         #await TStarter().ThreadCreate(Data['urls'])
-            #         continue
-            #     else:
-            #         Log.Print(1, 'e', '_Worker(). Unknown type: `%d`' % (Type))
-            #         return
-
-            #     self.Scrapers.append(Scraper)
-            #     await Scraper._Worker()
+            Data = await ApiCrawler.GetSiteUrlToUpdate()
+            continue
+            if (Data):
+                Scheme = TScheme(Data['scheme'])
+                Scraper = TWebScraperFull(self, Scheme, Data['url'], Data['id'], Data['sleep'])
+                self.Scrapers.append(Scraper)
+                await Scraper._Worker()
 
 
     async def _CreateTasks(self, aMaxTasks):

@@ -10,7 +10,7 @@ begin
     values (new.id, new.url);
     return new;
 end $$ language plpgsql;
-                
+
 create or replace trigger ref_site_taiu
     after insert on ref_site
     for each row

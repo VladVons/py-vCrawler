@@ -21,15 +21,6 @@ class TApiCtrl(TApiBase):
             'seo_url': Conf.get('seo_url', False)
         }
 
-    async def Exec(self, aRoute: str, aData: dict) -> dict:
-        if (self.ExecCnt == 0):
-            await self.ExecOnce(aData)
-        self.ExecCnt += 1
-
-        Res = self.GetMethod(self.Plugin, aRoute, aData)
-        if ('err' not in Res):
-            Res = await Res['method'](aData)
-        return Res
 
 ApiCtrl = TApiCtrl()
 

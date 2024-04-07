@@ -6,7 +6,7 @@
 from Inc.Sql.DbModel import TDbModel
 
 class TMain(TDbModel):
-    async def Get_Tables(self, aSchema: str) -> dict:
+    async def GetTables(self, aSchema: str) -> dict:
         return await self.ExecQuery(
             'fmtGet_Tables.sql',
             {'aSchema': aSchema}

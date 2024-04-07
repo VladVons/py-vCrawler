@@ -3,19 +3,18 @@
 # License: GNU, see LICENSE for more details
 
 
-from IncP.CtrlBase import TCtrlBase, Lib
+from IncP.CtrlBase import TCtrlBase
 
 
 class TMain(TCtrlBase):
-    async def Get_Tables(self, aData: dict) -> dict:
+    async def GetTables(self) -> dict:
         Dbl = await self.ExecModelImport(
             'tables',
             {
-                'method': 'Get_Tables',
+                'method': 'GetTables',
                 'param': {
                    'aSchema': 'public'
                 }
             }
         )
-        Dbl.Tag = aData['param']
         return Dbl.Export()
