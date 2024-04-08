@@ -1,11 +1,3 @@
-INSERT INTO ref_site (id, enabled, url) VALUES
-     (0,false,'common');
-
-INSERT INTO ref_site_ext (attr, val, site_id) VALUES
-     ('update_hours','72',0),
-     ('sleep_seconds','5',0),
-     ('urls_parse','10',0);
-
 INSERT INTO ref_user (id, login, passw, enabled) VALUES
      (0, 'common','none',false);
 

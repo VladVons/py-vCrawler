@@ -11,9 +11,6 @@ class TMain(TCrawlerBase):
         return await self.ExecCtrl(
             'site',
             {
-                'method': 'GetSiteUrlToUpdate',
-                'param': {
-                    'aLimit': 10
-                }
+                'method': 'GetSiteUrlToUpdate'
             }
         )

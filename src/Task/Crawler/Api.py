@@ -5,7 +5,7 @@
 
 from IncP.ApiBase import TApiBase
 from IncP.Plugins import TCrawlers
-
+import IncP.LibCrawler as Lib
 
 class TApiCrawler(TApiBase):
     def __init__(self):
@@ -51,15 +51,16 @@ class TApiCrawlerEx(TApiCrawler):
         return Res
 
     async def GetSiteUrlToUpdate(self):
-        Res = await self.Exec(
+        Data = await self.Exec(
             'site',
             {
-                'method': 'GetSiteUrlToUpdate',
-                'param': {
-                    'aLimit': 10
-                }
+                'method': 'GetSiteUrlToUpdate'
             }
         )
-        return Res
+
+        return {
+            'site': Lib.TDbList().Import(Data['site']),
+            'url': Lib.TDbList().Import(Data['url'])
+        }
 
 ApiCrawler = TApiCrawlerEx()

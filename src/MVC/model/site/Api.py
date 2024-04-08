@@ -8,37 +8,27 @@ import IncP.LibModel as Lib
 
 
 class TMain(TDbModel):
-    async def GetSiteExt(self, aSiteId: int) -> dict:
+    async def GetSiteToUpdate(self) -> dict:
         return await self.ExecQuery(
-            'fmtGet_SiteExt.sql',
-            {'aSiteId': aSiteId}
+            'fmtGet_SiteToUpdate.sql'
         )
 
-    @Lib.DTransaction
-    async def _DtGet_SiteUrlToUpdate(self, aData: dict, aCursor = None) -> dict:
-        aLimit = aData.get('aLimit')
-
-        DblData = await self.ExecQueryCursor(
-            'fmtGet_UrlToUpdate.sql',
-            {'aLimit': aLimit},
-            aCursor
-        )
-
-        Dbl = Lib.TDbList().Import(DblData)
-        if (Dbl):
-            UrlIds = Dbl.ExportList('url_id')
-            UrlIds = Lib.ListIntToComma(UrlIds)
-            await self.ExecQuery(
-                'fmtUpd_SiteUrlToUpdateUnlock.sql',
-                {'aSiteId': Dbl.Rec.site_id, 'UrlIds': UrlIds, 'aLimit': aLimit}
-            )
-        return DblData
-
-    async def GetUrlToUpdate(self) -> dict:
+    async def GetUrlToUpdate(self, aSiteId: int, aLimit: int) -> dict:
         return await self.ExecQuery(
             'fmtGet_UrlToUpdate.sql',
-            {}
+            {
+                'aSiteId': aSiteId,
+                'aLimit': aLimit
+            }
         )
 
-    async def GetSiteUrlToUpdate(self, aLimit: int) -> dict:
-        return await self._DtGet_SiteUrlToUpdate(locals())
+    async def SetUrlToUpdateLock(self, aSiteId: int, aUrlIds: list[int], aLimit: int) -> dict:
+        UrlIds = Lib.ListIntToComma(aUrlIds)
+        await self.ExecQuery(
+            'fmtUpd_SiteUrlToUpdateLock.sql',
+            {
+                'aSiteId': aSiteId,
+                'UrlIds': UrlIds,
+                'aLimit': aLimit
+            }
+        )

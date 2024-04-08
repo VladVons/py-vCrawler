@@ -4,7 +4,7 @@
 with 
 wt1 as (
     select
-        now() + (rs.sleep_seconds * 10 || ' seconds')::interval as unlock_date
+        now() + (rs.sleep_seconds * {{aLimit}} || ' seconds')::interval as unlock_date
     from 
         ref_site rs
     where

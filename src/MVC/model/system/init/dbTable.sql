@@ -16,15 +16,10 @@ create table if not exists ref_site (
     create_date         timestamp default current_timestamp,
     unlock_date         timestamp,
     enabled             boolean,
-    url                 varchar(64) not null unique
-);
-
-create table if not exists ref_site_ext (
-    attr                varchar(32) not null,
-    val                 text not null,
-    enabled             boolean default true,
-    site_id             int not null references ref_site(id) on delete cascade,
-    unique (site_id, attr)
+    url                 varchar(64) not null unique,
+    update_hours        int2 not null default 72,
+    urls_parse          int2 not null default 10,
+    sleep_seconds       numeric(5,2) not null default 3
 );
 
 create table if not exists ref_site_parser (

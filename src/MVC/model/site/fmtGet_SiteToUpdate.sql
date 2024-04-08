@@ -1,10 +1,8 @@
--- fmtGet_UrlToUpdate.sql
---in: aSiteId, aLimit 
+-- fmtGet_SiteToUpdate.sql
 
 select
-    rs.id as site_id,
-    ru.id as url_id,
-    ru.url
+    rs.id,
+    rs.urls_parse
 from
     ref_site rs
 left join
@@ -12,9 +10,11 @@ left join
     (ru.site_id = rs.id)
 where
     (rs.enabled) and
-    (rs.id = {{aSiteId}}) and
     (ru.url_en = 'product') and
+    ((rs.unlock_date is null) or (rs.unlock_date < now())) and
     ((ru.unlock_date is null) or (ru.unlock_date < now())) and
     ((ru.update_date is null) or (ru.update_date < (now() - (rs.update_hours || ' hours')::interval)))
-limit
-    {{aLimit}}
+order by
+    ru.update_date asc nulls first
+limit 
+    1
