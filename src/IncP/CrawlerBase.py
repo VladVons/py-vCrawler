@@ -11,14 +11,14 @@ import IncP.LibCrawler as Lib
 class TCrawlerBase():
     def __init__(self, aApiCrawler: TApiCrawler):
         self.ApiCrawler = aApiCrawler
-        self.ApiCtrl = None
+        self.ApiModel = None
 
     def _init_(self):
-        self.ApiCtrl = self.ApiCrawler.Loader['ctrl'].Get
+        self.ApiModel = self.ApiCrawler.Loader['model'].Get
 
-    async def ExecCtrl(self, aMethod: str, aData: dict) -> dict:
-        with TTimerLog('ApiCtrl', False, aFile = 'Timer'):
-            Res = await self.ApiCtrl(aMethod, aData)
+    async def ExecModel(self, aMethod: str, aData: dict) -> dict:
+        with TTimerLog('ApiModel', False, aFile = 'Timer'):
+            Res = await self.ApiModel(aMethod, aData)
             if (isinstance(Res, dict) and ('tag' in Res)):
                 Res = Lib.TDbList().Import(Res)
         return Res

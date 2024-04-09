@@ -1,11 +1,11 @@
 -- fmtUpd_SiteUrlToUpdateUnlock.sql
 -- aSiteId, UrlIds. aLimit
 
-with 
+with
 wt1 as (
     select
         now() + (rs.sleep_seconds * {{aLimit}} || ' seconds')::interval as unlock_date
-    from 
+    from
         ref_site rs
     where
         (rs.id = {{aSiteId}})

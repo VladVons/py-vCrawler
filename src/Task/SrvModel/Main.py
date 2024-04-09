@@ -11,7 +11,7 @@ from .Api import ApiModel
 
 
 class TSrvModel(TSrvBaseEx):
-    def _GetApi(self) -> object:
+    def GetApi(self) -> object:
         return ApiModel
 
     @staticmethod

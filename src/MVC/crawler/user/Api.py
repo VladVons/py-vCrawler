@@ -8,7 +8,7 @@ from IncP.CrawlerBase import TCrawlerBase
 
 class TMain(TCrawlerBase):
     async def GetUserExt(self, aLogin: str, aPassw: str):
-        Dbl = await self.ExecCtrl(
+        Dbl = await self.ExecModel(
             'user',
             {
                 'method': 'GetUserId',
@@ -21,7 +21,7 @@ class TMain(TCrawlerBase):
 
         if (Dbl):
             UserId = Dbl.Rec.id
-            Dbl = await self.ExecCtrl(
+            Dbl = await self.ExecModel(
                 'user',
                 {
                     'method': 'GetUserExt',

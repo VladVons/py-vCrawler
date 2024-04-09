@@ -17,9 +17,16 @@ class TApiCrawler(TApiBase):
         self.Conf = {
             'auth': Conf['auth']
         }
+
         self.Plugin = TCrawlers(Conf['dir_route'], self)
         self.InitLoader(Conf['loader'])
-        self.DefRoute = 'system/def_route'
+        self.ApiModel = self.Loader['model'].Get
+
+    async def ExecModel(self, aMethod: str, aData: dict) -> dict:
+        Res = await self.ApiModel(aMethod, aData)
+        if (isinstance(Res, dict) and ('tag' in Res)):
+            Res = Lib.TDbList().Import(Res)
+        return Res
 
 class TApiCrawlerEx(TApiCrawler):
     async def GetUserExt(self):
@@ -51,8 +58,8 @@ class TApiCrawlerEx(TApiCrawler):
         return Res
 
     async def GetSiteUrlToUpdate(self):
-        Data = await self.Exec(
-            'site',
+        Data = await self.ExecModel(
+            'ctrl',
             {
                 'method': 'GetSiteUrlToUpdate'
             }

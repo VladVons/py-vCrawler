@@ -7,5 +7,5 @@ from
     ref_user
 where
     (enabled) and
-    (login = '{{aLogin}}') and 
+    (login = '{{aLogin}}') and
     (passw = '{{aPassw}}')

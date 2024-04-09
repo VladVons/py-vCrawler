@@ -9,6 +9,7 @@ from aiohttp import web
 from IncP.SrvBaseEx import TSrvBaseEx
 from IncP.Log import Log
 from .Api import ApiCrawler
+from .WebScraper import TWebScraper
 
 
 class TCrawler(TSrvBaseEx):
@@ -17,7 +18,7 @@ class TCrawler(TSrvBaseEx):
             web.get('/api/{name:.*}', self._rApi)
         ]
 
-    def _GetApi(self) -> object:
+    def GetApi(self) -> object:
         return ApiCrawler
 
     async def RunApp(self):
@@ -54,12 +55,9 @@ class TCrawler(TSrvBaseEx):
             Wait = random.randint(1, 2)
             await asyncio.sleep(Wait)
             Data = await ApiCrawler.GetSiteUrlToUpdate()
-            continue
-            if (Data):
-                Scheme = TScheme(Data['scheme'])
-                Scraper = TWebScraperFull(self, Scheme, Data['url'], Data['id'], Data['sleep'])
-                self.Scrapers.append(Scraper)
-                await Scraper._Worker()
+            if (Data['url']):
+                Scraper = TWebScraper(ApiCrawler, Data)
+                await Scraper.Exec()
 
 
     async def _CreateTasks(self, aMaxTasks):

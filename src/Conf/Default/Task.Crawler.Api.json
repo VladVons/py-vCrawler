@@ -1,14 +1,14 @@
 {
     "dir_route": "MVC/crawler",
     "loader": {
-        "ctrl": {
+        "model": {
             "type": "fs",
-            "module": "Task.SrvCtrl.Api",
-            "class": "ApiCtrl"
+            "module": "Task.SrvModel.Api",
+            "class": "ApiModel"
         },
-        "_ctrl": {
+        "_model": {
             "type": "url",
-            "url": "http://localhost:8082/api",
+            "url": "http://localhost:8081/api",
             "user": "user01",
             "password": "passw01"
         }
