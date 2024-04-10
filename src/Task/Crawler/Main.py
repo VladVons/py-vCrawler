@@ -50,15 +50,15 @@ class TCrawler(TSrvBaseEx):
             await asyncio.sleep(60)
 
     async def _Worker(self, aTaskId: int):
-        Log.Print(1, 'i', '_Worker(). Start Id %d' % (aTaskId))
+        Log.Print(1, 'i', f'_Worker({aTaskId}) started')
         while (True):
-            Wait = random.randint(1, 2)
+            Wait = random.randint(2, 3)
             await asyncio.sleep(Wait)
             Data = await ApiCrawler.GetSiteUrlToUpdate()
             if (Data['url']):
                 Scraper = TWebScraper(ApiCrawler, Data)
-                await Scraper.Exec()
-
+                Info = await Scraper.Exec()
+                Log.Print(1, 'i', f"_Worker({aTaskId}). products:{Info['products']}/{Info['tasks']}, hrefs:{Info['hrefs']}, data_size:{Info['data_size']//1000}Kb")
 
     async def _CreateTasks(self, aMaxTasks):
         Tasks = [asyncio.create_task(self._Worker(i)) for i in range(aMaxTasks)]

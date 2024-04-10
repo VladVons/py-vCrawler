@@ -1,0 +1,10 @@
+# pip3 install -r requires.lst
+# ~/VirtEnv/python3.12/bin$ ./pip3.12 install aiosmtplib
+#
+# sudo apt install python3-pip python3-dev gcc libpq-dev libffi-dev --no-install-recommends
+
+aiopg 
+aiohttp 
+jinja2 
+protego
+pylint

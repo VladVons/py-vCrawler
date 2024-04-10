@@ -9,9 +9,11 @@ import asyncio
 from urllib.parse import urlparse
 import aiohttp
 from bs4 import BeautifulSoup
+from protego import Protego
 #
 from Inc.Scheme.Scheme import TScheme
 from Inc.Util.Str import StartsWith
+from Inc.Util.Obj import GetTree
 from .Api import TApiCrawlerEx
 
 
@@ -50,6 +52,20 @@ async def GetUrlData(aUrl: str) -> object:
             Res = {'err': str(E)}
         return Res
 
+async def InitRobots(aUrl: str) -> Protego:
+    UrlData = await GetUrlData(aUrl)
+    Content = ''
+    if (UrlData['status'] == 200):
+        Content = UrlData['data'].decode()
+    return Protego.parse(content=Content)
+
+def EscForSQL(aData: dict):
+    for _Nested, _Path, Obj, _Depth in GetTree(aData):
+        if (isinstance(Obj, dict)):
+            for Key in Obj:
+                if (isinstance(Obj[Key], str)) and ("'" in Obj[Key]):
+                    Obj[Key] = Obj[Key].replace("'", "''")
+
 
 class TWebScraper():
     def __init__(self, aApi: TApiCrawlerEx, aData: dict):
@@ -58,6 +74,7 @@ class TWebScraper():
         self.DblUrl = aData['url']
         self.UrlRoot = self.DblSite.Rec.url
         self.Scheme = TScheme(self.DblSite.Rec.scheme)
+        self.Robots: Protego
 
     def GetHrefs(self, aSoup) -> set:
         Res = set()
@@ -66,7 +83,8 @@ class TWebScraper():
             if (not xUrl) or \
                (StartsWith(xUrl, ['#', 'javascript:', 'tel:', 'mailto:', 'viber:', 'tg:'])) or \
                ((xUrl.startswith('http')) and (not xUrl.startswith(self.UrlRoot))) or \
-               (IsMimeApp(xUrl)):
+               (IsMimeApp(xUrl)) or \
+               (not self.Robots.can_fetch(xUrl, '*')):
                 continue
 
             xUrl = xUrl.rsplit('#', maxsplit=1)[0]
@@ -75,8 +93,12 @@ class TWebScraper():
             Res.add(xUrl)
         return Res
 
-    async def Exec(self):
-        HrefsAll = set()
+    async def Exec(self) -> dict:
+        self.Robots = await InitRobots(f'{self.UrlRoot}/robots.txt')
+
+        TotalProduct = 0
+        TotalDataSize = 0
+        TotalHref = set()
         for Rec in self.DblUrl:
             ParsedData = None
             UrlCount = 0
@@ -89,14 +111,16 @@ class TWebScraper():
             Data = await GetUrlData(Rec.url)
             if (Data['status'] == 200):
                 DataSize = len(Data['data'])
+                TotalDataSize += DataSize
+
                 Soup = GetSoup(Data['data'])
                 Htrefs = self.GetHrefs(Soup)
                 if (Htrefs):
                     UrlCount = len(Htrefs)
-                    Diff = Htrefs - HrefsAll
+                    Diff = Htrefs - TotalHref
                     if (Diff):
-                        HrefsAll.update(Diff)
-                        Dbl = await self.Api.ExecModel(
+                        TotalHref.update(Diff)
+                        await self.Api.ExecModel(
                             'ctrl',
                             {
                                 'method': 'InsUrls',
@@ -108,12 +132,10 @@ class TWebScraper():
                         )
                 self.Scheme.Parse(Soup)
                 Price = self.Scheme.Pipe.get('product.pipe.price')
-                if (self.Scheme.Pipe.get('product.pipe.name')) and \
-                   (Price and Price[0] > 0):
+                if (self.Scheme.Pipe.get('product.pipe.name')) and (Price and Price[0] > 0):
+                    TotalProduct += 1
                     ParsedData = self.Scheme.Data['product']['pipe']
-                    for Key, Val in ParsedData.items():
-                        if (isinstance(Val, str)):
-                            ParsedData[Key] = Val.replace("'", '`')
+                EscForSQL(ParsedData)
 
             await self.Api.ExecModel(
                 'ctrl',
@@ -133,3 +155,10 @@ class TWebScraper():
             Percentage = round(random.uniform(0.75, 1.0), 2)
             Sleep = float(self.DblSite.Rec.sleep_seconds) * Percentage
             await asyncio.sleep(Sleep)
+
+        return {
+            'hrefs': len(TotalHref),
+            'tasks': self.DblUrl.GetSize(),
+            'products': TotalProduct,
+            'data_size': TotalDataSize
+        }

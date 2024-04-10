@@ -10,7 +10,7 @@ from IncP.ModelBase import TModelBase, Lib
 Lock = asyncio.Lock()
 
 class TMain(TModelBase):
-    async def GetSiteUrlToUpdate(self) -> dict:
+    async def GetSiteUrlToUpdate(self, aUserId: int) -> dict:
         async with Lock:
             DblSite = await self.Exec(
                 'site',

@@ -61,7 +61,10 @@ class TApiCrawlerEx(TApiCrawler):
         Data = await self.ExecModel(
             'ctrl',
             {
-                'method': 'GetSiteUrlToUpdate'
+                'method': 'GetSiteUrlToUpdate',
+                'param': {
+                    'aUserId': self.DbConf['user_id']
+                }
             }
         )
 
