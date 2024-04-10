@@ -40,6 +40,8 @@ class TCrawler(TSrvBaseEx):
         while (True):
             ApiCrawler.DbConf = await ApiCrawler.GetUserExt()
             if (ApiCrawler.DbConf):
+                Arr = [f'{Key}: {Val}' for Key, Val in ApiCrawler.DbConf.items()]
+                Log.Print(1, 'i', f'RunApi(). {', '.join(Arr)}')
                 try:
                     MaxWorkers = await ApiCrawler.GetMaxWorkers()
                     await self._CreateTasks(MaxWorkers)
@@ -52,7 +54,7 @@ class TCrawler(TSrvBaseEx):
     async def _Worker(self, aTaskId: int):
         Log.Print(1, 'i', f'_Worker({aTaskId}) started')
         while (True):
-            Wait = random.randint(2, 3)
+            Wait = random.randint(1, 3)
             await asyncio.sleep(Wait)
             Data = await ApiCrawler.GetSiteUrlToUpdate()
             if (Data['url']):
