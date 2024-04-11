@@ -38,7 +38,7 @@ class TSrvBaseEx(TSrvBase):
             DataIn = await aRequest.json()
             Api = self.GetApi()
             DataOut = await Api.Exec(Name, DataIn)
-            if ('err' in DataOut):
+            if (isinstance(DataOut, dict)) and ('err' in DataOut):
                 Res = DataOut
             else:
                 Res['data'] = DataOut

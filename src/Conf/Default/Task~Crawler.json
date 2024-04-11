@@ -1,6 +1,6 @@
 {
     "srv_conf": {
-        "port": 8080,
+        "port": 8180,
         "user": "user01",
         "password": "passw01",
         "allow_ip": []
