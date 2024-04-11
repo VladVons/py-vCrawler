@@ -60,7 +60,7 @@ class TCrawler(TSrvBaseEx):
             if (Data['url']):
                 Scraper = TWebScraper(ApiCrawler, Data)
                 Info = await Scraper.Exec()
-                Log.Print(1, 'i', f"_Worker({aTaskId}). products:{Info['products']}/{Info['tasks']}, hrefs:{Info['hrefs']}, data_size:{Info['data_size']//1000}Kb")
+                Log.Print(1, 'i', f"_Worker({aTaskId}). host:{Data['site'].Rec.url}, products:{Info['products']}/{Info['tasks']}, hrefs:{Info['hrefs']}, data_size:{Info['data_size']//1000}Kb")
 
     async def _CreateTasks(self, aMaxTasks):
         Tasks = [asyncio.create_task(self._Worker(i)) for i in range(aMaxTasks)]

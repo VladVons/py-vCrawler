@@ -49,7 +49,7 @@ async def GetUrlData(aUrl: str) -> object:
                 Data = await Response.read()
                 Res = {'data': Data, 'status': Response.status}
         except Exception as E:
-            Res = {'err': str(E)}
+            Res = {'err': str(E), 'status': -1}
         return Res
 
 async def InitRobots(aUrl: str) -> Protego:
@@ -132,7 +132,8 @@ class TWebScraper():
                         )
                 self.Scheme.Parse(Soup)
                 Price = self.Scheme.Pipe.get('product.pipe.price')
-                if (self.Scheme.Pipe.get('product.pipe.name')) and (Price and Price[0] > 0):
+                if (self.Scheme.Pipe.get('product.pipe.name')) and \
+                   (Price and isinstance(Price[0], (int, float)) and Price[0] > 0):
                     TotalProduct += 1
                     ParsedData = self.Scheme.Data['product']['pipe']
                 EscForSQL(ParsedData)
