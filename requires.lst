@@ -7,4 +7,5 @@ aiopg
 aiohttp 
 jinja2 
 protego
+psutil
 pylint
