@@ -58,7 +58,7 @@ class TApiCrawlerEx(TApiCrawler):
         return Res
 
     async def GetSiteUrlToUpdate(self):
-        Data = await self.ExecModel(
+        Res = await self.ExecModel(
             'ctrl',
             {
                 'method': 'GetSiteUrlToUpdate',
@@ -68,9 +68,8 @@ class TApiCrawlerEx(TApiCrawler):
             }
         )
 
-        return {
-            'site': Lib.TDbList().Import(Data['site']),
-            'url': Lib.TDbList().Import(Data['url'])
-        }
+        for Key in ['site', 'url']:
+            Res[Key] = Lib.TDbList().Import(Res[Key])
+        return Res
 
 ApiCrawler = TApiCrawlerEx()

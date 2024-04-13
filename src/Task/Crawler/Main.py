@@ -57,7 +57,9 @@ class TCrawler(TSrvBaseEx):
             Wait = random.randint(1, 3)
             await asyncio.sleep(Wait)
             Data = await ApiCrawler.GetSiteUrlToUpdate()
-            if (Data['url']):
+            if ('err' in Data):
+                Log.Print(1, 'i', Data['err'])
+            elif (Data['url']):
                 Scraper = TWebScraper(ApiCrawler, Data)
                 Info = await Scraper.Exec()
                 Log.Print(1, 'i', f"_Worker({aTaskId}). host:{Data['site'].Rec.url}, products:{Info['products']}/{Info['tasks']}, hrefs:{Info['hrefs']}, data_size:{Info['data_size']//1000}Kb")

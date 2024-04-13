@@ -38,21 +38,26 @@ class TMain(TModelBase):
                 )
 
                 if (DblUrl):
-                    Res['url'] = DblUrl.Export()
+                    if (DblUrl.Rec.url_id):
+                        Res['url'] = DblUrl.Export()
 
-                    Len = len(DblUrl)
-                    Reserv = Len // int(100/20)
-                    await self.Exec(
-                        'site',
-                        {
-                            'method': 'SetUrlToUpdateLock',
-                            'param': {
-                                'aSiteId': DblSite.Rec.id,
-                                'aUrlIds': DblUrl.ExportList('url_id'),
-                                'aLimit': Len + Reserv
+                        Len = len(DblUrl)
+                        Reserv = Len // int(100/20)
+                        await self.Exec(
+                            'site',
+                            {
+                                'method': 'SetUrlToUpdateLock',
+                                'param': {
+                                    'aSiteId': DblSite.Rec.id,
+                                    'aUrlIds': DblUrl.ExportList('url_id'),
+                                    'aLimit': Len + Reserv
+                                }
                             }
-                        }
-                    )
+                        )
+                    else:
+                        Msg = f'no record in ref_url for {DblSite.Rec.url}'
+                        Res['err'] = Msg
+                        Lib.Log.Print(1, 'i', Msg)
             return Res
 
     async def InsUrls(self, aSiteId: int, aUrls: list[str]) -> dict:
