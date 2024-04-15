@@ -73,3 +73,16 @@ create table if not exists hist_url (
     url_id              int not null references ref_url(id) on delete cascade,
     user_id             int not null references ref_user(id) on delete cascade
 );
+create index if not exists hist_url_idx_id on hist_url (url_id);
+
+create table if not exists ref_url_product (
+    title               varchar(128),
+    category            varchar(50),
+    image               varchar(128),
+    sku                 varchar(24),
+    mpn                 varchar(24),
+    price               decimal(8, 2),
+    price_old           decimal(8, 2),
+    stock               boolean default true,
+    url_id              int not null unique references ref_url(id) on delete cascade
+);
