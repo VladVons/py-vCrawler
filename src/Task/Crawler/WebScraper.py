@@ -3,68 +3,13 @@
 # License: GNU, see LICENSE for more details
 
 
-import os
 import random
 import asyncio
-from urllib.parse import urlparse
-import aiohttp
-from bs4 import BeautifulSoup
-from protego import Protego
 #
 from Inc.Scheme.Scheme import TScheme
 from Inc.Util.Str import StartsWith
-from Inc.Util.Obj import GetTree
 from .Api import TApiCrawlerEx
-
-
-def GetSoup(aData: str) -> BeautifulSoup:
-    Res = BeautifulSoup(aData, 'lxml')
-    if (len(Res) == 0):
-        Res = BeautifulSoup(aData, 'html.parser')
-    return Res
-
-def IsMimeApp(aUrl: str) -> bool:
-    Path = urlparse(aUrl).path
-    Ext = os.path.splitext(Path)[1].lower()
-    if (Ext == '' or Ext in ['.php']):
-        Res = False
-    else:
-        Mime = [
-            '.zip', '.rar', '.7z', '.gz', '.bz',
-            '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.ico',
-            '.wav', '.mp3', '.mp4', '.mpeg',
-            '.xml', '.pdf', '.doc', '.docx', '.xls', '.xlsx'
-        ]
-        Res = (Ext in Mime)
-    return Res
-
-async def GetUrlData(aUrl: str) -> object:
-    Headers = {
-        'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
-    }
-
-    async with aiohttp.ClientSession() as Session:
-        try:
-            async with Session.get(aUrl, headers=Headers) as Response:
-                Data = await Response.read()
-                Res = {'data': Data, 'status': Response.status}
-        except Exception as E:
-            Res = {'err': str(E), 'status': -1}
-        return Res
-
-async def InitRobots(aUrl: str) -> Protego:
-    UrlData = await GetUrlData(aUrl)
-    Content = ''
-    if (UrlData['status'] == 200):
-        Content = UrlData['data'].decode()
-    return Protego.parse(content=Content)
-
-def EscForSQL(aData: dict):
-    for _Nested, _Path, Obj, _Depth in GetTree(aData):
-        if (isinstance(Obj, dict)):
-            for Key in Obj:
-                if (isinstance(Obj[Key], str)) and ("'" in Obj[Key]):
-                    Obj[Key] = Obj[Key].replace("'", "''")
+from .Lib import Protego, GetUrlData, GetSoup, InitRobots, IsMimeApp, EscForSQL
 
 
 class TWebScraper():
@@ -95,7 +40,10 @@ class TWebScraper():
         return Res
 
     async def Exec(self) -> dict:
-        self.Robots = await InitRobots(f'{self.UrlRoot}/robots.txt')
+        CustomRobots = self.DblSite.Rec.GetField('robots')
+        self.Robots = await InitRobots(self.UrlRoot, CustomRobots)
+        # Url = 'https://ktc.ua/search/?q=AirPods&t=d5e1fef75154b1ace345fd3fdbcc2279'
+        # q1 = self.Robots.can_fetch(Url, '*')
 
         TotalProduct = 0
         TotalDataSize = 0

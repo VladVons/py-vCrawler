@@ -5,6 +5,7 @@ select
     rs.url,
     rs.urls_parse,
     rs.sleep_seconds,
+    rs.robots,
     rsp.scheme
 from
     ref_site rs

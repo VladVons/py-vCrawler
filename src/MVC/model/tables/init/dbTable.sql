@@ -38,7 +38,8 @@ create table if not exists ref_site (
     url                 varchar(64) not null unique,
     update_hours        int2 not null default 72,
     urls_parse          int2 not null default 10,
-    sleep_seconds       numeric(5,2) not null default 5
+    sleep_seconds       numeric(5,2) not null default 5,
+    robots              text
 );
 
 create table if not exists ref_site_parser (
