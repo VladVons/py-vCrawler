@@ -72,22 +72,22 @@ async def GetUrlData(aUrl: str) -> object:
         await asyncio.sleep(0.5)
     return Res
 
-
-
-async def InitRobots(aUrl: str, aCustom: str) -> Protego:
+async def InitRobots(aUrl: str, aCustom: str = '') -> Protego:
     Parsed = urlparse(aUrl)
     Url = f'{Parsed.scheme}://{Parsed.hostname}/robots.txt'
     UrlData = await GetUrlData(Url)
-    Content = ''
     if (UrlData['status'] == 200):
         Content = UrlData['data'].decode()
         if (aCustom):
             Lines = Content.splitlines()
             ArrAgent = (i for i, line in enumerate(Lines) if line.strip() == 'User-agent: *')
-            Idx = next(ArrAgent, None)
-            if (Idx is not None):
-                Lines.insert(Idx + 1, aCustom + '\n')
+            IdxPos = next(ArrAgent, None)
+            if (IdxPos is not None):
+                for Idx, x in enumerate(aCustom.split('\n')):
+                    Lines.insert(IdxPos + 1 + Idx, x.strip())
                 Content = '\n'.join(Lines)
+    else:
+        Content = ''
     return Protego.parse(content=Content)
 
 RE_cdata = re.compile(r'<!\[CDATA\[(.*?)\]\]>', re.IGNORECASE)

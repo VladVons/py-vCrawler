@@ -43,7 +43,8 @@ class TWebScraper():
         CustomRobots = self.DblSite.Rec.GetField('robots')
         self.Robots = await InitRobots(self.UrlRoot, CustomRobots)
         # Url = 'https://ktc.ua/search/?q=AirPods&t=d5e1fef75154b1ace345fd3fdbcc2279'
-        # q1 = self.Robots.can_fetch(Url, '*')
+        Url = 'https://telemart.ua/ua/monitors/filter/5120-2880px'
+        q1 = self.Robots.can_fetch(Url, '*')
 
         TotalProduct = 0
         TotalDataSize = 0

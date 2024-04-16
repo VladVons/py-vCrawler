@@ -1,5 +1,3 @@
--- fmtGet_HistUrlLast.sql
-
 select
     ru.url, hu.*
 from
