@@ -1,12 +1,12 @@
 {
     "dir_route": "MVC/crawler",
     "loader": {
-        "model": {
+        "_model": {
             "type": "fs",
             "module": "Task.SrvModel.Api",
             "class": "ApiModel"
         },
-        "_model": {
+        "model": {
             "type": "url",
             "url": "http://1x1.com.ua:8181/api",
             "user": "user01",

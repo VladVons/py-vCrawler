@@ -4,6 +4,7 @@
 
 
 from IncP.CrawlerBase import TCrawlerBase
+import IncP.LibCrawler as Lib
 
 
 class TMain(TCrawlerBase):
@@ -19,7 +20,7 @@ class TMain(TCrawlerBase):
             }
         )
 
-        if (Dbl):
+        if (isinstance(Dbl, Lib.TDbList)) and (Dbl):
             UserId = Dbl.Rec.id
             Dbl = await self.ExecModel(
                 'user',
