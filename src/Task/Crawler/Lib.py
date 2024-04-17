@@ -80,7 +80,7 @@ async def InitRobots(aUrl: str, aCustom: str = '') -> Protego:
         Content = UrlData['data'].decode()
         if (aCustom):
             Lines = Content.splitlines()
-            ArrAgent = (i for i, line in enumerate(Lines) if line.strip() == 'User-agent: *')
+            ArrAgent = (i for i, line in enumerate(Lines) if line.lower().strip() == 'user-agent: *')
             IdxPos = next(ArrAgent, None)
             if (IdxPos is not None):
                 for Idx, x in enumerate(aCustom.split('\n')):
