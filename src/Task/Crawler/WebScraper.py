@@ -80,7 +80,10 @@ class TWebScraper():
                 self.Scheme.Parse(Soup)
                 Price = self.Scheme.Pipe.get('product.pipe.price')
                 if (self.Scheme.Pipe.get('product.pipe.name')) and \
-                   (Price and isinstance(Price[0], (int, float)) and Price[0] > 0):
+                   (
+                       (Price and isinstance(Price[0], (int, float)) and Price[0] > 0) or \
+                       (self.Scheme.Pipe.get('product.pipe.description') and self.Scheme.Pipe.get('product.pipe.features'))
+                   ):
                     TotalProduct += 1
                     ParsedData = self.Scheme.Data['product']['pipe']
                 EscForSQL(ParsedData)
