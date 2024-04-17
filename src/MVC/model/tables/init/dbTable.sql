@@ -11,6 +11,12 @@ create type url_enum as enum (
 );
 
 
+create type guard_enum as enum (
+    'unknown',
+    'cloudflare'
+);
+
+
 -- user --
 create table if not exists ref_user (
     id                  serial primary key,
@@ -35,6 +41,7 @@ create table if not exists ref_site (
     create_date         timestamp default current_timestamp,
     unlock_date         timestamp,
     enabled             boolean,
+    guard_en            guard_enum,
     url                 varchar(64) not null unique,
     update_hours        int2 not null default 72,
     urls_parse          int2 not null default 10,

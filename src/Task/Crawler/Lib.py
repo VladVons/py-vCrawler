@@ -56,20 +56,20 @@ async def GetUrlData(aUrl: str) -> object:
 
     Headers = [
         {
-            'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0',
             'Accept-Language': 'uk'
         },
         {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0',
+            'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
             'Accept-Language': 'uk'
         }
     ]
 
     for xHeader in Headers:
         Res = await _GetUrlData(xHeader)
-        if (Res['status'] != 403):
+        if (Res['status'] not in [403, 503]):
             break
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(1.0)
     return Res
 
 async def InitRobots(aUrl: str, aCustom: str = '') -> Protego:
