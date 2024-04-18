@@ -5,6 +5,7 @@
 
 import random
 import asyncio
+from urllib.parse import urljoin
 #
 from Inc.Scheme.Scheme import TScheme
 from Inc.Util.Str import StartsWith
@@ -34,8 +35,7 @@ class TWebScraper():
                 continue
 
             xUrl = xUrl.rsplit('#', maxsplit=1)[0]
-            if (xUrl.startswith('/')):
-                xUrl = self.UrlRoot + xUrl
+            xUrl = urljoin(self.UrlRoot, xUrl)
             Res.add(xUrl)
         return Res
 

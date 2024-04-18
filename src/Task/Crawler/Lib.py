@@ -84,7 +84,9 @@ async def InitRobots(aUrl: str, aCustom: str = '') -> Protego:
             IdxPos = next(ArrAgent, None)
             if (IdxPos is not None):
                 for Idx, x in enumerate(aCustom.split('\n')):
-                    Lines.insert(IdxPos + 1 + Idx, x.strip())
+                    Rule = x.strip()
+                    if (Rule):
+                        Lines.insert(IdxPos + 1 + Idx, Rule)
                 Content = '\n'.join(Lines)
     else:
         Content = ''
