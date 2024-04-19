@@ -51,11 +51,11 @@ class TWebScraper():
             UrlCount = 0
             DataSize = 0
 
-            # Data = await GetUrlData('http://oster.com.ua/c600320/p647163.html')
+            Data = await GetUrlData(Rec.url)
+            #Data = await GetUrlData('https://compx.ua/videokarta-msi-rtx-4070-ti-super-16g-expert-rtx-4070-ti-super-16g-expert-2338771/')
             # with open('debug.html', 'wb') as F:
             #     F.write(Data['data'])
 
-            Data = await GetUrlData(Rec.url)
             if (Data['status'] == 200):
                 DataSize = len(Data['data'])
                 TotalDataSize += DataSize
