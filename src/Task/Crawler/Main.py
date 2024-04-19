@@ -31,11 +31,26 @@ class TCrawler(TSrvBaseEx):
         App = self.CreateApp(aErroMiddleware = ErroMiddleware)
         await self.Run(App)
 
+    async def TestModel(self) -> dict:
+        Res = await ApiCrawler.ExecModel(
+            'product',
+            {
+                'method': 'GetProductInfoBySku',
+                'param': {
+                    'aSiteId': 2,
+                    'aSkus': ['368313', '380932']
+                }
+            }
+        )
+        return Res
+
     async def RunApi(self):
         Log.Print(1, 'i', f'{self.__class__.__name__}.RunApi() only')
 
         WaitLocalHost = 2
         await asyncio.sleep(WaitLocalHost)
+
+        #await self.TestModel()
 
         while (True):
             ApiCrawler.DbConf = await ApiCrawler.GetUserExt()

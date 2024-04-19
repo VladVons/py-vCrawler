@@ -83,12 +83,15 @@ create table if not exists hist_url (
 );
 create index if not exists hist_url_idx_id on hist_url (url_id);
 
-create table if not exists ref_url_product (
+--
+
+create table if not exists ref_product (
     title               varchar(128),
-    category            varchar(50),
+    category            varchar(80),
     image               varchar(128),
     sku                 varchar(24),
     mpn                 varchar(24),
+    brand               varchar(24),
     price               decimal(8, 2),
     price_old           decimal(8, 2),
     stock               boolean default true,
