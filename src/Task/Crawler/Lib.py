@@ -36,7 +36,7 @@ def IsMimeApp(aUrl: str) -> bool:
     else:
         Mime = [
             '.zip', '.rar', '.7z', '.gz', '.bz',
-            '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.ico',
+            '.jpg', '.jpeg', '.png', 'webp', '.gif', '.bmp', '.ico',
             '.wav', '.mp3', '.mp4', '.mpeg',
             '.xml', '.pdf', '.doc', '.docx', '.xls', '.xlsx'
         ]

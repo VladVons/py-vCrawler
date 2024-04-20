@@ -28,7 +28,7 @@ class TWebScraper():
             xUrl = xUrl.get('href', '').strip().rstrip('/')
             if (not xUrl) or \
                (len(xUrl) > 254) or \
-               (StartsWith(xUrl, ['#', 'javascript:', 'tel:', 'mailto:', 'viber:', 'tg:'])) or \
+               (StartsWith(xUrl, ['#', 'javascript:', 'tel:', 'mailto:', 'viber:', 'tg:', 'sms:'])) or \
                ((xUrl.startswith('http')) and (not xUrl.startswith(self.UrlRoot))) or \
                (IsMimeApp(xUrl)) or \
                (not self.Robots.can_fetch(xUrl, '*')):
