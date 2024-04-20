@@ -60,7 +60,9 @@ class TCrawler(TSrvBaseEx):
 
                 try:
                     if (DbConf.workers_allow):
+                        Log.Print(1, 'i', 'Task create')
                         await self._CreateTasks(DbConf.workers_qty)
+                        Log.Print(1, 'i', 'Task done')
                 except Exception as E:
                     Log.Print(1, 'x', 'Run()', aE = E)
             else:
