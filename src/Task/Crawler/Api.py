@@ -3,15 +3,24 @@
 # License: GNU, see LICENSE for more details
 
 
+from Inc.DataClass import DDataClass
 from IncP.ApiBase import TApiBase
 from IncP.Plugins import TCrawlers
 import IncP.LibCrawler as Lib
+
+
+@DDataClass
+class TUserConf():
+    user_id: int = -1
+    workers_allow: bool = True
+    workers_qty: int = 1
+
 
 class TApiCrawler(TApiBase):
     def __init__(self):
         super().__init__()
 
-        self.DbConf = {}
+        self.DbConf: TUserConf
 
         Conf = self.GetConf()
         self.Conf = {
@@ -29,7 +38,7 @@ class TApiCrawler(TApiBase):
         return Res
 
 class TApiCrawlerEx(TApiCrawler):
-    async def GetUserExt(self):
+    async def GetUserExt(self) -> TUserConf:
         Res = await self.Exec(
             'user',
             {
@@ -40,30 +49,18 @@ class TApiCrawlerEx(TApiCrawler):
                 }
             }
         )
-        return Res
 
-    async def GetMaxWorkers(self) -> int:
-        Res = int(self.DbConf.get('max_workers', 0))
-        if (Res == 0):
-            Time = await self.Exec(
-                'system',
-                {
-                    'method': 'GetDownloadSpeed',
-                    'param': {
-                        'aUrl': self.DbConf['speed_test_url']
-                    }
-                }
-            )
-            Res = Time // 5
-        return Res
+        if (Res is None):
+            Res = {}
+        return TUserConf(**Res)
 
-    async def GetSiteUrlToUpdate(self):
+    async def GetTask(self):
         Res = await self.ExecModel(
             'ctrl',
             {
-                'method': 'GetSiteUrlToUpdate',
+                'method': 'GetTask',
                 'param': {
-                    'aUserId': self.DbConf['user_id']
+                    'aUserId': self.DbConf.user_id
                 }
             }
         )

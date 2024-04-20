@@ -98,7 +98,7 @@ class TWebScraper():
                         'aParsedData': ParsedData,
                         'aUrlCount': UrlCount,
                         'aDataSize': DataSize,
-                        'aUserId': self.Api.DbConf['user_id']
+                        'aUserId': self.Api.DbConf.user_id
                     }
                 }
             )

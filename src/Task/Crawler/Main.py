@@ -53,31 +53,45 @@ class TCrawler(TSrvBaseEx):
         #await self.TestModel()
 
         while (True):
-            ApiCrawler.DbConf = await ApiCrawler.GetUserExt()
-            if (ApiCrawler.DbConf):
-                Arr = [f'{Key}: {Val}' for Key, Val in ApiCrawler.DbConf.items()]
-                Log.Print(1, 'i', f'RunApi(). {', '.join(Arr)}')
+            DbConf = await ApiCrawler.GetUserExt()
+            if (DbConf.user_id != -1):
+                # Arr = [f'{Key}: {Val}' for Key, Val in DbConf.items()]
+                # Log.Print(1, 'i', f'RunApi(). {', '.join(Arr)}')
+
                 try:
-                    MaxWorkers = await ApiCrawler.GetMaxWorkers()
-                    await self._CreateTasks(MaxWorkers)
+                    if (DbConf.workers_allow):
+                        await self._CreateTasks(DbConf.workers_qty)
                 except Exception as E:
                     Log.Print(1, 'x', 'Run()', aE = E)
             else:
                 Log.Print(1, 'i', 'Auth error')
-            await asyncio.sleep(60)
+            await asyncio.sleep(10)
 
     async def _Worker(self, aTaskId: int):
         Log.Print(1, 'i', f'_Worker({aTaskId}) started')
+
+        Sleep = random.uniform(0, 1)
+        await asyncio.sleep(Sleep)
+
+        DbConfOrig = await ApiCrawler.GetUserExt()
         while (True):
-            Wait = random.randint(1, 3)
-            await asyncio.sleep(Wait)
-            Data = await ApiCrawler.GetSiteUrlToUpdate()
+            Sleep = random.uniform(2, 4)
+            await asyncio.sleep(Sleep)
+
+            DbConf = await ApiCrawler.GetUserExt()
+            if (DbConf.user_id == -1) or (not DbConf.workers_allow) or (DbConf.workers_qty != DbConfOrig.workers_qty):
+                break
+            ApiCrawler.DbConf = DbConf
+
+            Data = await ApiCrawler.GetTask()
             if ('err' in Data):
                 Log.Print(1, 'i', Data['err'])
-            elif (Data['url']):
+                continue
+
+            if (Data['url']):
                 Scraper = TWebScraper(ApiCrawler, Data)
                 Info = await Scraper.Exec()
-                Log.Print(1, 'i', f"_Worker({aTaskId}). host:{Data['site'].Rec.url}, products:{Info['products']}/{Info['tasks']}, hrefs:{Info['hrefs']}, data_size:{Info['data_size']//1000}Kb")
+                Log.Print(1, 'i', f"_Worker({aTaskId :2}). {Data['site'].Rec.url :25}, prod:{Info['products'] :2}/{Info['tasks'] :2}, hrefs:{Info['hrefs'] :3}, size:{Info['data_size']//1000 :5}Kb")
 
     async def _CreateTasks(self, aMaxTasks):
         Tasks = [asyncio.create_task(self._Worker(i)) for i in range(aMaxTasks)]

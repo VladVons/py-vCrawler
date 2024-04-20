@@ -3,8 +3,10 @@
 # License: GNU, see LICENSE for more details
 
 
+from Inc.Util.Str import ToObj
 from IncP.CrawlerBase import TCrawlerBase
 import IncP.LibCrawler as Lib
+
 
 
 class TMain(TCrawlerBase):
@@ -31,6 +33,7 @@ class TMain(TCrawlerBase):
                     }
                 }
             )
-            Res = Dbl.ExportPair('attr', 'val')
+
+            Res = {Rec.attr: ToObj(Rec.val) for Rec in Dbl}
             Res['user_id'] = UserId
             return Res
