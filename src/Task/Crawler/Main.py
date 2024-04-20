@@ -93,6 +93,8 @@ class TCrawler(TSrvBaseEx):
                 Info = await Scraper.Exec()
                 Log.Print(1, 'i', f"_Worker({aTaskId :2}). {Data['site'].Rec.url :25}, prod:{Info['products'] :2}/{Info['tasks'] :2}, hrefs:{Info['hrefs'] :3}, size:{Info['data_size']//1000 :5}Kb")
 
+        Log.Print(1, 'i', f'_Worker({aTaskId}) finished')
+
     async def _CreateTasks(self, aMaxTasks):
         Tasks = [asyncio.create_task(self._Worker(i)) for i in range(aMaxTasks)]
         await asyncio.gather(*Tasks)
