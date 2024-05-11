@@ -40,7 +40,7 @@ class TWebScraper():
         return Res
 
     async def Exec(self) -> dict:
-        CustomRobots = self.DblSite.Rec.GetField('robots')
+        CustomRobots = self.DblSite.Rec.robots
         self.Robots = await InitRobots(self.UrlRoot, CustomRobots)
 
         TotalProduct = 0
@@ -51,7 +51,7 @@ class TWebScraper():
             UrlCount = 0
             DataSize = 0
 
-            Data = await GetUrlData(Rec.url)
+            Data = await GetUrlData(Rec.url, self.DblSite.Rec.headers)
             #Data = await GetUrlData('https://compx.ua/videokarta-msi-rtx-4070-ti-super-16g-expert-rtx-4070-ti-super-16g-expert-2338771/')
             # with open('debug.html', 'wb') as F:
             #     F.write(Data['data'])

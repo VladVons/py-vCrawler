@@ -52,6 +52,7 @@ end $$ language plpgsql;
 create or replace trigger hist_url_tai
     after insert on hist_url
     for each row
+    when (new.parsed_data is not null)
     execute function hist_url_fai();
 
 --

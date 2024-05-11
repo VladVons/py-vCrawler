@@ -6,5 +6,11 @@
         "database": "crawler2",
         "user": "admin",
         "password": "098iop"
+    },
+    "loader": {
+        "lang": {
+            "type": "fs",
+            "dir": "MVC/lang"
+        }
     }
 }

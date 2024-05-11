@@ -38,3 +38,11 @@ class TCrawlers(TPluginMVC):
 
     def _Create(self, aModule: object, _aPath: str) -> object:
         return aModule.TMain(self.ApiCrawler)
+
+class TViewes(TPluginMVC):
+    def __init__(self, aDir: str):
+        super().__init__(aDir)
+        self.Name = 'view'
+
+    def _Create(self, aModule: object, _aPath: str) -> object:
+        return aModule

@@ -1,0 +1,17 @@
+{
+    "dir_route": "MVC/view",
+    "dir_root": "MVC/view",
+    "loader": {
+        "ctrl": {
+            "type": "fs",
+            "module": "Task.SrvModel.Api",
+            "class": "ApiModel"
+        },
+        "_ctrl": {
+           "type": "url",
+            "url": "http://localhost:8182/route",
+            "user": "user01",
+            "password": "passw01"
+        }
+    }
+}

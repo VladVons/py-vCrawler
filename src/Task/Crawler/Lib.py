@@ -6,7 +6,6 @@
 import os
 import re
 import gzip
-import asyncio
 from urllib.parse import urlparse
 import aiohttp
 from bs4 import BeautifulSoup
@@ -14,6 +13,9 @@ from protego import Protego
 #
 from Inc.Util.Obj import GetTree
 
+
+def DictToCookie(aDict) -> str:
+    return '; '.join([f'{Key}={Val}' for Key, Val in aDict.items()])
 
 def GetSoup(aData: str) -> BeautifulSoup:
     Res = BeautifulSoup(aData, 'lxml')
@@ -43,33 +45,26 @@ def IsMimeApp(aUrl: str) -> bool:
         Res = (Ext in Mime)
     return Res
 
-async def GetUrlData(aUrl: str) -> object:
-    async def _GetUrlData(aHeaders: dict):
-        async with aiohttp.ClientSession() as Session:
-            try:
-                async with Session.get(aUrl, headers=aHeaders) as Response:
-                    Data = await Response.read()
-                    Res = {'data': Data, 'status': Response.status}
-            except Exception as E:
-                Res = {'err': str(E), 'status': -1}
-            return Res
+async def GetUrlData(aUrl: str, aHeaders: dict = None) -> object:
+    Headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0',
+        'Accept-Language': 'uk'
+    }
 
-    Headers = [
-        {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0',
-            'Accept-Language': 'uk'
-        },
-        {
-            'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)',
-            'Accept-Language': 'uk'
-        }
-    ]
+    if (aHeaders):
+        for Key, Val in aHeaders.items():
+            if isinstance(Val, dict):
+                Val = DictToCookie(Val)
+            Headers[Key] = Val
 
-    for xHeader in Headers:
-        Res = await _GetUrlData(xHeader)
-        if (Res['status'] not in [403, 503]):
-            break
-        await asyncio.sleep(1.0)
+
+    async with aiohttp.ClientSession(headers=Headers, max_field_size=16384) as Session:
+        try:
+            async with Session.get(aUrl) as Response:
+                Data = await Response.read()
+                Res = {'data': Data, 'status': Response.status}
+        except Exception as E:
+            Res = {'err': str(E), 'status': -1}
     return Res
 
 async def InitRobots(aUrl: str, aCustom: str = '') -> Protego:

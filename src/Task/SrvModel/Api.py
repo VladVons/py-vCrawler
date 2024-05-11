@@ -3,6 +3,7 @@
 # License: GNU, see LICENSE for more details
 
 
+from Inc.Loader.Lang import TLoaderLangFs
 from Inc.Misc.Time import SecondsToDHMS_Str
 from Inc.Misc.Jinja import TFileSystemLoader, TEnvironment
 from Inc.Sql import TDbExecPool, TDbMeta, TDbPg
@@ -10,6 +11,7 @@ from Inc.Sql.ADb import TDbAuth
 from IncP.ApiBase import TApiBase
 from IncP.Plugins import TModels
 from IncP.Log import Log, TEchoDb
+import IncP.LibModel as Lib
 
 
 class TApiModel(TApiBase):
@@ -27,6 +29,13 @@ class TApiModel(TApiBase):
 
         self.Plugin = TModels(Conf['dir_route'], self)
         self.Helper = {'route': 'system', 'method': 'Api'}
+
+        Section = Conf['loader']['lang']
+        if (Section['type'] == 'fs'):
+            Def = Lib.GetDictDef(Section, ['dir'], ['MVC/lang'])
+            self.Lang = TLoaderLangFs(*Def)
+        else:
+            raise ValueError()
 
     async def DbConnect(self):
         await self.DbMeta.Db.Connect()

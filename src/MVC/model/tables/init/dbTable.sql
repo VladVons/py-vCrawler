@@ -47,6 +47,7 @@ create table if not exists ref_site (
     urls_parse          int2 not null default 10,
     sleep_seconds       numeric(5,2) not null default 5,
     robots              text,
+    headers             json,
     note                varchar(16)
 );
 
