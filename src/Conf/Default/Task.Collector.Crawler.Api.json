@@ -1,9 +1,9 @@
 {
-    "dir_route": "MVC/crawler",
+    "dir_route": "MVC/Collector/crawler",
     "loader": {
         "model": {
             "type": "fs",
-            "module": "Task.SrvModel.Api",
+            "module": "Task.Collector.SrvModel.Api",
             "class": "ApiModel"
         },
         "_model": {

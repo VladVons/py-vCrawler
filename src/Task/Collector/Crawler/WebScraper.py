@@ -52,7 +52,8 @@ class TWebScraper():
             DataSize = 0
 
             Data = await GetUrlData(Rec.url, self.DblSite.Rec.headers)
-            #Data = await GetUrlData('https://compx.ua/videokarta-msi-rtx-4070-ti-super-16g-expert-rtx-4070-ti-super-16g-expert-2338771/')
+            #Url = 'https://exe.ua/ua?diagonal-monitora-235[0]=9477&sort=price&order=asc'
+            #Data = await GetUrlData(Url, self.DblSite.Rec.headers)
             # with open('debug.html', 'wb') as F:
             #     F.write(Data['data'])
 

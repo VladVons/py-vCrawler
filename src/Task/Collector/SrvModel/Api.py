@@ -30,13 +30,6 @@ class TApiModel(TApiBase):
         self.Plugin = TModels(Conf['dir_route'], self)
         self.Helper = {'route': 'system', 'method': 'Api'}
 
-        Section = Conf['loader']['lang']
-        if (Section['type'] == 'fs'):
-            Def = Lib.GetDictDef(Section, ['dir'], ['MVC/lang'])
-            self.Lang = TLoaderLangFs(*Def)
-        else:
-            raise ValueError()
-
     async def DbConnect(self):
         await self.DbMeta.Db.Connect()
         await self.DbMeta.Init()

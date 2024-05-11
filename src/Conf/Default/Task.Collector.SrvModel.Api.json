@@ -1,16 +1,10 @@
 {
-    "dir_route": "MVC/model",
+    "dir_route": "MVC/Collector/model",
     "db_auth" : {
         "host": "10.10.1.1",
         "port": 5433,
         "database": "crawler2",
         "user": "admin",
         "password": "098iop"
-    },
-    "loader": {
-        "lang": {
-            "type": "fs",
-            "dir": "MVC/lang"
-        }
     }
 }

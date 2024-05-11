@@ -4,7 +4,7 @@
 
 
 from Inc.Misc.Profiler import TTimerLog
-from Task.Crawler.Api import TApiCrawler
+from Task.Collector.Crawler.Api import TApiCrawler
 import IncP.LibCrawler as Lib
 
 

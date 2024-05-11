@@ -1,0 +1,9 @@
+{
+    "dir_route": "MVC/Search/ctrl",
+    "loader": {
+        "lang": {
+            "type": "fs",
+            "dir": "MVC/Search/lang"
+        }
+    }
+}

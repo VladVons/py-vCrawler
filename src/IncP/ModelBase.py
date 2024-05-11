@@ -3,7 +3,7 @@
 # License: GNU, see LICENSE for more details
 
 
-from Task.SrvModel.Api import TApiModel
+from Task.Collector.SrvModel.Api import TApiModel
 import IncP.LibCrawler as Lib
 
 

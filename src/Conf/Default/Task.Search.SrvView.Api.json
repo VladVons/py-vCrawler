@@ -1,10 +1,10 @@
 {
-    "dir_route": "MVC/view",
-    "dir_root": "MVC/view",
+    "dir_route": "MVC/Search/view",
+    "dir_root": "MVC/Search/view",
     "loader": {
         "ctrl": {
             "type": "fs",
-            "module": "Task.SrvModel.Api",
+            "module": "Task.Collector.SrvModel.Api",
             "class": "ApiModel"
         },
         "_ctrl": {
