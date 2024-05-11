@@ -36,7 +36,7 @@ class TWebScraper():
 
             xUrl = xUrl.rsplit('#', maxsplit=1)[0]
             xUrl = urljoin(self.UrlRoot, xUrl)
-            Res.add(xUrl)
+            Res.add(xUrl.rstrip('/'))
         return Res
 
     async def Exec(self) -> dict:
