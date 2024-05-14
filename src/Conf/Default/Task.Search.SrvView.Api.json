@@ -4,14 +4,8 @@
     "loader": {
         "ctrl": {
             "type": "fs",
-            "module": "Task.Collector.SrvModel.Api",
-            "class": "ApiModel"
-        },
-        "_ctrl": {
-           "type": "url",
-            "url": "http://localhost:8182/route",
-            "user": "user01",
-            "password": "passw01"
+            "module": "Task.Search.SrvCtrl.Api",
+            "class": "ApiCtrl"
         }
     }
 }

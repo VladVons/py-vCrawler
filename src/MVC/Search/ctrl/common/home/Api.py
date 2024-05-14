@@ -3,8 +3,8 @@
 # License: GNU, see LICENSE for more details
 
 
-from IncP.ModelBase import TModelBase, Lib
+from IncP.CtrlBase import TCtrlBase
 
-class TMain(TModelBase):
-    async def Main(self, aData):
+class TMain(TCtrlBase):
+    async def Main(self, aData = None):
         return {'t1': 123}

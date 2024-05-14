@@ -39,6 +39,15 @@ class TCrawlers(TPluginMVC):
     def _Create(self, aModule: object, _aPath: str) -> object:
         return aModule.TMain(self.ApiCrawler)
 
+class TCtrls(TPluginMVC):
+    def __init__(self, aDir: str, aApi):
+        super().__init__(aDir)
+        self.Name = 'ctrl'
+        self.ApiCtrl = aApi
+
+    def _Create(self, aModule: object, _aPath: str) -> object:
+        return aModule.TMain(self.ApiCtrl)
+
 class TViewes(TPluginMVC):
     def __init__(self, aDir: str):
         super().__init__(aDir)

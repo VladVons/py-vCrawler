@@ -3,6 +3,8 @@
 # License: GNU, see LICENSE for more details
 
 
+import re
+#
 from Inc.Sql.DbModel import TDbModel
 import IncP.LibModel as Lib
 
@@ -15,5 +17,18 @@ class TMain(TDbModel):
             {
                 'aSiteId': aSiteId,
                 'Skus': Skus
+            }
+        )
+
+    async def Get_Products_Search(self, aFilter: str, aOrder: str, aLimit: int = 100, aOffset: int = 0) -> dict:
+        FilterRe = [f"('%{x}%')" for x in re.split(r'\s+', aFilter)]
+        return await self.ExecQuery(
+            'fmtGet_Products_Search.sql',
+            {
+                'aFilter': aFilter,
+                'FilterRe': ', '.join(FilterRe),
+                'aOrder': aOrder,
+                'aLimit': aLimit,
+                'aOffset': aOffset
             }
         )

@@ -52,6 +52,7 @@ class TFormBase(Form):
         return await self.ExecCtrl(self.out.route, {'method': 'Main'})
 
     async def ExecCtrl(self, aRoute: str, aData: dict = None) -> dict:
+        aData['type'] = 'form'
         aData['param'] = {
             'aData': {
                 'post': self.out.data,
@@ -60,7 +61,7 @@ class TFormBase(Form):
         }
 
         # debug view
-        return await self.Ctrl.Get('ctrl/' + aRoute, aData)
+        return await self.Ctrl.Get(aRoute, aData)
 
     async def PostToData(self) -> bool:
         if (self.Request.method.upper() == 'POST'):

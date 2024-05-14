@@ -1,9 +1,14 @@
 {
     "dir_route": "MVC/Search/ctrl",
     "loader": {
-        "lang": {
+        "model": {
             "type": "fs",
-            "dir": "MVC/Search/lang"
+            "module": "Task.Collector.SrvModel.Api",
+            "class": "ApiModel"
         }
+    },
+    "lang": {
+        "type": "fs",
+        "dir": "MVC/Search/lang"
     }
 }

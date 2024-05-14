@@ -99,3 +99,9 @@ create table if not exists ref_product (
     stock               boolean default true,
     url_id              int not null unique references ref_url(id) on delete cascade
 );
+
+create table if not exists ref_product_bind (
+    product_id          int not null unique references ref_product(id) on delete cascade,
+    product_id          int not null references ref_product(id) on delete cascade,
+    similarity          smallint
+);

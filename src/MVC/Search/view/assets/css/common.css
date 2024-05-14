@@ -1,0 +1,277 @@
+:root {
+    --textSizeTitle: 1.5em;
+    --font-roboto: normal 20px / 1.4em Roboto Condensed;
+
+    --colorBgBody: rgb(240, 240, 250);
+    --colorBgBtn: red;
+    --colorBgFooter: #2e3d4f;
+    --colorBgMaster: White;
+    --colorBgSlave: LightGray;
+
+    --colorChanged: LightGreen;
+    --colorDisabled: Gray;
+    --colorReadonly: #f0f0f0;
+}
+
+/*-- overwrites --*/
+body {
+
+/*   background-image: url("../img/pxfuel.jpg");*/
+     background-color: var(--colorBgBody);
+}
+
+/*body * {
+  font: var(--font-roboto);
+}
+*/
+
+h1 {
+    font-size: 1.7em;
+}
+
+h2 {
+  font-size: 1.28em;
+}
+
+h3 {
+  font-size: 1.02em;
+}
+
+h4 {
+  font-size: 0.81em;
+}
+
+h5 {
+  font-size: 0.65em;
+}
+
+h6 {
+  font-size: 0.52em;
+}
+
+.btn {
+    font-weight: 600;
+    border-radius: 10px;
+    color: white;
+    background: var(--colorBgFooter);
+
+}
+
+
+
+/*-- backgrounds --*/
+.vBgMaster {
+    background-color: var(--colorBgMaster)
+}
+
+.vBgSlave {
+    background-color: var(--colorBgSlave)
+}
+
+.vBgBtn {
+    background-color: var(--colorBgBtn)
+}
+
+/*-- vItemOdd --*/
+.vItemOdd {
+    padding: 5px;
+    margin-left: 10px
+}
+
+.vItemOdd:nth-child(odd) {
+    background-color: var(--colorBgBody);
+}
+
+.vItemOdd:last-child {
+    padding-bottom: 30px;
+}
+
+/*-- accordion --*/
+.accordion-button:not(.collapsed) {
+    background-color: var(--colorBgMaster);
+}
+
+.accordion-button {
+    padding: 0.25rem;
+}
+
+/*-- misc --*/
+.vFooter {
+  background: #1E2F4F;
+  color:white;
+}
+
+.vFooter a {
+    color:white;
+}
+
+.vTitle {
+    text-align: center;
+    font-size: var(--textSizeTitle);
+    font-weight: bolder;
+}
+
+.vInputQty {
+    margin: auto;
+    width: 70px;
+}
+
+.vPrice {
+    font-size: 1em;
+    float: right;
+    color:red;
+}
+
+.vPriceBig {
+    font-size: 2em;
+    font-weight: bolder;
+}
+
+.vPriceDis {
+    text-decoration: line-through
+}
+
+.vKeyValue {
+    display: grid;
+    grid-template-columns: 30% auto;
+    gap: 3px;
+}
+
+.vFeatures p {
+    width: 100%;
+    padding: 5px;
+    margin: 0;
+    /*
+    display: inline-block;
+    -margin-bottom: 2em;
+    -line-height: 0.8;
+    */
+}
+
+.vFeatures p:nth-child(odd) {
+    background-color: var(--colorBgBody);
+}
+
+.vImgCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+    /*overflow: hidden;*/
+}
+
+.vGrayscale {
+    filter: grayscale(100%);
+}
+
+/*-- card --*/
+.card-header {
+    text-align: center;
+    border-bottom: none;
+}
+.card-body {
+    text-align: center;
+    border-top: none;
+    border-bottom: none;
+}
+.card-body a, .card-footer a {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    color:#4B4B4B;
+}
+.card-footer {
+    text-align: center;
+    border-top: none;
+}
+.card-footer .fw-bold {
+    color:#BD5959;
+}
+
+.card-title h3 a {
+    font-family: 'Ubuntu', sans-serif;
+    color: #292929;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.vCard img {
+    max-height: 210px;
+    max-width: 100%;
+}
+
+.vCard .card-header{
+    height: 200px;
+    background-color: var(--colorBgMaster);
+}
+
+.vCard .card-body {
+    height: 100px;
+    background-color: #F8FAF3;
+}
+
+.vCard .card-footer {
+    background-color: var(--colorBgMaster);
+    display: flex;
+    flex-direction: column;
+}
+
+/*-- product --*/
+.vProduct .vProductThumbs {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+ }
+
+ .vProduct .img-thumbnail {
+    height: 120px;
+    max-width: 50%;
+}
+
+.vProduct .vProductImg a {
+    height: 310px;
+    display: flex;
+    justify-content: center;
+ }
+
+.vProduct #vMainImg {
+    max-height: 300x;
+    max-width: 100%;
+}
+
+/*-- inputs --*/
+.vChanged {
+    border: 5px solid var(--colorChanged);
+}
+
+.vDisabled {
+    color: var(--colorDisabled);
+}
+
+.vReadonly input,
+.vReadonly textarea {
+    resize: none;
+    pointer-events: none;
+    background-color: var(--colorReadonly);
+}
+
+/* Breadcrumbs */
+div.breadcrumbs{
+    margin-top: 5px;
+}
+div.breadcrumbs a{
+    text-decoration: none;
+    color:#2e3d4f;
+    font-family: Roboto Mono;
+}
+
+/*buyButton*/
+.buyButton{
+    border-radius: 27px;
+    border: 1px solid #CCC37E;
+    background-color:#F7F5E2;
+}
+.buyButton:hover{
+     background-color: #FBEA8E;
+}

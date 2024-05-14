@@ -87,11 +87,14 @@ class TApiView(TApiBase):
 
     async def ResponseForm(self, aRequest: web.Request, aQuery: dict) -> web.Response:
         Data = await self.GetFormData(aRequest, aQuery)
-        if (Data['status_code'] in [301, 302]):
-            raise web.HTTPFound(location = Data['status_value'])
+        if ('err' in Data):
+            if (Data['status_code'] in [301, 302]):
+                raise web.HTTPFound(location = Data['status_value'])
+            else:
+                Res = await self.ResponseFormInfo(aRequest, Data['err'], Data['status_code'])
         else:
             Res = web.Response(text = Data['data'], content_type = 'text/html', status = Data['status_code'])
-            return Res
+        return Res
 
     async def ResponseFormInfo(self, aRequest: web.Request, aText: str, aStatus: int = 200) -> web.Response:
         if (self.Tpl.SearchModule(self.Conf.form_info)):
