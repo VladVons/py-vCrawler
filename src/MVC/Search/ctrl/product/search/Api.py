@@ -28,7 +28,9 @@ class TMain(TCtrlBase):
                 }
             }
         )
-        if (Dbl):
-            pass
+        if (not Dbl):
+            return {'status_code': 404}
 
-        return {'t2': 1234}
+        return {
+            'dbl_products': Dbl.Export()
+        }

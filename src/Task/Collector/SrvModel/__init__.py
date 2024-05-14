@@ -7,7 +7,7 @@ from .Main import TSrvModel
 
 
 def Main(aConf) -> tuple:
-    SrvConf = aConf.get('srv_conf')
+    SrvConf = aConf.get('srv_conf', {})
     Obj = TSrvModel(TSrvConf(**SrvConf))
     if (aConf.get('fs_api')):
         Res = (Obj, Obj.RunApi())

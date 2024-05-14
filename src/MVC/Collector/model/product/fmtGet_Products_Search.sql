@@ -3,17 +3,20 @@
 
 select
     count(*) over() as total,
-    rp.title,
+    rp.*,
+    ru.url 
 from
     ref_product rp
+join
+    ref_url ru on 
+    (ru.id = rp.url_id)
 where
     (
-        (rp.title ilike all (values {{FilterRe}})) or
-        (rp.category ilike all (values {{FilterRe}}))
+        (rp.title ilike all (values {{FilterRe}}))
     )
 order by
     title
 limit
-    25
+    {{aLimit}}
 offset
-    0
+    {{aOffset}}
