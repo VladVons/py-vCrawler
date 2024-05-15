@@ -20,7 +20,7 @@ class TMain(TCtrlBase):
         Dbl = await self.ExecModelImport(
             'product',
             {
-                'method': 'Get_Products_Search1',
+                'method': 'Get_Products_Search2',
                 'param': {
                     'aFilter': aSearch,
                     'aOrder': f'{aSort} {aOrder}',

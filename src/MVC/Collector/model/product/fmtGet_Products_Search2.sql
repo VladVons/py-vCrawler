@@ -1,5 +1,5 @@
--- fmtGet_Products_Search1.sql
--- in: FilterRe, aOrder, aLimit, aOffset
+-- fmtGet_Products_Search2.sql
+-- in: Filter, aOrder, aLimit, aOffset
 
 with wt1 as(
     select
@@ -9,7 +9,7 @@ with wt1 as(
         ref_product rp
     where
         (
-            (rp.title ilike all (values {{FilterRe}}))
+            tsv_title @@ plainto_tsquery('{{aFilter}}')
         )
     order by
         price

@@ -97,8 +97,11 @@ create table if not exists ref_product (
     price               decimal(8, 2),
     price_old           decimal(8, 2),
     stock               boolean default true,
+    tsv_title           tsvector generated always as (to_tsvector('russian', regexp_replace(title, '[-/\.\)\)]', ' ', 'g'))) stored
     url_id              int not null unique references ref_url(id) on delete cascade
 );
+--alter table ref_product add column tsv_title tsvector generated always as (to_tsvector('russian', regexp_replace(title, '[-/\.\)\)]', ' ', 'g'))) stored;
+create index ref_product_tvs_idx on ref_product using gin (tsv_title);
 
 create table if not exists ref_product_bind (
     product_id          int not null unique references ref_product(id) on delete cascade,
