@@ -13,7 +13,7 @@
   <div class="result">
     <h4>{{Rec.create_date}} {{Rec.url|truncate(40, True, '...')}}</h4>
     <h3><a href="{{Rec.url}}">{{Rec.title |truncate(50, True, '...')}}</a></h3>
-    <p>{{ "{:,}".format(Rec.price|int) }} {{Rec.price_old}} {% if Rec.stock %} {{lang.available}} {% endif %}</p>
+    <p>{{ "{:,}".format(Rec.price|int) }} грн {% if Rec.price_old and Rec.price_old != Rec.price %} ({{Rec.price_old}}) {% endif %} {% if Rec.stock %} {{lang.available}} {% endif %}</p>
   </div>
   {% endfor %}
 
