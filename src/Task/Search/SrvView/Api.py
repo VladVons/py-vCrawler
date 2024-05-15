@@ -90,8 +90,7 @@ class TApiView(TApiBase):
         if ('err' in Data):
             if (Data['status_code'] in [301, 302]):
                 raise web.HTTPFound(location = Data['status_value'])
-            else:
-                Res = await self.ResponseFormInfo(aRequest, Data['err'], Data['status_code'])
+            Res = await self.ResponseFormInfo(aRequest, Data['err'], Data['status_code'])
         else:
             Res = web.Response(text = Data['data'], content_type = 'text/html', status = Data['status_code'])
         return Res

@@ -1,4 +1,19 @@
 {% extends '_inc/layout1.j2' %}
 
-<h2>{{t1}}</h2>
-lang: {{lang.test}}
+{% block head %}
+<style>
+  .result {
+    margin-bottom: 20px;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  {% for Rec in TDbList().Import(dbl_products) %}
+  <div class="result">
+    <h4>{{Rec.url|truncate(40, True, '...')}}</h4>
+    <h3><a href="{{Rec.url}}">{{Rec.title}}</a></h3>
+    <p>{{Rec.price|int}} {{Rec.price_old}} {{Rec.stock}}</p>
+  </div>
+  {% endfor %}
+{% endblock %}
