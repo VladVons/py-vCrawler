@@ -57,6 +57,7 @@ class TFormBase(Form):
             'aData': {
                 'post': self.out.data,
                 'query': dict(self.Request.query) | self.out.query,
+                'path_qs': self.Request.path_qs,
             }
         }
 

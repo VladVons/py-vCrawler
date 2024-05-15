@@ -10,7 +10,7 @@ class TMain(TCtrlBase):
         aSearch, aSort, aOrder, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
             ('q', 'sort', 'order', 'page', 'limit'),
-            ('', ('sort_order, title', 'title', 'price'), ('asc', 'desc'), 1, 25)
+            ('', ('sort_order, title', 'title', 'price'), ('asc', 'desc'), 1, 10)
         )
 
         if (not Lib.IsDigits([aPage, aLimit])):
@@ -19,7 +19,7 @@ class TMain(TCtrlBase):
         Dbl = await self.ExecModelImport(
             'product',
             {
-                'method': 'Get_Products_Search',
+                'method': 'Get_Products_Search1',
                 'param': {
                     'aFilter': aSearch,
                     'aOrder': f'{aSort} {aOrder}',
@@ -31,6 +31,12 @@ class TMain(TCtrlBase):
         if (not Dbl):
             return {'status_code': 404}
 
+        Pagination = Lib.TPagination(aLimit, aData['path_qs'])
+        PData = Pagination.Get(Dbl.Rec.total, aPage)
+        DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
+
         return {
-            'dbl_products': Dbl.Export()
+            'dbl_products': Dbl.Export(),
+            'dbl_pagenation': DblPagination.Export(),
+            'search': aSearch
         }

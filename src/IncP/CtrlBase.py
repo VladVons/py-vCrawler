@@ -7,7 +7,7 @@ from Inc.Misc.Cache import TCacheMem
 from Inc.Misc.Profiler import TTimerLog
 from Inc.Loader.Lang import TLoaderLang
 from Task.Search.SrvCtrl.Api import TApiCtrl
-import IncP.LibModel as Lib
+import IncP.LibCtrl as Lib
 
 
 class TCtrlBase():

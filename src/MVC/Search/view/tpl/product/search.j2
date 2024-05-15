@@ -11,9 +11,12 @@
 {% block content %}
   {% for Rec in TDbList().Import(dbl_products) %}
   <div class="result">
-    <h4>{{Rec.url|truncate(40, True, '...')}}</h4>
-    <h3><a href="{{Rec.url}}">{{Rec.title}}</a></h3>
-    <p>{{Rec.price|int}} {{Rec.price_old}} {{Rec.stock}}</p>
+    <h4>{{Rec.create_date}} {{Rec.url|truncate(40, True, '...')}}</h4>
+    <h3><a href="{{Rec.url}}">{{Rec.title |truncate(50, True, '...')}}</a></h3>
+    <p>{{ "{:,}".format(Rec.price|int) }} {{Rec.price_old}} {% if Rec.stock %} {{lang.available}} {% endif %}</p>
   </div>
   {% endfor %}
+
+  {% include '../_inc/pagination.j2' %}
 {% endblock %}
+

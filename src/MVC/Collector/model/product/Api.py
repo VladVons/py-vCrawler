@@ -20,10 +20,10 @@ class TMain(TDbModel):
             }
         )
 
-    async def Get_Products_Search(self, aFilter: str, aOrder: str, aLimit: int = 100, aOffset: int = 0) -> dict:
+    async def Get_Products_Search1(self, aFilter: str, aOrder: str, aLimit: int = 100, aOffset: int = 0) -> dict:
         FilterRe = [f"('%{x}%')" for x in re.split(r'\s+', aFilter)]
         return await self.ExecQuery(
-            'fmtGet_Products_Search.sql',
+            'fmtGet_Products_Search1.sql',
             {
                 'aFilter': aFilter,
                 'FilterRe': ', '.join(FilterRe),
