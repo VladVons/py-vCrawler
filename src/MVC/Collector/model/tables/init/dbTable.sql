@@ -100,7 +100,7 @@ create table if not exists ref_product (
     tsv_title           tsvector generated always as (to_tsvector('russian', regexp_replace(title, '[-/\.\)\)]', ' ', 'g'))) stored
     url_id              int not null unique references ref_url(id) on delete cascade
 );
---alter table ref_product add column tsv_title tsvector generated always as (to_tsvector('russian', regexp_replace(title, '[-/\.\)\)]', ' ', 'g'))) stored;
+alter table ref_product add column tsv_title tsvector generated always as (to_tsvector('simple', regexp_replace(title, '[-/]', ' ', 'g'))) stored;
 create index ref_product_tvs_idx on ref_product using gin (tsv_title);
 
 create table if not exists ref_product_bind (

@@ -29,8 +29,23 @@ class TMain(TCtrlBase):
                 }
             }
         )
+
         if (not Dbl):
-            return {'status_code': 404}
+            Dbl = await self.ExecModelImport(
+                'product',
+                {
+                    'method': 'Get_Products_Search1',
+                    'param': {
+                        'aFilter': aSearch,
+                        'aOrder': f'{aSort} {aOrder}',
+                        'aLimit': aLimit,
+                        'aOffset': (aPage - 1) * aLimit
+                    }
+                }
+            )
+
+            if (not Dbl):
+                return {'status_code': 404}
 
         Pagination = Lib.TPagination(aLimit, aData['path_qs'])
         PData = Pagination.Get(Dbl.Rec.total, aPage)

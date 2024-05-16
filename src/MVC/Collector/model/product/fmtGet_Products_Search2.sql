@@ -1,5 +1,6 @@
 -- fmtGet_Products_Search2.sql
 -- in: Filter, aOrder, aLimit, aOffset
+-- https://www.crunchydata.com/blog/postgres-full-text-search-a-search-engine-in-a-database
 
 with wt1 as(
     select

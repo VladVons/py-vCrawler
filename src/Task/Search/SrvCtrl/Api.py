@@ -29,7 +29,11 @@ class TApiCtrl(TApiBase):
         Type = aData.get('type')
         if (Type == 'form'):
             Res = {}
-            await self.Lang.Add('ua', aRoute, 'tpl')
+
+            Routes = Lib.DeepGetByList(aData, ['param', 'aData', 'extends'], [])
+            Routes.append(aRoute)
+            for xRoute in Routes:
+                await self.Lang.Add('ua', xRoute, 'tpl')
             Lang = self.Lang.Join()
             Res['lang'] = Lang
 

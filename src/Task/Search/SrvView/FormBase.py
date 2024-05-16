@@ -48,6 +48,17 @@ class TFormBase(Form):
     async def _DoRender(self):
         pass
 
+    def _GetTplExtends(self, aRoute: str) -> list:
+        File = self.Tpl.SearchModule(aRoute)
+        if (File):
+            Source = self.Tpl.Env.loader.LoadFile(File)
+            Macro = self.Tpl.ReMacro.findall(Source)
+            return [
+                Val.replace('.j2', '')
+                for Key, Val in Macro
+                if Key == 'extends'
+            ]
+
     async def ExecCtrlDef(self) -> dict:
         return await self.ExecCtrl(self.out.route, {'method': 'Main'})
 
@@ -58,6 +69,7 @@ class TFormBase(Form):
                 'post': self.out.data,
                 'query': dict(self.Request.query) | self.out.query,
                 'path_qs': self.Request.path_qs,
+                'extends': self._GetTplExtends(aRoute)
             }
         }
 
