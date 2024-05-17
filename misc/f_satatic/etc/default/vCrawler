@@ -1,0 +1,6 @@
+# defaults for /etc/systemd/system/vCrawler
+
+#Env_SmtpUser=xxx
+#Env_SmtpPassw=xxx
+
+PYTHONPYCACHEPREFIX=/tmp/__pycache__

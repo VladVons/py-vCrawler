@@ -7,7 +7,9 @@ create or replace function ref_site_fai() returns trigger
 as $$
 begin
     insert into ref_url (site_id, url)
-    values (new.id, new.url);
+    values (new.id, new.url)
+    on conflict (url, site_id) do nothing;
+
     return new;
 end $$ language plpgsql;
 

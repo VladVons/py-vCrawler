@@ -4,8 +4,14 @@
 # sudo apt install python3-pip python3-dev gcc libpq-dev libffi-dev --no-install-recommends
 
 aiopg 
-aiohttp 
+aiohttp
+bs4
+lxml
 jinja2 
 protego
 psutil
 pylint
+#
+aiohttp_session
+cryptography
+wtforms

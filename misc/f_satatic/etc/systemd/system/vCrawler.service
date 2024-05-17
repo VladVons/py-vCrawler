@@ -1,0 +1,32 @@
+# Created: 2024.05.17
+# Author: Vladimir Vons <VladVons@gmail.com>
+#
+# /etc/systemd/system/vCrawler.service
+# https://www.codementor.io/@ufukafak/how-to-run-a-python-script-in-linux-with-systemd-1nh2x3hi0e
+#
+#systemctl daemon-reload
+#systemctl enable vCrawler.service
+#systemctl start vCrawler.service
+
+
+[Unit]
+Description=vCrawler service
+After=network.target
+
+[Service]
+Type=simple
+
+EnvironmentFile=/etc/default/vCrawler
+#Environment="Env_SmtpUser="ua0976646510"
+
+WorkingDirectory=/usr/lib/vCrawler/src
+User=vladvons
+
+#ExecStart=/bin/bash -c './vCrawler.sh'
+ExecStart=/usr/bin/python3 -B vCrawler.py
+
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
