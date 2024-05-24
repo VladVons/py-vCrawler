@@ -34,6 +34,9 @@ class TMain(TDbModel):
         )
 
     async def Get_Products_Search2(self, aFilter: str, aOrder: str, aLimit: int = 100, aOffset: int = 0) -> dict:
+        aFilter = aFilter.replace('-', ' ').replace('/', ' ').strip()
+        aFilter = re.sub(r'\s+', '&', aFilter)
+
         return await self.ExecQuery(
             'fmtGet_Products_Search2.sql',
             {

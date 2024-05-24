@@ -1,1 +1,5 @@
 https://www.geeksforgeeks.org/how-to-select-the-last-records-in-a-one-to-many-relationship-using-sql-server/
+
+select * from pg_ts_config;
+
+

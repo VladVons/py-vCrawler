@@ -24,8 +24,9 @@ create or replace function hist_url_fai() returns trigger
 as $$
 begin
     insert into ref_product
-        (url_id, sku, mpn, brand, title, category, image, stock, price, price_old)
+        (update_date, url_id, sku, mpn, brand, title, category, image, stock, price, price_old)
     values (
+        now(),
         new.url_id,
         new.parsed_data->>'sku',
         left(new.parsed_data->>'mpn', 24),
@@ -39,6 +40,7 @@ begin
     )
     on conflict (url_id) do update
     set
+        update_date = now(),
         sku = excluded.sku,
         mpn = excluded.mpn,
         brand = excluded.brand,
