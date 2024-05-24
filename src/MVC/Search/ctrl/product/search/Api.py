@@ -44,15 +44,15 @@ class TMain(TCtrlBase):
                 }
             )
 
-            if (not Dbl):
-                return {'status_code': 404}
+        Res = {'search': aSearch}
+        if (not Dbl):
+            Res['status_code'] = 404
+            return Res
 
         Pagination = Lib.TPagination(aLimit, aData['path_qs'])
         PData = Pagination.Get(Dbl.Rec.total, aPage)
         DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
 
-        return {
-            'dbl_products': Dbl.Export(),
-            'dbl_pagenation': DblPagination.Export(),
-            'search': aSearch
-        }
+        Res['dbl_products'] = Dbl.Export()
+        Res['dbl_pagenation'] = DblPagination.Export()
+        return Res
