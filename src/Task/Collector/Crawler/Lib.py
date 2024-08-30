@@ -73,18 +73,23 @@ async def InitRobots(aUrl: str, aCustom: str = '') -> Protego:
     UrlData = await GetUrlData(Url)
     if (UrlData['status'] == 200):
         Content = UrlData['data'].decode()
-        if (aCustom):
-            Lines = Content.splitlines()
-            ArrAgent = (i for i, line in enumerate(Lines) if line.lower().strip() == 'user-agent: *')
-            IdxPos = next(ArrAgent, None)
-            if (IdxPos is not None):
-                for Idx, x in enumerate(aCustom.split('\n')):
-                    Rule = x.strip()
-                    if (Rule):
-                        Lines.insert(IdxPos + 1 + Idx, Rule)
-                Content = '\n'.join(Lines)
     else:
         Content = ''
+
+    if (aCustom):
+        Lines = Content.splitlines()
+        ArrAgent = (i for i, line in enumerate(Lines) if line.lower().strip() == 'user-agent: *')
+        IdxPos = next(ArrAgent, None)
+        if (IdxPos is None):
+            Lines.append('user-agent: *')
+            IdxPos = len(Lines)
+
+        for Idx, x in enumerate(aCustom.split('\n')):
+            Rule = x.strip()
+            if (Rule):
+                Lines.insert(IdxPos + 1 + Idx, Rule)
+        Content = '\n'.join(Lines)
+
     return Protego.parse(content=Content)
 
 RE_cdata = re.compile(r'<!\[CDATA\[(.*?)\]\]>', re.IGNORECASE)
