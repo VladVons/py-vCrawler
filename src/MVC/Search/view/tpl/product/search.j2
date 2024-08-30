@@ -1,9 +1,18 @@
 {% extends '_inc/layout1.j2' %}
 
+{% set Fields = ['date', 'title', 'price', 'price', 'stock'] %}
+
 {% block head %}
 <style>
-  .result {
-    margin-bottom: 30px;
+  .grid-container {
+    display: grid;
+    grid-template-columns: 100px auto 90px 90px 50px;
+  }
+
+  .gitem {
+    border: 1px solid black;
+    padding: 0px;
+    text-align: left;
   }
 </style>
 {% endblock %}
@@ -12,15 +21,22 @@
 <div class="container pb-2">
   {% include '../_inc/pagination.j2' %}
 
-  {% for Rec in TDbList().Import(dbl_products) %}
-  <div class="result">
-    <h4>{{Rec.update_date.strftime('%Y-%m-%d')}} {{Rec.url|truncate(40, True, '...')}}</h4>
-    <h3><a href="{{Rec.url}}" title="{{Rec.title}}">{{Rec.title |truncate(50, True, '...')}}</a></h3>
-    <div>{{ "{:,}".format(Rec.price|int) }} грн {% if Rec.price_old and Rec.price_old != Rec.price %} ({{ "{:,}".format(Rec.price_old|int) }} грн) {% endif %} {% if Rec.stock %} {{lang.available}} {% endif %}</div>
+  <div class="grid-container">
+    {% for xFields in Fields %}
+      <div class="grid-item fw-bold">{{xFields}}</div>
+    {% endfor %}
+
+    {% for Rec in TDbList().Import(dbl_products) %}
+      <div class="gitem">{{Rec.update_date.strftime('%Y-%m-%d')}}</div>
+      <div class="gitem" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
+        <div title="{{Rec.url}}"><a href="{{Rec.url}}" target="_blank">{{Rec.url |truncate(50, True, '...')}}</a></div>
+      </div>
+      <div class="gitem">{{Rec.price}}</div>
+      <div class="gitem">{% if Rec.price_old and Rec.price_old != Rec.price %} {{"{:,}".format(Rec.price_old|int) }} {%endif %}</div>
+      <div class="gitem">{{Iif(Rec.stock, '+', '')}}</div>
+    {% endfor %}
   </div>
-  {% endfor %}
 
   {% include '../_inc/pagination.j2' %}
 </div>
 {% endblock %}
-
