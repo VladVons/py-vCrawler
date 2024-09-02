@@ -14,7 +14,7 @@
         }
     },
     "auth" : {
-        "login": "crawler01",
-        "passw": "passw01"
+        "login": "dev-vlad",
+        "passw": "polkmn"
     }
 }

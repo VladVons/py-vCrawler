@@ -47,15 +47,15 @@ class TWebScraper():
         TotalDataSize = 0
         TotalHref = set()
         for Rec in self.DblUrl:
-            ParsedData = None
             UrlCount = 0
             DataSize = 0
 
             Data = await GetUrlData(Rec.url, self.DblSite.Rec.headers)
-            #Url = 'https://exe.ua/ua?diagonal-monitora-235[0]=9477&sort=price&order=asc'
-            #Data = await GetUrlData(Url, self.DblSite.Rec.headers)
+
+            # Url = 'https://acomp.com.ua/ua/mysh-igrovaya-hator-pulsar-htm-313-bu/'
+            # Data = await GetUrlData(Url, self.DblSite.Rec.headers)
             # with open('debug.html', 'wb') as F:
-            #     F.write(Data['data'])
+            #      F.write(Data['data'])
 
             if (Data['status'] == 200):
                 DataSize = len(Data['data'])
@@ -79,15 +79,17 @@ class TWebScraper():
                             }
                         )
                 self.Scheme.Parse(Soup)
-                Price = self.Scheme.Pipe.get('product.pipe.price')
-                if (self.Scheme.Pipe.get('product.pipe.name')) and \
+                Pipe = self.Scheme.GetPipe()
+                Price = Pipe.get('price')
+                if (Pipe.get('name')) and \
                    (
                        (Price and isinstance(Price[0], (int, float)) and Price[0] > 0) or \
-                       (self.Scheme.Pipe.get('product.pipe.description') and self.Scheme.Pipe.get('product.pipe.features'))
+                       (Pipe.get('description') and Pipe.get('features'))
                    ):
                     TotalProduct += 1
-                    ParsedData = self.Scheme.Data['product']['pipe']
-                EscForSQL(ParsedData)
+                    EscForSQL(Pipe)
+                else:
+                    Pipe = None
 
             await self.Api.ExecModel(
                 'ctrl',
@@ -96,7 +98,7 @@ class TWebScraper():
                     'param': {
                         'aUrlId': Rec.url_id,
                         'aStatusCode': Data['status'],
-                        'aParsedData': ParsedData,
+                        'aParsedData': Pipe,
                         'aUrlCount': UrlCount,
                         'aDataSize': DataSize,
                         'aUserId': self.Api.DbConf.user_id
