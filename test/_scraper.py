@@ -9,7 +9,8 @@ from Inc.Scheme.Scheme import TScheme, TSoupScheme, TSchemeExt
 
 class TSchemer():
     def __init__(self, aSite: str):
-        self.Dir = f'sites/{aSite}'
+        self.Dir = f'sites/used/{aSite}'
+        assert os.path.exists(self.Dir), f'Directory does not exist {self.Dir}'
 
     @staticmethod
     def CheckFields(aFields: list[str], aData: dict):
