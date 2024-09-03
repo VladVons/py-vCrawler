@@ -49,10 +49,11 @@ class TWebScraper():
         for Rec in self.DblUrl:
             UrlCount = 0
             DataSize = 0
+            Pipe = None
 
             Data = await GetUrlData(Rec.url, self.DblSite.Rec.headers)
 
-            # Url = 'https://acomp.com.ua/ua/mysh-igrovaya-hator-pulsar-htm-313-bu/'
+            # Url = 'https://www.cibermag.com/ua/aksessuary/sumki/&sort_by=timestamp&sort_order=desc'
             # Data = await GetUrlData(Url, self.DblSite.Rec.headers)
             # with open('debug.html', 'wb') as F:
             #      F.write(Data['data'])
@@ -88,8 +89,6 @@ class TWebScraper():
                    ):
                     TotalProduct += 1
                     EscForSQL(Pipe)
-                else:
-                    Pipe = None
 
             await self.Api.ExecModel(
                 'ctrl',
