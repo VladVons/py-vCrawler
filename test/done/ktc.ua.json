@@ -1,0 +1,91 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-02 09:00:00",
+      "url": [
+        "https://ktc.ua/goods/noutbuk_2e_imaginary_15_nl50mu_15ua55_black.html"
+      ]
+    },
+    "pipe": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["gets", ["name"]],
+          ["strip"]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "price": [
+          ["check_or", [ 
+            [
+                ["get", ["offers"]],
+                ["list", [0]],
+                ["as_list", [
+                    [["get", ["price"]]],
+                    [["get", ["priceCurrency"]]]
+                ]]
+            ],
+            [
+              ["var_get", ["$root"]],
+              ["find", ["div", {"class": "product__price"}]],
+              ["text"],
+              ["price"]
+            ]
+          ]]
+        ],
+        "price_old": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product__price-promo"}]],
+          ["find", ["del"]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["get", ["offers"]],
+          ["list", [0]],
+          ["get", ["availability"]],
+          ["stock"]
+        ],
+        "images": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product__imagelist"}]],
+          ["find_all",["a", {"class": "product__imageitem"}]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]]
+        ],
+        "mpn": [
+          ["get", ["mpn"]]
+        ],
+        "sku": [
+          ["gets", ["sku"]]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["section", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -2]],
+          ["replace", ["КТС/", ""]]
+        ],
+        "description": [
+          ["get", ["description"]],
+          ["strip"]
+        ],
+        "features": [
+          ["gets", ["image.exifData"]],
+          ["list_map", [
+            ["dict_keyval2list", ["name", "value"]]
+          ]],
+          ["keyval2dict"]
+        ],
+        "related": [
+          ["get", ["isRelatedTo"]]
+        ]
+      }]
+    ]
+  }
+}

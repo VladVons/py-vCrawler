@@ -1,0 +1,75 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-19 09:00:00",
+      "url": [
+        "https://mta.ua/telefoni-ta-smartfoni/827116-smartfon-apple-iphone-15-pro-max-256gb-natural-titanium",
+        "https://mta.ua/processory/652243-processor-amd-ryzen-7-5800x3d-"
+      ]
+    },
+    "pipe": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["get", ["name"]]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "price": [
+          ["get", ["offers"]],
+          ["as_list", [
+            [["get", ["price"]], ["txt2float"]],
+            [["get", ["priceCurrency"]]]
+          ]]
+        ],
+        "price_old": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product__prices_small"}]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["get", ["offers"]],
+          ["get", ["availability"]],
+          ["stock"]
+        ],
+        "images": [
+          ["get", ["image"]]
+        ],
+        "sku": [
+          ["get", ["sku"]]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product__breadcrumbs"}]],
+          ["breadcrumb", [["li"], -2]],
+          ["replace", ["Інтернет-магазин МТА/", ""]]
+        ],
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product__description_content"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class":"product__characteristics_content"}]],
+          ["find_all", ["div", {"class": "product__characteristics_list_item"}]],
+          ["list_get_keyval", [0, 1]],
+          ["keyval2dict"]
+        ],
+        "-mpn": [
+        ],
+        "condition": [
+          ["get", ["itemCondition"]],
+          ["search_xlat", [["NewCondition", "UsedCondition"], ["нове", "вживане"]]]
+        ]
+       }]
+    ]
+  }
+}

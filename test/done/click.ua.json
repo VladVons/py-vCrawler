@@ -1,0 +1,85 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-16 12:12:57",
+      "url": [
+        "https://click.ua/shop/videokarta-amd-radeon-rx-7800-xt-16gb-gddr6-red-devil-powercolor-rx-7800-xt-16g-e-oc-p109094",
+        "https://click.ua/shop/noutbuk-chuwi-herobook-pro-win11-8-256-cwi515-cw-112272-gray-p116294"
+      ]
+    },
+    "pipe": [
+      ["find",["div", {"class": "content"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["find", ["div", {"class": "content__head --product"}]],
+          ["find", ["h1"]],
+          ["text"]
+        ],
+        "brand": [
+          ["find", ["div", {"itemprop": "brand"}]],
+          ["find", ["meta"]],
+          ["get", ["content"]]
+        ],
+        "price": [
+          ["find", ["div", {"class": "one-product__prices"}]],
+          ["find", ["b"]],
+          ["text"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "one-product__prices"}]],
+          ["find", ["del"]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "one-product__prices"}]],
+          ["find", ["div", {"class": "--green"}]],
+          ["text"],
+          ["stock"]
+        ],
+        "sku": [
+          ["find", ["div", {"class": "articul"}]],
+          ["text"],
+          ["split", [":", 1]]
+        ],
+        "image": [
+          ["ext_image"]
+        ],
+        "images": [
+          ["find", ["div", {"class": "one-product__img"}]],
+          ["find_all", ["img"]],
+          ["list_map", [
+            ["get", ["src"]]
+          ]]
+         ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["ul", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["li"], -2]],
+          ["replace", ["Головна/", ""]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "one-product__th"}]],
+          ["table"],
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "one-product__content"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "mpn": [
+          ["var_get", ["$name"]],
+          ["unbracket", ["()", -1]],
+          ["serial_check"]
+        ]
+      }]
+    ]
+  }
+}

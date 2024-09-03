@@ -1,0 +1,76 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-12 09:00:00",
+      "url": [
+        "https://telemart.ua/ua/products/asus-tuf-gaming-a15-fa506nf-hn004-90nr0je7-m00320-graphite-black",
+        "https://telemart.ua/ua/products/msi-geforce-gtx-1650-d6-ventus-xs-oc-4096mb-gtx-1650-d6-ventus-xs-ocv1"
+      ]
+    },
+    "pipe": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["gets", ["name"]],
+          ["strip"]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "price": [
+          ["get", ["offers"]],
+          ["list", [0]],
+          ["as_list", [
+            [["get", ["price"]]],
+            [["get", ["priceCurrency"]]]
+          ]]
+        ],
+        "stock": [
+          ["get", ["offers"]],
+          ["list", [0]],
+          ["get", ["availability"]],
+          ["stock"]
+        ],
+        "images": [
+          ["get", ["images"]]
+        ],
+        "mpn": [
+          ["var_get", ["$name"]],
+          ["unbracket", ["()", -1]],
+          ["serial_check"]
+        ],
+        "sku": [
+          ["gets", ["sku"]]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["nav", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
+        ],
+        "description": [
+          ["get", ["description"]],
+          ["strip"]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "card-block__specific"}]],
+          ["find_all", ["div", {"class": "card-block__specific-row"}]],
+          ["list_get_keyval", [0, 1]],
+          ["keyval2dict"]
+        ],
+        "ean": [
+          ["var_get", ["$features"]],
+          ["get", ["EAN"]]
+        ],
+        "condition": [
+          ["get", ["itemCondition"]],
+          ["search_xlat", [["NewCondition", "UsedCondition"], ["нове", "вживане"]]]
+        ]
+      }]
+    ]
+  }
+}

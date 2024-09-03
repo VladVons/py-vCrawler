@@ -1,0 +1,106 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-05-16 12:12:57",
+      "url": [
+        "https://largo.com.ua/pralna-mashina-avtomatichna-beko-wue6512ixbw",
+        "https://largo.com.ua/noutbuk-msi-thin-15-b12ve-thin-15-b12ve-1833xua"
+      ]
+    },
+    "pipe": [
+      ["find",["div", {"class": "product-details-top"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["find", ["h1", {"class": "product-title"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "price": [
+           ["check_or", [
+            [
+              ["find", ["div", {"class": "product-price"}]],
+              ["text"],
+              ["price"]
+            ],
+            [
+              ["find", ["div", {"class": "product-price"}]],
+              ["find", ["span", {"class": "new-price"}]],
+              ["text"],
+              ["price"]
+            ]
+           ]]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "product-price"}]],
+          ["find", ["span", {"class": "old-price"}]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["find_string", ["span", "Замовити"]],
+          ["val2bool"]
+        ],
+        "sku": [
+          ["find", ["span", {"class": "product-code-text"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "image": [
+          ["ext_image"]
+        ],
+        "images": [
+          ["find", ["div", {"id": "product-zoom-gallery"}]],
+          ["find_all", ["img"]],
+          ["list_map", [
+            ["get", ["src"]],
+            ["url_pad"]
+          ]]
+         ],
+        "category": [
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"id": "product-info-tab"}]],
+          ["find_all", ["div", {"class": "propertyRow"}]],
+          ["list_map", [
+             ["as_list", [
+              [["find", ["div", {"class": "propertyCal"}]], ["text"], ["strip"]],
+              [["find", ["div", {"class": "propertyVal"}]], ["text"], ["strip"]]
+            ]]
+          ]],
+          ["keyval2dict"]
+        ],
+        "_features": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"id": "product-info-tab"}]],
+          ["find_all", ["div", {"class": "content-item"}]],
+          ["list_map", [
+             ["as_list", [
+              [["find", ["span", {"class": "item-title"}]], ["text"], ["strip"]],
+              [["find", ["span", {"class": "item-text"}]], ["text"], ["strip"]]
+            ]]
+          ]],
+          ["keyval2dict"]
+        ],
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product-desc-content"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "brand": [
+          ["var_get", ["$_features"]],
+          ["get", ["Виробник:"]]
+        ],
+        "mpn": [
+          ["var_get", ["$_features"]],
+          ["get", ["Артикул:"]]
+        ]
+      }]
+    ]
+  }
+}

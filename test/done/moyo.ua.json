@@ -1,0 +1,93 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-16 12:12:57",
+      "url": [
+        "https://www.moyo.ua/noutbuk_asus_vivobook_pro_k6502vu-lp098_90nb1132-m004d0_/548753.html",
+        "https://www.moyo.ua/ua/noutbuk_asus_rog_strix_g16_2023_g614jv-n3446_90nr0c61-m00z90_/575754.html"
+      ]
+    },
+    "pipe": [
+      ["find",["div", {"id":"product-card"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["find",["h1", {"class": "product_name"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "brand": [
+          ["find", ["div", {"itemprop": "brand"}]],
+          ["find", ["meta"]],
+          ["get", ["content"]]
+        ],
+        "price": [
+          ["find", ["div", {"class": "product_price_current"}]],
+          ["text"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "product_price_oldprice"}]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "product_availability_status"}]],
+          ["text"],
+          ["stock"]
+        ],
+        "sku": [
+          ["find", ["div", {"class": "product_id"}]],
+          ["find", ["span"]],
+          ["text"]
+        ],
+        "image": [
+          ["ext_image"]
+        ],
+        "images": [
+          ["find", ["div", {"class": "product_image"}]],
+          ["find_all", ["div", {"class": "product_image_item-wrap"}]],
+          ["list_map", [
+            ["find", ["img", {"class": "lazy-interaction"}]],
+            ["get", ["src"]]
+          ]]
+         ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["ol", {"class":"breadcrumbs"}]],
+          ["breadcrumb", [["li"], -2]],
+          ["replace", ["Інтернет-магазин", ""]]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["table", {"class": "product_characteristics_list"}]],
+          ["table"],
+          ["keyval2dict"],
+          ["dict_key_del", [["Додатково"]]]
+        ],
+        "-mpn": [
+          ["var_get", ["$name"]],
+          ["unbracket", ["()", -1]],
+          ["serial_check"]
+        ],
+        "mpn": [
+          ["var_get", ["$features"]],
+          ["get", ["Артикул"]]
+        ],
+        "ean": [
+          ["var_get", ["$features"]],
+          ["get", ["Штрихкод"]]
+        ],
+        "pdf": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class":"product_instructions_item"}]],
+          ["find", ["a"]],
+          ["get", ["href"]]
+        ]
+      }]
+    ]
+  }
+}

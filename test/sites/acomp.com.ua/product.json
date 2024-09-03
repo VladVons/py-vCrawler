@@ -1,0 +1,71 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.08.31 09:00:00",
+      "url": [
+        "https://acomp.com.ua/ua/kompyuter-alphapc-t3100-i5-33308gbssd-120gb-bu/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "name": [
+          ["find", ["meta", {"property": "og:title"}]],
+          ["get", ["content"]],
+          ["replace", ["•", "/"]]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "stocks"}]],
+          ["text"],
+          ["stock"]
+        ],
+        "image": [
+          ["find", ["meta", {"property": "og:image"}]],
+          ["get", ["content"]]
+        ],
+        "images": [
+          ["find", ["div", {"class": "more-images"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]]
+        ],
+        "price": [
+          ["as_list", [
+            [
+              ["find", ["meta", {"property": "product:price:amount"}]],
+              ["get", ["content"]],
+              ["txt2float"]
+            ],
+            [
+              ["find", ["meta", {"property": "product:price:currency"}]],
+              ["get", ["content"]]
+            ]
+          ]]
+        ],
+        "category": [
+          ["find", ["meta", {"property": "product:category"}]],
+          ["get", ["content"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "pp_specs"}]],
+          ["table"],
+          ["keyval2dict", [0, 1]]
+       ],
+        "description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["find_all", ["p"]],
+          ["list_map", [
+            ["text"]
+          ]],
+          ["list_join", ["\n"]]
+       ],
+       "brand": [
+          ["find", ["meta", {"property": "product:brand"}]],
+          ["get", ["content"]]
+        ]
+      }]
+    ]
+  }
+}

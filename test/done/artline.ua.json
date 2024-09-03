@@ -1,0 +1,66 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.04.20 09:00:00",
+      "url": [
+        "https://artline.ua/uk/product/videokarta-geforce-rtx-4070-super-windforce-oc-12g-gv-n407swf3oc-12gd"
+      ]
+    },
+    "pipe": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "name": [
+          ["get", ["name"]]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "stock": [
+          ["gets", ["offers.availability"]],
+          ["stock"]
+        ],
+        "image": [
+          ["get", ["image"]]
+        ],
+        "images": [
+          ["get", ["image"]]
+        ],
+        "price": [
+          ["ext_price_app", [true]]
+        ],
+        "mpn": [
+          ["var_get", ["$name"]],
+          ["unbracket", ["()", -1]],
+          ["serial_check"]
+        ],
+        "sku": [
+          ["var_get", ["$root"]],
+          ["find", ["span", {"class": "product__code-item"}]],
+          ["text"],
+          ["strip"]
+        ],
+         "-category": [
+          ["-comment", ["todo"]]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["dl", {"class": "product__characteristics"}]],
+          ["find_all", [["dt", "dd"]]],
+          ["list_map", [
+            ["text"],
+            ["strip"]
+          ]],
+          ["list_group", [2, [0, 1]]],
+          ["keyval2dict"]
+       ],
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product__detail-item c-article__content null"}]],
+          ["text"],
+          ["strip"]
+       ]
+      }]
+    ]
+  }
+}

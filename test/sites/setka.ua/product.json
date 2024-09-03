@@ -1,0 +1,81 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-08-28 12:12:57",
+      "url": [
+        "https://setka.ua/c/kompyutery/kompyuter-hp-elitedesk-800-g2-sff-i5-6600-ddr4-16gb-ssd-240gb-utsenka"
+      ]
+    },
+    "pipe": [
+      ["find",["div", {"class": "product-container"}]],
+      ["as_dict", {
+        "name": [
+          ["var_get", ["$root"]],
+          ["find", ["h1", {"id": "pagetitle"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "price": [
+          ["var_get", ["$root"]],
+          ["as_list", [
+            [
+              ["find", ["meta", {"itemprop": "price"}]],
+              ["get", ["content"]],
+              ["txt2int"]
+            ],
+            [
+              ["find", ["meta", {"itemprop": "priceCurrency"}]],
+              ["get", ["content"]]
+            ]
+          ]]
+        ],
+        "stock": [
+          todo
+          ["find", ["div", {"class": "price_matrix_wrapper "}]],
+          ["val2bool"]
+        ],
+        "sku": [
+          ["find", ["span", {"class": "article__value"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "images": [
+          ["find", ["div", {"class": "product-detail-gallery__thmb-container"}]],
+          ["find_all", ["div", {"class": "product-detail-gallery__item"}]],
+          ["list_map", [
+            ["get", ["data-big"]],
+            ["url_pad"]
+          ]]
+         ],
+         "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+         ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "breadcrumbs"}]],
+          ["find_all", ["a", {"class": "breadcrumbs__link"}]],
+          ["list_map", [
+            ["text"]
+          ]],
+          ["list_join", ["/"]]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["table", {"class": "props_list"}]],
+          ["table"],
+          ["keyval2dict"]
+         ],
+        "description": [
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Бренд"]]
+        ],
+        "mpn": [
+        ]
+      }]
+    ]
+  }
+}

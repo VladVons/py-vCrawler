@@ -1,0 +1,82 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-19 09:00:00",
+      "url": [
+        "https://compx.ua/videokarta-sapphire-amd-radeon-rx-5700-xt-8gb-nitro-special-edition-11293-05-40g-8-hb-gddr6-256-byt-pci-express-4.0-x16b-v"
+      ]
+    },
+    "pipe": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["gets", ["name"]],
+          ["strip"]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "price": [
+          ["get", ["offers"]],
+          ["as_list", [
+            [["get", ["price"]], ["txt2float"]],
+            [["get", ["priceCurrency"]]]
+          ]]
+        ],
+        "price_old": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product-price-wrapper"}]],
+          ["find", ["p", {"class": "product__price--old"}]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["get", ["offers"]],
+          ["get", ["availability"]],
+          ["stock"]
+        ],
+        "-image": [
+        ],
+        "images": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product__gallery-main-slider"}]],
+          ["find_all", ["figure"]],
+          ["list_map", [
+            ["get", ["style"]],
+            ["unbracket", ["()", -1]],
+            ["strip", ["'"]]
+          ]]
+        ],
+        "mpn": [
+          ["get", ["model"]]
+        ],
+        "sku": [
+          ["gets", ["sku"]]
+        ],
+        "category": [
+          ["get", ["category"]]
+        ],
+        "description": [
+          ["get", ["description"]],
+          ["strip"]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product__specs-table"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "-ean": [
+        ],
+        "condition": [
+          ["gets", ["offers.itemCondition"]],
+          ["search_xlat", [["NewCondition", "UsedCondition"], ["нове", "вживане"]]]
+        ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.08.28 09:00:00",
+      "url": [
+        "https://pc.com.ua/ua/noutbuk-dell-latitude-5590-156-1920x1080-ips-intel-core-i7-8650u-4-8-yadra-po-19-42-ghz-16-gb-ddr4-256-gb-ssd-intel-uhd-graphics-620-webcam-win-10-pro-23015",
+        "https://pc.com.ua/ua/noutbuk-hp-probook-640-g2-14-fullhd-i5-6200u-ram-8gb-ssd-128gb"
+      ]
+    },
+    "pipe": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "name": [
+          ["get", ["name"]]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "stock": [
+          ["gets", ["offers.availability"]],
+          ["stock"]
+        ],
+        "image": [
+          ["get", ["image"]]
+        ],
+        "images": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"id": "productGallery"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]]
+        ],
+        "price": [
+          ["ext_price_app", [true]]
+        ],
+        "price_old": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "price-old"}]],
+          ["text"],
+          ["price"]
+        ],
+        "-mpn": [
+        ],
+        "-sku": [
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["ol", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "characteristics-wrap"}]],
+          ["find_all", ["div", {"class": "characteristics-item"}]],
+          ["list_map", [
+            ["text"],
+            ["split_cr"]
+          ]],
+          ["keyval2dict"]
+       ],
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["section", {"class": "page-content"}]],
+          ["text"],
+          ["strip"]
+       ]
+      }]
+    ]
+  }
+}

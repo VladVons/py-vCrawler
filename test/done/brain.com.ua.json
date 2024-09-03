@@ -1,0 +1,98 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-17 09:00:00",
+      "url": [
+        "https://brain.com.ua/ukr/Planshet_Samsung_SM-T225_32_Tab_A7_Lite_87_3_32Gb_LTE_Grey_SM-T225NZAASEK-p774612.html"
+      ]
+    },
+    "pipe": [
+      ["find", ["div", {"class": "br-body-product"}]],
+      ["as_dict", {
+         "title": [
+           ["ext_title"]
+         ],
+         "name": [
+          ["find", ["div", {"class": "title"}]],
+          ["find", ["h1"]],
+          ["text"],
+          ["strip"]
+        ],
+         "brand": [
+          ["find", ["div", {"itemprop": "brand"}]],
+          ["find", ["meta"]],
+          ["get", ["content"]]
+        ],
+        "stock": [
+          ["find", ["a", {"class": "btn-add-green"}]],
+          ["text"],
+          ["stock"]
+        ],
+        "image": [
+          ["ext_image"]
+        ],
+        "images": [
+          ["find_all", ["img", {"class": "br-main-img"}]],
+          ["list_map", [
+            ["get", ["src"]]
+          ]]
+        ],
+        "price": [
+          ["find", ["span", {"itemprop": "price"}]],
+          ["text"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "main-price-block"}]],
+          ["text"],
+          ["price_find"],
+          ["list", [0]],
+          ["price"]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["ul", {"class": "br-breadcrumbs-list"}]],
+          ["breadcrumb", [["a"], -1]],
+          ["replace", ["Інтернет-магазин Brain/", ""]]
+        ],
+        "description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["text"]
+          ]],
+          ["list_join", [".\n"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "br-w306"}]],
+          ["find_all", ["span"]],
+          ["list_map", [
+            ["text"],
+            ["strip"]
+          ]],
+          ["list_group", [2, [0, 1]]],
+          ["keyval2dict"],
+          ["dict_key_del", [["Примітка"]]]
+        ],
+        "-mpn": [
+          ["var_get", ["$name"]],
+          ["unbracket", ["()", -1]],
+          ["serial_check"]
+        ],
+        "mpn": [
+          ["var_get", ["$features"]],
+          ["get", ["Артикул"]]
+        ],
+        "ean": [
+          ["var_get", ["$features"]],
+          ["get", ["Штрихкод"]]
+        ],
+        "sku": [
+          ["find", ["span", {"itemprop": "sku"}]],
+          ["text"]
+        ]
+      }]
+    ]
+  }
+}

@@ -3,5 +3,5 @@
 __pycache__
 .idea
 
-test/
+#test/
 Task.py

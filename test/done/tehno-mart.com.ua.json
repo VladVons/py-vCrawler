@@ -1,0 +1,68 @@
+{
+  "product": {
+    "info": {
+      "author": "VladVons",
+      "date": "2024-04-20 16:47:28",
+      "url": [
+        "https://tehno-mart.com.ua/zte-blade-a51-2-32gb-gray"
+      ]
+    },
+    "pipe": [
+      ["find", ["section", {"class": "product"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"class": "product-title"}]],
+          ["text"]
+        ],
+        "price": [
+          ["find", ["div", {"class": "product-price__item product-price__item--new"}]],
+          ["text"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "product-price__old-price"}]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "product-header__availability"}]],
+          ["text"],
+          ["strip"],
+          ["stock"]
+        ],
+        "image": [
+          ["ext_image"]
+        ],
+        "images": [
+          ["find", ["div", {"class": "gallery__thumbnails-container"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["data-href"]],
+            ["url_pad"]
+          ]]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["nav", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]],
+          ["replace", ["Головна/Каталог/", ""]]
+        ],
+        "features": [
+          ["find", ["table", {"class": "product-features__table"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-description j-product-description"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "sku": [
+          ["find", ["div", {"class": "product-header__code"}]],
+          ["text"],
+          ["split", [":", 1]]
+        ]
+      }]
+    ]
+  }
+}

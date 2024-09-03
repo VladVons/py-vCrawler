@@ -1,0 +1,80 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-19 12:12:57",
+      "url": [
+        "https://zhuk.ua/videokarta-asus-rog-strix-rx560-4g-v2-gaming"
+      ]
+    },
+    "pipe": [
+      ["find",["div", {"class": "product__grid"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["find",["h1", {"itemprop": "name"}]],
+          ["text"]
+        ],
+        "brand": [
+          ["find", ["div", {"itemprop": "brand"}]],
+          ["find", ["meta"]],
+          ["get", ["content"]]
+        ],
+        "price": [
+          ["find", ["div", {"itemprop": "offers"}]],
+          ["find", ["div", {"class": "product-price__item"}]],
+          ["text"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["div", {"itemprop": "offers"}]],
+          ["find", ["div", {"class": "product-price__old-price"}]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "product-header__availability"}]],
+          ["text"],
+          ["stock"]
+        ],
+        "sku": [
+          ["find", ["div", {"class": "product-header__code"}]],
+          ["text"],
+          ["split", [":", 1]]
+        ],
+        "image": [
+          ["ext_image"]
+        ],
+        "images": [
+          ["find", ["ul", {"class": "gallery__thumbnails-list"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["data-href"]],
+            ["url_pad"]
+          ]]
+         ],
+        "category": [
+          ["find", ["nav", {"class":"breadcrumbs"}]],
+          ["breadcrumb", [["a"], -2]],
+          ["replace", ["Головна/", ""]]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["table", {"class": "product-features__table"}]],
+          ["table"],
+          ["keyval2dict"],
+          ["dict_key_del", [["Додатково"]]]
+        ],
+        "mpn": [
+          ["var_get", ["$name"]],
+          ["unbracket", ["()", -1]],
+          ["serial_check"]
+        ],
+        "-ean": [
+        ]
+      }]
+    ]
+  }
+}

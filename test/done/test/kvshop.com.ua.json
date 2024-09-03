@@ -1,0 +1,70 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.04.20 09:00:00",
+      "url": [
+        "https://kvshop.com.ua/videokarty/msi/msi-geforce-rtx-4060-ventus-2x-black-8g-oc.html"
+      ]
+    },
+    "pipe": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "_product": [
+            ["var_get", ["$root"]],
+            ["find", ["div", {"class": "LayoutContainer"}]]
+        ],
+        "name": [
+          ["get", ["name"]]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "stock": [
+          ["gets", ["offers.availability"]],
+          ["stock"]
+        ],
+        "image": [
+          ["get", ["image"]]
+        ],
+        "images": [
+          ["get", ["image"]]
+        ],
+        "price": [
+          ["ext_price_app", [true]]
+        ],
+        "mpn": [
+          ["var_get", ["$name"]],
+          ["unbracket", ["()", -1]],
+          ["serial_check"]
+        ],
+        "sku": [
+          ["var_get", ["$root"]],
+          ["find", ["span", {"class": "product__code-item"}]],
+          ["text"],
+          ["strip"]
+        ],
+         "-category": [
+          ["-comment", ["todo"]]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["dl", {"class": "product__characteristics"}]],
+          ["find_all", [["dt", "dd"]]],
+          ["list_map", [
+            ["text"],
+            ["strip"]
+          ]],
+          ["list_group", [2, [0, 1]]],
+          ["keyval2dict"]
+       ],
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "product__detail-item c-article__content null"}]],
+          ["text"],
+          ["strip"]
+       ]
+      }]
+    ]
+  }
+}

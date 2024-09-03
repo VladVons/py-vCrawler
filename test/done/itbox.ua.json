@@ -1,0 +1,92 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-18 09:00:00",
+      "url": [
+        "https://www.itbox.ua/ua/product/Videokarta_GeForce_GT730_2048Mb_ASUS_GT730-SL-2GD5-BRK-p213732"
+      ]
+    },
+    "pipe": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["gets", ["name"]],
+          ["strip"]
+        ],
+        "brand": [
+          ["gets", ["brand"]]
+        ],
+        "price": [
+          ["get", ["offers"]],
+          ["as_list", [
+            [["get", ["price"]], ["txt2float"]],
+            [["get", ["priceCurrency"]]]
+          ]]
+         ],
+        "price_old": [
+          ["var_get", ["$root"]],
+          ["find", ["span", {"class": "stuff-price__old"}]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["get", ["offers"]],
+          ["get", ["availability"]],
+          ["stock"]
+        ],
+        "images": [
+          ["get", ["image"]]
+        ],
+        "mpn": [
+          ["var_get", ["$name"]],
+          ["unbracket", ["()", -1]],
+          ["serial_check"]
+        ],
+        "sku": [
+          ["gets", ["sku"]]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["ol", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -2]]
+        ],
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"itemprop": "description"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "features": [
+          ["as_list", [
+            [
+              ["var_get", ["$root"]],
+              ["find", ["div", {"class": "main-characteristic"}]],
+              ["table"],
+              ["keyval2dict"]
+            ],
+            [
+              ["var_get", ["$root"]],
+              ["find", ["div", {"class": "more-characteristic"}]],
+              ["table"],
+              ["keyval2dict"]
+            ]
+          ]],
+          ["dict_update"]
+        ],
+        "ean": [
+          ["var_get", ["$features"]],
+          ["get", ["Штрихкод"]]
+        ],
+        "condition": [
+          ["get", ["offers"]],
+          ["get", ["itemCondition"]],
+          ["search_xlat", [["NewCondition", "UsedCondition"], ["нове", "вживане"]]]
+        ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2023-04-16 12:12:57",
+      "url": [
+        "http://oster.com.ua/p630019.html"
+      ]
+    },
+    "pipe": [
+      ["find", ["div", {"id":"content"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["find", ["h1"]],
+          ["text"]
+        ],
+        "price": [
+          ["find", ["h2"]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["ul", {"class": "list-unstyled"}]],
+          ["find_all", ["li"]],
+          ["list", [1]],
+          ["text"],
+          ["split", [":", 1]],
+          ["stock"]
+        ],
+        "image": [
+          ["find",["a", {"class": "thumbnail"}]],
+          ["get", ["href"]]
+        ],
+        "images": [
+          ["find", ["ul", {"class": "thumbnails"}]],
+          ["find_all", ["a", {"class": "thumbnail"}]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["ul", {"class":"breadcrumb"}]],
+          ["breadcrumb", [["li"], -2]]
+        ],
+        "sku": [
+          ["find", ["ul", {"class": "list-unstyled"}]],
+          ["find_next_text", [false]],
+          ["text"]
+        ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text"]
+        ]
+      }]
+    ]
+  }
+}

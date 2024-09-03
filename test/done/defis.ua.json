@@ -1,0 +1,85 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-13 09:00:00",
+      "url": [
+        "https://defis.ua/noutbuk-asus-tuf-gaming-f15-fx506he-hn012"
+      ]
+    },
+    "pipe": [
+      ["app_json", [{"@type": "product"}]],
+      ["as_dict", {
+        "title": [
+          ["ext_title"]
+        ],
+        "name": [
+          ["var_get", ["$root"]],
+          ["find", ["h1", {"class": "title-primary"}]],
+          ["text"]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "price": [
+          ["get", ["offers"]],
+          ["as_list", [
+            [["get", ["price"]], ["txt2float"]],
+            [["get", ["priceCurrency"]]]
+          ]]
+        ],
+        "stock": [
+          ["get", ["offers"]],
+          ["get", ["availability"]],
+          ["stock"]
+        ],
+        "images": [
+          ["get", ["image"]],
+          ["list_map", [
+            ["get", ["image"]]
+          ]]
+        ],
+        "sku": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class":"code"}]],
+          ["find_all", ["span"]],
+          ["list", [1]],
+          ["text"]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["nav", {"class":"bredcrumbs"}]],
+          ["breadcrumb", [["li"], -1]]
+        ],
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class":"details-block-description__inner"}]],
+          ["text"]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class":"details-block-characteristics__body"}]],
+          ["find_all", ["div", {"class": "details-block-characteristics__col"}]],
+          ["list_get_keyval", [0, 3]],
+          ["keyval2dict"]
+        ],
+        "related": [
+          ["get", ["isSimilarTo"]],
+          ["list_map", [
+           ["get", ["offers"]],
+           ["list", [0]],
+           ["get", ["url"]]
+          ]]
+        ],
+        "mpn": [
+          ["var_get", ["$features"]],
+          ["get", ["Артикул"]]
+        ],
+        "condition": [
+          ["get", ["itemCondition"]],
+          ["search_xlat", [["NewCondition", "UsedCondition"], ["нове", "вживане"]]]
+        ]
+       }]
+    ]
+  }
+}

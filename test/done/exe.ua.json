@@ -1,0 +1,87 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-04-19 09:00:00",
+      "url": [
+        "https://exe.ua/ua/product/p668657",
+        "https://exe.ua/ua/product/p712112"
+      ]
+    },
+    "pipe": [
+      ["find", ["article", {"class": "product_page"}]],
+      ["as_dict", {
+         "title": [
+           ["ext_title"]
+         ],
+         "name": [
+          ["find", ["h1", {"itemprop": "name"}]],
+          ["text"],
+          ["strip"]
+        ],
+         "-brand": [
+          ["find", ["div", {"itemprop": "brand"}]],
+          ["find", ["meta"]],
+          ["get", ["content"]]
+        ],
+        "stock": [
+          ["find", ["span", {"class": "stock-high"}]],
+          ["text"],
+          ["stock"]
+        ],
+        "image": [
+          ["ext_image"]
+        ],
+        "images": [
+          ["find", ["div", {"class": "more-images"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]]
+        ],
+        "price": [
+          ["find", ["div", {"class": "prices"}]],
+          ["find", ["span", {"class": "price"}]],
+          ["text"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "prices"}]],
+          ["find", ["span", {"class": "compare-at-price"}]],
+          ["text"],
+          ["price"]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["nav", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]],
+          ["replace", ["Головна", ""]]
+        ],
+        "-description": [
+        ],
+        "features": [
+          ["find", ["table", {"id": "product-features"}]],
+          ["table"],
+          ["keyval2dict"],
+          ["var_set", ["$features"]]
+        ],
+        "mpn": [
+          ["var_get", ["$features"]],
+          ["get", ["Виробник"]]
+        ],
+        "-ean": [
+          ["var_get", ["$features"]],
+          ["get", ["Штрихкод"]]
+        ],
+        "sku": [
+          ["find", ["div", {"class": "articul"}]],
+          ["find_all", ["span"]],
+          ["list", [1]],
+          ["text"],
+          ["split", [":", 1]]
+        ]
+      }]
+    ]
+  }
+}

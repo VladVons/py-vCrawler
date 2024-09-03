@@ -1,0 +1,101 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-08-28 12:12:57",
+      "url": [
+        "https://www.lapstore.com.ua/product/apple-macbook-pro-15-inch-2017-core-i7-7820hq-ram-16-gb-ssd-512-gb-15-4-2k-radeon-pro-560-4-gb",
+        "https://www.lapstore.com.ua/product/acer-predator-helios-500-ryzen-7-2700-ram-32-gb-ssd-512-gb-17-3-fhd-radeon-rx-vega-56-8-gb"
+      ]
+    },
+    "pipe": [
+      ["find",["div", {"class": "product"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"class": "product_title"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "price": [
+          ["check_or", [
+            [
+              ["find_path", [
+                ["p", {"class": "price"}],
+                ["ins"],
+                ["bdi"]
+              ]],
+              ["text"],
+              ["price"]
+           ],
+           [
+              ["find_path", [
+                ["p", {"class": "price"}],
+                ["bdi"]
+              ]],
+              ["text"],
+              ["price"]
+           ]
+         ]]
+        ],
+        "price_old": [
+          ["find_path", [
+            ["p", {"class": "price"}],
+            ["del"],
+            ["bdi"]
+          ]],
+          ["text"],    
+          ["price"]
+        ],
+        "stock": [
+          ["var_get", ["$root"]],
+          ["check_or", [
+            [
+              ["find", ["span", {"class": "electro-stock-availability"}]],
+              ["text"],
+              ["search_eq", ["Немає в наявності"]],
+              ["invert"]
+            ],
+            [
+              ["val_return", [true]]
+            ]
+          ]]
+        ],
+        "-sku": [
+        ],
+        "images": [
+          ["find", ["div", {"class": "woocommerce-product-gallery"}]],
+          ["find_all", ["img"]],
+          ["list_map", [
+            ["get", ["src"]],
+            ["split", ["?", 0]]
+          ]]
+         ],
+         "image": [
+            ["ext_image"],
+            ["split", ["?", 0]]
+         ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["nav", {"class": "woocommerce-breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-specification"}]],
+          ["table"],
+          ["keyval2dict"]
+         ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Виробник"]]
+        ],
+        "-mpn": [
+        ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.03 09:00:00",
+      "url": [
+        "https://as-it.ua/bu-noutbuki/?page=2"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_all", ["div", {"class": "product-layout"}]],
+          ["-keyval2dict", [0, 1]]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "Ноутбук Dell Precision 3540 15.6\" FullHD i5-8365U/16GB RAM/256GB SSD",
+  "price": [
+    10999.0,
+    "грн"
+  ],
+  "price_old": [
+    11600.0,
+    "грн"
+  ],
+  "stock": true,
+  "images": [
+    "https://laptop-planet.com.ua/content/images/47/1800x1800l80mc0/noutbuk-dell-precision-3540-15.6-fullhd-i5-8365u-16gb-ram-256gb-ssdid-26788326285410.jpg",
+    "https://laptop-planet.com.ua/content/images/47/1800x1800l80mc0/noutbuk-dell-precision-3540-15.6-fullhd-i5-8365u-16gb-ram-256gb-ssdid-80508739226320.jpg",
+    "https://laptop-planet.com.ua/content/images/47/1800x1800l80mc0/noutbuk-dell-precision-3540-15.6-fullhd-i5-8365u-16gb-ram-256gb-ssdid-57734290777047.jpg",
+    "https://laptop-planet.com.ua/content/images/47/1800x1800l80mc0/noutbuk-dell-precision-3540-15.6-fullhd-i5-8365u-16gb-ram-256gb-ssdid-57485134313883.jpg",
+    "https://laptop-planet.com.ua/content/images/47/1800x1800l80mc0/noutbuk-dell-precision-3540-15.6-fullhd-i5-8365u-16gb-ram-256gb-ssdid-32410232230871.jpg",
+    "https://laptop-planet.com.ua/content/images/47/1800x1800l80mc0/noutbuk-dell-precision-3540-15.6-fullhd-i5-8365u-16gb-ram-256gb-ssdid-76639032088541.jpg",
+    "https://laptop-planet.com.ua/content/images/47/1800x1800l80mc0/noutbuk-dell-precision-3540-15.6-fullhd-i5-8365u-16gb-ram-256gb-ssdid-60137561417379.jpg"
+  ],
+  "image": "https://laptop-planet.com.ua/content/images/47/1800x1800l80mc0/noutbuk-dell-precision-3540-15.6-fullhd-i5-8365u-16gb-ram-256gb-ssdid-26788326285410.jpg",
+  "category": "Головна/Ноутбуки для роботи та навчання/Ноутбуки для роботи та навчання Dell",
+  "features": {
+    "Модель": "Dell Precision 3540",
+    "Процесор": "Intel Core i5-8365U 4 ядра 8 потоки з максимальною частотою 4,10 GHz",
+    "Тип Процесору": "Intel Core i5",
+    "Кількість ядер": "4",
+    "Графіка": "UHD Graphics 620",
+    "Тип графіки": "Інтегрована",
+    "Відеокарта GB": "1",
+    "Екран": "15.6\"",
+    "Тип екрану": "FullHD",
+    "Тип Матриці": "IPS",
+    "Частота Екрану": "60 Гц",
+    "Покриття екрану": "Матове",
+    "Сенсорний": "Так",
+    "Оперативна память": "16",
+    "Тип оперативної памяті": "DDR4",
+    "Накопичувач": "256 GB SSD",
+    "ОС": "Windows 10",
+    "Камера": "Так",
+    "Мікрофон": "Так",
+    "Клас Ноутбуку": "Клас Б - Ноутбук може мати щось одне або декілька з наступних пунктів : Подряпини, Тріщини або Сколи, Засвіти або інші дефекти Матриці, Вм'ятини або інші незначні пошкодження корпусу"
+  },
+  "description": "Ноутбук Dell Precision 3540 з екраном 15,6\" FullHD Touchscreen (сенсорний екран)\n\nПроцесор Intel Core i5-8365U 4 ядра 8 потоки з максимальною частотою 4,10 GHz\n\nОперативна пам'ять 16 GB DDR4\n\nВідеокарта Intel UHD Graphics 620\n\nНакопичувач пам'яті 256GB SSD NVMe\n\nАккумулятор  - близько 6-ти годин ютубу\n\nПідсвітка клавіатури\n\nВ комплекті зарядний пристрій.\n\nЗа Вашим бажанням можемо змінити конфігурацію(RAM, SSD)\n\nТехнічний стан чудовий, перевірено з допомогою Furmark, Aida64 та OCCT. Косметичний стан на фото."
+}
