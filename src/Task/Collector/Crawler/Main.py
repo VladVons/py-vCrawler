@@ -96,7 +96,10 @@ class TCrawler(TSrvBaseEx):
 
             if (Data['url']):
                 Scraper = TWebScraper(ApiCrawler, Data)
-                Info = await Scraper.Exec()
-                Log.Print(1, 'i', f"user_id:{DbConf.user_id :2}, _Worker({aTaskId :2}/{DbConf.workers_qty: 2}), {Data['site'].Rec.url :26}, prod:{Info['products'] :2}/{Info['tasks'] :2}, hrefs:{Info['hrefs'] :4}, size:{Info['data_size']//1000 :5}Kb")
+                try:
+                    Info = await Scraper.Exec()
+                    Log.Print(1, 'i', f"user_id:{DbConf.user_id :2}, _Worker({aTaskId :2}/{DbConf.workers_qty: 2}), {Data['site'].Rec.url :26}, prod:{Info['products'] :2}/{Info['tasks'] :2}, hrefs:{Info['hrefs'] :4}, size:{Info['data_size']//1000 :5}Kb")
+                except Exception as E:
+                    Log.Print(1, 'x', f'_Worker(). {E}')
 
         Log.Print(1, 'i', f'_Worker({aTaskId :2}) finished')
