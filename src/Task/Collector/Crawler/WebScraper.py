@@ -49,6 +49,7 @@ class TWebScraper():
         for Rec in self.DblUrl:
             UrlCount = 0
             DataSize = 0
+            SchemeName = None
             Pipe = None
 
             Data = await GetUrlData(Rec.url, self.DblSite.Rec.headers)
@@ -64,7 +65,6 @@ class TWebScraper():
 
                 Soup = GetSoup(Data['data'])
 
-                SchemeName = None
                 Schemes = {Key: Val for Data in self.DblSite.Rec.scheme for Key, Val in Data.items()}
                 for Key, Val in Schemes.items():
                     Scheme = TScheme({Key: Val})
