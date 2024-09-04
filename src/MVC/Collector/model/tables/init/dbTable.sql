@@ -48,6 +48,7 @@ create table if not exists ref_site (
     sleep_seconds       numeric(5,2) not null default 5,
     robots              text,
     headers             json,
+    category_pager      varchar(8),
     note                varchar(16)
 );
 
@@ -58,6 +59,15 @@ create table if not exists ref_site_parser (
     url_en              url_enum not null default 'product', 
     site_id             int not null references ref_site(id) on delete cascade,
     unique (site_id, url_en)
+);
+
+create table if not exists ref_site_category (
+    id                  serial primary key,
+    create_date         timestamp default current_timestamp,
+    enabled             boolean default true,
+    path                varchar(64) not null,
+    site_id             int not null references ref_site(id) on delete cascade,
+    unique (site_id, path)
 );
 
 

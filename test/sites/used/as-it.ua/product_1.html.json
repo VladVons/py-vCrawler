@@ -1,0 +1,55 @@
+{
+  "name": "БУ Ноутбук 12.5  Lenovo Thinkpad X260, i5-6300U (2.4 ГГц), 16GB DDR4, Intel HD 520, 240GB SSD",
+  "brand": "Lenovo",
+  "stock": true,
+  "image": "https://as-it.ua/image/cache/nf_00011342_333949092-380x380-product_popup.jpg",
+  "images": [
+    "https://as-it.ua/image/cache/nf_00011342_333949092-380x380-product_popup.jpg",
+    "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_09_17_773-380x380-product_popup.jpg",
+    "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_09_47_708-380x380-product_popup.jpg",
+    "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_10_22_293-380x380-product_popup.jpg",
+    "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_10_47_365-380x380-product_popup.jpg",
+    "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_11_16_100-380x380-product_popup.jpg",
+    "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_11_45_330-380x380-product_popup.jpg",
+    "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_12_49_934-380x380-product_popup.jpg"
+  ],
+  "price": [
+    4950.0,
+    "UAH"
+  ],
+  "price_old": [
+    5200.0,
+    "грн"
+  ],
+  "category": "БУ Ноутбуки",
+  "features": {
+    "Діагональ матриці екрану": "8\" - 12.5\"",
+    "Кількість ядер процесора ноутбука": "2",
+    "Оптичний привід": "Відсутній",
+    "Тип ноутбука": "Для роботи та навчання",
+    "Операційна система ноутбука": "Windows 10 Home",
+    "Клавіатура": "підсвічування клавіатури",
+    "Частота оновлення екрана ноутбука": "60 Гц",
+    "Роздільна здатність дисплея ноутбука": "1920х1080 (FullHD)",
+    "Поверхня екрану ноутбука": "матова",
+    "Тип матриці ноутбука": "IPS",
+    "Діагональ екрану": "12.5\" (1920x1080) Full HD",
+    "Сімейство процесора ноутбука": "Intel Core i5",
+    "Процесор ноутбука": "Двоядерний Intel Core i5-6300U (2.4 – 3.0 ГГц)",
+    "Покоління процесора ноутбука Intel": "6-те Skylake",
+    "Гарантія": "3 місяці",
+    "Обєм оперативної памяті ноутбука": "16 ГБ",
+    "Кількість слотів для оперативної памяті": "2",
+    "Тип оперативної памяті ноутбука": "DDR4",
+    "Обєм SSD ноутбука": "240 ГБ",
+    "Обєм накопичувача": "SSD",
+    "Тип відеокарти ноутбука": "інтегрована",
+    "Графічний адаптер ноутбука": "Інтегрований, Intel HD Graphics 520",
+    "Українська розкладка клавіатури": "Так",
+    "Батарея": "Знімна + Незнімна",
+    "Вага ноутбука": "1.44 кг",
+    "Мережеві адаптери": "Wi-Fi 802.11ac, Bluetooth 4.2, Gigabit Ethernet",
+    "Габарити (Ш х Г х В)": "305.5 x 208.5 x 20.3 мм"
+  },
+  "description": "БУ Ноутбук Lenovo ThinkPad X260, 12.5\" (1920x1080) Full HD, матовий, Intel Core i5-6300U (2.4-3 ГГц, 2 ядра, 4 потоки), 16Gb DDR4 (8+8) Intel HD Graphics 520 , Wi-Fi 802.11 ac, Bluetooth, Gigabit Ethernet, Windows 10 Home, підсвічування клавіатури, 1.44 кг, встановлено 2 батареї: більше 2.5 годин (від навантаження), стан: потертості корпусу."
+}

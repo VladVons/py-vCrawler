@@ -4,14 +4,37 @@
       "author": "vladvons",
       "date": "2024.09.03 09:00:00",
       "url": [
-        "https://as-it.ua/bu-noutbuki/?page=2"
-      ]
+        "https://as-it.ua/bu-noutbuki"
+      ],
+      "pager": "page="
     },
     "pipe": [
       ["as_dict", {
         "products": [
           ["find_all", ["div", {"class": "product-layout"}]],
-          ["-keyval2dict", [0, 1]]
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "name"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]]
+               ],
+               "stock": [ 
+                 ["find", ["div", {"class": "stock-box"}]],
+                 ["text"],
+                 ["strip"],
+                 ["lower"],
+                 ["search_prefix", ["в наявності"]]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination-wrapper"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]]
        ]
       }]
     ]
