@@ -64,7 +64,7 @@ class TSchemer():
         print()
         Fields = {
             'product': ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', '-sku', '-mpn', 'features', 'description'],
-            'category': ['products']
+            'category': ['products', 'pager']
         }
         self.CheckFields(Fields[aType], Pipe)
 
@@ -86,15 +86,20 @@ print(os.getcwd())
 print(sys.version)
 #
 #TSchemer('acomp.com.ua').Test('product')
+#
 #TSchemer('as-it.ua').Test('product')
 TSchemer('as-it.ua').Test('category')
+#
 #TSchemer('cibermag.com').Test('product')
 #TSchemer('h-store.in.ua').Test('product')
 #TSchemer('laptop-planet.com.ua').Test('product')
 #TSchemer('laptopchik.top').Test('product')
 #TSchemer('lapstore.com.ua').Test('product')
 #TSchemer('lux-pc.com').Test('product')
+#
 #TSchemer('pc.com.ua').Test('product')
+#TSchemer('pc.com.ua').Test('category')
+#
 #TSchemer('setka.ua').Test('product')
 #
 print("done")
