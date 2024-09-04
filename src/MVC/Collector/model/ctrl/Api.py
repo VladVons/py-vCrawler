@@ -83,14 +83,14 @@ class TMain(TModelBase):
             }
         )
 
-    async def InsHistUrl(self, aUrlId: int, aStatusCode: int, aParsedData: dict = None, aUrlCount: int = 0, aDataSize: int = 0, aUserId: int = 1) -> dict:
+    async def InsHistUrl(self, aUrlId: int, aStatusCode: int, aParsedData: dict = None, aUrlCount: int = 0, aDataSize: int = 0, aUserId: int = 1, aUrlEn: str = None) -> dict:
         await self.Exec(
             'site',
             {
                 'method': 'UpdUrl',
                 'param': {
                     'aUrlId': aUrlId,
-                    'aUrlEn': Lib.Iif(aParsedData, 'product', None)
+                    'aUrlEn': aUrlEn
                 }
             }
         )

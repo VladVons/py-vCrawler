@@ -48,7 +48,7 @@ create table if not exists ref_site (
     sleep_seconds       numeric(5,2) not null default 5,
     robots              text,
     headers             json,
-    category_pager      varchar(8),
+    country_zone        varchar(8),
     note                varchar(16)
 );
 

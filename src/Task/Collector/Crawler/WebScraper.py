@@ -9,6 +9,7 @@ from urllib.parse import urljoin
 #
 from Inc.Scheme.Scheme import TScheme
 from Inc.Util.Str import StartsWith
+from Inc.Util.Obj import Iif
 from .Api import TApiCrawlerEx
 from .Lib import Protego, GetUrlData, GetSoup, InitRobots, IsMimeApp, EscForSQL
 
@@ -19,7 +20,6 @@ class TWebScraper():
         self.DblSite = aData['site']
         self.DblUrl = aData['url']
         self.UrlRoot = self.DblSite.Rec.url
-        self.Scheme = TScheme(self.DblSite.Rec.scheme)
         self.Robots: Protego
 
     def GetHrefs(self, aSoup) -> set:
@@ -63,7 +63,39 @@ class TWebScraper():
                 TotalDataSize += DataSize
 
                 Soup = GetSoup(Data['data'])
-                Htrefs = self.GetHrefs(Soup)
+
+                SchemeName = None
+                Schemes = {Key: Val for Data in self.DblSite.Rec.scheme for Key, Val in Data.items()}
+                for Key, Val in Schemes.items():
+                    Scheme = TScheme({Key: Val})
+                    Scheme.Parse(Soup)
+                    Pipe = Scheme.GetPipe(Key)
+                    if (Key == 'product'):
+                        Price = Pipe.get('price')
+                        if (Pipe.get('name')) and \
+                        (
+                            (Price and isinstance(Price[0], (int, float)) and Price[0] > 0) or \
+                            (Pipe.get('description') and Pipe.get('features'))
+                        ):
+                            SchemeName = Key
+                            TotalProduct += 1
+                            EscForSQL(Pipe)
+                            break
+                    elif (Key == 'category'):
+                        if (Pipe.get('products')) and (Pipe.get('pager')):
+                            SchemeName = Key
+                            break
+
+                Htrefs = []
+                AllowCategory = self.DblSite.Rec.category
+                if (AllowCategory):
+                    if (SchemeName == 'category'):
+                        Products = [xProduct['href'] for xProduct in  Pipe['products']]
+                        Categories = Pipe['pager']
+                        Htrefs = set(Products + Categories)
+                else:
+                    Htrefs = self.GetHrefs(Soup)
+
                 if (Htrefs):
                     UrlCount = len(Htrefs)
                     Diff = Htrefs - TotalHref
@@ -79,16 +111,6 @@ class TWebScraper():
                                 }
                             }
                         )
-                self.Scheme.Parse(Soup)
-                Pipe = self.Scheme.GetPipe()
-                Price = Pipe.get('price')
-                if (Pipe.get('name')) and \
-                   (
-                       (Price and isinstance(Price[0], (int, float)) and Price[0] > 0) or \
-                       (Pipe.get('description') and Pipe.get('features'))
-                   ):
-                    TotalProduct += 1
-                    EscForSQL(Pipe)
 
             await self.Api.ExecModel(
                 'ctrl',
@@ -97,9 +119,10 @@ class TWebScraper():
                     'param': {
                         'aUrlId': Rec.url_id,
                         'aStatusCode': Data['status'],
-                        'aParsedData': Pipe,
+                        'aParsedData': Iif(SchemeName == 'product', Pipe, None),
                         'aUrlCount': UrlCount,
                         'aDataSize': DataSize,
+                        'aUrlEn': SchemeName,
                         'aUserId': self.Api.DbConf.user_id
                     }
                 }

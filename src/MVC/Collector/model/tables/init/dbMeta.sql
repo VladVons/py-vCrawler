@@ -20,6 +20,25 @@ create or replace trigger ref_site_tai
 
 --
 
+create or replace function ref_site_category_fai() returns trigger
+as $$
+begin
+    insert into ref_url (site_id, url)
+    select rs.id, rs.url || new.path
+    from ref_site rs
+    where rs.id = new.site_id
+    on conflict (url, site_id) do nothing;
+
+    return new;
+end $$ language plpgsql;
+
+create or replace trigger ref_site_category_tai
+    after insert on ref_site_category
+    for each row
+    execute function ref_site_category_fai();
+
+--
+
 create or replace function hist_url_fai() returns trigger
 as $$
 begin
