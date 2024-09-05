@@ -12,6 +12,7 @@ with wt1 as(
         ru.id = rp.url_id
     where
         (ru.status_code = 200) and
+        (rp.price > 0) and
         (rp.title ilike all (values {{FilterRe}}))
     order by
         rp.stock desc,
