@@ -8,7 +8,7 @@
         "https://pc.com.ua/ua/noutbuk-hp-probook-640-g2-14-fullhd-i5-6200u-ram-8gb-ssd-128gb"
       ]
     },
-    "pipe": [
+    "pipe_schema": [
       ["app_json", [{"@type": "Product"}]],
       ["as_dict", {
         "name": [
@@ -22,36 +22,35 @@
           ["stock"]
         ],
         "image": [
-          ["get", ["image"]]
-        ],
-        "images": [
-          ["var_get", ["$root"]],
-          ["find", ["div", {"id": "productGallery"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
+          ["get", ["image"]],
+          ["list", [0]]
         ],
         "price": [
           ["ext_price_app", [true]]
-        ],
+        ]
+      }]
+    ],
+    "pipe_body": [
+      ["find", ["div", {"class": "product-page"}]],
+      ["as_dict", {
         "price_old": [
-          ["var_get", ["$root"]],
           ["find", ["div", {"class": "price-old"}]],
           ["text"],
           ["price"]
-        ],
-        "-mpn": [
-        ],
-        "-sku": [
         ],
         "category": [
           ["var_get", ["$root"]],
           ["find", ["ol", {"class": "breadcrumb"}]],
           ["breadcrumb", [["a"], -1]]
         ],
+        "images": [
+          ["find", ["div", {"id": "productGallery"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]]
+        ],
         "features": [
-          ["var_get", ["$root"]],
           ["find", ["div", {"class": "characteristics-wrap"}]],
           ["find_all", ["div", {"class": "characteristics-item"}]],
           ["list_map", [
@@ -59,13 +58,12 @@
             ["split_cr"]
           ]],
           ["keyval2dict"]
-       ],
+        ],
         "description": [
-          ["var_get", ["$root"]],
           ["find", ["section", {"class": "page-content"}]],
           ["text"],
           ["strip"]
-       ]
+        ]
       }]
     ]
   }

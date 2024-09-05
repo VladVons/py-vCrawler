@@ -7,7 +7,7 @@
         "https://lux-pc.com/products/noutbuk-ultrabuk-dell-latitude-5590--156-full-hd-1980x1080--intel-core-i5-8250u-4-8-yadra-vid-17---36-ghz--16-gb-ddr4--256-gb-ssd--intel-uhd-graphics-620--webcam--windows-10-bv-akb-bolshe-2ch-sostoyanie-novogo"
       ]
     },
-    "pipe": [
+    "pipe_schema": [
       ["app_json", [{"@type": "Product"}]],
       ["as_dict", {
         "name": [
@@ -23,35 +23,27 @@
         "image": [
           ["get", ["image"]]
         ],
-        "images": [
+        "price": [
+          ["ext_price_app", [true]]
+        ]
+      }]
+    ],
+    "pipe_body": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+         "category": [
           ["var_get", ["$root"]],
+          ["find", ["ol", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]]
+        ],
+        "images": [
           ["find", ["div", {"class": "fn_images"}]],
           ["find_all", ["a", {"class": "images_link"}]],
           ["list_map", [
             ["get", ["href"]]
           ]]
         ],
-        "price": [
-          ["ext_price_app", [true]]
-        ],
-        "mpn": [
-          ["var_get", ["$name"]],
-          ["unbracket", ["()", -1]],
-          ["serial_check"]
-        ],
-        "sku": [
-          ["var_get", ["$root"]],
-          ["find", ["span", {"class": "product__code-item"}]],
-          ["text"],
-          ["strip"]
-        ],
-         "category": [
-          ["var_get", ["$root"]],
-          ["find", ["ol", {"class": "breadcrumbs"}]],
-          ["breadcrumb", [["a"], -1]]
-        ],
         "features": [
-          ["var_get", ["$root"]],
           ["find", ["div", {"id": "features"}]],
           ["find_all", ["li"]],
           ["list_map", [
@@ -59,16 +51,15 @@
             ["split", "\n"]
           ]],
           ["keyval2dict", [1, 2]]
-       ],
+        ],
         "description": [
-          ["var_get", ["$root"]],
           ["find_path", [
             ["div", {"class": "tab_container"}],
             ["div", {"id": "description"}]
           ]],
           ["text"],
           ["strip"]
-       ]
+        ]
       }]
     ]
   }

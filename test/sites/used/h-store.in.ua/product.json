@@ -7,7 +7,7 @@
         "https://h-store.in.ua/ua/p648355229-sistemnyj-blok-compaq.html"
       ]
     },
-    "pipe": [
+    "pipe_schema": [
       ["app_json", [{"@type": "Product"}]],
       ["as_dict", {
         "name": [
@@ -19,10 +19,12 @@
         ],
         "image": [
           ["get", ["image"]]
-        ],
-        "images": [
-          ["comment", "todo"]
-        ],
+        ]
+      }]
+    ],
+    "pipe_body": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
         "price": [
           ["comment", ["category has products in app_json format too"]],
           ["-ext_price_app", [true]],
@@ -35,6 +37,9 @@
         "category": [
           ["var_get", ["$root"]],
           ["ext_category_prom"]
+        ],
+        "images": [
+          ["comment", "todo"]
         ],
         "features": [
           ["var_get", ["$root"]],
