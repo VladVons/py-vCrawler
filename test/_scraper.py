@@ -116,10 +116,13 @@ print(sys.version)
 #TSchemer('h-store.in.ua').Test('product')
 #TSchemer('laptop-planet.com.ua').Test('product')
 #TSchemer('laptopchik.top').Test('product')
+#
 #TSchemer('lapstore.com.ua').Test('product')
+TSchemer('lapstore.com.ua').Test('category')
+#
 #TSchemer('lux-pc.com').Test('product')
 #
-TSchemer('pc.com.ua').Test('product')
+#TSchemer('pc.com.ua').Test('product')
 #TSchemer('pc.com.ua').Test('category')
 #
 #TSchemer('setka.ua').Test('product')
