@@ -1,0 +1,40 @@
+{
+  "name": "БУ Комп ютер Dell Optiplex 3020 SFF, Core i5-4460 (3.2Ghz) 8Gb DDR3, Intel HD, 240Gb SSD",
+  "brand": "DELL",
+  "stock": false,
+  "image": "https://as-it.ua/image/cache/00_00064868_20230306_093456-380x380-product_popup.jpg",
+  "images": [
+    "https://as-it.ua/image/cache/00_00064868_20230306_093456-380x380-product_popup.jpg",
+    "https://as-it.ua/image/cache/00_00064868_dell_optiplex_3020_sff_i5_4570_16gb_240ssd_w7pro_model_optiplex_3020-380x380-product_popup.jpg"
+  ],
+  "price": [
+    4750.0,
+    "UAH"
+  ],
+  "price_old": [
+    750.0,
+    "грн"
+  ],
+  "category": "БУ Комп ютери",
+  "features": {
+    "Оптичний привід": "DVD+/-RW",
+    "Вид": "Компьютеры",
+    "Потужність БП": "255 Вт",
+    "Процесор компютера": "Intel Core i5",
+    "Кількість ядер процесора компютера": "4",
+    "Частота процесора": "3.2 ГГц",
+    "Вихід VGA": "Так",
+    "Вихід DVI": "Ні",
+    "Вихід HDMI": "Ні",
+    "Вихід DisplayPort": "Так",
+    "Інтерфейс USB 3.0": "Так",
+    "Кардрідер": "Ні",
+    "Гарантія": "3 місяці",
+    "Тип памяті компютера": "DDR3",
+    "Обєм оперативної памяті": "8 ГБ",
+    "Накопичувач": "SSD",
+    "Обєм SSD": "240 ГБ",
+    "Відеокарта": "вбудований"
+  },
+  "description": "БУ Комп'ютер Dell Optiplex 3020 SFF, Intel Core i5-4460 (3.2 - 3.4 ГГц, 4 ядра, 4 потоки) 8Gb DDR3 (4+4) : потертість корпусу."
+}

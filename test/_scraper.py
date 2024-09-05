@@ -106,10 +106,10 @@ os.system('clear')
 print(os.getcwd())
 print(sys.version)
 #
-TSchemer('acomp.com.ua').Test('product')
+#TSchemer('acomp.com.ua').Test('product')
 #TSchemer('acomp.com.ua').Test('category')
 #
-#TSchemer('as-it.ua').Test('product')
+TSchemer('as-it.ua').Test('product')
 #TSchemer('as-it.ua').Test('category')
 #
 #TSchemer('cibermag.com').Test('product')

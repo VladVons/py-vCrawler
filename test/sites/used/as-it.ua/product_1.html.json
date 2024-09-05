@@ -3,6 +3,15 @@
   "brand": "Lenovo",
   "stock": true,
   "image": "https://as-it.ua/image/cache/nf_00011342_333949092-380x380-product_popup.jpg",
+  "price": [
+    4950.0,
+    "UAH"
+  ],
+  "category": "БУ Ноутбуки",
+  "price_old": [
+    5200.0,
+    "грн"
+  ],
   "images": [
     "https://as-it.ua/image/cache/nf_00011342_333949092-380x380-product_popup.jpg",
     "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_09_17_773-380x380-product_popup.jpg",
@@ -13,15 +22,6 @@
     "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_11_45_330-380x380-product_popup.jpg",
     "https://as-it.ua/image/cache/nf_00011342_izobrazhenie_viber_2024_07_12_16_12_49_934-380x380-product_popup.jpg"
   ],
-  "price": [
-    4950.0,
-    "UAH"
-  ],
-  "price_old": [
-    5200.0,
-    "грн"
-  ],
-  "category": "БУ Ноутбуки",
   "features": {
     "Діагональ матриці екрану": "8\" - 12.5\"",
     "Кількість ядер процесора ноутбука": "2",
