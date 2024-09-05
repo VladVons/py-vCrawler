@@ -1,7 +1,7 @@
 Host="localhost"
 Port="5433"
 DbName="crawler_used"
-User="crawler_user1"
+User="crawler_used_user1"
 #
 File="$(hostname)_${DbName}.sql.dat"
 Date=$(date "+%y%m%d-%H%M")
