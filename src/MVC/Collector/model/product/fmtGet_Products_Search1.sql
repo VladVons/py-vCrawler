@@ -7,12 +7,15 @@ with wt1 as(
         rp.*
     from
         ref_product rp
+    join
+        ref_url ru on
+        ru.id = rp.url_id
     where
-        (
-            (rp.title ilike all (values {{FilterRe}}))
-        )
+        (ru.status_code = 200) and
+        (rp.title ilike all (values {{FilterRe}}))
     order by
-        price
+        rp.stock desc,
+        rp.price
     limit
         {{aLimit}}
     offset

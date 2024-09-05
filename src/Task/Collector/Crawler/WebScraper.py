@@ -54,8 +54,9 @@ class TWebScraper():
 
             Data = await GetUrlData(Rec.url, self.DblSite.Rec.headers)
 
-            # Url = 'https://www.cibermag.com/ua/aksessuary/sumki/&sort_by=timestamp&sort_order=desc'
-            # Data = await GetUrlData(Url, self.DblSite.Rec.headers)
+            #Url = 'https://pc.com.ua/ua/monitor-27-dell-s2721hn-ips-fullhd-75hz-hdmi'
+            #Data = await GetUrlData(Url, self.DblSite.Rec.headers)
+
             # with open('debug.html', 'wb') as F:
             #      F.write(Data['data'])
 

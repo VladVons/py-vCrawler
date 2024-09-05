@@ -1,6 +1,6 @@
 {% extends '_inc/layout1.j2' %}
 
-{% set Fields = ['date', 'title', 'price', 'price', 'stock'] %}
+{% set Fields = ['date', 'title', 'price', 'price-old', 'stock'] %}
 
 {% block head %}
 <style>
@@ -31,7 +31,7 @@
       <div class="gitem" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
         <div title="{{Rec.url}}"><a href="{{Rec.url}}" target="_blank">{{Rec.url |truncate(50, True, '...')}}</a></div>
       </div>
-      <div class="gitem">{{"{:,}".format(Rec.price_old|int)}}</div>
+      <div class="gitem">{{"{:,}".format(Rec.price|int)}}</div>
       <div class="gitem">{% if Rec.price_old and Rec.price_old != Rec.price %} {{"{:,}".format(Rec.price_old|int) }} {%endif %}</div>
       <div class="gitem">{{Iif(Rec.stock, '+', '')}}</div>
     {% endfor %}

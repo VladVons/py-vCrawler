@@ -1,7 +1,6 @@
 {
   "name": "Ноутбук 14&quot; HP ProBook 640 G2 Intel Core i5-6200U RAM 8Gb SSD 256Gb Б/В",
   "brand": "HP",
-  "stock": true,
   "image": "https://pc.com.ua/tmp/images/products/4896/0000000-590x690-f.jpg",
   "price": [
     6199.0,
@@ -11,6 +10,7 @@
     8300.0,
     "₴"
   ],
+  "stock": true,
   "category": "Комп'ютери БВ/БВ Ноутбуки",
   "images": [
     "https://pc.com.ua/tmp/images/products/4896/0000000-1000x1000-r.jpg",

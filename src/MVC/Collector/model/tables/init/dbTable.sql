@@ -79,6 +79,7 @@ create table if not exists ref_url (
     unlock_date         timestamp,
     url                 varchar(256) not null,
     url_en              url_enum,
+    status_code         smallint,
     site_id             int not null references ref_site(id) on delete cascade,
     unique (url, site_id)
 );

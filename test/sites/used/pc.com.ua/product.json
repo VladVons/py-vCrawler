@@ -17,7 +17,7 @@
         "brand": [
           ["gets", ["brand.name"]]
         ],
-        "stock": [
+        "-stock": [
           ["gets", ["offers.availability"]],
           ["stock"]
         ],
@@ -34,9 +34,15 @@
       ["find", ["div", {"class": "product-page"}]],
       ["as_dict", {
         "price_old": [
+          ["find", ["div", {"class": "price-block"}]],
           ["find", ["div", {"class": "price-old"}]],
           ["text"],
           ["price"]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "page-stock"}]],
+          ["text"],
+          ["stock"]
         ],
         "category": [
           ["var_get", ["$root"]],
