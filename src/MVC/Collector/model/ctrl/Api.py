@@ -90,7 +90,8 @@ class TMain(TModelBase):
                 'method': 'UpdUrl',
                 'param': {
                     'aUrlId': aUrlId,
-                    'aUrlEn': aUrlEn
+                    'aUrlEn': aUrlEn,
+                    'aStatusCode': aStatusCode
                 }
             }
         )

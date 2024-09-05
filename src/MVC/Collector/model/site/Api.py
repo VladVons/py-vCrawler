@@ -57,12 +57,13 @@ class TMain(TDbModel):
             }
         )
 
-    async def UpdUrl(self, aUrlId: int, aUrlEn: str) -> dict:
+    async def UpdUrl(self, aUrlId: int, aUrlEn: str, aStatusCode: int) -> dict:
         return await self.ExecQuery(
             'fmtUpd_Url.sql',
             {
                 'aUrlId': aUrlId,
-                'aUrlEn': aUrlEn
+                'aUrlEn': aUrlEn,
+                'aStatusCode': aStatusCode
             }
         )
 

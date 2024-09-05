@@ -69,11 +69,6 @@ begin
         stock = excluded.stock,
         price = excluded.price,
         price_old = excluded.price_old;
-
-    update ref_url
-    set status_code = new.status_code
-    where id = new.url_id;
-
     return new;
 end $$ language plpgsql;
 
