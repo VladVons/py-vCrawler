@@ -4,6 +4,7 @@ import json
 import glob
 from bs4 import BeautifulSoup
 #
+from Inc.Util.Obj import IifNone
 from Inc.Scheme.Scheme import TScheme, TSoupScheme, TSchemeExt
 
 
@@ -13,16 +14,29 @@ class TSchemer():
         assert os.path.exists(self.Dir), f'Directory does not exist {self.Dir}'
 
     @staticmethod
-    def CheckFields(aFields: list[str], aData: dict):
+    def CheckUrls(aUrls: list[str]) -> int:
+        ErrCnt = 0
+        for xUrl in aUrls:
+            if (not xUrl.startswith('http')):
+                ErrCnt += 1
+                print('Missed http', xUrl)
+        return ErrCnt
+
+    @staticmethod
+    def CheckFields(aPipe: dict, aFields: list[str]) -> int:
+        ErrCnt = 0
         for xField in aFields:
             if (not xField.startswith('-')):
-                Val = aData.get(xField)
+                Val = aPipe.get(xField)
                 if (Val is None):
+                    ErrCnt += 1
                     print('Missed', xField)
                 else:
                     if (xField == 'price'):
                         if (not isinstance(Val[0], (int, float))):
                             print('price must be float')
+                            ErrCnt += 1
+        return ErrCnt
 
     def ReadFile(self, aFile: str) -> str:
         with open(self.Dir + '/' + aFile, 'r', encoding='utf8') as hFile:
@@ -63,11 +77,15 @@ class TSchemer():
             print(x)
 
         print()
-        Fields = {
-            'product': ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', '-sku', '-mpn', 'features', 'description'],
-            'category': ['products', 'pager']
-        }
-        self.CheckFields(Fields[aType], Pipe)
+        if (aType == 'product'):
+            Fields = ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', '-sku', '-mpn', 'features', 'description']
+            Urls = IifNone(Pipe['images'], []) + [IifNone(Pipe['image'], [])]
+        elif (aType == 'category'):
+            Fields = ['products', 'pager']
+            Products = IifNone(Pipe['products'], [])
+            Urls = IifNone(Pipe['pager'], []) + [x['href'] for x in Products]
+        Err |= bool(self.CheckFields(Pipe, Fields))
+        Err |= bool(self.CheckUrls(Urls))
 
         File = aFile + '.json'
         if os.path.exists(File):
@@ -88,7 +106,8 @@ os.system('clear')
 print(os.getcwd())
 print(sys.version)
 #
-#TSchemer('acomp.com.ua').Test('product')
+TSchemer('acomp.com.ua').Test('product')
+#TSchemer('acomp.com.ua').Test('category')
 #
 #TSchemer('as-it.ua').Test('product')
 #TSchemer('as-it.ua').Test('category')
@@ -104,6 +123,6 @@ print(sys.version)
 #TSchemer('pc.com.ua').Test('category')
 #
 #TSchemer('setka.ua').Test('product')
-TSchemer('setka.ua').Test('category')
+#TSchemer('setka.ua').Test('category')
 #
 print("done")

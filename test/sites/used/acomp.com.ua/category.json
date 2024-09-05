@@ -4,14 +4,14 @@
       "author": "vladvons",
       "date": "2024.09.05 09:00:00",
       "url": [
-        "https://setka.ua/c/noutbuki/noutbuki_1"
+        "https://acomp.com.ua/ua/category/sistemnye-bloki"
       ]
     },
     "pipe": [
       ["as_dict", {
         "products": [
-          ["find_re", ["div", {"class": "catalog_block items"}]],
-          ["find_all", ["div", {"class": "item-title"}]],
+          ["find", ["div", {"class": "product-list"}]],
+          ["find_all", ["div", {"class": "product_name"}]],
           ["list_map", [
             ["as_dict", {
                "href": [ 
@@ -23,7 +23,7 @@
           ]]
        ],
        "pager": [
-          ["find", ["div", {"class": "module-pagination"}]],
+          ["find", ["ul", {"class": "pagination"}]],
           ["find_all", ["a"]],
           ["list_map", [
             ["get", ["href"]],
