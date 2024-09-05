@@ -43,7 +43,8 @@ class TSchemer():
 
         Data = self.ReadFile(aFile)
         BSoup = BeautifulSoup(Data, 'lxml')
-        #q1 = Soup.find('span', string='Замовити')
+        #q1 = Soup.find('div', string='Замовити')
+        #q1 = BSoup.find('div', class_='catalog_block items')
         Scheme = TScheme(Scheme)
         Scheme.Parse(BSoup)
         Pipe = Scheme.GetPipe(aType)
@@ -78,6 +79,8 @@ class TSchemer():
 
     def Test(self, aType: str):
         Html = self.FindHtml(aType)
+        assert(Html), f'No {aType} html found'
+
         for xFile in Html:
             self.TestHtml(xFile, aType)
 
@@ -88,7 +91,7 @@ print(sys.version)
 #TSchemer('acomp.com.ua').Test('product')
 #
 #TSchemer('as-it.ua').Test('product')
-TSchemer('as-it.ua').Test('category')
+#TSchemer('as-it.ua').Test('category')
 #
 #TSchemer('cibermag.com').Test('product')
 #TSchemer('h-store.in.ua').Test('product')
@@ -101,5 +104,6 @@ TSchemer('as-it.ua').Test('category')
 #TSchemer('pc.com.ua').Test('category')
 #
 #TSchemer('setka.ua').Test('product')
+TSchemer('setka.ua').Test('category')
 #
 print("done")

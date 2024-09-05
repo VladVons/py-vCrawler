@@ -1,0 +1,36 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.05 09:00:00",
+      "url": [
+        "https://setka.ua/c/noutbuki/noutbuki_1"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_re", ["div", {"class": "catalog_block items"}]],
+          ["find_all", ["div", {"class": "item-title"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["a"]],
+                 ["get", ["href"]]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "module-pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}
