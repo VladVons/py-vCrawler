@@ -9,9 +9,14 @@ from urllib.parse import urljoin
 #
 from Inc.Scheme.Scheme import TScheme
 from Inc.Util.Str import StartsWith
-from Inc.Util.Obj import Iif
+from Inc.Util.Obj import Iif, IifNone
 from .Api import TApiCrawlerEx
 from .Lib import Protego, GetUrlData, GetSoup, InitRobots, IsMimeApp, EscForSQL
+
+
+def WriteFileDebug(aFile: str, aData):
+    with open(aFile, 'wb') as F:
+        F.write(aData)
 
 
 class TWebScraper():
@@ -54,11 +59,9 @@ class TWebScraper():
 
             Data = await GetUrlData(Rec.url, self.DblSite.Rec.headers)
 
-            #Url = 'https://pc.com.ua/ua/monitor-27-dell-s2721hn-ips-fullhd-75hz-hdmi'
+            #Url = 'https://lux-pc.com/catalog/pos'
             #Data = await GetUrlData(Url, self.DblSite.Rec.headers)
-
-            # with open('debug.html', 'wb') as F:
-            #      F.write(Data['data'])
+            #WriteFileDebug('debug.html', Data['data'])
 
             if (Data['status'] == 200):
                 DataSize = len(Data['data'])
@@ -83,7 +86,7 @@ class TWebScraper():
                             EscForSQL(Pipe)
                             break
                     elif (Key == 'category'):
-                        if (Pipe.get('products')) and (Pipe.get('pager')):
+                        if (len(Pipe.get('products', [])) > 1):
                             SchemeName = Key
                             break
 
@@ -92,7 +95,7 @@ class TWebScraper():
                 if (AllowCategory):
                     if (SchemeName == 'category'):
                         Products = [xProduct['href'] for xProduct in  Pipe['products']]
-                        Categories = Pipe['pager']
+                        Categories = IifNone(Pipe.get('pager'), [])
                         Htrefs = set(Products + Categories)
                 else:
                     Htrefs = self.GetHrefs(Soup)

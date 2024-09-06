@@ -1,0 +1,36 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.06 09:00:00",
+      "url": [
+        "https://lux-pc.com/catalog/noutbuki"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "fn_categories"}]],
+          ["find_all", ["a", {"class": "product_name"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}
