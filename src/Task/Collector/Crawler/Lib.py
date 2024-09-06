@@ -58,11 +58,15 @@ async def GetUrlData(aUrl: str, aHeaders: dict = None) -> object:
                 Val = DictToCookie(Val)
             Headers[Key] = Val
 
+    UrlP = urlparse(aUrl)
+    UrlHost = '%s://%s' % (UrlP.scheme, UrlP.hostname)
+    UrlPath = UrlP.path
 
-    async with aiohttp.ClientSession(headers=Headers, max_field_size=16384) as Session:
+    async with aiohttp.ClientSession(base_url=UrlHost, headers=Headers, max_field_size=16384) as Session:
+        await asyncio.sleep(0.2)
         try:
-            async with Session.get(aUrl) as Response:
-                await asyncio.sleep(0.5)
+            async with Session.get(UrlPath) as Response:
+                await asyncio.sleep(0.2)
                 Data = await Response.read()
                 Res = {'data': Data, 'status': Response.status}
         except Exception as E:
