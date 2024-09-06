@@ -99,6 +99,7 @@ class TWebScraper():
                         Htrefs = set(Products + Categories)
                 else:
                     Htrefs = self.GetHrefs(Soup)
+                #Debug = [print(x) for x in Htrefs]
 
                 if (Htrefs):
                     UrlCount = len(Htrefs)
