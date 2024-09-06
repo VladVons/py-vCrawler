@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 from protego import Protego
 #
 from Inc.Util.Obj import GetTree
+from IncP.Log import Log
 
 
 def DictToCookie(aDict) -> str:
@@ -58,15 +59,16 @@ async def GetUrlData(aUrl: str, aHeaders: dict = None) -> object:
                 Val = DictToCookie(Val)
             Headers[Key] = Val
 
-    UrlP = urlparse(aUrl)
-    UrlHost = '%s://%s' % (UrlP.scheme, UrlP.hostname)
-    UrlPath = UrlP.path
-
-    async with aiohttp.ClientSession(base_url=UrlHost, headers=Headers, max_field_size=16384) as Session:
-        await asyncio.sleep(1)
+    # UrlP = urlparse(aUrl)
+    # UrlHost = '%s://%s' % (UrlP.scheme, UrlP.hostname)
+    # UrlPath = UrlP.path
+    async with aiohttp.ClientSession(headers=Headers, max_field_size=16384) as Session:
         try:
-            async with Session.get(UrlPath) as Response:
-                await asyncio.sleep(1)
+            async with Session.get(aUrl, allow_redirects=True) as Response:
+                await asyncio.sleep(0.2)
+                UrlR = str(Response.url)
+                if (aUrl != UrlR):
+                    Log.Print(1, 'i', f'Url is diff: {aUrl}, {UrlR}')
                 Data = await Response.read()
                 Res = {'data': Data, 'status': Response.status}
         except Exception as E:

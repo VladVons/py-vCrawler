@@ -1,0 +1,295 @@
+{
+  "products": [
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-5580-15-6-i5-6300u-ddr4-8gb-ssd-nvme-512gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-5580-15-6-i5-6200u-ddr4-8gb-ssd-m-2-128gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-fujitsu-lifebook-e546-14-i3-6100u-ddr4-8gb-ssd-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-fujitsu-lifebook-e448-14-i3-7130u-ddr4-8gb-ssd-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-5580-15-6-i5-6300u-ddr4-8gb-ssd-nvme-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-fujitsu-lifebook-e548-14-i3-7130u-ddr4-8gb-ssd-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-5580-15-6-i5-6200u-ddr4-8gb-ssd-m-2-1tb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-hp-elitebook-850-g4-15-6-i5-7300u-ddr4-8gb-ssd-m-2-128gb-dok-stantsiya-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-5490-14-i3-8130u-ddr4-8gb-ssd-m-2-128gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-5580-15-6-i5-6200u-ddr4-8gb-ssd-m-2-nvme-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-e5570-15-6-i5-63000hq-ddr4-8gb-ssd-m-2-480-gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-fujitsu-lifebook-e746-14-i5-6300u-ddr4-8gb-ssd-256gb-full-hd-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-hp-elitebook-840-g4-14-sensor-i5-7300u-ddr4-8gb-ssd-m-2-128gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-lenovo-thinkpad-l380-13-3-i7-8550u-ddr4-16gb-ssd-nvme-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-hp-probook-650-g1-15-6-i5-4300m-ddr3-8gb-ssd-240gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-e5250-12-5-i7-5600u-ddr3-8gb-ssd-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-hp-elitebook-840-g3-14-sensor-i5-6300u-ddr4-8gb-ssd-m-2-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-5590-15-6-i5-8250u-ddr4-8gb-ssd-m-2-nvme-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-hp-probook-650-g2-15-6-i5-6200u-ddr4-8gb-ssd-nvme-256gb-used/"
+    },
+    {
+      "href": "https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-hp-probook-650-g5-15-6-i5-8265u-ddr4-8gb-ssd-m-2-256gb-used/"
+    }
+  ],
+  "pager": [
+    "https://setka.ua/c/noutbuki/noutbuki_1/page-2/",
+    "https://setka.ua/c/noutbuki/noutbuki_1/page-28/",
+    "https://setka.ua/c/noutbuki/noutbuki_1/page-3/"
+  ],
+  "help": [
+    [
+      "app_json(aVal, aFind)",
+      "\n        searches value in sections <script>application/ld+json</script>\n        [\"app_json\", [{\"@type\": \"product\"}]]\n        "
+    ],
+    [
+      "breadcrumb(aVal, aFind, aIdx, aChain)",
+      "\n        equal to find_all() + list()\n        [\"breadcrumb\", [[\"a\"], -1]]\n        "
+    ],
+    [
+      "comment(aVal, aText, aShow)",
+      "\n        comment\n        [\"comment\", [\"just comment\"]]\n        "
+    ],
+    [
+      "concat(aVal, aStr, aRight)",
+      "\n        concatinate string to left or right side\n        [\"concat\", [\"hello\", true]]\n        "
+    ],
+    [
+      "dict_key_del(aVal, aKeys)",
+      "\n        delete key from dict\n        [\"keydel\", [[\"name\", \"descr\"]]]\n        "
+    ],
+    [
+      "dict_keyval2list(aVal, aKeyName, aValName)",
+      "\n        get key and value pair from dict into tuple\n        [\"keyval\", [\"name\", \"descr\"]]\n        "
+    ],
+    [
+      "dict_update(aVal)",
+      "\n        join dict from list of dict\n        [\"dict_update\"]\n        "
+    ],
+    [
+      "dig(aVal)",
+      "\n        get filtered chars from [0..9]\n        [\"dig\"]\n        "
+    ],
+    [
+      "find_next_text(aVal, aIsText)",
+      ""
+    ],
+    [
+      "find_parent(aVal, aStr, aDepth)",
+      "\n        find parent object by text\n        [\"find_parent\", [\"hello\", [3]]]\n        "
+    ],
+    [
+      "find_path(aVal)",
+      ""
+    ],
+    [
+      "find_re(aVal, aTag, aParam)",
+      "\n        find more than one word in class\n        [\"find_re\", [\"catalog_block.*items\"]]\n        "
+    ],
+    [
+      "find_string(aVal, aTag, aStr)",
+      ""
+    ],
+    [
+      "get_text(aVal, aDelim)",
+      "\n        strip object from any tags\n        [\"get_text\", [\": \"]]\n        "
+    ],
+    [
+      "gets(aVal, aKeys)",
+      "\n        multiple get. equal to get('key1').get('key2')\n        [\"gets\", [\"offers.availability\"]]\n        "
+    ],
+    [
+      "help(_aVal)",
+      "\n        show brief help\n        [\"help\"]\n        "
+    ],
+    [
+      "invert(aVal)",
+      "\n        return logical not\n        [\"invert\"]\n        "
+    ],
+    [
+      "json2txt(aVal)",
+      "\n        convert json to text\n        [\"json2txt\"]\n        "
+    ],
+    [
+      "keyval2dict(aVal, aIdxKey, aIdxVal)",
+      "\n        get dict from keyval list\n\n        ex. 1\n        [\"list_map\", [ [\"keyval\", [\"name\", \"value\"]]]]\n        [\"keyval2dict\"]\n\n        ex. 2\n        [\"table\"]]\n        [\"keyval2dict\", [1, 3]]\n        "
+    ],
+    [
+      "list(aVal, aIdx, aEnd)",
+      "\n        get object from list by index\n        [\"list\", [1]]\n        "
+    ],
+    [
+      "list_filter_len(aVal, aLen)",
+      "\n        filter list by size\n        [\"list_filter_len\", [2]]\n        "
+    ],
+    [
+      "list_get_keyval(aVal, aIdxKey, aIdxVal)",
+      ""
+    ],
+    [
+      "list_group(aVal, aStep, aIdxs)",
+      "\n        group list [1,2,3,4,5,6,7,8,9,0] into [[1,3], [4,6], [7,9]]\n        [\"list_group\", [3, [0, 1]]]\n        "
+    ],
+    [
+      "list_join(aVal, aDelim)",
+      "\n        join list ['one', 'two', 'three'] into string 'one. two. three'\n        [\"list_join\", [\". \"]]\n        "
+    ],
+    [
+      "list_listgroup(aVal, aStep, aIdxs)",
+      "\n        group list [1,2,3,4,5,6,7,8,9,0] into [[1,3], [4,6], [7,9]]\n        [\"list_group\", [3, [0, 1]]]\n        "
+    ],
+    [
+      "list_sort(aVal, aReverse)",
+      "\n        sort list alphabetically\n        [\"list_sort\", [False]]\n        "
+    ],
+    [
+      "list_sort_len(aVal, aReverse)",
+      "\n        sort string list by length\n        [\"list_sort_len\", [False]]\n        "
+    ],
+    [
+      "list_uniq(aVal)",
+      "\n        return unique sorted items from a list'\n        [\"list_uniq\"]\n        "
+    ],
+    [
+      "lower(aVal)",
+      "\n        string to lower case\n        [\"lower\"]\n        "
+    ],
+    [
+      "none(_aVal)",
+      "\n        return None and stop parsing\n        [\"none\"]\n        "
+    ],
+    [
+      "not_none(aVal)",
+      "\n        get first not None item\n        [\"not_none\"]\n        "
+    ],
+    [
+      "price(aVal)",
+      "\n        get price\n        [\"price\"]\n        "
+    ],
+    [
+      "price_find(aVal, aCur)",
+      "\n        get prices from string using regEx r'[\\d\\.]{2,}\\s*' + aCur\n        [\"price_find\"]\n        "
+    ],
+    [
+      "replace(aVal, aFind, aRepl)",
+      "\n        replace string\n        [\"replace\", [\"1\", \"one\"]]\n        hint. use   to represen  \n        "
+    ],
+    [
+      "replace_list(aVal, aFind, aRepl)",
+      "\n        multiple replace string\n        [\"replace\", [[\"1\", \"2\"], [\"one\", \"two\"]]]\n        "
+    ],
+    [
+      "replace_re(aVal, aFind, aRepl)",
+      "\n        regEx replace string\n        [\"replace_re\", [\"\\s*,\\s*\", \"/\"]]\n        "
+    ],
+    [
+      "search(aVal)",
+      "\n        search any substring from a list in aVal\n        [\"search\", [\"InStock\", \"available\"]]\n        "
+    ],
+    [
+      "search_eq(aVal)",
+      "\n        search any string from a list in aVal\n        [\"search_eq\", [\"InStock\", \"available\"]]\n        "
+    ],
+    [
+      "search_prefix(aVal)",
+      "\n        search string that starts with a given prefix\n        [\"search_prefix\", [\"InStock\", \"available\"]]\n        "
+    ],
+    [
+      "search_xlat(aVal, aSearch, aXlat)",
+      "\n        search string and return associated string\n        [\"search_xlat\", [\"NewCondition\", \"UsedCondition\"], [\"нове\", \"вживане\"]]\n        "
+    ],
+    [
+      "serial_check(aVal, aLen)",
+      "\n        check ranges [A..Z], [0..9], [-/ ] and length >= aLen\n        [\"serial_check\"]\n        "
+    ],
+    [
+      "serial_find(aVal, aMatch)",
+      "\n        get serial number with regex matches\n        [\"serial_find\"]\n        "
+    ],
+    [
+      "show(aVal)",
+      "\n        show value\n        [\"show\"]\n        "
+    ],
+    [
+      "split(aVal, aDelim, aIdx)",
+      "\n        split string by delimiter and get object from list by index\n        [\"split\", [\" \", -1]]\n        "
+    ],
+    [
+      "split_cr(aVal, aDelim)",
+      "\n        split string into list\n        aVal = '\n\t\t\t\tWeight\t\t\n\n1.23\n\n'\n        return ['Weight', '1.23']\n        "
+    ],
+    [
+      "split_keys(aVal, aDelim)",
+      "\n        split string by list of delimiters and get dict Delim: Value\n        [\"split_keys\", [[\"color:\", \"weight:\", \"size:\"]]]\n\n        aVal = \"color: red, green white. size: big, smal, mini. weight: 1.2, 30\"\n        Res = {'color': 'red, green white.', 'size': 'big, smal, mini.', 'weight': '1.2, 30'}\n        "
+    ],
+    [
+      "stock(aVal, aPresent)",
+      "\n        Get stock availability\n        [\"stock\"]\n        "
+    ],
+    [
+      "strip(aVal, aChars)",
+      "\n        remove invisible chars\n        [\"strip\"]\n        "
+    ],
+    [
+      "table(aVal, aHeader)",
+      "\n        parse table by tr, th+td\n        [\"table\"]\n        "
+    ],
+    [
+      "table_tag(aVal, aTag)",
+      "\n        parse table\n        [\"table_tag\", [[\"dt\", \"dd\"]]]\n        "
+    ],
+    [
+      "txt2float(aVal)",
+      "\n        convert text to float\n        [\"txt2float\"]\n        "
+    ],
+    [
+      "txt2int(aVal)",
+      "\n        convert text to int\n        [\"txt2int\"]\n        "
+    ],
+    [
+      "txt2json(aVal)",
+      "\n        convert text to json\n        [\"txt2json\"]\n        "
+    ],
+    [
+      "unbracket(aVal, aPair, aIdx)",
+      "\n        [\"unbracket\", [\"()\", -1]]\n        "
+    ],
+    [
+      "val2bool(aVal)",
+      "\n        convert value to boolean\n        [\"val2bool\"]\n        "
+    ],
+    [
+      "val_return(_aVal, aValRet)",
+      "\n        return value\n        [\"val_return\", true]\n        "
+    ]
+  ]
+}
