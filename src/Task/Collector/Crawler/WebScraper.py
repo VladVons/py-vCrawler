@@ -15,6 +15,7 @@ from .Lib import Protego, GetUrlData, GetSoup, InitRobots, IsMimeApp, EscForSQL
 
 
 def WriteFileDebug(aFile: str, aData):
+    aFile = aFile.replace(':', '').replace('/', '_') + '.html'
     with open(aFile, 'wb') as F:
         F.write(aData)
 
@@ -61,7 +62,7 @@ class TWebScraper():
 
             #Url = 'https://lux-pc.com/catalog/pos'
             #Data = await GetUrlData(Url, self.DblSite.Rec.headers)
-            #WriteFileDebug('debug.html', Data['data'])
+            #WriteFileDebug(Rec.url, Data['data'])
 
             if (Data['status'] == 200):
                 DataSize = len(Data['data'])

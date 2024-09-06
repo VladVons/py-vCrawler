@@ -6,6 +6,7 @@
 import os
 import re
 import gzip
+import asyncio
 from urllib.parse import urlparse
 import aiohttp
 from bs4 import BeautifulSoup
@@ -61,6 +62,7 @@ async def GetUrlData(aUrl: str, aHeaders: dict = None) -> object:
     async with aiohttp.ClientSession(headers=Headers, max_field_size=16384) as Session:
         try:
             async with Session.get(aUrl) as Response:
+                await asyncio.sleep(0.5)
                 Data = await Response.read()
                 Res = {'data': Data, 'status': Response.status}
         except Exception as E:

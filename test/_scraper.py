@@ -121,12 +121,12 @@ print(sys.version)
 #TSchemer('lapstore.com.ua').Test('category')
 #
 #TSchemer('lux-pc.com').Test('product')
-TSchemer('lux-pc.com').Test('category')
+#TSchemer('lux-pc.com').Test('category')
 #3
 #TSchemer('pc.com.ua').Test('product')
 #TSchemer('pc.com.ua').Test('category')
 #
 #TSchemer('setka.ua').Test('product')
-#TSchemer('setka.ua').Test('category')
+TSchemer('setka.ua').Test('category')
 #
 print("done")
