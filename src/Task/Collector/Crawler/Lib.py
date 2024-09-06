@@ -63,10 +63,10 @@ async def GetUrlData(aUrl: str, aHeaders: dict = None) -> object:
     UrlPath = UrlP.path
 
     async with aiohttp.ClientSession(base_url=UrlHost, headers=Headers, max_field_size=16384) as Session:
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(1)
         try:
             async with Session.get(UrlPath) as Response:
-                await asyncio.sleep(0.2)
+                await asyncio.sleep(1)
                 Data = await Response.read()
                 Res = {'data': Data, 'status': Response.status}
         except Exception as E:
