@@ -62,7 +62,7 @@ class TWebScraper():
 
             #Url = 'https://lux-pc.com/catalog/pos'
             #Data = await GetUrlData(Url, self.DblSite.Rec.headers)
-            #WriteFileDebug(Rec.url, Data['data'])
+            WriteFileDebug(Rec.url, Data['data'])
 
             if (Data['status'] == 200):
                 DataSize = len(Data['data'])
