@@ -140,7 +140,7 @@ async def Main():
     #
     #await TSchemer('cibermag.com').Test('product')
     #
-    #await TSchemer('europc.ua').Test('product')
+    await TSchemer('europc.ua').Test('product')
     #await TSchemer('europc.ua').Test('category')
     #
     #await TSchemer('h-store.in.ua').Test('product')
@@ -153,7 +153,7 @@ async def Main():
     #await TSchemer('lux-pc.com').Test('product')
     #await TSchemer('lux-pc.com').Test('category')
     #
-    await TSchemer('pc.com.ua').Test('product')
+    #await TSchemer('pc.com.ua').Test('product')
     #await TSchemer('pc.com.ua').Test('category')
     #
     #await TSchemer('setka.ua').Test('product')

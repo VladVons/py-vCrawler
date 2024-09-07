@@ -1,10 +1,11 @@
 {
   "product": {
     "info": {
-      "author": "sernuzh",
-      "date": "2024.09.06 18:00:00",
+      "author": "vladvons",
+      "date": "2024.09.07 18:00:00",
       "url": [
-        "https://europc.ua/ua/computers/prodesk-600-g2-sff-i3-6100-8-ram-240-ssd/"
+        "-https://europc.ua/ua/computers/prodesk-600-g2-sff-i3-6100-8-ram-240-ssd/",
+        "https://europc.ua/ua/laptops/hp-zbook-15-g6-15-6-ips-i7-9850h-quadro-t2000-32-ram-480-ssd/"
       ]
     },
     "pipe_schema": [
@@ -20,42 +21,45 @@
           ["gets", ["offers.availability"]],
           ["stock"]
         ],
-        "image": [
+        "images": [
           ["get", ["image"]]
         ],
-        "price": [
-          ["gets", ["offers.price"]]
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
         ],
-        "category": [
-          ["get", ["category"]]
+        "price": [
+          ["as_list", [
+            [
+              ["gets", ["offers.price"]]
+            ],
+            [
+              ["gets", ["offers.priceCurrency"]]
+            ]
+          ]]
         ]
       }]
     ],
     "pipe_body": [
-      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
       ["as_dict", {
         "price_old": [
-          ["find", ["div", {"class": "price"}]],
-          ["find", ["span", {"class": "price-old"}]],
+          ["find", ["div", {"class": "product_main_block_price_old"}]],
           ["text"],
           ["price"]
         ],
-        "images": [
-          ["find", ["div", {"class": "images-additional"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
-        ],
         "features": [
-          ["find", ["div", {"id": "tab-specification"}]],
-          ["table"],
+          ["find", ["div", {"class": "product_tab_characteristics_blocks_container"}]],
+          ["find_all", ["div", {"class": "product_tab_characteristics_block"}]],
+          ["list_map", [
+            ["text"],
+            ["strip"],
+            ["split_cr"]
+          ]],
           ["keyval2dict", [0, 1]]
         ],
-        "description": [
-          ["find", ["div", {"id": "tab-description"}]],
-          ["text"],
-          ["strip"]
+        "category": [
+          ["find", ["ol", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -1, false]]
         ]
       }]
     ]
