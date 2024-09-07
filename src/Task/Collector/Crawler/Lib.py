@@ -122,27 +122,3 @@ async def LoadSiteMap(aUrl: str) -> list:
                 if (not IsMimeApp(Url)):
                     Res.append(Url.rstrip('/'))
     return Res
-
-
-async def GetUrlData_PlayWrite(aUrl: str) -> str:
-    Response = None
-    async def ResponseHandler(response_obj):
-        nonlocal Response
-        if (response_obj.url == aUrl):
-            Response = response_obj
-
-    async with async_playwright() as PW:
-        Browser = await PW.chromium.launch(headless=True)
-        Page = await Browser.new_page()
-        Page.on('response', ResponseHandler)
-        await Page.goto(aUrl)
-
-        # Wait for the page to load completely
-        await Page.wait_for_load_state('networkidle')
-
-        Content = await Page.content()
-        await Browser.close()
-        return {
-            'data': Content,
-            'status': Iif(Response, Response.status, -1)
-        }

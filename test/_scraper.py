@@ -1,11 +1,13 @@
 import os
 import sys
 import json
-import glob
+import asyncio
+import aiohttp
 from bs4 import BeautifulSoup
 #
-from Inc.Util.Obj import IifNone
+from Inc.Misc.PlayWrite import GetUrlData as GetUrlData_PW
 from Inc.Scheme.Scheme import TScheme, TSoupScheme, TSchemeExt
+from Inc.Util.Obj import IifNone, DeepGetByList
 
 
 class TSchemer():
@@ -38,28 +40,38 @@ class TSchemer():
                             ErrCnt += 1
         return ErrCnt
 
+    @staticmethod
+    async def GetUrlData(aUrl: str) -> object:
+        Headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0',
+            'Accept-Language': 'uk'
+        }
+
+        async with aiohttp.ClientSession(headers=Headers, max_field_size=16384) as Session:
+            try:
+                async with Session.get(aUrl, allow_redirects=True) as Response:
+                    Data = await Response.read()
+                    Res = {'data': Data, 'status': Response.status}
+            except Exception as E:
+                Res = {'err': str(E), 'status': -1}
+        return Res
+
     def ReadFile(self, aFile: str) -> str:
-        with open(self.Dir + '/' + aFile, 'r', encoding='utf8') as hFile:
-            return hFile.read()
+        File = self.Dir + '/' + aFile
+        if os.path.exists(File):
+            with open(File, 'r', encoding='utf8') as hFile:
+                return hFile.read()
 
     def WriteFile(self, aFile: str, aData: str):
-        with open(self.Dir + '/' + aFile, 'w', encoding='utf8') as hFile:
+        File = self.Dir + '/' + aFile
+        with open(File, 'w', encoding='utf8') as hFile:
             hFile.write(aData)
 
-    def FindHtml(self, aType: str) -> list[str]:
-        Pattern = f'{self.Dir}/{aType}*.html'
-        Files = glob.glob(Pattern)
-        return sorted([os.path.basename(xFile) for xFile in Files])
-
-    def TestHtml(self, aFile, aType: str):
-        Data = self.ReadFile(aType + '.json')
-        Scheme = json.loads(Data)
-
-        Data = self.ReadFile(aFile)
-        BSoup = BeautifulSoup(Data, 'lxml')
+    def TestHtml(self, aScheme: dict, aHtml: str, aType: str) -> dict:
+        BSoup = BeautifulSoup(aHtml, 'lxml')
         #q1 = Soup.find('div', string='Замовити')
         #q1 = BSoup.find('div', class_='catalog_block items')
-        Scheme = TScheme(Scheme)
+        Scheme = TScheme(aScheme)
         Scheme.Parse(BSoup)
         Pipe = Scheme.GetPipe(aType)
 
@@ -86,47 +98,63 @@ class TSchemer():
             Urls = IifNone(Pipe['pager'], []) + [x['href'] for x in Products]
         Err |= bool(self.CheckFields(Pipe, Fields))
         Err |= bool(self.CheckUrls(Urls))
+        return {'err': Err , 'pipe': Pipe}
 
-        File = aFile + '.json'
-        if os.path.exists(File):
-            os.remove(File)
-        if (not Err) and (not Scheme.Err):
-            Data = json.dumps(Pipe, indent=2, ensure_ascii=False)
-            self.WriteFile(File, Data)
-            print('Saved', File)
+    async def Test(self, aType: str):
+        Data = self.ReadFile(aType + '.json')
+        Scheme = json.loads(Data)
+        Urls = DeepGetByList(Scheme, [aType, 'info', 'url'])
+        for Idx, xUrl in enumerate(Urls):
+            if (not xUrl.startswith('-')):
+                File = f'{aType}_{Idx+1}.html'
+                Data = self.ReadFile(File)
+                if (not Data):
+                    Reader = DeepGetByList(Scheme, [aType, 'info', 'reader'])
+                    if (Reader == 'emulator'):
+                        DataU = await GetUrlData_PW(xUrl)
+                    else:
+                        DataU = await self.GetUrlData(xUrl)
 
-    def Test(self, aType: str):
-        Html = self.FindHtml(aType)
-        assert(Html), f'No {aType} html found'
+                    if (DataU['status'] == 200):
+                        self.WriteFile(File, DataU['data'])
+                    Data = DataU['data']
 
-        for xFile in Html:
-            self.TestHtml(xFile, aType)
+                Res = self.TestHtml(Scheme, Data, aType)
+                if (not Res['err']):
+                    Data = json.dumps(Res['pipe'], indent=2, ensure_ascii=False)
+                    self.WriteFile(File + '.json', Data)
+                    print('Ok. Saved', File + '.json')
 
-os.system('clear')
-print(os.getcwd())
-print(sys.version)
-#
-#TSchemer('acomp.com.ua').Test('product')
-#TSchemer('acomp.com.ua').Test('category')
-#
-#TSchemer('as-it.ua').Test('product')
-#TSchemer('as-it.ua').Test('category')
-#
-#TSchemer('cibermag.com').Test('product')
-#TSchemer('h-store.in.ua').Test('product')
-#TSchemer('laptop-planet.com.ua').Test('product')
-#TSchemer('laptopchik.top').Test('product')
-#
-#TSchemer('lapstore.com.ua').Test('product')
-#TSchemer('lapstore.com.ua').Test('category')
-#
-#TSchemer('lux-pc.com').Test('product')
-#TSchemer('lux-pc.com').Test('category')
-#3
-#TSchemer('pc.com.ua').Test('product')
-#TSchemer('pc.com.ua').Test('category')
-#
-#TSchemer('setka.ua').Test('product')
-TSchemer('setka.ua').Test('category')
-#
-print("done")
+
+async def Main():
+    os.system('clear')
+    print(os.getcwd())
+    print(sys.version)
+    #
+    #await TSchemer('acomp.com.ua').Test('product')
+    #await TSchemer('acomp.com.ua').Test('category')
+    #
+    #await TSchemer('as-it.ua').Test('product')
+    #await TSchemer('as-it.ua').Test('category')
+    #
+    #await TSchemer('cibermag.com').Test('product')
+    #await TSchemer('h-store.in.ua').Test('product')
+    #await TSchemer('laptop-planet.com.ua').Test('product')
+    #await TSchemer('laptopchik.top').Test('product')
+    #
+    #await TSchemer('lapstore.com.ua').Test('product')
+    #await TSchemer('lapstore.com.ua').Test('category')
+    #
+    #await TSchemer('lux-pc.com').Test('product')
+    #await TSchemer('lux-pc.com').Test('category')
+    #
+    #await TSchemer('pc.com.ua').Test('product')
+    #await TSchemer('pc.com.ua').Test('category')
+    #
+    #await TSchemer('setka.ua').Test('product')
+    await TSchemer('setka.ua').Test('category')
+    #
+    print("done")
+
+asyncio.run(Main())
+

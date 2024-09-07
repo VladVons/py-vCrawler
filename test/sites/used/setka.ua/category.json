@@ -4,8 +4,9 @@
       "author": "vladvons",
       "date": "2024.09.05 09:00:00",
       "url": [
-        "https://setka.ua/c/noutbuki/noutbuki_1"
-      ]
+        "https://setka.ua/c/noutbuki/noutbuki_1/"
+      ],
+      "reader": "emulator"
     },
     "pipe": [
       ["as_dict", {
