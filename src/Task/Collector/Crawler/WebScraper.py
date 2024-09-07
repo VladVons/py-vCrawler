@@ -63,7 +63,7 @@ class TWebScraper():
             Pipe = None
 
             Url = Rec.url
-            Url = 'https://pc.com.ua/ua/noutbuk-156-dell-inspiron-3501-intel-core-i5-1135g7-16gb-ram-240gb-ssd-fullhd-b-class'
+            #Url = 'https://pc.com.ua/ua/noutbuk-156-dell-inspiron-3501-intel-core-i5-1135g7-16gb-ram-240gb-ssd-fullhd-b-class'
             if (self.DblSite.Rec.emulator):
                 Data = await PW_GetUrlData(Url)
             else:
@@ -87,8 +87,8 @@ class TWebScraper():
                         Price = Pipe.get('price')
                         if (Pipe.get('name')) and \
                         (
-                            (Price and isinstance(Price[0], (int, float)) and Price[0] > 0) or \
-                            (Pipe.get('description') and Pipe.get('features'))
+                            (Price and isinstance(Price[0], (int, float)) and Price[0] > 0)
+                            #or (Pipe.get('description') and Pipe.get('features'))
                         ):
                             SchemeName = Key
                             TotalProduct += 1

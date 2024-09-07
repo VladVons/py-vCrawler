@@ -13,7 +13,7 @@ class TMain(TCtrlBase):
         aSearch, aSort, aOrder, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
             ('q', 'sort', 'order', 'page', 'limit'),
-            ('', ('sort_order, title', 'title', 'price'), ('asc', 'desc'), 1, 25)
+            ('', ('sort_order, title', 'title', 'price', 'stock'), ('asc', 'desc'), 1, 25)
         )
 
         if (not Lib.IsDigits([aPage, aLimit])):

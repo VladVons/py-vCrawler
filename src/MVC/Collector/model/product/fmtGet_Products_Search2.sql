@@ -7,10 +7,16 @@ with wt1 as(
         rp.*
     from
         ref_product rp
+    join
+        ref_url ru on
+        ru.id = rp.url_id
     where
+        (ru.status_code = 200) and
+        (rp.price > 0) and
         tsv_title @@ to_tsquery('simple', '{{aFilter}}')
     order by
-        price
+        rp.stock desc,
+        rp.price
     limit
         {{aLimit}}
     offset
