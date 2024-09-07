@@ -4,8 +4,8 @@
       "author": "vladvons",
       "date": "2024.08.28 09:00:00",
       "url": [
-        "https://pc.com.ua/ua/noutbuk-dell-latitude-5590-156-1920x1080-ips-intel-core-i7-8650u-4-8-yadra-po-19-42-ghz-16-gb-ddr4-256-gb-ssd-intel-uhd-graphics-620-webcam-win-10-pro-23015",
-        "https://pc.com.ua/ua/noutbuk-hp-probook-640-g2-14-fullhd-i5-6200u-ram-8gb-ssd-128gb"
+        "-https://pc.com.ua/ua/toshiba-z30-i7-8-128",
+        "https://pc.com.ua/ua/noutbuk-156-dell-inspiron-3501-intel-core-i5-1135g7-16gb-ram-240gb-ssd-fullhd-b-class"
       ]
     },
     "pipe_schema": [
@@ -26,7 +26,7 @@
           ["list", [0]]
         ],
         "price": [
-          ["ext_price_app", [true]]
+          ["ext_price_app"]
         ]
       }]
     ],
@@ -34,7 +34,7 @@
       ["find", ["div", {"class": "product-page"}]],
       ["as_dict", {
         "price_old": [
-          ["find", ["div", {"class": "price-block"}]],
+          ["find", ["div", {"class": "card-price-box"}]],
           ["find", ["div", {"class": "price-old"}]],
           ["text"],
           ["price"]

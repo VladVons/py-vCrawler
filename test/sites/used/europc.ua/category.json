@@ -2,34 +2,27 @@
   "category": {
     "info": {
       "author": "vladvons",
-      "date": "2024.09.03 09:00:00",
+      "date": "2024.09.06 18:00:00",
       "url": [
-        "https://as-it.ua/bu-noutbuki/"
+        "https://europc.ua/ua/laptops/"
       ]
     },
     "pipe": [
+      ["find", ["div", {"class": "catalog_wrapper"}]],
       ["as_dict", {
         "products": [
-          ["find_all", ["div", {"class": "product-layout"}]],
+          ["find_all", ["div", {"class": "product_block"}]],
           ["list_map", [
             ["as_dict", {
                "href": [ 
-                 ["find", ["div", {"class": "name"}]],
                  ["find", ["a"]],
                  ["get", ["href"]]
-               ],
-               "stock": [ 
-                 ["find", ["div", {"class": "stock-box"}]],
-                 ["text"],
-                 ["strip"],
-                 ["lower"],
-                 ["search_prefix", ["в наявності"]]
                ]
             }]
           ]]
        ],
        "pager": [
-          ["find", ["div", {"class": "pagination-wrapper"}]],
+          ["find", ["div", {"class": "paginator"}]],
           ["find_all", ["a"]],
           ["list_map", [
             ["get", ["href"]]

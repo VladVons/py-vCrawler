@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 #
 from Inc.Misc.PlayWrite import GetUrlData as GetUrlData_PW
 from Inc.Scheme.Scheme import TScheme, TSoupScheme, TSchemeExt
-from Inc.Util.Obj import IifNone, DeepGetByList
+from Inc.Util.Obj import Iif, IifNone, DeepGetByList
 
 
 class TSchemer():
@@ -64,7 +64,8 @@ class TSchemer():
 
     def WriteFile(self, aFile: str, aData: str):
         File = self.Dir + '/' + aFile
-        with open(File, 'w', encoding='utf8') as hFile:
+        Mode = Iif(isinstance(aData, str), 'w', 'wb')
+        with open(File, Mode) as hFile:
             hFile.write(aData)
 
     def TestHtml(self, aScheme: dict, aHtml: str, aType: str) -> dict:
@@ -138,6 +139,10 @@ async def Main():
     #await TSchemer('as-it.ua').Test('category')
     #
     #await TSchemer('cibermag.com').Test('product')
+    #
+    #await TSchemer('europc.ua').Test('product')
+    #await TSchemer('europc.ua').Test('category')
+    #
     #await TSchemer('h-store.in.ua').Test('product')
     #await TSchemer('laptop-planet.com.ua').Test('product')
     #await TSchemer('laptopchik.top').Test('product')
@@ -148,11 +153,11 @@ async def Main():
     #await TSchemer('lux-pc.com').Test('product')
     #await TSchemer('lux-pc.com').Test('category')
     #
-    #await TSchemer('pc.com.ua').Test('product')
+    await TSchemer('pc.com.ua').Test('product')
     #await TSchemer('pc.com.ua').Test('category')
     #
     #await TSchemer('setka.ua').Test('product')
-    await TSchemer('setka.ua').Test('category')
+    #await TSchemer('setka.ua').Test('category')
     #
     print("done")
 

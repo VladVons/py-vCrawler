@@ -63,7 +63,7 @@ class TWebScraper():
             Pipe = None
 
             Url = Rec.url
-            #Url = 'https://setka.ua/c/noutbuki/noutbuki_1/page-5/'
+            Url = 'https://pc.com.ua/ua/noutbuk-156-dell-inspiron-3501-intel-core-i5-1135g7-16gb-ram-240gb-ssd-fullhd-b-class'
             if (self.DblSite.Rec.emulator):
                 Data = await PW_GetUrlData(Url)
             else:
