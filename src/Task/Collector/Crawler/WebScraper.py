@@ -95,7 +95,8 @@ class TWebScraper():
                             EscForSQL(Pipe)
                             break
                     elif (Key == 'category'):
-                        if (len(Pipe.get('products', [])) > 1):
+                        Products = IifNone(Pipe.get('products'), [])
+                        if (len(Products) > 1):
                             SchemeName = Key
                             break
 
@@ -103,7 +104,7 @@ class TWebScraper():
                 AllowCategory = self.DblSite.Rec.category
                 if (AllowCategory):
                     if (SchemeName == 'category'):
-                        Products = [xProduct['href'] for xProduct in  Pipe['products']]
+                        Products = [xProduct['href'] for xProduct in  Products]
                         Categories = IifNone(Pipe.get('pager'), [])
                         Htrefs = set(Products + Categories)
                 else:
