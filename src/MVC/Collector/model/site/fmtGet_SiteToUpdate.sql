@@ -7,6 +7,7 @@ select
     rs.sleep_seconds,
     rs.robots,
     rs.headers,
+    rs.emulator,
     (
         select jsonb_agg(rsp.scheme)
         from ref_site_parser rsp

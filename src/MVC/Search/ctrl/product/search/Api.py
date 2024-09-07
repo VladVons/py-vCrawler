@@ -3,6 +3,8 @@
 # License: GNU, see LICENSE for more details
 
 
+from base64 import b64encode
+from urllib.parse import quote
 from IncP.CtrlBase import TCtrlBase, Lib
 
 
@@ -48,6 +50,14 @@ class TMain(TCtrlBase):
         if (not Dbl):
             Res['status_code'] = 404
             return Res
+
+        Marker = 'findwares.com'
+        Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
+        Dbl.ToList()
+        for Rec in Dbl:
+            Url = Rec.url
+            Url = Url + Lib.Iif('?' in Url, '&', '?') + f'srsltid={Hash}'
+            Rec.SetField('url', Url)
 
         Pagination = Lib.TPagination(aLimit, aData['path_qs'])
         PData = Pagination.Get(Dbl.Rec.total, aPage)

@@ -11,9 +11,10 @@ from urllib.parse import urlparse
 import aiohttp
 from bs4 import BeautifulSoup
 from protego import Protego
+from playwright.async_api import async_playwright
 #
-from Inc.Util.Obj import GetTree
-from IncP.Log import Log
+from Inc.Util.Obj import GetTree, Iif
+#from IncP.Log import Log
 
 
 def DictToCookie(aDict) -> str:
@@ -62,13 +63,11 @@ async def GetUrlData(aUrl: str, aHeaders: dict = None) -> object:
     # UrlP = urlparse(aUrl)
     # UrlHost = '%s://%s' % (UrlP.scheme, UrlP.hostname)
     # UrlPath = UrlP.path
+
     async with aiohttp.ClientSession(headers=Headers, max_field_size=16384) as Session:
         try:
             async with Session.get(aUrl, allow_redirects=True) as Response:
-                await asyncio.sleep(0.2)
-                UrlR = str(Response.url)
-                if (aUrl != UrlR):
-                    Log.Print(1, 'i', f'Url is diff: {aUrl}, {UrlR}')
+                await asyncio.sleep(0.1)
                 Data = await Response.read()
                 Res = {'data': Data, 'status': Response.status}
         except Exception as E:
@@ -123,3 +122,27 @@ async def LoadSiteMap(aUrl: str) -> list:
                 if (not IsMimeApp(Url)):
                     Res.append(Url.rstrip('/'))
     return Res
+
+
+async def GetUrlData_PlayWrite(aUrl: str) -> str:
+    Response = None
+    async def ResponseHandler(response_obj):
+        nonlocal Response
+        if (response_obj.url == aUrl):
+            Response = response_obj
+
+    async with async_playwright() as PW:
+        Browser = await PW.chromium.launch(headless=True)
+        Page = await Browser.new_page()
+        Page.on('response', ResponseHandler)
+        await Page.goto(aUrl)
+
+        # Wait for the page to load completely
+        await Page.wait_for_load_state('networkidle')
+
+        Content = await Page.content()
+        await Browser.close()
+        return {
+            'data': Content,
+            'status': Iif(Response, Response.status, -1)
+        }

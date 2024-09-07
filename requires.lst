@@ -15,3 +15,8 @@ pylint
 aiohttp_session
 cryptography
 wtforms
+
+# JS emulators
+# py_mini_racer
+# playwright
+

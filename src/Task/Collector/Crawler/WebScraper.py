@@ -11,12 +11,13 @@ from Inc.Scheme.Scheme import TScheme
 from Inc.Util.Str import StartsWith
 from Inc.Util.Obj import Iif, IifNone
 from .Api import TApiCrawlerEx
-from .Lib import Protego, GetUrlData, GetSoup, InitRobots, IsMimeApp, EscForSQL
+from .Lib import Protego, GetUrlData, GetUrlData_PlayWrite, GetSoup, InitRobots, IsMimeApp, EscForSQL
 
 
 def WriteFileDebug(aFile: str, aData):
     aFile = aFile.replace(':', '').replace('/', '_') + '.html'
-    with open(aFile, 'wb') as F:
+    Type = Iif(isinstance(aData, str), 'w', 'wb')
+    with open(aFile, Type) as F:
         F.write(aData)
 
 
@@ -27,6 +28,7 @@ class TWebScraper():
         self.DblUrl = aData['url']
         self.UrlRoot = self.DblSite.Rec.url
         self.Robots: Protego
+        self.Cnt = 0
 
     def GetHrefs(self, aSoup) -> set:
         Res = set()
@@ -53,16 +55,21 @@ class TWebScraper():
         TotalDataSize = 0
         TotalHref = set()
         for Rec in self.DblUrl:
+            self.Cnt += 1
             UrlCount = 0
             DataSize = 0
             SchemeName = None
             Pipe = None
 
-            Data = await GetUrlData(Rec.url, self.DblSite.Rec.headers)
-
-            #Url = 'https://lux-pc.com/catalog/pos'
-            #Data = await GetUrlData(Url, self.DblSite.Rec.headers)
-            WriteFileDebug(Rec.url, Data['data'])
+            Url = Rec.url
+            #Url = 'https://setka.ua/c/noutbuki/noutbuki_1/page-5/'
+            if (self.DblSite.Rec.emulator):
+                Data = await GetUrlData_PlayWrite(Url)
+            else:
+                Data = await GetUrlData(Url, self.DblSite.Rec.headers)
+            #WriteFileDebug(f'{Url}_{self.Cnt}', Data['data'])
+            #await asyncio.sleep(3)
+            #continue
 
             if (Data['status'] == 200):
                 DataSize = len(Data['data'])
