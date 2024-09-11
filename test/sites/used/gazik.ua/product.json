@@ -4,9 +4,10 @@
       "author": "vladvons",
       "date": "2024.09.10 18:00:00",
       "url": [
-        "https://gazik.ua/catalog/komp-yutery/38478/",
+        "-https://gazik.ua/catalog/komp-yutery/38478/",
         "-https://gazik.ua/catalog/noutbuky-refurbished/40049/",
-        "-https://gazik.ua/catalog/klaviatury/19095/"
+        "-https://gazik.ua/catalog/klaviatury/19095/",
+        "https://gazik.ua/catalog/komp-yutery/38489/"
       ]
     },
     "pipe_body": [
@@ -21,7 +22,7 @@
           ["find", ["span", {"class": "store_view"}]],
           ["text"],
           ["lower"],
-          ["search_eq", ["в наявності"]]
+          ["search_prefix", ["в наявності"]]
         ],
         "image":[
           ["find", ["li", {"id": "photo-0"}]],

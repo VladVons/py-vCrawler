@@ -6,13 +6,16 @@ import aiohttp
 from bs4 import BeautifulSoup
 #
 from Inc.Misc.PlayWrite import GetUrlData as GetUrlData_PW
-from Inc.Scheme.Scheme import TScheme, TSoupScheme, TSchemeExt
-from Inc.Util.Obj import Iif, IifNone, DeepGetByList
+from Inc.Scheme.Scheme import TScheme, TSchemeExt, TSchemeApi
+from Inc.Util.ModHelp import GetClass
+from Inc.Util.Obj import Iif, IifNone, DeepGetByList, GetTree
 
+
+DirRoot = 'sites/used'
 
 class TSchemer():
     def __init__(self, aSite: str):
-        self.Dir = f'sites/used/{aSite}'
+        self.Dir = f'{DirRoot}/{aSite}'
         assert os.path.exists(self.Dir), f'Directory does not exist {self.Dir}'
 
     @staticmethod
@@ -68,6 +71,11 @@ class TSchemer():
         with open(File, Mode) as hFile:
             hFile.write(aData)
 
+    def LoadScheme(self, aType: str) -> dict:
+        Data = self.ReadFile(aType + '.json')
+        if (Data):
+            return json.loads(Data)
+
     def TestHtml(self, aScheme: dict, aHtml: str, aType: str) -> dict:
         BSoup = BeautifulSoup(aHtml, 'lxml')
         #q1 = Soup.find('div', string='Замовити')
@@ -101,9 +109,22 @@ class TSchemer():
         Err |= bool(self.CheckUrls(Urls))
         return {'err': Err , 'pipe': Pipe}
 
+    @staticmethod
+    def GetMacroses(aScheme: dict) -> list:
+        Res = []
+        BS4 = ['find', 'find_all', 'text', 'get']
+        Methods = GetClass(TSchemeApi) + GetClass(TSchemeExt)
+        Methods = [xMethod[0] for xMethod in Methods] + BS4
+        for _Nested, _Path, Obj, _Depth in GetTree(aScheme):
+            if (isinstance(Obj, list)) and (len(Obj) > 0):
+                Method = Obj[0]
+                if (isinstance(Method, str)) and (Method in Methods):
+                    Res.append(Method)
+        return sorted(set(Res))
+
     async def Test(self, aType: str):
-        Data = self.ReadFile(aType + '.json')
-        Scheme = json.loads(Data)
+        Scheme = self.LoadScheme(aType)
+
         Urls = DeepGetByList(Scheme, [aType, 'info', 'url'])
         for Idx, xUrl in enumerate(Urls):
             if (not xUrl.startswith('-')):
@@ -127,11 +148,27 @@ class TSchemer():
                     print('Ok. Saved', File + '.json')
 
 
+def GetAllMacroses() -> list:
+    Res = []
+    for xDir in os.listdir(DirRoot):
+        Dir = os.path.join(DirRoot, xDir)
+        if os.path.isdir(Dir):
+            for xFile in ['product', 'category']:
+                Schemer = TSchemer(xDir)
+                Scheme = Schemer.LoadScheme(xFile)
+                if (Scheme):
+                    Macroses = Schemer.GetMacroses(Scheme)
+                    Res += Macroses
+    return sorted(set(Res))
+
 async def Main():
     os.system('clear')
     print(os.getcwd())
     print(sys.version)
     #
+    Macroses = GetAllMacroses()
+    for xMacros in Macroses:
+        print(xMacros)
     #
     #await TSchemer('1x1.com.ua').Test('product')
     #await TSchemer('1x1.com.ua').Test('category')
@@ -147,7 +184,7 @@ async def Main():
     #await TSchemer('europc.ua').Test('product')
     #await TSchemer('europc.ua').Test('category')
     #
-    await TSchemer('gazik.ua').Test('product')
+    #await TSchemer('gazik.ua').Test('product')
     #await TSchemer('gazik.ua').Test('category')
     #
     #await TSchemer('h-store.in.ua').Test('product')
