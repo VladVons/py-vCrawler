@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "DOM Element Selector",
+  "version": "1.0",
+  "permissions": [
+    "activeTab", 
+    "contextMenus", 
+    "storage"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content_script.js"]
+    }
+  ],
+  "browser_action": {
+    "default_popup": "popup.html"
+  }
+}

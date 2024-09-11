@@ -1,0 +1,77 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.10 18:00:00",
+      "url": [
+        "https://gazik.ua/catalog/komp-yutery/38478/",
+        "-https://gazik.ua/catalog/noutbuky-refurbished/40049/",
+        "-https://gazik.ua/catalog/klaviatury/19095/"
+      ]
+    },
+    "pipe_body": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "name": [
+          ["var_get", ["$root"]],
+          ["find", ["h1", {"id": "pagetitle"}]],
+          ["text"]
+        ],
+        "stock":[
+          ["find", ["span", {"class": "store_view"}]],
+          ["text"],
+          ["lower"],
+          ["search_eq", ["в наявності"]]
+        ],
+        "image":[
+          ["find", ["li", {"id": "photo-0"}]],
+          ["find", ["a"]],
+          ["gets", ["href"]],
+          ["url_pad"]
+        ],
+        "images":[
+         ["find", ["div", {"class": "slides"}]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["find", ["a"]],
+            ["gets", ["href"]],
+            ["url_pad"]
+          ]]
+        ],
+        "price": [
+          ["price_meta"]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "price_matrix_wrapper strike_block"}]],
+          ["text"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["table", {"class": "props_list"}]],
+          ["table"],
+          ["keyval2dict", [0, 1]]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Виробник"]]
+        ],
+        "-description": [
+            ["find", ["div", {"class": "tab-content"}]],
+            ["find", ["div", {"class": "detail_text"}]],
+            ["text"],
+            ["strip"]
+          ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["find_all", ["div", {"itemtype": "http://schema.org/ListItem"}]],
+          ["list_map", [
+            ["find", ["span", {"itemprop": "name"}]],
+            ["text"]
+          ]],
+          ["list_join", ["/"]]
+        ]
+      }]
+    ]
+  }
+}

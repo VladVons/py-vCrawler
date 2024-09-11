@@ -4,20 +4,40 @@
       "author": "vladvons",
       "date": "2024.09.05 09:00:00",
       "url": [
-        "https://acomp.com.ua/ua/category/sistemnye-bloki"
+        "https://acomp.com.ua/ua/category/sistemnye-bloki",
+        "-https://acomp.com.ua/ua/category/sistemnye-bloki/?page=50",
+        "---https://acomp.com.ua/ua/alphapc-ryzen-5-5500-gtx1070-16gb-ssd-480gb-rg10-t207/"
       ]
     },
     "pipe": [
       ["as_dict", {
         "products": [
           ["find", ["div", {"class": "product-list"}]],
-          ["find_all", ["div", {"class": "product_name"}]],
+          ["find_all", ["div", {"class": "product"}]],
           ["list_map", [
             ["as_dict", {
                "href": [ 
+                 ["find", ["div", {"class": "product_name"}]],
                  ["find", ["a"]],
                  ["get", ["href"]],
                  ["url_pad"]
+               ],
+               "price": [ 
+                 ["-find", ["div", {"class": "offers"}]],
+                 ["find", ["span", {"class": "price"}]],
+                 ["text"],
+                 ["price"]
+               ],
+               "stock": [ 
+                 ["find", ["div", {"class": "stock"}]],
+                 ["text"],
+                 ["stock"]
+               ],
+               "name": [ 
+                 ["find", ["div", {"class": "product_name"}]],
+                 ["find", ["a"]],
+                 ["text"],
+                 ["replace", ["•", "/"]]
                ]
             }]
           ]]

@@ -1,0 +1,37 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.06 09:00:00",
+      "url": [
+        "https://1x1.com.ua/category/noutbuki"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "product-list"}]],
+          ["find_all", ["div", {"class": "card"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

@@ -132,6 +132,10 @@ async def Main():
     print(os.getcwd())
     print(sys.version)
     #
+    #
+    #await TSchemer('1x1.com.ua').Test('product')
+    #await TSchemer('1x1.com.ua').Test('category')
+    #
     #await TSchemer('acomp.com.ua').Test('product')
     #await TSchemer('acomp.com.ua').Test('category')
     #
@@ -140,8 +144,11 @@ async def Main():
     #
     #await TSchemer('cibermag.com').Test('product')
     #
-    await TSchemer('europc.ua').Test('product')
+    #await TSchemer('europc.ua').Test('product')
     #await TSchemer('europc.ua').Test('category')
+    #
+    await TSchemer('gazik.ua').Test('product')
+    #await TSchemer('gazik.ua').Test('category')
     #
     #await TSchemer('h-store.in.ua').Test('product')
     #await TSchemer('laptop-planet.com.ua').Test('product')
