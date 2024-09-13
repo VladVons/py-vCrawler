@@ -110,8 +110,8 @@ class TSchemer():
         return {'err': Err , 'pipe': Pipe}
 
     @staticmethod
-    def GetMacroses(aScheme: dict) -> list:
-        Res = []
+    def GetMacroses(aScheme: dict) -> dict:
+        Res = {}
         BS4 = ['find', 'find_all', 'text', 'get']
         Methods = GetClass(TSchemeApi) + GetClass(TSchemeExt)
         Methods = [xMethod[0] for xMethod in Methods] + BS4
@@ -119,8 +119,10 @@ class TSchemer():
             if (isinstance(Obj, list)) and (len(Obj) > 0):
                 Method = Obj[0]
                 if (isinstance(Method, str)) and (Method in Methods):
-                    Res.append(Method)
-        return sorted(set(Res))
+                    if (Method not in Res):
+                        Res[Method] = 0
+                    Res[Method] += 1
+        return Res
 
     async def Test(self, aType: str):
         Scheme = self.LoadScheme(aType)
@@ -142,14 +144,15 @@ class TSchemer():
                     Data = DataU['data']
 
                 Res = self.TestHtml(Scheme, Data, aType)
-                if (not Res['err']):
+                #if (not Res['err']):
+                if (True):
                     Data = json.dumps(Res['pipe'], indent=2, ensure_ascii=False)
                     self.WriteFile(File + '.json', Data)
                     print('Ok. Saved', File + '.json')
 
 
-def GetAllMacroses() -> list:
-    Res = []
+def GetAllMacroses() -> dict:
+    Res = {}
     for xDir in os.listdir(DirRoot):
         Dir = os.path.join(DirRoot, xDir)
         if os.path.isdir(Dir):
@@ -158,17 +161,19 @@ def GetAllMacroses() -> list:
                 Scheme = Schemer.LoadScheme(xFile)
                 if (Scheme):
                     Macroses = Schemer.GetMacroses(Scheme)
-                    Res += Macroses
-    return sorted(set(Res))
+                    for Key, Val in Macroses.items():
+                        Res[Key] = Res.get(Key, 0) + Val
+    PopularFirst = sorted(Res.items(), key=lambda item: item[1], reverse=True)
+    return dict(PopularFirst)
 
 async def Main():
     os.system('clear')
     print(os.getcwd())
     print(sys.version)
     #
-    Macroses = GetAllMacroses()
-    for xMacros in Macroses:
-        print(xMacros)
+    # Macroses = GetAllMacroses()
+    # for Idx, (Key, Val) in enumerate(Macroses.items()):
+    #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
     #await TSchemer('1x1.com.ua').Test('product')
     #await TSchemer('1x1.com.ua').Test('category')
@@ -206,4 +211,3 @@ async def Main():
     print("done")
 
 asyncio.run(Main())
-
