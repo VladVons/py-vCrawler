@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "DOM Parser",
+  "version": "1.0",
+
+  "description": "Select nodes with mouse",
+  "icons": {
+    "48": "icons/48x48.png"
+  },
+
+  "applications": {
+    "gecko": {
+      "id": "cx@ukr.net",
+      "strict_min_version": "45.0"
+    }
+  },
+  
+  "permissions": [
+    "storage"
+  ],
+  
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["parser.js"]
+    }
+  ],
+  
+  "browser_action": {
+    "default_icon": "icons/32x32.png",
+    "default_title": "Select nodes with mouse",
+    "default_popup": "popup/popup.html"
+  }
+  
+}

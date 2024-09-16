@@ -6,19 +6,15 @@
 import os
 import re
 import gzip
-import asyncio
 from urllib.parse import urlparse
-import aiohttp
 from bs4 import BeautifulSoup
 from protego import Protego
 from playwright.async_api import async_playwright
 #
+from Inc.Misc.aiohttpClient import UrlGetData
 from Inc.Util.Obj import GetTree, Iif
 #from IncP.Log import Log
 
-
-def DictToCookie(aDict) -> str:
-    return '; '.join([f'{Key}={Val}' for Key, Val in aDict.items()])
 
 def GetSoup(aData: str) -> BeautifulSoup:
     Res = BeautifulSoup(aData, 'lxml')
@@ -48,36 +44,10 @@ def IsMimeApp(aUrl: str) -> bool:
         Res = (Ext in Mime)
     return Res
 
-async def GetUrlData(aUrl: str, aHeaders: dict = None) -> object:
-    Headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0',
-        'Accept-Language': 'uk'
-    }
-
-    if (aHeaders):
-        for Key, Val in aHeaders.items():
-            if isinstance(Val, dict):
-                Val = DictToCookie(Val)
-            Headers[Key] = Val
-
-    # UrlP = urlparse(aUrl)
-    # UrlHost = '%s://%s' % (UrlP.scheme, UrlP.hostname)
-    # UrlPath = UrlP.path
-
-    async with aiohttp.ClientSession(headers=Headers, max_field_size=16384) as Session:
-        try:
-            async with Session.get(aUrl, allow_redirects=True) as Response:
-                await asyncio.sleep(0.1)
-                Data = await Response.read()
-                Res = {'data': Data, 'status': Response.status}
-        except Exception as E:
-            Res = {'err': str(E), 'status': -1}
-    return Res
-
 async def InitRobots(aUrl: str, aCustom: str = '') -> Protego:
     Parsed = urlparse(aUrl)
     Url = f'{Parsed.scheme}://{Parsed.hostname}/robots.txt'
-    UrlData = await GetUrlData(Url)
+    UrlData = await UrlGetData(Url)
     if (UrlData['status'] == 200):
         Content = UrlData['data'].decode()
     else:
@@ -103,7 +73,7 @@ RE_cdata = re.compile(r'<!\[CDATA\[(.*?)\]\]>', re.IGNORECASE)
 async def LoadSiteMap(aUrl: str) -> list:
     Res = []
 
-    UrlData = await GetUrlData(aUrl)
+    UrlData = await UrlGetData(aUrl)
     if (UrlData['status'] == 200):
         Data = UrlData['data']
         if (aUrl.endswith('.xml.gz')):

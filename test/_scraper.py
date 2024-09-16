@@ -6,6 +6,7 @@ import aiohttp
 from bs4 import BeautifulSoup
 #
 from Inc.Misc.PlayWrite import GetUrlData as GetUrlData_PW
+from Inc.Misc.aiohttpClient import UrlGetData
 from Inc.Scheme.Scheme import TScheme, TSchemeExt, TSchemeApi
 from Inc.Util.ModHelp import GetClass
 from Inc.Util.Obj import Iif, IifNone, DeepGetByList, GetTree
@@ -42,22 +43,6 @@ class TSchemer():
                             print('price must be float')
                             ErrCnt += 1
         return ErrCnt
-
-    @staticmethod
-    async def GetUrlData(aUrl: str) -> object:
-        Headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0',
-            'Accept-Language': 'uk'
-        }
-
-        async with aiohttp.ClientSession(headers=Headers, max_field_size=16384) as Session:
-            try:
-                async with Session.get(aUrl, allow_redirects=True) as Response:
-                    Data = await Response.read()
-                    Res = {'data': Data, 'status': Response.status}
-            except Exception as E:
-                Res = {'err': str(E), 'status': -1}
-        return Res
 
     def ReadFile(self, aFile: str) -> str:
         File = self.Dir + '/' + aFile
@@ -137,7 +122,7 @@ class TSchemer():
                     if (Reader == 'emulator'):
                         DataU = await GetUrlData_PW(xUrl)
                     else:
-                        DataU = await self.GetUrlData(xUrl)
+                        DataU = await UrlGetData(xUrl)
 
                     if (DataU['status'] == 200):
                         self.WriteFile(File, DataU['data'])
@@ -181,7 +166,7 @@ async def Main():
     #await TSchemer('acomp.com.ua').Test('product')
     #await TSchemer('acomp.com.ua').Test('category')
     #
-    #await TSchemer('as-it.ua').Test('product')
+    await TSchemer('as-it.ua').Test('product')
     #await TSchemer('as-it.ua').Test('category')
     #
     #await TSchemer('cibermag.com').Test('product')
