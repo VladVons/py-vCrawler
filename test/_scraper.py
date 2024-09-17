@@ -5,7 +5,7 @@ import asyncio
 import aiohttp
 from bs4 import BeautifulSoup
 #
-from Inc.Misc.PlayWrite import GetUrlData as GetUrlData_PW
+from Inc.Misc.PlayWrite import UrlGetData as UrlGetData_PW
 from Inc.Misc.aiohttpClient import UrlGetData
 from Inc.Scheme.Scheme import TScheme, TSchemeExt, TSchemeApi
 from Inc.Util.ModHelp import GetClass
@@ -23,7 +23,7 @@ class TSchemer():
     def CheckUrls(aUrls: list[str]) -> int:
         ErrCnt = 0
         for xUrl in aUrls:
-            if (not xUrl.startswith('http')):
+            if (isinstance(xUrl, str)) and (not xUrl.startswith('http')):
                 ErrCnt += 1
                 print('Missed http', xUrl)
         return ErrCnt
@@ -85,11 +85,11 @@ class TSchemer():
         print()
         if (aType == 'product'):
             Fields = ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', '-sku', '-mpn', 'features', 'description']
-            Urls = IifNone(Pipe['images'], []) + [IifNone(Pipe['image'], [])]
+            Urls = IifNone(Pipe.get('images'), []) + [IifNone(Pipe.get('image'), [])]
         elif (aType == 'category'):
             Fields = ['products', 'pager']
             Products = IifNone(Pipe['products'], [])
-            Urls = IifNone(Pipe['pager'], []) + [x['href'] for x in Products]
+            Urls = IifNone(Pipe.get('pager'), []) + [x['href'] for x in Products]
         Err |= bool(self.CheckFields(Pipe, Fields))
         Err |= bool(self.CheckUrls(Urls))
         return {'err': Err , 'pipe': Pipe}
@@ -120,7 +120,7 @@ class TSchemer():
                 if (not Data):
                     Reader = DeepGetByList(Scheme, [aType, 'info', 'reader'])
                     if (Reader == 'emulator'):
-                        DataU = await GetUrlData_PW(xUrl)
+                        DataU = await UrlGetData_PW(xUrl)
                     else:
                         DataU = await UrlGetData(xUrl)
 
@@ -166,7 +166,7 @@ async def Main():
     #await TSchemer('acomp.com.ua').Test('product')
     #await TSchemer('acomp.com.ua').Test('category')
     #
-    await TSchemer('as-it.ua').Test('product')
+    #await TSchemer('as-it.ua').Test('product')
     #await TSchemer('as-it.ua').Test('category')
     #
     #await TSchemer('cibermag.com').Test('product')
@@ -180,6 +180,9 @@ async def Main():
     #await TSchemer('h-store.in.ua').Test('product')
     #await TSchemer('laptop-planet.com.ua').Test('product')
     #await TSchemer('laptopchik.top').Test('product')
+    #
+    #await TSchemer('korob.com.ua').Test('product')
+    await TSchemer('korob.com.ua').Test('category')
     #
     #await TSchemer('lapstore.com.ua').Test('product')
     #await TSchemer('lapstore.com.ua').Test('category')

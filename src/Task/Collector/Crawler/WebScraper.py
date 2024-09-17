@@ -10,9 +10,9 @@ from urllib.parse import urljoin
 from Inc.Scheme.Scheme import TScheme
 from Inc.Util.Str import StartsWith
 from Inc.Util.Obj import Iif, IifNone
-from Inc.Misc.PlayWrite import GetUrlData as PW_GetUrlData
+from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
 from .Api import TApiCrawlerEx
-from .Lib import Protego, GetUrlData, GetSoup, InitRobots, IsMimeApp, EscForSQL
+from .Lib import Protego, UrlGetData, GetSoup, InitRobots, IsMimeApp, EscForSQL
 
 
 def WriteFileDebug(aFile: str, aData):
@@ -65,9 +65,9 @@ class TWebScraper():
             Url = Rec.url
             #Url = 'https://pc.com.ua/ua/noutbuk-156-dell-inspiron-3501-intel-core-i5-1135g7-16gb-ram-240gb-ssd-fullhd-b-class'
             if (self.DblSite.Rec.emulator):
-                Data = await PW_GetUrlData(Url)
+                Data = await PW_UrlGetData(Url)
             else:
-                Data = await GetUrlData(Url, self.DblSite.Rec.headers)
+                Data = await UrlGetData(Url, self.DblSite.Rec.headers)
             #WriteFileDebug(f'{Url}_{self.Cnt}', Data['data'])
             #await asyncio.sleep(3)
             #continue

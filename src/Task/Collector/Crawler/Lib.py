@@ -9,10 +9,9 @@ import gzip
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
 from protego import Protego
-from playwright.async_api import async_playwright
 #
 from Inc.Misc.aiohttpClient import UrlGetData
-from Inc.Util.Obj import GetTree, Iif
+from Inc.Util.Obj import GetTree
 #from IncP.Log import Log
 
 
