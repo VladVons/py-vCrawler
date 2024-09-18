@@ -4,7 +4,8 @@
       "author": "vladvons",
       "date": "2024-08-31 12:12:57",
       "url": [
-        "https://comtrade.ua/asus-zenbook-14-um425ia-90nb0rt1-m03290-vytryna/",
+        "-https://comtrade.ua/lenovo-82yu00yara/",
+        "-https://comtrade.ua/asus-zenbook-14-um425ia-90nb0rt1-m03290-vytryna/",
         "https://comtrade.ua/nettop-hp-prodesk-400-g4-mini-5qm83es/"
       ]
     },
@@ -18,14 +19,9 @@
         ],
         "price": [
             ["find", ["div", {"class": "product-price"}]],
-            ["check_or", [
-              [
-                ["find", ["div", {"class": "product-price__item"}]]
-
-              ],
-              [
-                ["find", ["div", {"class": "product-price__item--new"}]]
-              ]
+            ["find_or", [
+                ["div", {"class": "product-price__item"}],
+                ["div", {"class": "product-price__item--new"}]
             ]],
             ["text"],
             ["price"]

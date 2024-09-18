@@ -1,0 +1,58 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.18 09:00:00",
+      "url": [
+        "https://comtrade.ua/ua/noutbuki/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "catalog-grid"}]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "stock": [ 
+                 ["find", ["div", {"class": "catalogCard-availability"}]],
+                 ["text"],
+                 ["strip"],
+                 ["lower"],
+                 ["search_eq", ["в наявності"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "catalogCard-price"}]],
+                 ["text"],
+                 ["price"]
+               ],
+               "-price_old": [
+               ],
+               "name": [
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["find", ["a"]],
+                 ["text"],
+                 ["strip"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pager__container"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}
