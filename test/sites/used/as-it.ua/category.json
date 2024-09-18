@@ -24,6 +24,24 @@
                  ["strip"],
                  ["lower"],
                  ["search_prefix", ["в наявності"]]
+               ],
+               "price": [
+                 ["find_or", [
+                    ["span", {"class": "price-new"}],
+                    ["p", {"class": "price"}]
+                 ]],
+                 ["text"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["span", {"class": "price-old"}]],
+                 ["text"],
+                 ["price"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "name"}]],
+                 ["find", ["a"]],
+                 ["text"]
                ]
             }]
           ]]

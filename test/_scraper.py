@@ -2,7 +2,6 @@ import os
 import sys
 import json
 import asyncio
-import aiohttp
 from bs4 import BeautifulSoup
 #
 from Inc.Misc.PlayWrite import UrlGetData as UrlGetData_PW
@@ -160,6 +159,7 @@ async def Main():
     # for Idx, (Key, Val) in enumerate(Macroses.items()):
     #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
+    #
     #await TSchemer('1x1.com.ua').Test('product')
     #await TSchemer('1x1.com.ua').Test('category')
     #
@@ -167,7 +167,7 @@ async def Main():
     #await TSchemer('acomp.com.ua').Test('category')
     #
     #await TSchemer('as-it.ua').Test('product')
-    #await TSchemer('as-it.ua').Test('category')
+    await TSchemer('as-it.ua').Test('category')
     #
     #await TSchemer('cibermag.com').Test('product')
     #
@@ -182,7 +182,7 @@ async def Main():
     #await TSchemer('laptopchik.top').Test('product')
     #
     #await TSchemer('korob.com.ua').Test('product')
-    await TSchemer('korob.com.ua').Test('category')
+    #await TSchemer('korob.com.ua').Test('category')
     #
     #await TSchemer('lapstore.com.ua').Test('product')
     #await TSchemer('lapstore.com.ua').Test('category')
