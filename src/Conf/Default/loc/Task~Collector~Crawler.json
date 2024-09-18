@@ -1,9 +1,9 @@
 {
-   "srv_conf": {
-        "port": 8182,
+    "srv_conf": {
+        "port": 8181,
         "user": "user01",
         "password": "passw01",
         "allow_ip": []
     },
-    "fs_api": false
+    "fs_api": true
 }

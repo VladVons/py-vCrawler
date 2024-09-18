@@ -1,0 +1,11 @@
+{
+    "dir_route": "MVC/Search/view",
+    "dir_root": "MVC/Search/view",
+    "loader": {
+        "ctrl": {
+            "type": "fs",
+            "module": "Task.Search.SrvCtrl.Api",
+            "class": "ApiCtrl"
+        }
+    }
+}

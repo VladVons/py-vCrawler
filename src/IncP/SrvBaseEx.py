@@ -8,6 +8,7 @@ from aiohttp import web
 #
 from Inc.Misc.Misc import TJsonEncoder
 from Inc.SrvWeb.SrvBase import TSrvBase
+from Inc.Util.Obj import DeepGetByList
 
 
 class TSrvBaseEx(TSrvBase):
@@ -47,4 +48,6 @@ class TSrvBaseEx(TSrvBase):
             'time': round(time.time() - TimeStart, 4),
             'status': Status
         }
-        return web.json_response(Res, status = Status, dumps=TJsonEncoder.Dumps)
+
+        ResWeb = web.json_response(Res, status = Status, dumps=TJsonEncoder.Dumps)
+        return ResWeb

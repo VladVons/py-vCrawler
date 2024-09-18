@@ -6,6 +6,7 @@ import random
 import asyncio
 from aiohttp import web
 #
+from Inc.Util.Obj import GetClassVars
 from IncP.SrvBaseEx import TSrvBaseEx
 from IncP.Log import Log
 from .Api import ApiCrawler
@@ -59,8 +60,8 @@ class TCrawler(TSrvBaseEx):
         while (True):
             DbConf = await ApiCrawler.GetUserExt()
             if (DbConf.user_id != -1):
-                # Arr = [f'{Key}: {Val}' for Key, Val in DbConf.items()]
-                # Log.Print(1, 'i', f'RunApi(). {', '.join(Arr)}')
+                Arr = [f'{Key}: {Val}' for Key, Val in GetClassVars(DbConf).items()]
+                Log.Print(1, 'i', f'RunApi(). {', '.join(Arr)}')
 
                 try:
                     if (DbConf.workers_allow):

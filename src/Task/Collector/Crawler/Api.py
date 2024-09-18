@@ -25,7 +25,7 @@ class TApiCrawler(TApiBase):
 
         Conf = self.GetConf()
         self.Conf = {
-            'auth': Conf['auth']
+            'db_auth': Conf['db_auth']
         }
 
         self.Plugin = TCrawlers(Conf['dir_route'], self)
@@ -45,8 +45,8 @@ class TApiCrawlerEx(TApiCrawler):
             {
                 'method': 'GetUserExt',
                 'param': {
-                   'aLogin': self.Conf['auth']['login'],
-                   'aPassw': self.Conf['auth']['passw'],
+                   'aLogin': self.Conf['db_auth']['login'],
+                   'aPassw': self.Conf['db_auth']['passw'],
                 }
             }
         )
