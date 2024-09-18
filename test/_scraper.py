@@ -11,7 +11,7 @@ from Inc.Util.ModHelp import GetClass
 from Inc.Util.Obj import Iif, IifNone, DeepGetByList, GetTree
 
 
-DirRoot = 'sites/used'
+DirRoot = 'sites/used/ua'
 
 class TSchemer():
     def __init__(self, aSite: str):
@@ -160,43 +160,7 @@ async def Main():
     #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
     #
-    #await TSchemer('1x1.com.ua').Test('product')
-    #await TSchemer('1x1.com.ua').Test('category')
-    #
-    #await TSchemer('acomp.com.ua').Test('product')
-    #await TSchemer('acomp.com.ua').Test('category')
-    #
-    #await TSchemer('as-it.ua').Test('product')
-    #await TSchemer('as-it.ua').Test('category')
-    #
-    #await TSchemer('cibermag.com').Test('product')
-    #
-    #await TSchemer('comtrade.ua').Test('product')
-    await TSchemer('comtrade.ua').Test('category')
-    #
-    #await TSchemer('europc.ua').Test('product')
-    #await TSchemer('europc.ua').Test('category')
-    #
-    #await TSchemer('gazik.ua').Test('product')
-    #await TSchemer('gazik.ua').Test('category')
-    #
-    #await TSchemer('h-store.in.ua').Test('product')
-    #await TSchemer('laptop-planet.com.ua').Test('product')
-    #await TSchemer('laptopchik.top').Test('product')
-    #
-    #await TSchemer('korob.com.ua').Test('product')
-    #await TSchemer('korob.com.ua').Test('category')
-    #
-    #await TSchemer('lapstore.com.ua').Test('product')
-    #await TSchemer('lapstore.com.ua').Test('category')
-    #
-    #await TSchemer('lux-pc.com').Test('product')
-    #await TSchemer('lux-pc.com').Test('category')
-    #
-    #await TSchemer('pc.com.ua').Test('product')
-    #await TSchemer('pc.com.ua').Test('category')
-    #
-    #await TSchemer('setka.ua').Test('product')
+    await TSchemer('setka.ua').Test('product')
     #await TSchemer('setka.ua').Test('category')
     #
     print("done")
