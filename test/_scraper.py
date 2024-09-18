@@ -160,7 +160,7 @@ async def Main():
     #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
     #
-    await TSchemer('setka.ua').Test('product')
+    await TSchemer('mt.org.ua').Test('product')
     #await TSchemer('setka.ua').Test('category')
     #
     print("done")

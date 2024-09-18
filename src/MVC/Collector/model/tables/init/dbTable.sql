@@ -23,7 +23,8 @@ create table if not exists ref_user (
     create_date         timestamp default current_timestamp,
     login               varchar(16) not null unique,
     passw               varchar(34) not null,
-    enabled             boolean
+    enabled             boolean,
+    note                varchar(16)
 );
 
 create table if not exists ref_user_ext (

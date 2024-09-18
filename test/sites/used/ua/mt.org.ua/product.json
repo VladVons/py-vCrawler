@@ -1,0 +1,28 @@
+{
+  "product": {
+    "info": {
+      "author": "sernuzh",
+      "date": "2024.09.10 18:00:00",
+      "url": [
+        "https://mt.org.ua/dell-latitude-5480-14hd-i5-6440hq8128ssd/"
+      ]
+    },
+    "pipe_body": [
+      ["-find", ["div", {"class": "wrapper"}]],
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images":[
+          ["find", ["div", {"class": "product__section--gallery"}]],
+          ["find", ["ul", {"class": "gallery__photos-list"}]],
+          ["find_all", ["span", {"class": "gallery__link"}]],
+          ["list_map", [
+            ["get", ["data-href"]],
+            ["url_pad"]
+          ]]
+        ]
+        
+       
+      }]
+    ]
+  }
+}

@@ -18,7 +18,11 @@ from IncP import GetInfo
 
 def LoadClassConf(aClass: object) -> dict:
     File = f'{DirConf}/{aClass.__module__}.json'
-    Res = TConfJson().LoadFile(File)
+    try:
+        Res = TConfJson().LoadFile(File)
+    except Exception as E:
+        Log.Print(1, 'e', f'{E} in {File}')
+        raise
     return Res
 
 def _InitOptions():
@@ -26,8 +30,6 @@ def _InitOptions():
     Parser = argparse.ArgumentParser(usage = Usage)
     Parser.add_argument('-c', '--conf',     help='config',            default='Default')
     Parser.add_argument('-i', '--info',     help='information',       action='store_true')
-    #Parser.add_argument('-p', '--plugins',  help='plugins',           default='Price') #ToDo
-    Parser.add_argument('-t', '--test',     help='test',              action='store_true')
     return Parser.parse_args()
 
 def _InitLog():
@@ -46,5 +48,4 @@ _InitLog()
 DirConf = f'Conf/{Options.conf}'
 ConfTask = TConf(f'{DirConf}/Task.py')
 ConfTask.Load()
-ConfTask.Def = {'env_smtp_passw': GetEnvWithWarn('env_smtp_passw', Log)}
 Plugin = TPluginTask('Task', DirConf)
