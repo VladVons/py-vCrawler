@@ -1,0 +1,15 @@
+{
+    "dir_route": "MVC/Collector/crawler",
+    "loader": {
+        "model": {
+            "type": "url",
+            "url": "http://1x1.com.ua:8182/api",
+            "user": "user01",
+            "password": "passw01"
+        }
+    },
+    "db_auth" : {
+        "login": "dev-vlad",
+        "passw": "polkmn"
+    }
+}

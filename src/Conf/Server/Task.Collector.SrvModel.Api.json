@@ -1,7 +1,7 @@
 {
     "dir_route": "MVC/Collector/model",
     "db_auth" : {
-        "host": "10.10.1.1",
+        "host": "localhost",
         "port": 5433,
         "database": "crawler_used",
         "user": "crawler_used_user1",

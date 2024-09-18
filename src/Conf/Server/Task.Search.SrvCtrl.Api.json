@@ -1,11 +1,6 @@
 {
     "dir_route": "MVC/Search/ctrl",
     "loader": {
-        "-model": {
-            "type": "fs",
-            "module": "Task.Collector.SrvModel.Api",
-            "class": "ApiModel"
-        },
         "model": {
             "type": "url",
             "url": "http://localhost:8182/api",
