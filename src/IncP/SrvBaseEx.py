@@ -8,7 +8,6 @@ from aiohttp import web
 #
 from Inc.Misc.Misc import TJsonEncoder
 from Inc.SrvWeb.SrvBase import TSrvBase
-from Inc.Util.Obj import DeepGetByList
 
 
 class TSrvBaseEx(TSrvBase):

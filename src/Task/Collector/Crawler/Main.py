@@ -50,7 +50,8 @@ class TCrawler(TSrvBaseEx):
         await asyncio.gather(*Tasks)
 
     async def RunApi(self):
-        Log.Print(1, 'i', f'{self.__class__.__name__}.RunApi() only')
+        Log.Print(1, 'i', f'{self.__class__.__name__}.RunApi()')
+        Log.Print(1, 'i', f"Conf db_auth/login: {ApiCrawler.Conf['db_auth']['login']}")
 
         WaitLocalHost = 2
         await asyncio.sleep(WaitLocalHost)
@@ -72,7 +73,8 @@ class TCrawler(TSrvBaseEx):
                     Log.Print(1, 'x', 'Run()', aE = E)
             else:
                 Log.Print(1, 'i', 'Auth error')
-            await asyncio.sleep(10)
+
+            await asyncio.sleep(30)
 
     async def _Worker(self, aTaskId: int):
         Log.Print(1, 'i', f'_Worker({aTaskId :2}) started')

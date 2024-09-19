@@ -11,15 +11,14 @@ from Inc.Scheme.Scheme import TScheme
 from Inc.Util.Str import StartsWith
 from Inc.Util.Obj import Iif, IifNone
 from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
+from Inc.Misc.FS import WriteFileTyped
 from .Api import TApiCrawlerEx
 from .Lib import Protego, UrlGetData, GetSoup, InitRobots, IsMimeApp, EscForSQL
 
 
 def WriteFileDebug(aFile: str, aData):
     aFile = aFile.replace(':', '').replace('/', '_') + '.html'
-    Type = Iif(isinstance(aData, str), 'w', 'wb')
-    with open(aFile, Type) as F:
-        F.write(aData)
+    WriteFileTyped(aFile, aData)
 
 
 class TWebScraper():
@@ -90,6 +89,7 @@ class TWebScraper():
                             (Price and isinstance(Price[0], (int, float)) and Price[0] > 0)
                             #or (Pipe.get('description') and Pipe.get('features'))
                         ):
+                            Pipe['url'] = Url
                             SchemeName = Key
                             TotalProduct += 1
                             EscForSQL(Pipe)

@@ -46,6 +46,8 @@ Options = _InitOptions()
 _InitLog()
 
 DirConf = f'Conf/{Options.conf}'
+Log.Print(1, 'i', f'Conf dir {DirConf}')
+
 ConfTask = TConf(f'{DirConf}/Task.py')
 ConfTask.Load()
 Plugin = TPluginTask('Task', DirConf)

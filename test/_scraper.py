@@ -111,9 +111,11 @@ class TSchemer():
     async def Test(self, aType: str):
         Scheme = self.LoadScheme(aType)
 
+        Cnt = 0
         Urls = DeepGetByList(Scheme, [aType, 'info', 'url'])
         for Idx, xUrl in enumerate(Urls):
             if (not xUrl.startswith('-')):
+                Cnt += 1
                 File = f'{aType}_{Idx+1}.html'
                 Data = self.ReadFile(File)
                 if (not Data):
@@ -133,6 +135,9 @@ class TSchemer():
                     Data = json.dumps(Res['pipe'], indent=2, ensure_ascii=False)
                     self.WriteFile(File + '.json', Data)
                     print('Ok. Saved', File + '.json')
+
+        if (not Cnt):
+            print('Err: No url parsed')
 
 
 def GetAllMacroses() -> dict:
@@ -160,8 +165,11 @@ async def Main():
     #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
     #
-    await TSchemer('mt.org.ua').Test('product')
+    #await TSchemer('mt.org.ua').Test('product')
     #await TSchemer('setka.ua').Test('category')
+    #
+    #await TSchemer('mt.org.ua').Test('product')
+    await TSchemer('mt.org.ua').Test('category')
     #
     print("done")
 
