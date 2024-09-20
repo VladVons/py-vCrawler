@@ -11,7 +11,7 @@ from Inc.Util.ModHelp import GetClass
 from Inc.Util.Obj import Iif, IifNone, DeepGetByList, GetTree
 
 
-DirRoot = 'sites/used/ua'
+DirRoot = 'sites/used/pl'
 
 class TSchemer():
     def __init__(self, aSite: str):
@@ -88,7 +88,7 @@ class TSchemer():
         elif (aType == 'category'):
             Fields = ['products', 'pager']
             Products = IifNone(Pipe['products'], [])
-            Urls = IifNone(Pipe.get('pager'), []) + [x['href'] for x in Products]
+            Urls = IifNone(Pipe.get('pager'), []) + [x.get('href') for x in Products]
         Err |= bool(self.CheckFields(Pipe, Fields))
         Err |= bool(self.CheckUrls(Urls))
         return {'err': Err , 'pipe': Pipe}
@@ -166,10 +166,7 @@ async def Main():
     #
     #
     #await TSchemer('mt.org.ua').Test('product')
-    #await TSchemer('setka.ua').Test('category')
-    #
-    #await TSchemer('mt.org.ua').Test('product')
-    await TSchemer('mt.org.ua').Test('category')
+    await TSchemer('cebit.pl').Test('category')
     #
     print("done")
 

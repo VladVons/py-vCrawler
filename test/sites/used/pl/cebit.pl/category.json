@@ -1,0 +1,57 @@
+{
+  "category": {
+    "info": {
+      "author": "sernuzh",
+      "date": "2024.09.20 10:00:00",
+      "url": [
+        "-https://www.cebit.pl/komputery-poleasingowe",
+        "https://www.cebit.pl/komputery-poleasingowe/5"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "-name": [
+                 ["find", ["span", {"class": "productname"}]],
+                 ["text"]
+               ],
+               "-href": [ 
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "stock": [ 
+                 ["get", ["class"]],
+                 ["list_in", ["product_inactive"]],
+                 ["invert"]
+               ],
+               "-price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["text"],
+                 ["price"]
+               ],
+               "-price_netto": [
+                 ["find", ["i", {"class": "price-netto"}]],
+                 ["text"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}
