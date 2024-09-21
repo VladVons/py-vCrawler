@@ -1,0 +1,15 @@
+{
+    "dir_route": "MVC/Collector/crawler",
+    "loader": {
+        "model": {
+            "type": "url",
+            "url": "http://localhost:8182/api",
+            "user": "user01",
+            "password": "passw01"
+        }
+    },
+    "db_auth" : {
+        "login": "{% env CrawlerLogin %}",
+        "passw": "{% env CrawlerPassw %}"
+    }
+}

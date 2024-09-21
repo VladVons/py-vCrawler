@@ -1,0 +1,15 @@
+{
+    "dir_route": "MVC/Search/ctrl",
+    "loader": {
+        "model": {
+            "type": "url",
+            "url": "http://localhost:8182/api",
+            "user": "user01",
+            "password": "passw01"
+        }
+    },
+    "lang": {
+        "type": "fs",
+        "dir": "MVC/Search/lang"
+    }
+}

@@ -103,7 +103,7 @@ create table if not exists ref_product (
     update_date         timestamp,
     title               varchar(128),
     category            varchar(80),
-    image               varchar(128),
+    image               varchar(160),
     sku                 varchar(24),
     mpn                 varchar(24),
     brand               varchar(24),
