@@ -52,7 +52,7 @@ begin
         left(new.parsed_data->>'brand', 24),
         left(new.parsed_data->>'name', 128),
         left(new.parsed_data->>'category', 80),
-        left(new.parsed_data->'images'->>0, 128),
+        left(new.parsed_data->>'image', 128),
         (new.parsed_data->>'stock')::bool,
         (new.parsed_data->'price'->>0)::decimal,
         (new.parsed_data->'price_old'->>0)::decimal

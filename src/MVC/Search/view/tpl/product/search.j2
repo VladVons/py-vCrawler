@@ -6,13 +6,18 @@
 <style>
   .grid-container {
     display: grid;
-    grid-template-columns: 100px auto 90px 90px 50px;
+    grid-template-columns: 130px auto 90px 90px 50px;
   }
 
   .gitem {
     border: 1px solid black;
     padding: 0px;
     text-align: left;
+  }
+  .thumb {
+    height: 98px;
+    max-width: 128px;
+    width: auto;
   }
 </style>
 {% endblock %}
@@ -27,7 +32,10 @@
     {% endfor %}
 
     {% for Rec in TDbList().Import(dbl_products) %}
-      <div class="gitem">{{Rec.update_date.strftime('%Y-%m-%d')}}</div>
+      <div class="gitem text-center">
+        {{Rec.update_date.strftime('%Y-%m-%d')}}
+        <img src="{{Rec.image}}" alt="Description of the image" class="thumb">
+      </div>
       <div class="gitem" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
         <div title="{{Rec.url}}"><a href="{{Rec.url}}" target="_blank">{{Rec.url |truncate(50, True, '...')}}</a></div>
       </div>

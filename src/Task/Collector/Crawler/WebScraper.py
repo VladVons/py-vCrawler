@@ -90,6 +90,9 @@ class TWebScraper():
                             #or (Pipe.get('description') and Pipe.get('features'))
                         ):
                             Pipe['url'] = Url
+                            if (not Pipe.get('image')) and (Pipe.get('images')):
+                                Pipe['image'] = Pipe['images'][0]
+
                             SchemeName = Key
                             TotalProduct += 1
                             EscForSQL(Pipe)
