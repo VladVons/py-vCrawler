@@ -1,4 +1,5 @@
 -- fmtGet_SiteToUpdate.sql
+-- rsp.scheme::text to save dict keys ordering
 
 select
     rs.id,
@@ -9,7 +10,7 @@ select
     rs.headers,
     rs.emulator,
     (
-        select jsonb_agg(rsp.scheme)
+        select jsonb_agg(rsp.scheme::text)
         from ref_site_parser rsp
         where (rsp.moderated and rsp.site_id = rs.id)
     ) as scheme,

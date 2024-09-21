@@ -5,6 +5,7 @@
 
 import random
 import asyncio
+import json
 from urllib.parse import urljoin
 #
 from Inc.Scheme.Scheme import TScheme
@@ -77,7 +78,12 @@ class TWebScraper():
 
                 Soup = GetSoup(Data['data'])
 
-                Schemes = {Key: Val for Data in self.DblSite.Rec.scheme for Key, Val in Data.items()}
+                Schemes = {}
+                for xScheme in self.DblSite.Rec.scheme:
+                    xScheme = json.loads(xScheme)
+                    for Key, Val in xScheme.items():
+                        Schemes[Key] = Val
+
                 for Key, Val in Schemes.items():
                     Scheme = TScheme({Key: Val})
                     Scheme.Parse(Soup)
