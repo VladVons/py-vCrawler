@@ -1,11 +1,11 @@
 delete from
     hist_url
 where
-    (id) not in (
-    select
+    id not in (
+      select
         max(id)
-    from
+      from
         hist_url
-    group by
+      group by
         url_id
-)
+  )

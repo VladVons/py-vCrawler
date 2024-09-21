@@ -11,7 +11,7 @@ from Inc.Util.ModHelp import GetClass
 from Inc.Util.Obj import Iif, IifNone, DeepGetByList, GetTree
 
 
-DirRoot = 'sites/used/ua'
+DirRoot = 'sites/used/pl'
 
 class TSchemer():
     def __init__(self, aSite: str):
@@ -165,8 +165,8 @@ async def Main():
     #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
     #
-    await TSchemer('1x1.com.ua').Test('product')
-    #await TSchemer('cebit.pl').Test('category')
+    #await TSchemer('servecom.pl').Test('product')
+    await TSchemer('servecom.pl').Test('category')
     #
     print("done")
 
