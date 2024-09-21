@@ -131,7 +131,7 @@ class TSchemer():
 
                 Res = self.TestHtml(Scheme, Data, aType)
                 #if (not Res['err']):
-                if (True):
+                if (not True):
                     Data = json.dumps(Res['pipe'], indent=2, ensure_ascii=False)
                     self.WriteFile(File + '.json', Data)
                     print('Ok. Saved', File + '.json')
@@ -165,8 +165,8 @@ async def Main():
     #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
     #
-    #await TSchemer('mt.org.ua').Test('product')
-    await TSchemer('cebit.pl').Test('category')
+    await TSchemer('cebit.pl').Test('product')
+    #await TSchemer('cebit.pl').Test('category')
     #
     print("done")
 
