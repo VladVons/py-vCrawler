@@ -33,13 +33,17 @@
 
     {% for Rec in TDbList().Import(dbl_products) %}
       <div class="gitem text-center">
-        {{Rec.update_date.strftime('%Y-%m-%d')}}
         <a href="{{Rec.url}}">
           <img src="{{Rec.image}}" alt="Description of the image" class="thumb">
         </a>
       </div>
       <div class="gitem" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
-        <div title="{{Rec.url}}"><a href="{{Rec.url}}" target="_blank">{{Rec.url |truncate(50, True, '...')}}</a></div>
+        <div title="{{Rec.url}}">
+          <a href="{{Rec.url}}" target="_blank">{{Rec.url |truncate(50, True, '...')}}</a>
+        </div>
+        <div>
+          {{Rec.update_date.strftime('%Y-%m-%d')}}
+        </div>
       </div>
       <div class="gitem">{{"{:,}".format(Rec.price|int)}}</div>
       <div class="gitem">{% if Rec.price_old and Rec.price_old != Rec.price %} {{"{:,}".format(Rec.price_old|int) }} {%endif %}</div>

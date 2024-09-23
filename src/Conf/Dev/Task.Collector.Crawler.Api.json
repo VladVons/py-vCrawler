@@ -7,8 +7,5 @@
             "class": "ApiModel"
         }
     },
-    "db_auth" : {
-        "login": "{% env CrawlerLogin %}",
-        "passw": "{% env CrawlerPassw %}"
-    }
+    "db_auth" : "{% file_ini ~/.config/vCrawler/App.ini:db_auth %}"
 }

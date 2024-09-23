@@ -19,8 +19,9 @@
           ["gets", ["offers.availability"]],
           ["stock"]
         ],
-        "image": [
-          ["get", ["image"]]
+        "-image": [
+          ["get", ["image"]],
+          ["err 404"]
         ],
         "price": [
           ["ext_price_app"]
@@ -36,6 +37,10 @@
           ["list_map", [
             ["get", ["href"]]
           ]]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
         ],
         "price_old": [
           ["var_get", ["$root"]],

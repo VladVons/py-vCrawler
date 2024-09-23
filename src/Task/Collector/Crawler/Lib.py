@@ -12,7 +12,6 @@ from protego import Protego
 #
 from Inc.Misc.aiohttpClient import UrlGetData
 from Inc.Util.Obj import GetTree
-#from IncP.Log import Log
 
 
 def GetSoup(aData: str) -> BeautifulSoup:

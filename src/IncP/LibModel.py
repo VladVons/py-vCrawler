@@ -5,6 +5,9 @@
 
 # pylint: skip-file
 from Inc.DbList import TDbList
-from Inc.Util.Obj import DeepGetByList, GetDictDef, GetDictDefs, DeepGetsRe, Iif
+from Inc.Util.Dict import DeepGetByList, GetDictDef, GetDictDefs
+from Inc.Util.DictEx import DeepGetsRe
+from Inc.Util.Obj import Iif
+
 from Inc.Sql import DTransaction, TDbExecCursor, ListToComma, ListIntToComma, DictToComma, TDbSql
 from .Log import Log

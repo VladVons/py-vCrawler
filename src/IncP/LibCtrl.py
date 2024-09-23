@@ -6,5 +6,6 @@
 # pylint: skip-file
 from Inc.DbList import TDbList
 from Inc.Misc.Pagination import TPagination
-from Inc.Util.Obj import DeepGetByList, GetDictDef, GetDictDefs, Filter, Iif, IsDigits
+from Inc.Util.Dict import DeepGetByList, GetDictDef, GetDictDefs, Filter
+from Inc.Util.Obj import Iif, IsDigits
 from .Log import Log
