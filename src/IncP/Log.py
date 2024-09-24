@@ -25,3 +25,4 @@ class TEchoDb(TEcho):
             asyncio.create_task(self._Write(Msg))
 
 Log = TLog()
+Log.MsgUniq = True
