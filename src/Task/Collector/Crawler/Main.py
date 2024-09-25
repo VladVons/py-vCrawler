@@ -74,7 +74,7 @@ class TCrawler(TSrvBaseEx):
             else:
                 Log.Print(1, 'i', 'Auth error')
 
-            await asyncio.sleep(30)
+            await asyncio.sleep(60)
 
     async def _Worker(self, aTaskId: int):
         Log.Print(1, 'i', f'_Worker({aTaskId :2}) started')
