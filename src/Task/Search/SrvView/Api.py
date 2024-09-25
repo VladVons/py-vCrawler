@@ -29,7 +29,7 @@ class TApiViewConf():
     dir_root: str = 'MVC/view'
     form_home: str = 'common/home'
     form_info: str = 'common/info'
-    request_scheme: str = 'http',
+    request_scheme: str = 'http'
 
 
 class TApiView(TApiBase):

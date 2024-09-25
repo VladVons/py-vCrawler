@@ -3,7 +3,6 @@
 # License: GNU, see LICENSE for more details
 
 
-from Task import ConfTask
 from .Main import TSrvView, TSrvViewConf
 
 

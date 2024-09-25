@@ -1,0 +1,6 @@
+{
+  "one_instance": true,
+  "log_level": 3,
+  "log_uniq": true,
+  "conf": "1112233"
+}
