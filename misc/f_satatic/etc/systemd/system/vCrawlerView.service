@@ -1,0 +1,25 @@
+# Created: 2024.05.17
+# Author: Vladimir Vons <VladVons@gmail.com>
+#
+# systemctl daemon-reload
+# systemctl enable vCrawlerView.service
+# systemctl start vCrawlerView.service
+
+
+[Unit]
+Description=vCrawlerView service
+After=network.target
+
+[Service]
+Type=simple
+
+User=vladvons
+EnvironmentFile=/etc/default/vCrawlerView
+WorkingDirectory=/usr/lib/vCrawlerView
+ExecStart=/bin/bash -c './vCrawler.sh'
+
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
