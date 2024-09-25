@@ -1,0 +1,15 @@
+{
+    "dir_route": "MVC/Search/ctrl",
+    "loader": {
+        "model": {
+            "type": "url",
+            "url": "https://1x1.com.ua/crawler/api",
+            "user": "user01",
+            "password": "passw01"
+        }
+    },
+    "lang": {
+        "type": "fs",
+        "dir": "MVC/Search/lang"
+    }
+}
