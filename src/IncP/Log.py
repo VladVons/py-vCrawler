@@ -5,7 +5,8 @@
 
 import asyncio
 #
-from Inc.Log import TLog, TEcho
+from Inc.Log import TLog
+from Inc.Log.Echo import TEcho
 
 
 class TEchoDb(TEcho):

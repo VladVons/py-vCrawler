@@ -25,5 +25,14 @@ join
   ref_user ru on 
   wt2.user_id = ru.id
 order by 
-  cnt
-  
+  cnt;
+
+
+select
+  count(*) cnt,
+  count(distinct user_id),
+  (count(*) / count(distinct user_id)) as avg
+from 
+  hist_url 
+where 
+  (create_date >= NOW() - INTERVAL '1 hour');
