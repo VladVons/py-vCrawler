@@ -84,7 +84,7 @@ class TCrawler(TSrvBaseEx):
 
         DbConfOrig = await ApiCrawler.GetUserExt()
         while (True):
-            Sleep = random.uniform(2, 4)
+            Sleep = random.uniform(DbConfOrig.workers_sleep * 0.75, DbConfOrig.workers_sleep)
             await asyncio.sleep(Sleep)
 
             DbConf = await ApiCrawler.GetUserExt()

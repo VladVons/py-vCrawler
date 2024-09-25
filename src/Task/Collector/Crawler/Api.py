@@ -14,6 +14,7 @@ class TUserConf():
     user_id: int = -1
     workers_allow: bool = True
     workers_qty: int = 1
+    workers_sleep: int = 10
     speed_test_url: str = ''
 
 
