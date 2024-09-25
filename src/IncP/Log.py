@@ -4,6 +4,7 @@
 
 
 from Inc.Log import TLog
+from Inc.Log.EchoDb import TEchoDb
 
 
 Log = TLog()
