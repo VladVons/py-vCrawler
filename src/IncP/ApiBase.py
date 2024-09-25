@@ -5,6 +5,7 @@
 
 from Inc.Loader.Api import TLoaderApiFs, TLoaderApiHttp
 from Inc.Plugin import TPlugin
+from Inc.Util.Dict import DictToText
 from Inc.Util.ModHelp import GetHelp, GetMethod
 from IncP.Plugins import TPluginMVC
 from IncP.Log import Log
@@ -69,7 +70,7 @@ class TApiBase():
         return Res
 
     async def Exec(self, aRoute: str, aData: dict) -> dict:
-        Log.Print(3, 'i', f'{self.__class__.__name__}.Exec(). Route {aRoute}, method {aData.get('method')}')
+        Log.Print(3, 'i', f'{self.__class__.__name__}.Exec(). route: {aRoute}; {DictToText(aData, ', ')}')
 
         if (self.ExecCnt == 0):
             await self.ExecOnce(aData)
