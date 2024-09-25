@@ -69,6 +69,8 @@ class TApiBase():
         return Res
 
     async def Exec(self, aRoute: str, aData: dict) -> dict:
+        Log.Print(3, 'i', f'{self.__class__.__name__}.Exec(). Route {aRoute}, method {aData.get('method')}')
+
         if (self.ExecCnt == 0):
             await self.ExecOnce(aData)
         self.ExecCnt += 1
