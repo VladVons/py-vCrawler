@@ -3,7 +3,7 @@
 # License: GNU, see LICENSE for more details
 
 
-from Inc.Util.Str import ToObj
+from Inc.Var.Str import ToObj
 from IncP.CrawlerBase import TCrawlerBase
 import IncP.LibCrawler as Lib
 

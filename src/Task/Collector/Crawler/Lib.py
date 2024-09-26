@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from protego import Protego
 #
 from Inc.Misc.aiohttpClient import UrlGetData
-from Inc.Util.Obj import GetTree
+from Inc.Var.Obj import GetTree
 
 
 def GetSoup(aData: str) -> BeautifulSoup:

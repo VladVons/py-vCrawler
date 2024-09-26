@@ -9,8 +9,8 @@ import json
 from urllib.parse import urljoin
 #
 from Inc.Scheme.Scheme import TScheme
-from Inc.Util.Str import StartsWith
-from Inc.Util.Obj import Iif, IifNone
+from Inc.Var.Str import StartsWith
+from Inc.Var.Obj import Iif, IifNone
 from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
 from Inc.Misc.FS import WriteFileTyped
 from .Api import TApiCrawlerEx

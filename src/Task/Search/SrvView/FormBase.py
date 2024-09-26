@@ -7,10 +7,10 @@ from wtforms import Form
 from aiohttp import web
 from aiohttp.web_request import FileField
 #
-from Inc.DictDef import TDictDef
 from Inc.Loader.Api import TLoaderApi
 from Inc.Misc.Jinja import TTemplate
-from Inc.Util.Dict import DeepGetByList
+from Inc.Var.Dict import DeepGetByList
+from Inc.Var.DictDef import TDictDef
 from IncP import GetAppVer
 
 

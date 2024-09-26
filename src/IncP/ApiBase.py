@@ -5,7 +5,7 @@
 
 from Inc.Loader.Api import TLoaderApiFs, TLoaderApiHttp
 from Inc.Plugin import TPlugin
-from Inc.Util.Dict import DictToText
+from Inc.Var.Dict import DictToText
 from Inc.Util.ModHelp import GetHelp, GetMethod
 from IncP.Plugins import TPluginMVC
 from IncP.Log import Log

@@ -6,7 +6,7 @@ import random
 import asyncio
 from aiohttp import web
 #
-from Inc.Util.Obj import GetClassVars
+from Inc.Var.Obj import GetClassVars
 from IncP.SrvBaseEx import TSrvBaseEx
 from IncP.Log import Log
 from .Api import ApiCrawler
