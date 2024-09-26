@@ -9,7 +9,7 @@ from Inc.Var.Dict import DictToText
 from Inc.Util.ModHelp import GetHelp, GetMethod
 from IncP.Plugins import TPluginMVC
 from IncP.Log import Log
-from Task.Main import App
+from Task import App
 
 
 class TApiBase():
