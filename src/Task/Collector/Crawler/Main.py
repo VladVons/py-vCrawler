@@ -79,7 +79,7 @@ class TCrawler(TSrvBaseEx):
     async def _Worker(self, aTaskId: int):
         Log.Print(1, 'i', f'_Worker({aTaskId :2}) started')
 
-        Sleep = random.uniform(0, 1)
+        Sleep = random.uniform(0, 2)
         await asyncio.sleep(Sleep)
 
         while (True):

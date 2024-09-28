@@ -16,8 +16,50 @@ create type guard_enum as enum (
     'cloudflare'
 );
 
+-- lang
+
+create table if not exists ref_lang (
+    id              smallserial primary key,
+    enabled         boolean default true,
+    alias           varchar(2) not null unique
+);
+
+create table if not exists ref_lang_lang (
+    id              smallserial primary key,
+    title           varchar(16) not null,
+    lang_id         smallint not null references ref_lang(id)
+);
+
+-- continent --
+
+create table ref_continent (
+    id              smallserial primary key,
+    alias           varchar(2) not null unique
+);
+
+create table ref_continent_lang (
+    id              smallserial primary key,
+    title           varchar(16) not null,
+    lang_id         smallint not null references ref_lang(id)
+);
+
+-- country
+
+create table ref_country (
+    id              smallserial primary key,
+    alias           varchar(2) not null unique,
+    population      int,
+    continent_id    smallint not null references ref_continent(id)
+);
+
+create table ref_country_lang (
+    id              smallserial primary key,
+    title           varchar(16) not null,
+    lang_id         smallint not null references ref_lang(id)
+);
 
 -- user --
+
 create table if not exists ref_user (
     id                  serial primary key,
     create_date         timestamp default current_timestamp,
@@ -50,7 +92,8 @@ create table if not exists ref_site (
     robots              text,
     headers             json,
     country_zone        varchar(8),
-    note                varchar(16)
+    note                varchar(16),
+    country_id          smallint not null references ref_country(id)
 );
 
 create table if not exists ref_site_parser (

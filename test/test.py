@@ -8,7 +8,8 @@ from Inc.Misc.PlayWrite import UrlGetData as UrlGetData_PW
 from Inc.Misc.aiohttpClient import UrlGetData
 from Inc.Scheme.Scheme import TScheme, TSchemeExt, TSchemeApi
 from Inc.Util.ModHelp import GetClass
-from Inc.Util.Obj import Iif, IifNone, DeepGetByList, GetTree
+from Inc.Var.Obj import Iif, IifNone, GetTree
+from Inc.Var.Dict import DeepGetByList
 
 
 DirRoot = 'sites/used/ua'
@@ -125,8 +126,10 @@ class TSchemer():
                     else:
                         DataU = await UrlGetData(xUrl)
 
-                    if (DataU['status'] == 200):
-                        self.WriteFile(File, DataU['data'])
+                    if (DataU['status'] != 200):
+                        continue
+
+                    self.WriteFile(File, DataU['data'])
                     Data = DataU['data']
 
                 Res = self.TestHtml(Scheme, Data, aType)
@@ -139,33 +142,45 @@ class TSchemer():
         if (not Cnt):
             print('Err: No url parsed')
 
-
-def GetAllMacroses() -> dict:
-    Res = {}
+def _GetFiles() -> list:
+    Res = []
     for xDir in os.listdir(DirRoot):
         Dir = os.path.join(DirRoot, xDir)
         if os.path.isdir(Dir):
             for xFile in ['product', 'category']:
-                Schemer = TSchemer(xDir)
-                Scheme = Schemer.LoadScheme(xFile)
-                if (Scheme):
-                    Macroses = Schemer.GetMacroses(Scheme)
-                    for Key, Val in Macroses.items():
-                        Res[Key] = Res.get(Key, 0) + Val
+                if (os.path.exists(os.path.join(Dir, xFile + '.json'))):
+                    Res.append((xDir, xFile))
+    return Res
+
+def GetAllMacroses() -> dict:
+    Res = {}
+    for xDir, xFile in _GetFiles():
+        Schemer = TSchemer(xDir)
+        Scheme = Schemer.LoadScheme(xFile)
+        if (Scheme):
+            Macroses = Schemer.GetMacroses(Scheme)
+            for Key, Val in Macroses.items():
+                Res[Key] = Res.get(Key, 0) + Val
     PopularFirst = sorted(Res.items(), key=lambda item: item[1], reverse=True)
     return dict(PopularFirst)
+
+async def ParseAll() -> dict:
+    for xDir, xFile in _GetFiles():
+        await TSchemer(xDir).Test(xFile)
+
 
 async def Main():
     os.system('clear')
     print(os.getcwd())
     print(sys.version)
     #
-    # Macroses = GetAllMacroses()
+    #Macroses = GetAllMacroses()
     # for Idx, (Key, Val) in enumerate(Macroses.items()):
     #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
+    #await ParseAll()
     #
-    await TSchemer('korob.com.ua').Test('product')
+    #await TSchemer('korob.com.ua').Test('product')
     #await TSchemer('servecom.pl').Test('category')
     #
     print("done")
