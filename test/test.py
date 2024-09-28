@@ -12,7 +12,7 @@ from Inc.Var.Obj import Iif, IifNone, GetTree
 from Inc.Var.Dict import DeepGetByList
 
 
-DirRoot = 'sites/used/ua'
+DirRoot = 'sites/used/de'
 
 class TSchemer():
     def __init__(self, aSite: str):
@@ -180,7 +180,7 @@ async def Main():
     #
     #await ParseAll()
     #
-    #await TSchemer('korob.com.ua').Test('product')
+    await TSchemer('gekko-computer.de').Test('product')
     #await TSchemer('servecom.pl').Test('category')
     #
     print("done")

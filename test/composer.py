@@ -1,10 +1,11 @@
+import json
 from Inc.Scheme.Composer import TComposer
 
 
 #File = 'sites/used/ua/1x1.com.ua/product_1.html'
-File = 'sites/used/ua/acomp.com.ua/product_4.html'
+#File = 'sites/used/ua/acomp.com.ua/product_4.html'
 #File = 'sites/used/ua/as-it.ua/product_1.html'
-###File = 'sites/used/ua/cibermag.com/product_1.html'
+#File = 'sites/used/ua/cibermag.com/product_1.html'
 #File = 'sites/used/ua/europc.ua/product_1.html'
 #File = 'sites/used/ua/gazik.ua/product_1.html'
 #File = 'sites/used/ua/h-store.in.ua/product_1.html'
@@ -19,6 +20,8 @@ File = 'sites/used/ua/acomp.com.ua/product_4.html'
 #
 #File = 'sites/used/pl/cebit.pl/product_2.html'
 #File = 'sites/used/pl/servecom.pl/product_1.html'
+#
+File = 'sites/used/de/gekko-computer.de/product_1.html'
 
 
 with open(File, 'r', encoding='utf8') as F:
@@ -26,5 +29,7 @@ with open(File, 'r', encoding='utf8') as F:
 
 Composer = TComposer('https://gazik.ua', Data)
 Composer.Parse()
-print(Composer.Macros)
+HumanJson = json.dumps(Composer.Macros, indent=2, ensure_ascii=False)
+print(HumanJson)
 pass
+
