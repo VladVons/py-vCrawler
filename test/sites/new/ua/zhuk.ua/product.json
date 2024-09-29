@@ -65,7 +65,7 @@
           ["find", ["table", {"class": "product-features__table"}]],
           ["table"],
           ["keyval2dict"],
-          ["dict_key_del", [["Додатково"]]]
+          ["dict_keydel", ["Додатково"]]
         ],
         "mpn": [
           ["var_get", ["$name"]],

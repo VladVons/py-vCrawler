@@ -73,7 +73,7 @@
           ]],
           ["list_group", [2, [0, 1]]],
           ["keyval2dict"],
-          ["dict_key_del", [["Примітка"]]]
+          ["dict_keydel", ["Примітка"]]
         ],
         "-mpn": [
           ["var_get", ["$name"]],

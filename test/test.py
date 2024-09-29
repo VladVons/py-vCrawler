@@ -12,7 +12,7 @@ from Inc.Var.Obj import Iif, IifNone, GetTree
 from Inc.Var.Dict import DeepGetByList
 
 
-DirRoot = 'sites/used/de'
+DirRoot = 'sites/used/ua'
 
 class TSchemer():
     def __init__(self, aSite: str):
@@ -85,7 +85,11 @@ class TSchemer():
         print()
         if (aType == 'product'):
             Fields = ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', '-sku', '-mpn', 'features', 'description']
-            Urls = IifNone(Pipe.get('images'), []) + [IifNone(Pipe.get('image'), [])]
+            Urls = []
+            if (isinstance(Pipe.get('images'), list)):
+                Urls += Pipe.get('images')
+            if (isinstance(Pipe.get('image'), str)):
+                Urls += [Pipe.get('image')]
         elif (aType == 'category'):
             Fields = ['products', 'pager']
             Products = IifNone(Pipe['products'], [])
@@ -180,8 +184,8 @@ async def Main():
     #
     #await ParseAll()
     #
-    await TSchemer('gekko-computer.de').Test('product')
-    #await TSchemer('servecom.pl').Test('category')
+    #await TSchemer('etcshop.in.ua').Test('product')
+    await TSchemer('etcshop.in.ua').Test('category')
     #
     print("done")
 

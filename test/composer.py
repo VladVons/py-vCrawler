@@ -1,5 +1,5 @@
 import json
-from Inc.Scheme.Composer import TComposer
+from Inc.Scheme.Product import TProduct
 
 
 #File = 'sites/used/ua/1x1.com.ua/product_1.html'
@@ -13,7 +13,7 @@ from Inc.Scheme.Composer import TComposer
 #File = 'sites/used/ua/lapstore.com.ua/product_1.html'
 #File = 'sites/used/ua/laptop-planet.com.ua/product_1.html'
 #File = 'sites/used/ua/laptopchik.top/product_1.html'
-#File = 'sites/used/ua/lux-pc.com/product_1.html'
+File = 'sites/used/ua/lux-pc.com/product_1.html'
 #File = 'sites/used/ua/mt.org.ua/product_1.html'
 ###File = 'sites/used/ua/pc.com.ua/product_2.html' #sm1c
 #File = 'sites/used/ua/setka.ua/product_1.html'
@@ -21,15 +21,14 @@ from Inc.Scheme.Composer import TComposer
 #File = 'sites/used/pl/cebit.pl/product_2.html'
 #File = 'sites/used/pl/servecom.pl/product_1.html'
 #
-File = 'sites/used/de/gekko-computer.de/product_1.html'
+#File = 'sites/used/de/gekko-computer.de/product_1.html'
 
 
 with open(File, 'r', encoding='utf8') as F:
     Data = F.read()
 
-Composer = TComposer('https://gazik.ua', Data)
-Composer.Parse()
-HumanJson = json.dumps(Composer.Macros, indent=2, ensure_ascii=False)
+Product = TProduct('https://gazik.ua', Data)
+ProductData = Product.Parse()
+HumanJson = json.dumps(ProductData, indent=2, ensure_ascii=False)
 print(HumanJson)
 pass
-
