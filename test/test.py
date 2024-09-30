@@ -131,6 +131,7 @@ class TSchemer():
                         DataU = await UrlGetData(xUrl)
 
                     if (DataU['status'] != 200):
+                        print(f'Error reading {xUrl}')
                         continue
 
                     self.WriteFile(File, DataU['data'])
@@ -184,8 +185,14 @@ async def Main():
     #
     #await ParseAll()
     #
-    #await TSchemer('nosta.com.ua').Test('product')
-    await TSchemer('nosta.com.ua').Test('category')
+    #Url = 'https://recorder.com.ua/Igrovoy-sistemniy-blok-AMD-Ryzen-5-4500-32-GB-RAM-128-GB-SSD-500-GB-HDD-NV-Sistemnie-bloki-BU-609803_2'
+    #Url = 'https://recorder.com.ua'
+    Url = 'https://setka.ua/c/noutbuki/noutbuki_1/'
+    #Url = 'https://1x1.com.ua/product/dell_optiplex_3020_mt_i5-4590_4gb_500gb_hdd_t1'
+
+    q1 = await UrlGetData_PW(Url)
+    #await TSchemer('recorder.com.ua').Test('product')
+    await TSchemer('recorder.com.ua').Test('category')
     #
     print("done")
 

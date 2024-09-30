@@ -4,8 +4,8 @@
       "author": "vladvons",
       "date": "2024.09.29 10:00:00",
       "url": [
-        "-https://nosta.com.ua/index.php?route=product/category&path=60",
-        "playwright. todo"
+        "https://nosta.com.ua/index.php?route=product/category&path=60",
+        "-playwright ok. todo pagination with wget"
       ]
     },
     "pipe": [

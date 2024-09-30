@@ -5,6 +5,7 @@
 
 aiopg 
 aiohttp
+requests
 bs4
 lxml
 jinja2 
