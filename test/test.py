@@ -184,8 +184,8 @@ async def Main():
     #
     #await ParseAll()
     #
-    #await TSchemer('etcshop.in.ua').Test('product')
-    await TSchemer('etcshop.in.ua').Test('category')
+    #await TSchemer('nosta.com.ua').Test('product')
+    await TSchemer('nosta.com.ua').Test('category')
     #
     print("done")
 

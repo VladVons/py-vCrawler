@@ -22,18 +22,21 @@ class TMain(TCrawlerBase):
             }
         )
 
-        if (isinstance(Dbl, Lib.TDbList)) and (Dbl):
-            UserId = Dbl.Rec.id
-            Dbl = await self.ExecModel(
-                'user',
-                {
-                    'method': 'GetUserExt',
-                    'param': {
-                        'aUserId': UserId
+        if (isinstance(Dbl, Lib.TDbList)):
+            if (Dbl.GetSize() > 0):
+                UserId = Dbl.Rec.id
+                Dbl = await self.ExecModel(
+                    'user',
+                    {
+                        'method': 'GetUserExt',
+                        'param': {
+                            'aUserId': UserId
+                        }
                     }
-                }
-            )
+                )
 
-            Res = {Rec.attr: ToObj(Rec.val) for Rec in Dbl}
-            Res['user_id'] = UserId
-            return Res
+                Res = {Rec.attr: ToObj(Rec.val) for Rec in Dbl}
+                Res['user_id'] = UserId
+                return Res
+        else:
+            Lib.Log.Print(1, 'i', f'GetUserExt(). {Dbl.get('err')}')
