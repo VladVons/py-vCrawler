@@ -1,0 +1,45 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.30 10:00:00",
+      "url": [
+        "https://www.gamak.kiev.ua/notebooks/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "product-list"}]],
+          ["find_all", ["div"], {"recursive": false}],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "name"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]]
+               ],
+               "name": [ 
+                 ["find", ["div", {"class": "name"}]],
+                 ["text"],
+                 ["strip"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["text"],
+                 ["price"]
+              ],
+              "stock": [
+                 ["var_get", ["$price"]],
+                 ["list", [0]],
+                 ["val2bool"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+       ]
+      }]
+    ]
+  }
+}

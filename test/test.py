@@ -8,7 +8,7 @@ from Inc.Misc.PlayWrite import UrlGetData as UrlGetData_PW
 from Inc.Misc.aiohttpClient import UrlGetData
 from Inc.Scheme.Scheme import TScheme, TSchemeExt, TSchemeApi
 from Inc.Util.ModHelp import GetClass
-from Inc.Var.Obj import Iif, IifNone, GetTree
+from Inc.Var.Obj import Iif, GetTree
 from Inc.Var.Dict import DeepGetByList
 
 
@@ -87,13 +87,16 @@ class TSchemer():
             Fields = ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', '-sku', '-mpn', 'features', 'description']
             Urls = []
             if (isinstance(Pipe.get('images'), list)):
-                Urls += Pipe.get('images')
+                Urls += Pipe['images']
             if (isinstance(Pipe.get('image'), str)):
-                Urls += [Pipe.get('image')]
+                Urls += [Pipe['image']]
         elif (aType == 'category'):
             Fields = ['products', 'pager']
-            Products = IifNone(Pipe['products'], [])
-            Urls = IifNone(Pipe.get('pager'), []) + [x.get('href') for x in Products]
+            Urls = []
+            if (isinstance(Pipe.get('products'), list)):
+                Urls += [x.get('href') for x in Pipe['products']]
+            if (isinstance(Pipe.get('pipe'), list)):
+                Urls += Pipe['pager']
         Err |= bool(self.CheckFields(Pipe, Fields))
         Err |= bool(self.CheckUrls(Urls))
         return {'err': Err , 'pipe': Pipe}
@@ -187,12 +190,12 @@ async def Main():
     #
     #Url = 'https://recorder.com.ua/Igrovoy-sistemniy-blok-AMD-Ryzen-5-4500-32-GB-RAM-128-GB-SSD-500-GB-HDD-NV-Sistemnie-bloki-BU-609803_2'
     #Url = 'https://recorder.com.ua'
-    Url = 'https://setka.ua/c/noutbuki/noutbuki_1/'
+    #Url = 'https://setka.ua/c/noutbuki/noutbuki_1/'
     #Url = 'https://1x1.com.ua/product/dell_optiplex_3020_mt_i5-4590_4gb_500gb_hdd_t1'
+    #q1 = await UrlGetData_PW(Url)
 
-    q1 = await UrlGetData_PW(Url)
-    #await TSchemer('recorder.com.ua').Test('product')
-    await TSchemer('recorder.com.ua').Test('category')
+    #await TSchemer('gamak.kiev.ua').Test('product')
+    await TSchemer('gamak.kiev.ua').Test('category')
     #
     print("done")
 
