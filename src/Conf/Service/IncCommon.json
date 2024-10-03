@@ -21,7 +21,7 @@
         ["product", "category"]
       ],
       [
-        1,
+        0,
         "cibermag.com",
         "https://www.cibermag.com/ua",
         ["product", "-category"]
@@ -51,16 +51,16 @@
         ["product", "category"]
       ],
       [
-        1,
+        0,
         "h-store.in.ua",
         "https://h-store.in.ua/ua",
         ["product", "-category"]
       ],
       [
-        0,
+        1,
         "it-outlet.com.ua",
         "https://it-outlet.com.ua",
-        ["product", "category"]
+        ["-product", "category"]
       ],
       [
         0,
@@ -75,13 +75,13 @@
         ["product", "category"]
       ],
       [
-        1,
+        0,
         "laptopchik.top",
         "https://laptopchik.top",
         ["product", "-category"]
       ],
       [
-        1,
+        0,
         "laptop-planet.com.ua",
         "https://laptop-planet.com.ua",
         ["product", "-category"]

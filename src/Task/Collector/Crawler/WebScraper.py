@@ -113,7 +113,7 @@ class TWebScraper():
                 AllowCategory = self.DblSite.Rec.category
                 if (AllowCategory):
                     if (SchemeName == 'category'):
-                        Products = [xProduct['href'] for xProduct in  Products]
+                        Products = [xProduct['href'] for xProduct in  Products if len(xProduct['href']) < 255]
                         Categories = IifNone(Pipe.get('pager'), [])
                         Htrefs = set(Products + Categories)
                 else:

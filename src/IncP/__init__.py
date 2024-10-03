@@ -3,8 +3,8 @@
 #License:     GNU, see LICENSE for more details
 
 
-__version__ = '1.0.19'
-__date__ =  '2024.09.30'
+__version__ = '1.0.21'
+__date__ =  '2024.10.04'
 
 
 def GetAppVer() -> dict:
