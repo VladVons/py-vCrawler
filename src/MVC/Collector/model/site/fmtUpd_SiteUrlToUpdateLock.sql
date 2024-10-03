@@ -1,10 +1,11 @@
 -- fmtUpd_SiteUrlToUpdateUnlock.sql
 -- aSiteId, UrlIds. aLimit
+-- 1.3 is extra time for 0.75 random sleep and slow emulator
 
 with
 wt1 as (
     select
-        now() + (rs.sleep_seconds * {{aLimit}} || ' seconds')::interval as unlock_date
+        now() + ((rs.sleep_seconds * {{aLimit}} * 1.3) || ' seconds')::interval as unlock_date
     from
         ref_site rs
     where

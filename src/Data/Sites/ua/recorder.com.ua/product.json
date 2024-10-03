@@ -1,0 +1,35 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.30 18:00:00",
+      "url": [
+        "-https://recorder.com.ua/Noutbuk-Dell-Inspiron-15-3511-Intel-Core-i5-1135G7-8-GB-RAM-256-GB-SSD-IPS-15-6-F-Noutbuki-BU-626337",
+        "-https://recorder.com.ua/Igrovoy-noutbuk-ASUS-Rog-G5332W-Core-i9-12900H-32-RAM-256-SSD-NVIDIA-GeForce-RTX--Noutbuki-BU-626338",
+        "https://recorder.com.ua/hp-elitebook-8460p-132404720"
+      ]
+    },
+    "pipe_itemprop": [
+      ["product_ldjson"]
+    ],
+    "pipe_body": [
+      ["find", ["div", {"id": "product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["span", {"class": "price-old"}]],
+          ["text"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-specification"}]],
+          ["find_all", ["div", {"class": "product-data__item"}]],
+          ["list_map", [
+            ["text_strip"],
+            ["split_cr"]
+          ]],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

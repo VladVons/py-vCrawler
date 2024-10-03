@@ -1,0 +1,71 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-08-28 12:12:57",
+      "url": [
+        "https://laptop-planet.com.ua/noutbuk-dell-precision-3540-15.6-fullhd-i5-8365u-16gb-ram-256gb-ssd/1546"
+      ]
+    },
+    "pipe": [
+      ["find",["div", {"class": "product__grid"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"class": "product-title"}]],
+          ["text_strip"]
+        ],
+        "price": [
+            ["find", ["div", {"class": "product-price"}]],
+            ["check_or", [
+              [
+                ["find", ["div", {"class": "product-price__item"}]]
+
+              ],
+              [
+                ["find", ["div", {"class": "product-price__item--new"}]]
+              ]
+            ]],
+            ["text"],
+            ["price"]
+        ],
+        "price_old": [
+          ["find_path", [
+            ["div", {"class": "product-price"}],
+            ["div", {"class": "product-price__old-price"}]
+          ]],
+          ["text"],
+          ["price"]
+        ],
+        "stock": [
+          ["ext_stock"]
+        ],
+        "images": [
+          ["find", ["ul", {"class": "gallery__photos-list"}]],
+          ["find_all", ["span", {"class": "gallery__link"}]],
+          ["list_map", [
+            ["get", ["data-href"]],
+            ["url_pad"]
+          ]]
+         ],
+         "image": [
+           ["ext_image_og"]
+         ],
+        "category": [
+          ["find", ["nav", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]]
+        ],
+        "features": [
+          ["find", ["table", {"class": "product-features__table"}]],
+          ["table"],
+          ["keyval2dict"]
+         ],
+        "description": [
+          ["find", ["div", {"class": "product-description"}]],
+          ["text_strip"]
+        ],
+        "-brand": [
+        ]
+      }]
+    ]
+  }
+}

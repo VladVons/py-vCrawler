@@ -1,0 +1,66 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.07 18:00:00",
+      "url": [
+        "-https://europc.ua/ua/computers/prodesk-600-g2-sff-i3-6100-8-ram-240-ssd/",
+        "https://europc.ua/ua/laptops/hp-zbook-15-g6-15-6-ips-i7-9850h-quadro-t2000-32-ram-480-ssd/"
+      ]
+    },
+    "pipe_schema": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "name": [
+          ["get", ["name"]]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "stock": [
+          ["gets", ["offers.availability"]],
+          ["stock"]
+        ],
+        "images": [
+          ["get", ["image"]]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price": [
+          ["as_list", [
+            [
+              ["gets", ["offers.price"]]
+            ],
+            [
+              ["gets", ["offers.priceCurrency"]]
+            ]
+          ]]
+        ]
+      }]
+    ],
+    "pipe_body": [
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "product_main_block_price_old"}]],
+          ["text"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product_tab_characteristics_blocks_container"}]],
+          ["find_all", ["div", {"class": "product_tab_characteristics_block"}]],
+          ["list_map", [
+            ["text_strip"],
+            ["split_cr"]
+          ]],
+          ["keyval2dict", [0, 1]]
+        ],
+        "category": [
+          ["find", ["ol", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -1, false]]
+        ]
+      }]
+    ]
+  }
+}

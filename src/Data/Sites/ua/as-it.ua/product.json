@@ -1,0 +1,62 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.08.31 09:00:00",
+      "url": [
+        "https://as-it.ua/bu-noutbuk-125-lenovo-thinkpad-x260-i5-6300u-24-ggc-16gb-ddr4-intel-hd-520-240gb-ssd/"
+      ]
+    },
+    "pipe_schema": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "name": [
+          ["get", ["name"]]
+        ],
+        "brand": [
+          ["gets", ["brand.name"]]
+        ],
+        "stock": [
+          ["gets", ["offers.availability"]],
+          ["stock"]
+        ],
+        "image": [
+          ["get", ["image"]]
+        ],
+        "price": [
+          ["ext_price_app", [true]]
+        ],
+        "category": [
+          ["get", ["category"]]
+        ]
+      }]
+    ],
+    "pipe_body": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "price"}]],
+          ["find", ["span", {"class": "price-old"}]],
+          ["text"],
+          ["price"]
+        ],
+        "images": [
+          ["find", ["div", {"class": "images-additional"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-specification"}]],
+          ["table"],
+          ["keyval2dict", [0, 1]]
+        ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_strip"]
+        ]
+      }]
+    ]
+  }
+}

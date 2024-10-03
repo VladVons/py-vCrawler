@@ -12,5 +12,5 @@ where
         url_id
 )
 order by
-    url_id, 
+    url_id,
     id

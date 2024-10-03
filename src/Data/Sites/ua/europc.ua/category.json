@@ -1,0 +1,43 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.06 18:00:00",
+      "url": [
+        "https://europc.ua/ua/laptops/"
+      ]
+    },
+    "pipe": [
+      ["find", ["div", {"class": "catalog_wrapper"}]],
+      ["as_dict", {
+        "products": [
+          ["find_all", ["div", {"class": "product_block"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["a", {"class": "product_block_title"}]],
+                 ["get", ["href"]]
+               ],
+               "name": [ 
+                 ["get", ["data-ecom-name"]]
+               ],
+               "price": [ 
+                 ["find", ["div", {"class": "product_block_price_main"}]],
+                 ["text"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "paginator"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

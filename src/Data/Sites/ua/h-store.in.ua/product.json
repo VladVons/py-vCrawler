@@ -1,0 +1,62 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.08.29 09:00:00",
+      "url": [
+        "https://h-store.in.ua/ua/p648355229-sistemnyj-blok-compaq.html"
+      ]
+    },
+    "pipe_schema": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "name": [
+          ["get", ["name"]]
+        ],
+        "stock": [
+          ["gets", ["offers.availability"]],
+          ["stock"]
+        ],
+        "image": [
+          ["get", ["image"]]
+        ]
+      }]
+    ],
+    "pipe_body": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "price": [
+          ["comment", ["category has products in app_json format too"]],
+          ["-ext_price_app", [true]],
+
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "b-product-cost"}]],
+          ["text"],
+          ["price"]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["ext_category_prom"]
+        ],
+        "images": [
+          ["comment", "todo"]
+        ],
+        "features": [
+          ["var_get", ["$root"]],
+          ["find", ["table", {"class": "b-product-info"}]],
+          ["table"],
+          ["keyval2dict", [0, 1]]
+       ],
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"data-qaid": "product_description"}]],
+          ["text_strip"]
+       ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["gets", ["Виробник"]]
+        ]
+      }]
+    ]
+  }
+}

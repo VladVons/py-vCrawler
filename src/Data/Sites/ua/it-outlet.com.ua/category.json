@@ -1,0 +1,53 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.01 10:00:00",
+      "url": [
+        "https://it-outlet.com.ua/laptops",
+        "-https://it-outlet.com.ua/laptops?page=9"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "cat_prod"}]],
+          ["find_all", ["div", {"class": "product-layout"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "caption"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]]
+               ],
+               "name": [ 
+                 ["find", ["div", {"class": "caption"}]],
+                 ["find", ["a"]],
+                 ["text"]
+               ],
+               "price": [
+                 ["find", ["p", {"class": "price"}]],
+                 ["text"],
+                 ["price"]
+              ],
+              "stock": [
+                 ["find", ["span", {"class": "quantity"}]],
+                 ["find", ["span", {"class": "counter"}]],
+                 ["text_strip_lower_search", ["0"], {"mode": "eq"}],
+                 ["invert"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

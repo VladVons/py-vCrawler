@@ -1,7 +1,9 @@
 import os
 import sys
 import json
+import time
 import asyncio
+import httpx
 from bs4 import BeautifulSoup
 #
 from Inc.Misc.PlayWrite import UrlGetData as UrlGetData_PW
@@ -13,6 +15,35 @@ from Inc.Var.Dict import DeepGetByList
 
 
 DirRoot = 'sites/used/ua'
+
+
+#https://googlechromelabs.github.io/chrome-for-testing/#stable
+from pyppeteer import launch, executablePath
+q1 = executablePath()
+async def UrlGetData_pyppeteer(aUrl):
+    #browser = await launch(headless=True, executablePath='./chromedriver')
+    browser = await launch(headless=True)
+
+    page = await browser.newPage()
+    response = await page.goto(aUrl, waitUntil='domcontentloaded', timeout=10000)
+    content = await page.content()
+    await browser.close()
+
+    return {
+        'data': content,
+        'status': response.status
+    }
+
+async def UrlGetData_httpx(aUrl: str):
+    async with httpx.AsyncClient() as Client:
+        try:
+            Response = await Client.get(aUrl)
+            Data = Response.html.render()
+            Res = {'data': Response.content, 'status': Response.status_code}
+        except Exception as E:
+            Res = {'err': str(E), 'status': -1}
+        return Res
+
 
 class TSchemer():
     def __init__(self, aSite: str):
@@ -127,9 +158,14 @@ class TSchemer():
                 File = f'{aType}_{Idx+1}.html'
                 Data = self.ReadFile(File)
                 if (not Data):
-                    Reader = DeepGetByList(Scheme, [aType, 'info', 'reader'])
-                    if (Reader == 'emulator'):
+                    Reader = DeepGetByList(Scheme, [aType, 'info', 'reader'], 'aiohttp')
+                    print(f'read with {Reader}')
+                    if (Reader == 'playwright'):
                         DataU = await UrlGetData_PW(xUrl)
+                    elif (Reader == 'httpx'):
+                        DataU = await UrlGetData_httpx(xUrl)
+                    elif (Reader == 'pyppeteer'):
+                        DataU = await UrlGetData_pyppeteer(xUrl)
                     else:
                         DataU = await UrlGetData(xUrl)
 
@@ -173,9 +209,18 @@ def GetAllMacroses() -> dict:
     return dict(PopularFirst)
 
 async def ParseAll() -> dict:
-    for xDir, xFile in _GetFiles():
+    for xDir, xFile in sorted(_GetFiles()):
+        print(xDir, xFile)
         await TSchemer(xDir).Test(xFile)
+        input('press enter...')
 
+async def SpeedTest(aUrl: str):
+    StartAt = time.time()
+    for x in range(5):
+        print('try', x+1)
+        await UrlGetData_pyppeteer(aUrl)
+        #await UrlGetData_PW(aUrl)
+    print('time', time.time() - StartAt)
 
 async def Main():
     os.system('clear')
@@ -187,6 +232,7 @@ async def Main():
     #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
     #await ParseAll()
+    await SpeedTest('https://setka.ua/c/noutbuki/noutbuki_1/page-4/')
     #
     #Url = 'https://recorder.com.ua/Igrovoy-sistemniy-blok-AMD-Ryzen-5-4500-32-GB-RAM-128-GB-SSD-500-GB-HDD-NV-Sistemnie-bloki-BU-609803_2'
     #Url = 'https://recorder.com.ua'
@@ -194,8 +240,8 @@ async def Main():
     #Url = 'https://1x1.com.ua/product/dell_optiplex_3020_mt_i5-4590_4gb_500gb_hdd_t1'
     #q1 = await UrlGetData_PW(Url)
 
-    #await TSchemer('gamak.kiev.ua').Test('product')
-    await TSchemer('gamak.kiev.ua').Test('category')
+    #await TSchemer('setka.ua').Test('product')
+    #await TSchemer('setka.ua').Test('category')
     #
     print("done")
 

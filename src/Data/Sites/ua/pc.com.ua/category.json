@@ -1,0 +1,37 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.05 09:00:00",
+      "url": [
+        "https://pc.com.ua/ua/laptops"
+      ]
+    },
+    "pipe": [
+      ["find", ["div", {"id": "load-catalog"}]],
+      ["as_dict", {
+        "products": [
+          ["find_all", ["div", {"class": "product-card"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "product": {
+    "info": {
+      "author": "sernuzh",
+      "date": "2024.09.21 18:00:00",
+      "url": [
+        "https://www.servecom.pl/komputer-dell-optiplex-3020-sff-intel-i5-4590t-8gb-480gb-windows-10-pro/komputery-poleasingowe-dell",
+        "-https://www.servecom.pl/dell-inspiron-5510-156-i5-11320h-8gb-512ssd-win11home/laptopy-nowe-dell",
+        "-https://www.servecom.pl/viewsonic-td-1630-3-16-hd-dotyk/monitory-nowe"
+      ]
+    },
+    "pipe_body": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"itemprop": "name"}]],
+          ["text"],
+          ["strip"]
+        ],
+        "stock":[
+          ["find", ["div", {"id": "add_to_basket_box"}]],
+          ["find", ["a", {"title": "Dodaj do koszyka"}]],
+          ["val2bool"]
+        ],
+        "images":[
+          ["find", ["div", {"id": "product_gallery_main_wrapper"}]],
+          ["find_all", ["a", {"class": "foto"}]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]]
+        ],
+        "image": [
+          ["ext_image_og"]
+        ],
+        "price": [
+          ["find", ["span", {"class": "price"}]],
+          ["find", ["span", {"class": "actual_price"}]],
+          ["text"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "price"}]],
+          ["find_re", ["span", {"title": "promocją"}]],
+          ["find_next_text"],
+          ["text"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["table", {"id": "params"}]],
+          ["table"],
+          ["keyval2dict", [0, 1]]
+        ],
+        "brand": [
+          ["find", ["meta", {"itemprop": "brand"}]],
+          ["get", ["content"]]
+        ],
+        "description": [
+            ["find", ["div", {"id": "description"}]],
+            ["text"],
+            ["strip"]
+        ],
+        "category": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"id": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

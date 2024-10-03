@@ -1,0 +1,58 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.19 10:00:00",
+      "url": [
+        "https://www.gekko-computer.de/Workstations/Dell-Workstations.html"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "product_list"}]],
+          ["find_all", ["div", {"class": "product-container"}]],
+          ["list_map", [
+            ["as_dict", {
+               "name": [
+                 ["find", ["span", {"class": "grid-name"}]],
+                 ["text"]
+               ],
+               "href": [ 
+                 ["find", ["a", {"class": "product-name"}]],
+                 ["get", ["href"]],
+                 ["-url_pad"]
+               ],
+               "stock": [ 
+                 ["find", ["span", {"class": "ajax_add_to_cart_button"}]],
+                 ["text"],
+                 ["strip"],
+                 ["lower"],
+                 ["search", ["купити"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["span", {"class": "old-price"}]],
+                 ["text"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

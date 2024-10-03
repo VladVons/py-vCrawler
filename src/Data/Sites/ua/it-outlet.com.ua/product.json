@@ -1,0 +1,38 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.01 18:00:00",
+      "url": [
+        "https://it-outlet.com.ua/bb-noutbuk-tonkij-ta-legkij-dell-latitude-e7270matovij-tn-ekran-125",
+        "-",
+        "-https://it-outlet.com.ua/index.php?route=product/product&product_id=232000"
+      ]
+    },
+    "pipe_microdata": [
+      ["product"],
+      ["dict_keydel", ["stock"]],
+      ["-stock in emulator"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "product"}]],
+      ["as_dict", {
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"id": "tab-description_sss"}]],
+          ["replace_br"],
+          ["text"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Виробник"]]
+        ],
+        "stock": [
+          ["var_get", ["$root"]],
+          ["find", ["span", {"class": "stock_msg"}]],
+          ["text_strip_lower_search", ["товар в наявності"], {"mode": "start"}]
+        ]
+      }]
+    ]
+  }
+}

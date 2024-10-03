@@ -1,10 +1,8 @@
 *.pyc
 *.log
-__pycache__
-.idea
-
-#test/
-Task.py
+*.dat
 *.html
 *.html.json
-vCrawler.sh
+__pycache__
+.idea
+Task.py

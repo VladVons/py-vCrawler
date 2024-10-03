@@ -1,0 +1,57 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.03 09:00:00",
+      "url": [
+        "https://as-it.ua/bu-noutbuki/?page=2"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_all", ["div", {"class": "product-layout"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "name"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]]
+               ],
+               "stock": [ 
+                 ["find", ["div", {"class": "stock-box"}]],
+                 ["text_strip_lower_search", ["в наявності"], {"mode": "start"}]
+               ],
+               "price": [
+                 ["find_or", [
+                    ["span", {"class": "price-new"}],
+                    ["p", {"class": "price"}]
+                 ]],
+                 ["text"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["span", {"class": "price-old"}]],
+                 ["text"],
+                 ["price"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "name"}]],
+                 ["find", ["a"]],
+                 ["text"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination-wrapper"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

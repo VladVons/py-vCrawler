@@ -1,0 +1,18 @@
+{
+  "comment": "Product0", 
+  "plugins": [
+    "SchemeTest"
+  ],  
+  "common": {
+    "sleep_loop": 0.01,
+    "save_cache": false
+  },
+  "plugin": {
+    "SchemeTest": {
+      "dir_data": "./Data/Sites/ua",
+      "sites": [
+          ["it-outlet.com.ua", ["product", "-category"]]
+      ]
+    }
+  }
+}

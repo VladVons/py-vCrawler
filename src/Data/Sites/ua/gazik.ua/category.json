@@ -1,0 +1,47 @@
+{
+  "category": {
+    "info": {
+      "author": "sernuzh",
+      "date": "2024.09.08 10:00:00",
+      "url": [
+        "https://gazik.ua/catalog/komp-yutery"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "catalog_block"}]],
+          ["find_all", ["div", {"class": "item_block"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "item-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "stock": [ 
+                 ["find", ["div", {"class": "item-stock"}]],
+                 ["text_strip_lower_search", ["в наявності"], {"mode": "start"}]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "values_wrapper"}]],
+                 ["text"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "module-pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.06 09:00:00",
+      "url": [
+        "https://www.lapstore.com.ua/product-category/laptops-uk"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["a", {"class": "woocommerce-LoopProduct-link"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["-find", ["div", {"class": "name"}]],
+                 ["-find", ["a"]],
+                 ["get", ["href"]]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "woocommerce-pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

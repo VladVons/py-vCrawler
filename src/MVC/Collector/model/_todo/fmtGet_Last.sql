@@ -23,7 +23,7 @@ left join
 left join
     wt1 on
     (wt1.url_id = ru.id)
-where 
+where
     (ru.site_id != 1) and
     --(url_id = 62043) and
     --((hu.parsed_data->>'stock')::bool) and

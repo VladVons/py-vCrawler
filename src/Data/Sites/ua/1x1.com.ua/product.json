@@ -1,0 +1,64 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.08 09:00:00",
+      "url": [
+        "https://1x1.com.ua/product/dell_inspiron_5391_13_i5-10210u_8gb_256gb_ssd_fhd_windows_10_pro_t2"
+      ]
+    },
+    "pipe_schema": [
+      ["app_json", [{"@type": "Product"}]],
+      ["as_dict", {
+        "name": [
+          ["get", ["name"]]
+        ],
+        "brand": [
+          ["var_get", ["$name"]],
+          ["split", [" ", 0]]
+        ],
+        "stock": [
+          ["gets", ["offers.availability"]],
+          ["stock"]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "images": [
+          ["get", ["image"]]
+        ],
+        "price": [
+          ["ext_price_app", [true]]
+        ],
+        "category": [
+          ["get", ["category"]]
+        ]
+      }]
+    ],
+    "pipe_body": [
+      ["find", ["div", {"class": "vProduct"}]],
+      ["as_dict", {
+        "-price_old": [
+            ["comment", ["todo"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attr-short"}]],
+          ["find_all", ["h2"]],
+          ["list_map", [
+            ["text"],
+            ["split", [":"]]
+          ]],
+          ["keyval2dict", [0, 1]]
+        ],
+        "description": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "tab-content"}]],
+          ["find", ["div", {"id": "details"}]],
+          ["replace_br"],
+          ["text_strip"]
+        ]
+      }]
+    ]
+  }
+}

@@ -8,7 +8,7 @@
         "-https://setka.ua/c/kompyutery/kompyuter-hp-elitedesk-800-g2-sff-i5-6600-ddr4-16gb-ssd-240gb-utsenka/",
         "-https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-hp-pavilion-g6-15-6-i3-2370m-ddr3-4gb-ssd-120gb-used/"
       ],
-      "reader": "emulator"
+      "reader": "httpx"
     },
     "pipe": [
       ["find",["div", {"class": "product-container"}]],
@@ -16,8 +16,7 @@
         "name": [
           ["var_get", ["$root"]],
           ["find", ["h1", {"id": "pagetitle"}]],
-          ["text"],
-          ["strip"]
+          ["text_strip"]
         ],
         "price": [
           ["var_get", ["$root"]],
@@ -35,10 +34,7 @@
         ],
         "stock": [
           ["find", ["span", {"class": "store_view"}]],
-          ["text"],
-          ["strip"],
-          ["lower"],
-          ["search_eq", ["достатньо", "мало"]]
+          ["text_strip_lower_search", ["достатньо", "мало"], {"mode": "eq"}]
         ],
         "images": [
           ["find", ["div", {"class": "product-detail-gallery__thmb-container"}]],
