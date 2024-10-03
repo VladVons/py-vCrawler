@@ -1,18 +1,20 @@
-# Created: 2023.09.26
+# Created: 2024.10.03
 # Author: Vladimir Vons <VladVons@gmail.com>
 # License: GNU, see LICENSE for more details
 
 
+from Inc.DbList import TDbList
 from Inc.ParserX.Common import TPluginBase
 from .Main import TSchemer
 
 
 class TSchemeTest(TPluginBase):
     async def Run(self):
-        for xSite, xTypes in self.Conf.get('sites', []):
-            if (not xSite.startswith('-')):
-                Dir = f'{self.Conf["dir_data"]}/{xSite}'
+        Dbl = TDbList().Import(self.Conf['sites'])
+        for Rec in Dbl:
+            if (Rec.enable):
+                Dir = f'{self.Conf["dir_data"]}/{Rec.site}'
                 Schemer = TSchemer(Dir)
-                for xType in xTypes:
+                for xType in Rec.type:
                     if (not xType.startswith('-')):
                         await Schemer.Test(xType)

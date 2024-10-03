@@ -1,23 +1,15 @@
 {
-    "dir_data": "./Data/Product0",
-    "comment": "...", 
-    "plugins": [
-        "SchemeToDb"
-    ],  
-    "common": {
-        "sleep_loop": 0.01,
-        "save_cache": false
-    },
-    "plugin": {
-       "SchemeToDb": {
-            "sql": {
-                "parts": 10,
-                "lang_id": 1,
-                "max_conn": 1,
-                "rand_sleep": [0.1, 1.1],
-                "parser": "listex_info"
-            },
-            "auth": "{% file_json Conf/SrvDB.json:db_auth %}"
-        }
+  "plugins": [
+    "SchemeToDb"
+  ],
+  "plugin": {
+    "SchemeToDb": {
+      "dir_data": "./Data/Sites/ua",
+      "sql": {
+        "parts": 10
+      },
+      "auth": "{% file_json Conf/IncSrvDB.json:db_auth %}",
+      "sites": "{% file_json Conf/Service/IncCommon.json:sites %}"
     }
+  }
 }
