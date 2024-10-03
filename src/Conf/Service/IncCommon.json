@@ -1,6 +1,6 @@
 {
   "sites": {
-    "head": ["enable", "site", "url", "type"],
+    "head": ["enable", "dir", "url", "type"],
     "data": [
       [
         0,
@@ -21,10 +21,10 @@
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "cibermag.com",
         "https://www.cibermag.com/ua",
-        ["product", "category"]
+        ["product", "-category"]
       ],
       [
         0,
@@ -51,13 +51,13 @@
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "h-store.in.ua",
         "https://h-store.in.ua/ua",
-        ["product", "category"]
+        ["product", "-category"]
       ],
       [
-        1,
+        0,
         "it-outlet.com.ua",
         "https://it-outlet.com.ua",
         ["product", "category"]
@@ -75,16 +75,16 @@
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "laptopchik.top",
         "https://laptopchik.top",
-        ["product", "category"]
+        ["product", "-category"]
       ],
       [
-        0,
+        1,
         "laptop-planet.com.ua",
         "https://laptop-planet.com.ua",
-        ["product", "category"]
+        ["product", "-category"]
       ],
       [
         0,

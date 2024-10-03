@@ -47,7 +47,7 @@ class TSchemer():
 
     def ReadFile(self, aFile: str) -> str:
         File = self.Dir + '/' + aFile
-        if os.path.exists(File):
+        if (os.path.exists(File)):
             with open(File, 'r', encoding='utf8') as hFile:
                 return hFile.read()
 
@@ -104,6 +104,7 @@ class TSchemer():
 
     async def Test(self, aType: str):
         Scheme = self.LoadScheme(aType)
+        assert(Scheme), f'Err: No scheme loaded for {self.Dir}->{aType}'
 
         Cnt = 0
         Urls = DeepGetByList(Scheme, [aType, 'info', 'url'])

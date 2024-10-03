@@ -3,9 +3,16 @@
 # License: GNU, see LICENSE for more details
 
 
+import os
+import json
+#
 from Inc.DbList import TDbList
 from Inc.ParserX.Common import TFileBase
+from Inc.ParserX.CommonSql import LoadQuery, DASplitDbl
+from Inc.Var.Dict import DeepGetByList
 from Inc.Sql import TDbExecPool, TDbPg
+from IncP.Log import Log
+from .. import SiteCondEnabled
 
 
 class TMain(TFileBase):
@@ -14,12 +21,42 @@ class TMain(TFileBase):
         self.Db = aDb
 
     async def Upload(self):
-        Dbl = TDbList().Import(self.Parent.Conf['sites'])
-        for Rec in Dbl:
-            if (Rec.enable):
+        @DASplitDbl
+        async def SSite(aDbl: TDbList, _aMax: int, _aIdx: int = 0, _aLen: int = 0):
+            InsValues = []
+            SelValues = []
+            for Rec in aDbl:
+                InsValues.append(f"('{Rec.url}', 1)")
+                SelValues.append(f"'{Rec.url}'")
+
+            Query = LoadQuery(__package__, 'fmtSet_Site.sql', {
+                'InsValues': ', '.join(InsValues),
+                'SelValues': ', '.join(SelValues)
+            })
+            DblRes = await TDbExecPool(self.Db.Pool).Exec(Query)
+            Pairs = DblRes.ExportPair('url', 'id')
+
+            InsValues = []
+            DirData = self.Parent.Conf['dir_data']
+            for Rec in aDbl:
                 for xType in Rec.type:
                     if (not xType.startswith('-')):
-                        Query = f'''
-                            delete from {xTable}
-                        '''
-                        await TDbExecPool(self.Db.Pool).Exec(Query)
+                        Path = f'{DirData}/{Rec.dir}/{xType}.json'
+                        assert(os.path.exists(Path)), f'Path does not exist {Path}'
+                        with open(Path, 'r', encoding='utf8') as F:
+                            Data = F.read()
+                            json.loads(Data) # just check
+                        SiteId = Pairs[Rec.url]
+                        InsValues.append(f"(true, '{Data}', '{xType}', {SiteId})")
+
+            if (InsValues):
+                Log.Print(1, 'i', f'Updated parser {len(InsValues)}')
+                Query = LoadQuery(__package__, 'fmtSet_SiteParser.sql', {'InsValues': ', '.join(InsValues)})
+                await TDbExecPool(self.Db.Pool).Exec(Query)
+
+
+        Dbl = TDbList().Import(self.Parent.Conf['sites'])
+        Dbl = SiteCondEnabled(Dbl)
+
+        ConfParts = DeepGetByList(self.Parent.Conf, ['sql', 'parts'], 10)
+        await SSite(Dbl, ConfParts)
