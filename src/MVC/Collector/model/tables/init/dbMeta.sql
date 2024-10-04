@@ -53,7 +53,7 @@ begin
         left(new.parsed_data->>'name', 128),
         left(new.parsed_data->>'category', 80),
         left(new.parsed_data->>'image', 160),
-        (new.parsed_data->>'stock')::bool,
+        coalesce((new.parsed_data->>'stock')::bool, false),
         (new.parsed_data->'price'->>0)::decimal,
         (new.parsed_data->'price_old'->>0)::decimal
     )
@@ -66,7 +66,7 @@ begin
         title = excluded.title,
         category = excluded.category,
         image = excluded.image,
-        stock = excluded.stock,
+        stock = (excluded.stock = true),
         price = excluded.price,
         price_old = excluded.price_old;
     return new;

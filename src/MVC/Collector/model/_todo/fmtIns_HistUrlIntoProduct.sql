@@ -8,7 +8,7 @@ insert into ref_product
         left(parsed_data->>'name', 128) as title,
         left(parsed_data->>'category', 80) as category,
         left(parsed_data->>'image', 160) as image,
-        (parsed_data->>'stock')::bool as stock,
+        coalesce((parsed_data->>'stock')::bool, false) as stock,
         (parsed_data->'price'->>0)::decimal as price,
         (parsed_data->'price_old'->>0)::decimal as price_old
     from

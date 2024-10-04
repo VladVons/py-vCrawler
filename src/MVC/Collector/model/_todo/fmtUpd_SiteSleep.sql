@@ -1,0 +1,13 @@
+with wt1 as (
+  select
+      ru.site_id,
+      round(3600*24*1.0/count(ru.*)+5, 0) as sleep_seconds
+  from
+      ref_url ru
+  group by
+      ru.site_id
+)
+update ref_site
+set sleep_seconds = wt1.sleep_seconds
+from wt1
+where ref_site.id = wt1.site_id
