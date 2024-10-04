@@ -1,0 +1,50 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.04 10:00:00",
+      "url": [
+        "https://www.cibermag.com/ua/sistemnye-bloki/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "grid_list"}]],
+          ["find_all", ["div"], {"class": "products_grid-item"}],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["span", {"class": "title-product"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]]
+               ],
+               "name": [ 
+                 ["find", ["span", {"class": "title-product"}]],
+                 ["find", ["a"]],
+                 ["text"]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text"],
+                 ["price"]
+              ],
+              "-stock": [
+                 ["-todo"]
+              ]
+            }]
+          ]]
+       ],
+       "-pager": [
+          ["todo emulator"],
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

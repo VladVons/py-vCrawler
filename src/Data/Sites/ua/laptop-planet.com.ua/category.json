@@ -17,7 +17,8 @@
                "href": [ 
                  ["find", ["div", {"class": "catalogCard-title"}]],
                  ["find", ["a"]],
-                 ["get", ["href"]]
+                 ["get", ["href"]],
+                 ["url_pad"]
                ],
                "name": [ 
                  ["find", ["div", {"class": "catalogCard-title"}]],
