@@ -6,6 +6,7 @@ import random
 import asyncio
 from aiohttp import web
 #
+from Inc.Var.Dict import DictDiff
 from Inc.Var.Obj import GetClassVars
 from IncP.SrvBaseEx import TSrvBaseEx
 from IncP.Log import Log
@@ -74,7 +75,7 @@ class TCrawler(TSrvBaseEx):
             else:
                 Log.Print(1, 'i', 'Auth error')
 
-            await asyncio.sleep(60)
+            await asyncio.sleep(DbConf.main_sleep)
 
     async def _Worker(self, aTaskId: int):
         Log.Print(1, 'i', f'_Worker({aTaskId :2}) started')
@@ -83,15 +84,20 @@ class TCrawler(TSrvBaseEx):
         await asyncio.sleep(Sleep)
 
         while (True):
-            DbConfOrig = await ApiCrawler.GetUserExt()
-
-            Sleep = random.uniform(DbConfOrig.workers_sleep * 0.75, DbConfOrig.workers_sleep)
-            await asyncio.sleep(Sleep)
-
             DbConf = await ApiCrawler.GetUserExt()
-            if (DbConf.user_id == -1) or (not DbConf.workers_allow) or (DbConf.workers_qty != DbConfOrig.workers_qty):
+            if (DbConf.user_id == -1) or (not DbConf.workers_allow):
                 break
+
+            if (ApiCrawler.DbConf):
+                Diff = DictDiff(DbConf.__dict__, ApiCrawler.DbConf.__dict__)
+                if (Diff['changed']):
+                    ApiCrawler.DbConf = DbConf
+                    Log.Print(1, 'i', f'_Worker(). Conf changed: {Diff["mod"]}. Reload')
+                    break
             ApiCrawler.DbConf = DbConf
+
+            Sleep = random.uniform(DbConf.workers_sleep * 0.75, DbConf.workers_sleep)
+            await asyncio.sleep(Sleep)
 
             Data = await ApiCrawler.GetTask()
             if ('err' in Data):

@@ -15,6 +15,7 @@ class TUserConf():
     workers_allow: bool = True
     workers_qty: int = 1
     workers_sleep: int = 10
+    main_sleep: int = 60
     speed_test_url: str = ''
 
 
@@ -22,7 +23,7 @@ class TApiCrawler(TApiBase):
     def __init__(self):
         super().__init__()
 
-        self.DbConf: TUserConf
+        self.DbConf: TUserConf = None
 
         Conf = self.GetConf()
         self.Conf = {

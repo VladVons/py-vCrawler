@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.04 10:00:00",
+      "url": [
+        "https://laptopchik.top/noutbuki"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "catalog"}]],
+          ["find_all", ["div"], {"class": "c-goods__trigger"}],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["a", {"class": "c-goods__title"}]],
+                 ["get", ["href"]]
+               ],
+               "name": [ 
+                 ["find", ["a", {"class": "c-goods__title"}]],
+                 ["text_strip"]
+               ],
+               "-price": [
+                 ["find", ["div", {"class": "c-goods__price--current product-price"}]],
+                 ["text"],
+                 ["-price todo"]
+              ],
+              "stock": [
+                 ["find", ["span", {"class": "c-product__stock"}]],
+                 ["text_strip_lower_search", ["є в наявності"], {"mode": "eq"}]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "c-pagination"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.04 10:00:00",
+      "url": [
+        "https://h-store.in.ua/ua/g38301004-noutbuki",
+        "-https://h-store.in.ua/ua/g38301004-noutbuki/page_3"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "b-product-gallery"}]],
+          ["find_all", ["li"], {"class": "b-product-gallery__item"}],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["a", {"class": "b-goods-title"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [ 
+                 ["find", ["a", {"class": "b-goods-title"}]],
+                 ["text"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "b-goods-price"}]],
+                 ["text"],
+                 ["price"]
+              ],
+              "stock": [
+                 ["find", ["span", {"class": "b-goods-data__state_val_avail"}]],
+                 ["text_strip_lower_search", ["в наявності"], {"mode": "eq"}]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["meta_nears"]
+       ]
+      }]
+    ]
+  }
+}

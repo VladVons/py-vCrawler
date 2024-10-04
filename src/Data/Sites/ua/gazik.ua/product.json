@@ -38,7 +38,7 @@
           ]]
         ],
         "price": [
-          ["price_meta"]
+          ["meta_price"]
         ],
         "price_old": [
           ["find", ["div", {"class": "price_matrix_wrapper strike_block"}]],

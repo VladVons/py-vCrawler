@@ -1,0 +1,51 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.04 10:00:00",
+      "url": [
+        "https://laptop-planet.com.ua/laptop/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "catalog__content"}]],
+          ["find_all", ["li"], {"class": "catalog-grid__item"}],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]]
+               ],
+               "name": [ 
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["find", ["a"]],
+                 ["text_strip"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "catalogCard-price"}]],
+                 ["text"],
+                 ["price"]
+              ],
+              "stock": [
+                 ["find", ["div", {"class": "catalogCard-availability"}]],
+                 ["text_strip_lower_search", ["в наявності"], {"mode": "eq"}]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pager"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

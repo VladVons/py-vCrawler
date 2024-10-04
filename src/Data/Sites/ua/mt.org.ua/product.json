@@ -33,7 +33,7 @@
           ]]
         ],
         "price": [
-          ["price_meta"]
+          ["meta_price"]
         ],
         "-price_old": [
         ],

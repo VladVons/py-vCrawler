@@ -33,13 +33,13 @@
 
     {% for Rec in TDbList().Import(dbl_products) %}
       <div class="gitem text-center">
-        <a href="{{Rec.url}}">
+        <a href="{{Rec.url}}" rel="nofollow">
           <img src="{{Rec.image}}" alt="Description of the image" class="thumb">
         </a>
       </div>
       <div class="gitem" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
         <div title="{{Rec.url}}">
-          <a href="{{Rec.url}}" target="_blank">{{Rec.url |truncate(50, True, '...')}}</a>
+          <a href="{{Rec.url}}" target="_blank" rel="nofollow">{{Rec.url |truncate(50, True, '...')}}</a>
         </div>
         <div>
           {{Rec.update_date.strftime('%Y-%m-%d')}}

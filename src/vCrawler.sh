@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-py=python3
+py=python3.12
 Dir=~/virt/$py
 source $Dir/bin/activate
 
