@@ -3,121 +3,121 @@
     "head": ["enable", "dir", "url", "type"],
     "data": [
       [
-        0,
+        1,
         "1x1.com.ua",
         "https://1x1.com.ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "acomp.com.ua",
         "https://acomp.com.ua/ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "as-it.ua",
         "https://as-it.ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "cibermag.com",
         "https://www.cibermag.com/ua",
         ["product", "-category"]
       ],
       [
-        0,
+        1,
         "etcshop.in.ua",
         "https://etcshop.in.ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "europc.ua",
         "https://europc.ua/ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "gamak.kiev.ua",
         "https://www.gamak.kiev.ua/ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "gazik.ua",
         "https://gazik.ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "h-store.in.ua",
         "https://h-store.in.ua/ua",
-        ["-product", "category"]
+        ["product", "category"]
       ],
       [
-        0,
+        1,
         "it-outlet.com.ua",
         "https://it-outlet.com.ua",
-        ["-product", "category"]
+        ["product", "category"]
       ],
       [
-        0,
+        1,
         "korob.com.ua",
         "https://korob.com.ua/ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "lapstore.com.ua",
         "https://www.lapstore.com.ua",
         ["product", "category"]
       ],
       [
-        -1,
+        1,
         "laptopchik.top",
         "https://laptopchik.top",
-        ["-product", "category"]
+        ["product", "category"]
       ],
       [
         1,
         "laptop-planet.com.ua",
         "https://laptop-planet.com.ua",
-        ["-product", "category"]
+        ["product", "category"]
       ],
       [
-        0,
+        1,
         "lux-pc.com",
         "https://lux-pc.com",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "mt.org.ua",
         "https://mt.org.ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "nosta.com.ua",
         "https://nosta.com.ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "pc.com.ua",
         "https://pc.com.ua/ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "recorder.com.ua",
         "https://recorder.com.ua",
         ["product", "category"]
       ],
       [
-        0,
+        1,
         "setka.ua",
         "https://setka.ua",
         ["product", "category"]

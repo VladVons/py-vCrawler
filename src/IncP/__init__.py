@@ -3,7 +3,7 @@
 #License:     GNU, see LICENSE for more details
 
 
-__version__ = '1.0.22'
+__version__ = '1.0.23'
 __date__ =  '2024.10.04'
 
 
