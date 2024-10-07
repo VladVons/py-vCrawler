@@ -122,7 +122,7 @@ class TSchemer():
                     elif (Reader == 'aiohttp'):
                         DataU = await UrlGetData(xUrl)
                     else:
-                        raise Exception(f'unknown reader {Reader}')
+                        raise ValueError(f'Unknown reader {Reader}')
 
                     if (DataU['status'] != 200):
                         print(f'Error reading {xUrl}')

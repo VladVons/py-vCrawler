@@ -232,7 +232,7 @@ async def Main():
     #     print(f'{Idx+1:3} {Key:15} {Val:3}')
     #
     #await ParseAll()
-    await SpeedTest('https://setka.ua/c/noutbuki/noutbuki_1/page-4/')
+    #await SpeedTest('https://setka.ua/c/noutbuki/noutbuki_1/page-4/')
     #
     #Url = 'https://recorder.com.ua/Igrovoy-sistemniy-blok-AMD-Ryzen-5-4500-32-GB-RAM-128-GB-SSD-500-GB-HDD-NV-Sistemnie-bloki-BU-609803_2'
     #Url = 'https://recorder.com.ua'
@@ -240,7 +240,7 @@ async def Main():
     #Url = 'https://1x1.com.ua/product/dell_optiplex_3020_mt_i5-4590_4gb_500gb_hdd_t1'
     #q1 = await UrlGetData_PW(Url)
 
-    #await TSchemer('setka.ua').Test('product')
+    await TSchemer('server-shop.ua').Test('product')
     #await TSchemer('setka.ua').Test('category')
     #
     print("done")
