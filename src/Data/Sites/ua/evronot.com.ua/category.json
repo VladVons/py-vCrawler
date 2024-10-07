@@ -2,18 +2,16 @@
   "category": {
     "info": {
       "author": "vladvons",
-      "date": "2024.09.05 09:00:00",
+      "date": "2024.10.01 10:00:00",
       "url": [
-        "-https://setka.ua/c/noutbuki/noutbuki_1/",
-        "https://setka.ua/c/noutbuki/noutbuki_1/page-2/"
-      ],
-      "reader": "playwright"
+        "https://evronot.com.ua/catalog/noutbuki_b_u/"
+      ]
     },
     "pipe": [
       ["as_dict", {
         "products": [
-          ["find_re", ["div", {"class": "catalog_block items"}]],
-          ["find_all", ["div", {"class": "catalog_item"}]],
+          ["find", ["div", {"class": "catalog_block"}]],
+          ["find_all", ["div", {"class": "item_info"}]],
           ["list_map", [
             ["as_dict", {
                "href": [ 
@@ -27,24 +25,23 @@
                  ["find", ["a"]],
                  ["text"]
                ],
-               "stock": [ 
-                 ["find", ["div", {"class": "item-stock"}]],
-                 ["text_strip_lower_search", ["багато", "достатньо", "мало"], {"mode": "eq"}]
-               ],
-               "price": [ 
+               "price": [
                  ["find", ["div", {"class": "price"}]],
                  ["text"],
                  ["price"]
-               ]
+              ],
+              "stock": [
+                 ["find", ["div", {"class": "item-stock"}]],
+                 ["text_strip_lower_search", ["есть в наличии"], {"mode": "eq"}]
+              ]
             }]
           ]]
        ],
        "pager": [
-          ["find", ["div", {"class": "module-pagination"}]],
+          ["find", ["ul", {"class": "pagination"}]],
           ["find_all", ["a"]],
           ["list_map", [
-            ["get", ["href"]],
-            ["url_pad"]
+            ["get", ["href"]]
           ]],
           ["list_uniq"]
        ]

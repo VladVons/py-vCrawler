@@ -1,0 +1,52 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.07 18:00:00",
+      "url": [
+        "https://server-shop.ua/server-dell-r620-8x25-sff-srv24.html"
+      ],
+      "reader": "playwright"
+    },
+    "pipe_microdata": [
+      ["-product_ldjson"],
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["var_get", ["$product_itemprop_root"]],
+      ["as_dict", {
+        "-features": [
+          ["find", ["div", {"class": "char_block"}]],
+          ["find_all", [["span","b"]]],
+          ["list_map", [
+            ["text"]
+          ]],
+          ["list_group", [2, [0, 1]]],
+          ["keyval2dict"]
+        ],
+        "-description": [
+          ["find", ["div", {"class": "detail_text"}]],
+          ["find_all", ["p"]],
+          ["list_map", [
+            ["text_strip"]
+          ]],
+          ["list_join", ["\n"]]
+        ],
+        "-images": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "thumbs"}]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["get", ["data-big_img"]],
+            ["url_pad"]
+          ]]
+        ],
+        "-stock": [
+          ["var_get", ["$root"]],
+          ["find", ["span", {"class": "stock_msg"}]],
+          ["text_strip_lower_search", ["товар в наявності"], {"mode": "start"}]
+        ]
+      }]
+    ]
+  }
+}

@@ -23,6 +23,8 @@ class TMain(TFileBase):
     async def Upload(self):
         @DASplitDbl
         async def SSite(aDbl: TDbList, _aMax: int, _aIdx: int = 0, _aLen: int = 0):
+
+            #--- Site
             InsValues = []
             SelValues = []
             for Rec in aDbl:
@@ -36,6 +38,7 @@ class TMain(TFileBase):
             DblRes = await TDbExecPool(self.Db.Pool).Exec(Query)
             Pairs = DblRes.ExportPair('url', 'id')
 
+            #--- SiteParser
             InsValues = []
             DirData = self.Parent.Conf['dir_data']
             for Rec in aDbl:
@@ -44,16 +47,28 @@ class TMain(TFileBase):
                         Path = f'{DirData}/{Rec.dir}/{xType}.json'
                         assert(os.path.exists(Path)), f'Path does not exist {Path}'
                         with open(Path, 'r', encoding='utf8') as F:
-                            Data = F.read()
-                            json.loads(Data) # just check
+                            Scheme = F.read()
+                            json.loads(Scheme) # just check
+
                         SiteId = Pairs[Rec.url]
-                        InsValues.append(f"(true, '{Data}', '{xType}', {SiteId})")
+                        InsValues.append(f"(true, {SiteId}, '{xType}', '{Scheme}')")
 
             if (InsValues):
                 Log.Print(1, 'i', f'Updated parser {len(InsValues)}')
                 Query = LoadQuery(__package__, 'fmtSet_SiteParser.sql', {'InsValues': ', '.join(InsValues)})
                 await TDbExecPool(self.Db.Pool).Exec(Query)
 
+            #--- SiteCategory
+            InsValues = []
+            for Rec in aDbl:
+                if (Rec.category):
+                    for xCategory in Rec.category:
+                        InsValues.append(f"(true, {SiteId}, '{xCategory}')")
+
+            if (InsValues):
+                Log.Print(1, 'i', f'Updated category {len(InsValues)}')
+                Query = LoadQuery(__package__, 'fmtSet_SiteCategory.sql', {'InsValues': ', '.join(InsValues)})
+                await TDbExecPool(self.Db.Pool).Exec(Query)
 
         Dbl = TDbList().Import(self.Parent.Conf['sites'])
         Dbl = SiteCondEnabled(Dbl)

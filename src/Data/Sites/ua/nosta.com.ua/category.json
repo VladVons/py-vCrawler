@@ -7,7 +7,7 @@
         "https://nosta.com.ua/index.php?route=product/category&path=59",
         "-playwright ok. todo pagination with wget"
       ],
-      "reader": "emulator"
+      "reader": "playwright"
     },
     "pipe": [
       ["as_dict", {

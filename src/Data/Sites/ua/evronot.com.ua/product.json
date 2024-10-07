@@ -1,0 +1,53 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.05 18:00:00",
+      "url": [
+        "-https://evronot.com.ua/catalog/sistemnye_bloki_b_u/lenovo_thinkcentre_m91p_sff_i5_2400_4gb_500hdd/",
+        "-",
+        "https://evronot.com.ua/catalog/noutbuki_b_u/noutbuk_lenovo_thinkpad_x1_yoga_intel_core_i7_8550u/"
+      ]
+    },
+    "pipe_microdata": [
+      ["product_itemprop"],
+      ["dict_keydel", ["images"]]
+    ],
+    "pipe_product": [
+      ["var_get", ["$product_itemprop_root"]],
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"class": "char_block"}]],
+          ["find_all", [["span","b"]]],
+          ["list_map", [
+            ["text"]
+          ]],
+          ["list_group", [2, [0, 1]]],
+          ["keyval2dict"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "detail_text"}]],
+          ["find_all", ["p"]],
+          ["list_map", [
+            ["text_strip"]
+          ]],
+          ["list_join", ["\n"]]
+        ],
+        "images": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "thumbs"}]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["get", ["data-big_img"]],
+            ["url_pad"]
+          ]]
+        ],
+        "-stock": [
+          ["var_get", ["$root"]],
+          ["find", ["span", {"class": "stock_msg"}]],
+          ["text_strip_lower_search", ["товар в наявності"], {"mode": "start"}]
+        ]
+      }]
+    ]
+  }
+}

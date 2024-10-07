@@ -6,6 +6,7 @@
 import os
 import json
 from bs4 import BeautifulSoup
+
 #
 from Inc.Misc.PlayWrite import UrlGetData as UrlGetData_PW
 from Inc.Misc.aiohttpClient import UrlGetData
@@ -118,15 +119,22 @@ class TSchemer():
                     Log.Print(1, 'i', f'Get url with {Reader}')
                     if (Reader == 'playwright'):
                         DataU = await UrlGetData_PW(xUrl)
-                    else:
+                    elif (Reader == 'aiohttp'):
                         DataU = await UrlGetData(xUrl)
+                    else:
+                        raise Exception(f'unknown reader {Reader}')
 
                     if (DataU['status'] != 200):
                         print(f'Error reading {xUrl}')
                         continue
 
-                    self.WriteFile(File, DataU['data'])
                     Data = DataU['data']
+                    self.WriteFile(File, Data)
+
+                    BSoup = BeautifulSoup(Data, 'lxml')
+                    DataP = BSoup.prettify()
+                    File = f'{aType}_{Idx+1}_human.html'
+                    self.WriteFile(File, DataP)
 
                 Res = self.TestHtml(Scheme, Data, aType)
                 #if (not Res['err']):

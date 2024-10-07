@@ -2,7 +2,7 @@
 -- in: InsValues
 
 insert into ref_site_parser as src
-  (moderated, scheme, url_en, site_id)
+  (moderated, site_id, url_en, scheme)
   values {InsValues}
 on conflict (site_id, url_en) do update
 set

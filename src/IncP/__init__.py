@@ -5,6 +5,9 @@
 
 __version__ = '1.0.23'
 __date__ =  '2024.10.04'
+__author__ = 'Vladimir Vons'
+__email__ = 'VladVons@gmail.com'
+__url__ = 'http://oster.com.ua'
 
 
 def GetAppVer() -> dict:
@@ -12,6 +15,6 @@ def GetAppVer() -> dict:
         'app_name': 'vCrawler',
         'app_ver' : __version__,
         'app_date': __date__,
-        'author':  'Vladimir Vons, VladVons@gmail.com',
-        'home': 'http://oster.com.ua',
+        'author':  f'{__author__ }, {__email__}',
+        'home': __url__
     }
