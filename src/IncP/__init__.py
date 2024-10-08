@@ -3,7 +3,7 @@
 #License:     GNU, see LICENSE for more details
 
 
-__version__ = '1.0.24'
+__version__ = '1.0.25'
 __date__ =  '2024.10.08'
 __author__ = 'Vladimir Vons'
 __email__ = 'VladVons@gmail.com'
