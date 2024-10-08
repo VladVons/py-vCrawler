@@ -15,6 +15,7 @@
     ],
     "pipe_product": [
       ["var_get", ["$product_itemprop_root"]],
+      ["list", [0]],
       ["as_dict", {
         "features": [
           ["find", ["div", {"class": "char_block"}]],
@@ -27,11 +28,7 @@
         ],
         "description": [
           ["find", ["div", {"class": "detail_text"}]],
-          ["find_all", ["p"]],
-          ["list_map", [
-            ["text_strip"]
-          ]],
-          ["list_join", ["\n"]]
+          ["text_p"]
         ],
         "images": [
           ["var_get", ["$root"]],

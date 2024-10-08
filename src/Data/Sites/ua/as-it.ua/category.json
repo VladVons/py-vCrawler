@@ -45,11 +45,7 @@
        ],
        "pager": [
           ["find", ["div", {"class": "pagination-wrapper"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]],
-          ["list_uniq"]
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
        ]
       }]
     ]

@@ -38,10 +38,7 @@
         ],
         "images": [
           ["find", ["div", {"class": "fn_images"}]],
-          ["find_all", ["a", {"class": "images_link"}]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
+          ["find_all_get", ["a", {"class": "images_link"}], {"a_get": "href"}]
         ],
         "features": [
           ["find", ["div", {"id": "features"}]],

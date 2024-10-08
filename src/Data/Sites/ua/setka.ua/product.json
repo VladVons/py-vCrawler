@@ -38,11 +38,7 @@
         ],
         "images": [
           ["find", ["div", {"class": "product-detail-gallery__thmb-container"}]],
-          ["find_all", ["div", {"class": "product-detail-gallery__item"}]],
-          ["list_map", [
-            ["get", ["data-big"]],
-            ["url_pad"]
-          ]]
+          ["find_all_get_url", ["div", {"class": "product-detail-gallery__item"}], {"a_get": "data-big"}]
          ],
          "image": [
           ["var_get", ["$images"]],

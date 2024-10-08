@@ -19,3 +19,5 @@ class TSchemeTest(TPluginBase):
             for xType in Rec.type:
                 if (not xType.startswith('-')):
                     await Schemer.Test(xType)
+                    if (self.Conf.get('pause', True)):
+                        input('press enter to continue')

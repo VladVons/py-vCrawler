@@ -51,10 +51,7 @@
         ],
         "images": [
           ["find", ["div", {"id": "productGallery"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
+          ["find_all_get", ["a"], {"a_get": "href"}]
         ],
         "features": [
           ["find", ["div", {"class": "characteristics-wrap"}]],

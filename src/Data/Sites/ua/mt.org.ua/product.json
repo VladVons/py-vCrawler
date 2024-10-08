@@ -26,11 +26,7 @@
         "images":[
           ["find", ["div", {"class": "product__section--gallery"}]],
           ["find", ["ul", {"class": "gallery__photos-list"}]],
-          ["find_all", ["span", {"class": "gallery__link"}]],
-          ["list_map", [
-            ["get", ["data-href"]],
-            ["url_pad"]
-          ]]
+          ["find_all_get_url", ["span", {"class": "gallery__link"}], {"a_get": "data-href"}]
         ],
         "price": [
           ["meta_price"]

@@ -39,7 +39,7 @@
           ["ext_category_prom"]
         ],
         "images": [
-          ["comment", "todo"]
+          ["comment", ["todo"]]
         ],
         "features": [
           ["var_get", ["$root"]],

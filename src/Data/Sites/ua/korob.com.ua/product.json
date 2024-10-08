@@ -33,10 +33,7 @@
       ["as_dict", {
         "images": [
           ["find", ["div", {"id": "thumbs_list"}]],
-          ["find_all", ["a", {"class": "thumbnail-no-link"}]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
+          ["find_all_get", ["a", {"class": "thumbnail-no-link"}], {"a_get": "href"}]
         ],
         "image": [
           ["var_get", ["$images"]],

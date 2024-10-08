@@ -3,158 +3,158 @@
     "head": ["enable", "dir", "url", "type", "category"],
     "data": [
       [
-        0,
+        1,
         "1x1.com.ua",
         "https://1x1.com.ua",
-        ["product", "category"],
+        ["-product", "category"],
         []
       ],
       [
-        0,
+        1,
         "acomp.com.ua",
         "https://acomp.com.ua/ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/category/monitory" , "/category/sistemnye-bloki", "/category/noutbuki", "/category/servera"]
       ],
       [
-        0,
+        1,
         "as-it.ua",
         "https://as-it.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/bu-noutbuki", "/bu-printeri-mfu-i-skaneri/bu-printery", "/bu-printeri-mfu-i-skaneri/bu-skanery", "/igrovi-kompyuteri", "/bu-monitory", "/bu-kompyutery/bu-kompyutery_2"]
       ],
       [
-        0,
+        1,
         "cibermag.com",
         "https://www.cibermag.com/ua",
         ["-product", "category"],
         []
       ],
       [
-        0,
+        1,
         "etcshop.in.ua",
         "https://etcshop.in.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/pc-computers/", "/laptop-notebook/"]
       ],
       [
-        0,
+        1,
         "europc.ua",
         "https://europc.ua/ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/all_in_one/", "/computers/", "/laptops/", "/monitors/", "/server/", "/thin-client/", "/pos/"]
       ],
       [
-        0,
+        1,
         "gamak.kiev.ua",
         "https://www.gamak.kiev.ua/ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/system-block/", "/notebooks/", "/monitors/", "/pos/", "/servers/"]
       ],
       [
-        0,
+        1,
         "gazik.ua",
         "https://gazik.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/catalog/monitory/", "/catalog/komp-yutery/", "/catalog/noutbuky-refurbished/", "/catalog/monobloky/", "/catalog/planshety/", "/catalog/pryntery-i-bfp/"]
       ],
       [
-        0,
+        1,
         "h-store.in.ua",
         "https://h-store.in.ua/ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/g25783192-brendovi", "/g111820820-robochi-stantsiyi", "/g38301004-noutbuki", "/g118766741-pos-obladnannya", "/g25800456-monobloki"]
       ],
       [
-        0,
+        1,
         "it-outlet.com.ua",
         "https://it-outlet.com.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/laptops", "/monytors" , "/computers"]
       ],
       [
-        0,
+        1,
         "korob.com.ua",
         "https://korob.com.ua/ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/89-vzhivani_noutbuki", "/74-vzhivani_personalni_komp_yuteri", "/75-vzhivani_monitori", "/117-torgovelne-obladnannya-bv", "/68-orgtekhnika-bv"]
       ],
       [
-        0,
+        1,
         "lapstore.com.ua",
         "https://www.lapstore.com.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/product-category/laptops-uk", "/product-category/igrovi-noutbuki-ta-bloki", "/product-category/sistemni-bloki-ta-pk"]
       ],
       [
-        0,
+        1,
         "laptopchik.top",
         "https://laptopchik.top",
-        ["product", "category"],
+        ["-product", "category"],
         ["/noutbuki", "/kompyutery", "/monitori"]
       ],
       [
-        0,
+        1,
         "laptop-planet.com.ua",
         "https://laptop-planet.com.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/laptop/", "/ihrovi-kompiutery/", "/ihrovi-noutbuky/"]
       ],
       [
-        0,
+        1,
         "lux-pc.com",
         "https://lux-pc.com",
-        ["product", "category"],
+        ["-product", "category"],
         ["/catalog/monitory-Lux-pc", "/catalog/sistemnye-bloki-Lux-Pc.com", "/catalog/monobloki-all-in-one", "/catalog/noutbuki", "/catalog/igrovye-kompyutery", "/catalog/printery-i-mfu", "/catalog/survery", "/catalog/pos"]
       ],
       [
-        0,
+        1,
         "mt.org.ua",
         "https://mt.org.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/personalni-kompiutery/", "/noutbuky/", "/monitory/"]
       ],
       [
-        0,
+        1,
         "nosta.com.ua",
         "https://nosta.com.ua",
-        ["product", "category"],
+        ["-product", "category"],
         []
       ],
       [
-        0,
+        1,
         "pc.com.ua",
         "https://pc.com.ua/ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/monitors", "/laptops", "/computers", "/thin-client", "/server"]
       ],
       [
-        0,
+        1,
         "recorder.com.ua",
         "https://recorder.com.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/noutbuki-5143/noutbuky_by", "/aksesuari-zapchastini-pk/sistemni-bloki-bu", "/telefoni/mobilnie-telefoni-5147/mobilni-telefoni-209", "/aksesuari-zapchastini-pk/monitory-bu"]
       ],
       [
-        -1,
+        1,
         "setka.ua",
         "https://setka.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/c/noutbuki/noutbuki_1/", "/c/kompyutery/", "/c/monitory/", "/c/monobloki/", "/c/orgtekhnika/"]
       ],
       [
-        0,
+        1,
         "evronot.com.ua",
         "https://evronot.com.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/catalog/noutbuki_b_u/", "/catalog/sistemnye_bloki_b_u/", "/catalog/monitory_b_u/"]
       ],
       [
         1,
         "server-shop.ua",
-        "https://server-shop.ua/server-dell-r620-8x25-sff-srv24.html",
-        ["product", "-category"],
-        []
+        "https://server-shop.ua/ua",
+        ["-product", "category"],
+        ["/servers/", "/pc/", "/periferiya/", "/network-equipment/"]
       ]
     ]
   }

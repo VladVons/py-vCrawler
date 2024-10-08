@@ -10,13 +10,18 @@
       ]
     },
     "pipe_microdata": [
-      ["product"],
+      ["product_itemprop"],
       ["dict_keydel", ["stock"]],
       ["-stock in emulator"]
     ],
     "pipe_product": [
       ["find", ["div", {"id": "product"}]],
       ["as_dict", {
+        "images": [
+          ["var_get", ["$root"]],
+          ["find", ["div", {"class": "image-additional"}]],
+          ["find_all_get", ["a"], {"a_get": "data-zoom-image"}]
+        ],
         "description": [
           ["var_get", ["$root"]],
           ["find", ["div", {"id": "tab-description_sss"}]],

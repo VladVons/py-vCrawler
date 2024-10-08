@@ -28,11 +28,7 @@
         ],
         "images": [
           ["find", ["div", {"class": "more-images"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]],
-            ["url_pad"]
-          ]]
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
         ],
         "price": [
           ["as_list", [
@@ -58,11 +54,7 @@
        ],
         "description": [
           ["find", ["div", {"itemprop": "description"}]],
-          ["find_all", ["p"]],
-          ["list_map", [
-            ["text"]
-          ]],
-          ["list_join", ["\n"]]
+          ["text_p"]
        ],
        "brand": [
           ["find", ["meta", {"property": "product:brand"}]],

@@ -37,11 +37,7 @@
         ],
         "images": [
           ["find", ["div", {"class": "product-images"}]],
-          ["find_all", ["img"]],
-          ["list_map", [
-            ["get", ["src"]],
-            ["url_pad"]
-          ]]
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
          ],
          "image": [
             ["ext_image"]
@@ -62,12 +58,7 @@
          ],
         "description": [
           ["find", ["div", {"itemprop": "description"}]],
-          ["find_all", ["p"]],
-          ["list_map", [
-            ["text"],
-            ["strip"]
-          ]],
-          ["list_join", ["\n"]]
+          ["text_p"]
         ],
         "brand": [
           ["var_get", ["$features"]],

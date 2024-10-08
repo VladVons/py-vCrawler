@@ -2,43 +2,44 @@
   "category": {
     "info": {
       "author": "vladvons",
-      "date": "2024.10.01 10:00:00",
+      "date": "2024.10.08 10:00:00",
       "url": [
-        "https://evronot.com.ua/catalog/noutbuki_b_u/"
-      ]
+        "https://server-shop.ua/ua/pc/"
+      ],
+      "reader": "playwright"
     },
     "pipe": [
       ["as_dict", {
         "products": [
           ["find", ["div", {"class": "catalog_block"}]],
-          ["find_all", ["div", {"class": "item_info"}]],
+          ["find_all", ["div", {"class": "item"}]],
           ["list_map", [
             ["as_dict", {
                "href": [ 
-                 ["find", ["div", {"class": "item-title"}]],
+                 ["find", ["div", {"class": "title_wrap"}]],
                  ["find", ["a"]],
                  ["get", ["href"]],
                  ["url_pad"]
                ],
-               "name": [ 
-                 ["find", ["div", {"class": "item-title"}]],
+               "name": [
+                 ["find", ["div", {"class": "title_wrap"}]],
                  ["find", ["a"]],
                  ["text"]
                ],
                "price": [
-                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["div", {"class": "price_block"}]],
                  ["text"],
                  ["price"]
               ],
               "stock": [
-                 ["find", ["div", {"class": "item-stock"}]],
-                 ["text_strip_lower_search", ["есть в наличии"], {"mode": "eq"}]
+                 ["find", ["span", {"class": "cat_item_stock_status"}]],
+                 ["text_strip_lower_search", ["є в наявності"], {"mode": "eq"}]
               ]
             }]
           ]]
        ],
        "pager": [
-          ["find", ["div", {"class": "module-pagination"}]],
+          ["find", ["ul", {"class": "pagination"}]],
           ["find_all_get_url", ["a"], {"a_get": "href"}]
        ]
       }]

@@ -41,12 +41,7 @@
        ],
        "pager": [
           ["find", ["div", {"class": "module-pagination"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]],
-            ["url_pad"]
-          ]],
-          ["list_uniq"]
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
        ]
       }]
     ]

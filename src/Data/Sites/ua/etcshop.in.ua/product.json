@@ -14,13 +14,11 @@
     ],
     "pipe_itemprop_ext": [
       ["var_get", ["$product_itemprop_root"]],
+      ["list", [0]],
       ["as_dict", {
         "images": [
           ["find", ["div", {"class": "image-additional"}]],
-          ["find_all", ["a", {"class": "thumbnail"}]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
+          ["find_all_get", ["a", {"class": "thumbnail"}], {"a_get": "href"}]
         ],
         "features": [
           ["find", ["table", {"class": "table-hover"}]],

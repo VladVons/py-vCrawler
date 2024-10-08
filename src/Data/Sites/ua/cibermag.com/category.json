@@ -38,11 +38,7 @@
        "-pager": [
           ["todo emulator"],
           ["find", ["ul", {"class": "pagination"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]],
-          ["list_uniq"]
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
        ]
       }]
     ]

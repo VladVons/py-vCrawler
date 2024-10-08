@@ -42,10 +42,7 @@
         ],
         "images": [
           ["find", ["div", {"class": "images-additional"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
         ],
         "features": [
           ["find", ["div", {"id": "tab-specification"}]],

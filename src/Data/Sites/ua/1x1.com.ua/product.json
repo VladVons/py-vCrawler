@@ -21,12 +21,12 @@
           ["gets", ["offers.availability"]],
           ["stock"]
         ],
+        "images": [
+          ["get", ["image"]]
+        ],
         "image": [
           ["var_get", ["$images"]],
           ["list", [0]]
-        ],
-        "images": [
-          ["get", ["image"]]
         ],
         "price": [
           ["ext_price_app", [true]]

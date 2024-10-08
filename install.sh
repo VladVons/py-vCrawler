@@ -3,6 +3,7 @@
 # Vladimir Vons, VladVons@gmail.com
 
 py=python3.12
+DirPy=~/virt/python3
 
 
 VSCode()
@@ -34,16 +35,27 @@ Python()
 
 PythonPkg()
 {
-    Dir=~/virt/$py
-
-    $py -m venv $Dir
-    source $Dir/bin/activate
+    $py -m venv $DirPy
+    source $DirPy/bin/activate
 
     pip3 install --upgrade pip
     pip3 install --requirement requires.lst
+}
+
+Clear()
+{
+  find $DirPy -type d -name "__pycache__" -exec rm -r {} +
+  find ~/.vscode/extensions -type d -name "__pycache__" -exec rm -r {} +
+  find -L ./src -type d -name "__pycache__" -exec rm -r {} +
+
+  rm -rf ~/.config/Code/Cache
+  rm -rf ~/.config/Code/CachedData
+  rm -rf ~/.config/Code/User/workspaceStorage
 }
 
 #VSCode
 
 #Python
 PythonPkg
+#Clear
+

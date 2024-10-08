@@ -111,6 +111,8 @@ class TSchemer():
         Urls = DeepGetByList(Scheme, [aType, 'info', 'url'])
         for Idx, xUrl in enumerate(Urls):
             if (not xUrl.startswith('-')):
+                Log.Print(1, 'i', f'Test(). {xUrl}')
+
                 Cnt += 1
                 File = f'{aType}_{Idx+1}.html'
                 Data = self.ReadFile(File)

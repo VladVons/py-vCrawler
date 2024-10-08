@@ -54,10 +54,7 @@
         ],
         "images": [
           ["find", ["div", {"class": "product__container__images"}]],
-          ["find_all", ["a", {"class": "cm-image-previewer"}]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
+          ["find_all_get_url", ["a", {"class": "cm-image-previewer"}], {"a_get": "href"}]
         ],
         "category": [
           ["var_get", ["$root"]],

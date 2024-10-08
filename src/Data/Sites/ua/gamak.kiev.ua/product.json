@@ -21,10 +21,7 @@
         ],
         "images": [
           ["find", ["div", {"class": "image-additional"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
+          ["find_all_get", ["a"], {"a_get": "href"}]
         ],
         "image": [
           ["find", ["div", {"class": "image"}]],

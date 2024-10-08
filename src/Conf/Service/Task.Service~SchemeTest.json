@@ -5,7 +5,8 @@
   "plugin": {
     "SchemeTest": {
       "dir_data": "./Data/Sites/ua",
-      "sites": "{% file_json Conf/Service/IncCommon.json:sites %}"
+      "sites": "{% file_json Conf/Service/IncCommon.json:sites %}",
+      "pause": true
     }
   }
 }

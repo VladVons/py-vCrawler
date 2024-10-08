@@ -62,6 +62,7 @@ class TMain(TFileBase):
             InsValues = []
             for Rec in aDbl:
                 if (Rec.category):
+                    SiteId = Pairs[Rec.url]
                     for xCategory in Rec.category:
                         InsValues.append(f"(true, {SiteId}, '{xCategory}')")
 

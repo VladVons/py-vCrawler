@@ -29,7 +29,7 @@
           ["url_pad"]
         ],
         "images":[
-         ["find", ["div", {"class": "slides"}]],
+          ["find", ["div", {"class": "slides"}]],
           ["find_all", ["li"]],
           ["list_map", [
             ["find", ["a"]],
