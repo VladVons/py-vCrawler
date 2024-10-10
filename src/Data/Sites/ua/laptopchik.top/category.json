@@ -38,7 +38,10 @@
        ],
        "pager": [
           ["find", ["div", {"class": "c-pagination"}]],
-          ["find_all_get_url", ["a"], {"a_get": "href"}]
+          ["find_all_get_url", ["a"], {"a_get": "href"}],
+          ["list_map", [
+            ["urlquery_filter", ["page"]]
+          ]]
        ]
       }]
     ]
