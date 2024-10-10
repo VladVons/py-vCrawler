@@ -24,3 +24,6 @@ where
   );
 
 vacuum full hist_url;
+
+vacuum full ref_url;
+vacuum full ref_product;
