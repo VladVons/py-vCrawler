@@ -11,13 +11,21 @@
       ["as_dict", {
         "products": [
           ["find", ["ul", {"class": "products"}]],
-          ["find_all", ["a", {"class": "woocommerce-LoopProduct-link"}]],
+          ["find_all", ["li", {"class": "product"}]],
           ["list_map", [
             ["as_dict", {
                "href": [ 
-                 ["-find", ["div", {"class": "name"}]],
-                 ["-find", ["a"]],
+                 ["find", ["a", {"class": "woocommerce-LoopProduct-link"}]],
                  ["get", ["href"]]
+               ],
+               "name": [ 
+                 ["find", ["a", {"class": "woocommerce-LoopProduct-link"}]],
+                 ["text"]
+               ],
+               "price": [ 
+                 ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                 ["text_strip"],
+                 ["price"]
                ]
             }]
           ]]

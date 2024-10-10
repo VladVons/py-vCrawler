@@ -25,13 +25,14 @@
                "price": [ 
                  ["-find", ["div", {"class": "offers"}]],
                  ["find", ["span", {"class": "price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
                ],
                "stock": [ 
                  ["find", ["div", {"class": "stock"}]],
-                 ["text"],
-                 ["stock"]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["в наявності"]]
                ],
                "name": [ 
                  ["find", ["div", {"class": "product_name"}]],

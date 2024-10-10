@@ -27,11 +27,13 @@
                ],
                "stock": [ 
                  ["find", ["button", {"class": "fm-product-btn"}]],
-                 ["text_strip_lower_search", ["до кошика"], {"mode": "eq"}]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["до кошика"]]
                ],
                "price": [
                  ["find", ["span", {"class": "fm-module-price-new"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
                ]
             }]

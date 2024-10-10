@@ -19,7 +19,7 @@
       ["as_dict", {
         "description": [
           ["find", ["div", {"class": "product_block__article_readmore"}]],
-          ["text_p"]
+          ["text_tag", ["p"]]
         ],
         "images": [
           ["find", ["div", {"id": "msGallery"}]],

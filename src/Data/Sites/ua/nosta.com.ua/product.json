@@ -19,11 +19,7 @@
         ],
         "description": [
           ["find", ["div", {"class": "fm-product-description-cont"}]],
-          ["find_all", ["font"]],
-          ["list_map", [
-            ["text_strip"]
-          ]],
-          ["list_join", ["\n"]]
+          ["text_tag", ["font"]]
         ]
       }]
     ]

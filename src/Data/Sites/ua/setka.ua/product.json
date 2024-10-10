@@ -34,7 +34,9 @@
         ],
         "stock": [
           ["find", ["span", {"class": "store_view"}]],
-          ["text_strip_lower_search", ["багато", "достатньо", "мало"], {"mode": "eq"}]
+          ["text_strip"],
+          ["lower"],
+          ["search_eq", ["багато", "достатньо", "мало"]]
         ],
         "images": [
           ["find", ["div", {"class": "product-detail-gallery__thmb-container"}]],

@@ -19,8 +19,9 @@
         ],
         "stock": [
           ["find", ["div", {"class": "stocks"}]],
-          ["text"],
-          ["stock"]
+          ["text_strip"],
+          ["lower"],
+          ["search_eq", ["в наявності"]]
         ],
         "image": [
           ["find", ["meta", {"property": "og:image"}]],
@@ -54,7 +55,7 @@
        ],
         "description": [
           ["find", ["div", {"itemprop": "description"}]],
-          ["text_p"]
+          ["text_tag", ["p"]]
        ],
        "brand": [
           ["find", ["meta", {"property": "product:brand"}]],

@@ -26,11 +26,13 @@
                ],
                "stock": [ 
                  ["find", ["span", {"class": "ajax_add_to_cart_button"}]],
-                 ["text_strip_lower_search", ["купити"], {"mode": "in"}]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_in", ["купити"]]
                ],
                "price": [
                  ["find", ["span", {"class": "price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
                ],
                "price_old": [

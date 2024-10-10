@@ -50,7 +50,9 @@
           ["check_or", [
             [
               ["find", ["span", {"class": "electro-stock-availability"}]],
-              ["text_strip_lower_search", ["немає в наявності"], {"mode": "eq"}],
+              ["text_strip"],
+              ["lower"],
+              ["search_eq", ["немає в наявності"]],
               ["invert"]
             ],
             [

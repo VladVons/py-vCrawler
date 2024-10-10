@@ -11,12 +11,22 @@
       ["as_dict", {
         "products": [
           ["find", ["div", {"class": "fn_categories"}]],
-          ["find_all", ["a", {"class": "product_name"}]],
+          ["find_all", ["div", {"class": "catalog-item"}]],
           ["list_map", [
             ["as_dict", {
                "href": [ 
+                 ["find", ["a", {"class": "product_name"}]],
                  ["get", ["href"]],
                  ["url_pad"]
+               ],
+               "name": [ 
+                 ["find", ["a", {"class": "product_name"}]],
+                 ["text"]
+               ],
+               "price": [ 
+                 ["find", ["div", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
                ]
             }]
           ]]

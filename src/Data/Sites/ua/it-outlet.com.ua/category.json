@@ -27,13 +27,15 @@
                ],
                "price": [
                  ["find", ["p", {"class": "price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
               ],
               "stock": [
                  ["find", ["span", {"class": "quantity"}]],
                  ["find", ["span", {"class": "counter"}]],
-                 ["text_strip_lower_search", ["0"], {"mode": "eq"}],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["0"]],
                  ["invert"]
               ]
             }]

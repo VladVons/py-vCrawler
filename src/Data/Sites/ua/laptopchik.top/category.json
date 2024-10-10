@@ -29,7 +29,9 @@
               ],
               "stock": [
                  ["find", ["span", {"class": "c-product__stock"}]],
-                 ["text_strip_lower_search", ["є в наявності"], {"mode": "eq"}]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["є в наявності"]]
               ]
             }]
           ]]

@@ -18,7 +18,9 @@
         ],
         "stock":[
           ["find", ["div", {"class": "product-header__availability"}]],
-          ["text_strip_lower_search", ["в наявності"], {"mode": "eq"}]
+          ["text_strip"],
+          ["lower"],
+          ["search_eq", ["в наявності"]]
         ],
         "image": [
           ["ext_image_og"]

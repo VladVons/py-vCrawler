@@ -27,12 +27,14 @@
                ],
                "price": [
                  ["find", ["div", {"class": "price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
               ],
               "stock": [
                  ["find", ["div", {"class": "item-stock"}]],
-                 ["text_strip_lower_search", ["есть в наличии"], {"mode": "eq"}]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["есть в наличии"]]
               ]
             }]
           ]]

@@ -22,7 +22,7 @@
                ],
                "price": [
                  ["find", ["div", {"class": "catalogCard-price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
                ],
                "name": [ 

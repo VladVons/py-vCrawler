@@ -21,11 +21,13 @@
                ],
                "stock": [ 
                  ["find", ["span", {"class": "stock"}]],
-                 ["text_strip_lower_search", ["в наявності"], {"mode": "eq"}]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["в наявності"]]
                ],
                "price": [
                  ["find", ["span", {"class": "price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
                ],
                "name": [

@@ -18,6 +18,21 @@
                  ["find", ["div", {"class": "product-title"}]],
                  ["find", ["a"]],
                  ["get", ["href"]]
+               ],
+               "name": [ 
+                 ["find", ["div", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["text"]
+               ],
+               "price": [ 
+                 ["find", ["div", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [ 
+                 ["find", ["div", {"class": "price-old"}]],
+                 ["text_strip"],
+                 ["price"]
                ]
             }]
           ]]

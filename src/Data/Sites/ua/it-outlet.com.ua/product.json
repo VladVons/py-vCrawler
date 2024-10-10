@@ -35,7 +35,9 @@
         "stock": [
           ["var_get", ["$root"]],
           ["find", ["span", {"class": "stock_msg"}]],
-          ["text_strip_lower_search", ["товар в наявності"], {"mode": "start"}]
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["товар в наявності"]]
         ]
       }]
     ]

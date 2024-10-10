@@ -20,14 +20,16 @@
                ],
                "stock": [ 
                  ["find", ["div", {"class": "stock-box"}]],
-                 ["text_strip_lower_search", ["в наявності"], {"mode": "start"}]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["в наявності"]]
                ],
                "price": [
                  ["find_or", [
                     ["span", {"class": "price-new"}],
                     ["p", {"class": "price"}]
                  ]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
                ],
                "price_old": [

@@ -11,13 +11,34 @@
       ["as_dict", {
         "products": [
           ["find", ["div", {"class": "product-list"}]],
-          ["find_all", ["div", {"class": "card"}]],
+          ["find_all", ["div", {"class": "product"}]],
           ["list_map", [
             ["as_dict", {
                "href": [ 
-                 ["find", ["a"]],
+                 ["find", ["a", {"class": "product-title"}]],
                  ["get", ["href"]],
                  ["url_pad"]
+               ],
+               "name": [ 
+                 ["find", ["a", {"class": "product-title"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [ 
+                 ["find", ["button", {"class": "buyButton"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["купити"]]
+               ],
+               "price": [ 
+                 ["find", ["h2", {"class": "product-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "stock": [ 
+                 ["find", ["button"]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["купити"]]
                ]
             }]
           ]]

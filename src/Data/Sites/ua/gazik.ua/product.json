@@ -20,7 +20,8 @@
         ],
         "stock":[
           ["find", ["span", {"class": "store_view"}]],
-          ["text_strip_lower_search", ["в наявності"], {"mode": "start"}]
+          ["text_strip"],
+          ["lower_search", ["в наявності"], {"mode": "start"}]
         ],
         "image":[
           ["find", ["li", {"id": "photo-0"}]],

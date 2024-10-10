@@ -26,12 +26,14 @@
                ],
                "price": [
                  ["find", ["div", {"class": "b-goods-price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
               ],
               "stock": [
                  ["find", ["span", {"class": "b-goods-data__state_val_avail"}]],
-                 ["text_strip_lower_search", ["в наявності"], {"mode": "eq"}]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["в наявності"]]
               ]
             }]
           ]]

@@ -32,8 +32,9 @@
         ],
         "stock": [
           ["find", ["span", {"class": "c-product__stock"}]],
-          ["text"],
-          ["stock"]
+          ["text_strip"],
+          ["lower"],
+          ["search_eq", ["є в наявності"]]
         ],
         "images": [
           ["find", ["div", {"class": "product-images"}]],
@@ -58,7 +59,7 @@
          ],
         "description": [
           ["find", ["div", {"itemprop": "description"}]],
-          ["text_p"]
+          ["text_tag", ["p"]]
         ],
         "brand": [
           ["var_get", ["$features"]],

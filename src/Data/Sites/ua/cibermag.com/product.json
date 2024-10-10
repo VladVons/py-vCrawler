@@ -37,7 +37,9 @@
         ],
         "stock": [
           ["find", ["div", {"class": "status"}]],
-          ["text_strip_lower_search", ["є у наявності"], {"mode": "eq"}]
+          ["text_strip"],
+          ["lower"],
+          ["search_eq", ["є у наявності"]]
         ],
         "price": [
           ["find", ["div", {"class": "price"}]],

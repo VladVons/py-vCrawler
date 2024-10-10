@@ -29,11 +29,13 @@
                ],
                "stock": [ 
                  ["find", ["div", {"class": "item-stock"}]],
-                 ["text_strip_lower_search", ["багато", "достатньо", "мало"], {"mode": "eq"}]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["багато", "достатньо", "мало"]]
                ],
                "price": [ 
                  ["find", ["div", {"class": "price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
                ]
             }]

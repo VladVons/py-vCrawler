@@ -12,7 +12,7 @@ from Inc.Misc.PlayWrite import UrlGetData as UrlGetData_PW
 from Inc.Misc.aiohttpClient import UrlGetData
 from Inc.Scheme.Scheme import TScheme
 from Inc.Var.Dict import DeepGetByList
-from Inc.Var.Obj import Iif
+from Inc.Var.Obj import Iif, GetTree
 from IncP.Log import Log
 
 
@@ -31,19 +31,23 @@ class TSchemer():
         return ErrCnt
 
     @staticmethod
-    def CheckFields(aPipe: dict, aFields: list[str]) -> int:
+    def CheckFields(aPipe: dict, aFieldsNeed: list[str], aFields: list[str]) -> int:
         ErrCnt = 0
-        for xField in aFields:
-            if (not xField.startswith('-')):
-                Val = aPipe.get(xField)
-                if (Val is None):
-                    ErrCnt += 1
-                    Log.Print(1, 'i', f'Missed {xField}')
-                else:
-                    if (xField == 'price'):
-                        if (not isinstance(Val[0], (int, float))):
-                            Log.Print(1, 'i', f'`price` must be float {Val[0]}')
-                            ErrCnt += 1
+
+        Dif = set(aFieldsNeed) - set(aFields)
+        if (Dif):
+            ErrCnt += 1
+            Log.Print(1, 'i', f'Missed {sorted(Dif)}')
+
+        for xKey, xVal in aPipe.items():
+            if (not xVal) and (not isinstance(xVal, bool)):
+                Log.Print(1, 'i', f'Empty {xKey}')
+
+        Val = aPipe.get('price')
+        if (Val) and (not isinstance(Val[0], (int, float))):
+            ErrCnt += 1
+            Log.Print(1, 'i', f'`price` must be float {Val[0]}')
+
         return ErrCnt
 
     def ReadFile(self, aFile: str) -> str:
@@ -62,6 +66,14 @@ class TSchemer():
         Data = self.ReadFile(aType + '.json')
         if (Data):
             return json.loads(Data)
+
+    @staticmethod
+    def GetKeys(aScheme: dict) -> list:
+        Res = []
+        for _Nested, _Path, Obj, _Depth in GetTree(aScheme):
+            if (isinstance(Obj, list)) and (len(Obj) > 0) and (Obj[0] == 'as_dict'):
+                Res += Obj[1].keys()
+        return sorted(set(Res))
 
     def TestHtml(self, aScheme: dict, aHtml: str, aType: str) -> dict:
         BSoup = BeautifulSoup(aHtml, 'lxml')
@@ -85,21 +97,26 @@ class TSchemer():
             print(x)
 
         print()
+
         if (aType == 'product'):
-            Fields = ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', '-sku', '-mpn', 'features', 'description']
+            KeysNeed = ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', 'features', 'description']
             Urls = []
             if (isinstance(Pipe.get('images'), list)):
                 Urls += Pipe['images']
             if (isinstance(Pipe.get('image'), str)):
                 Urls += [Pipe['image']]
         elif (aType == 'category'):
-            Fields = ['products', 'pager']
+            KeysNeed = ['href', 'name', 'stock', 'price', 'pager']
             Urls = []
             if (isinstance(Pipe.get('products'), list)):
                 Urls += [x.get('href') for x in Pipe['products']]
             if (isinstance(Pipe.get('pipe'), list)):
                 Urls += Pipe['pager']
-        Err |= bool(self.CheckFields(Pipe, Fields))
+        else:
+            raise ValueError(f'unknown type {aType}')
+
+        Keys = self.GetKeys(aScheme)
+        Err |= bool(self.CheckFields(Pipe, KeysNeed, Keys))
         Err |= bool(self.CheckUrls(Urls))
         return {'err': Err , 'pipe': Pipe}
 

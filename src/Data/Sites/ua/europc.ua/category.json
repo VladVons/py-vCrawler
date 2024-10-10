@@ -23,7 +23,7 @@
                ],
                "price": [ 
                  ["find", ["div", {"class": "product_block_price_main"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
                ]
             }]

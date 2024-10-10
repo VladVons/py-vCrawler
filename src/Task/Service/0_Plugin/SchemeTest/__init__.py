@@ -5,6 +5,7 @@
 
 from Inc.DbList import TDbList
 from Inc.ParserX.Common import TPluginBase
+from IncP.Log import Log
 from .Main import TSchemer
 from .. import SiteCondEnabled
 
@@ -18,6 +19,8 @@ class TSchemeTest(TPluginBase):
             Schemer = TSchemer(Dir)
             for xType in Rec.type:
                 if (not xType.startswith('-')):
+                    print()
+                    Log.Print(1, 'i', f'Process {Dir}')
                     await Schemer.Test(xType)
                     if (self.Conf.get('pause', True)):
                         input('press enter to continue')

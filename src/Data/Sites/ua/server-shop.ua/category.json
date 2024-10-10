@@ -28,12 +28,14 @@
                ],
                "price": [
                  ["find", ["div", {"class": "price_block"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
               ],
               "stock": [
                  ["find", ["span", {"class": "cat_item_stock_status"}]],
-                 ["text_strip_lower_search", ["є в наявності"], {"mode": "eq"}]
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["є в наявності"]]
               ]
             }]
           ]]

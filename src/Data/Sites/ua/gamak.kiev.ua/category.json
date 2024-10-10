@@ -25,7 +25,7 @@
                ],
                "price": [
                  ["find", ["div", {"class": "price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
               ],
               "stock": [
