@@ -27,23 +27,22 @@ class TApiCtrl(TApiBase):
 
     async def Exec(self, aRoute: str, aData: dict) -> dict:
         Type = aData.get('type')
-        if (Type == 'form'):
-            Res = {}
+        match Type:
+            case 'form':
+                Routes = Lib.DeepGetByList(aData, ['param', 'aData', 'extends'], [])
+                Routes.append(aRoute)
+                for xRoute in Routes:
+                    await self.Lang.Add('ua', xRoute, 'tpl')
+                Lang = self.Lang.Join()
+                Res = {'lang': Lang}
 
-            Routes = Lib.DeepGetByList(aData, ['param', 'aData', 'extends'], [])
-            Routes.append(aRoute)
-            for xRoute in Routes:
-                await self.Lang.Add('ua', xRoute, 'tpl')
-            Lang = self.Lang.Join()
-            Res['lang'] = Lang
-
-            ResExec = await super().Exec(aRoute, aData)
-            if (isinstance(ResExec, dict)):
-                Res.update(ResExec)
-        elif (Type == 'api'):
-            Res = await super().Exec(aRoute, aData)
-        else:
-            Res = {'err': f'unknown type {Type}'}
+                ResExec = await super().Exec(aRoute, aData)
+                if (isinstance(ResExec, dict)):
+                    Res.update(ResExec)
+            case 'api':
+                Res = await super().Exec(aRoute, aData)
+            case _:
+                Res = {'err': f'unknown type {Type}'}
         return Res
 
 ApiCtrl = TApiCtrl()

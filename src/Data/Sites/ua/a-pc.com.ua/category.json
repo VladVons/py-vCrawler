@@ -1,0 +1,44 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.11 10:00:00",
+      "url": [
+        "https://a-pc.com.ua/bv-noutbuki"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_re", ["body", {"class": "product-category-"}]],
+          ["find_all", ["div", {"class": "product-layout"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "caption"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "caption"}]],
+                 ["find", ["a"]],
+                 ["text_strip"]
+               ],
+               "price": [
+                 ["find", ["p", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+              ],
+              "-stock todo": [
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

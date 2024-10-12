@@ -13,6 +13,7 @@ from Inc.Var.Str import StartsWith
 from Inc.Var.Obj import Iif, IifNone
 from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
 from Inc.Misc.FS import WriteFileTyped
+from IncP.Log import Log
 from .Api import TApiCrawlerEx
 from .Lib import Protego, UrlGetData, GetSoup, InitRobots, IsMimeApp, EscForSQL
 
@@ -63,7 +64,7 @@ class TWebScraper():
             Pipe = None
 
             Url = Rec.url
-            #Url = 'https://pc.com.ua/ua/noutbuk-156-dell-inspiron-3501-intel-core-i5-1135g7-16gb-ram-240gb-ssd-fullhd-b-class'
+            #Url = 'https://a-pc.com.ua/bv-mon-tori/mon-tor-22-philips-225pl2-1680-x-1050-tft-lcd-a-b-v'
             if (self.DblSite.Rec.emulator):
                 Data = await PW_UrlGetData(Url)
             else:
@@ -88,26 +89,28 @@ class TWebScraper():
                     Scheme = TScheme({Key: Val})
                     Scheme.Parse(Soup)
                     Pipe = Scheme.GetPipe(Key)
-                    if (Key == 'product'):
-                        Price = Pipe.get('price')
-                        if (Pipe.get('name')) and \
-                        (
-                            (Price and isinstance(Price[0], (int, float)) and Price[0] > 0)
-                            #or (Pipe.get('description') and Pipe.get('features'))
-                        ):
-                            Pipe['url'] = Url
-                            if (not Pipe.get('image')) and (Pipe.get('images')):
-                                Pipe['image'] = Pipe['images'][0]
+                    #Log.Print(2, 'i', f'TWebDcraper.Exec() {Scheme.Err}')
+                    match Key:
+                        case 'product':
+                            Price = Pipe.get('price')
+                            if (Pipe.get('name')) and \
+                            (
+                                (Price and isinstance(Price[0], (int, float)) and Price[0] > 0)
+                                #or (Pipe.get('description') and Pipe.get('features'))
+                            ):
+                                Pipe['url'] = Url
+                                if (not Pipe.get('image')) and (Pipe.get('images')):
+                                    Pipe['image'] = Pipe['images'][0]
 
-                            SchemeName = Key
-                            TotalProduct += 1
-                            EscForSQL(Pipe)
-                            break
-                    elif (Key == 'category'):
-                        Products = IifNone(Pipe.get('products'), [])
-                        if (len(Products) > 1):
-                            SchemeName = Key
-                            break
+                                SchemeName = Key
+                                TotalProduct += 1
+                                EscForSQL(Pipe)
+                                break
+                        case 'category':
+                            Products = IifNone(Pipe.get('products'), [])
+                            if (len(Products) > 1):
+                                SchemeName = Key
+                                break
 
                 Htrefs = []
                 AllowCategory = self.DblSite.Rec.category

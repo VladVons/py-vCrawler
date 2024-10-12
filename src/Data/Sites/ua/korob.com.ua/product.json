@@ -5,39 +5,19 @@
       "date": "2024.09.17 18:00:00",
       "url": [
         "-https://korob.com.ua/ua/product/183903-kompyuter_hp_prodesk_600_g2_minipc_i5_6500t_8_128ssd.html",
-        "-https://korob.com.ua/ua/product/183471-kompyuter_hp_compaq_elite_8300_usdt_i3_3220_8_240ssd.html",
-        "https://korob.com.ua/ua/product/1876-kompyuter_lenovo_thinkcentre_m72_sff_g630_8_250.html"
+        "https://korob.com.ua/ua/product/183471-kompyuter_hp_compaq_elite_8300_usdt_i3_3220_8_240ssd.html",
+        "-https://korob.com.ua/ua/product/1876-kompyuter_lenovo_thinkcentre_m72_sff_g630_8_250.html"
       ]
     },
-    "pipe_schema": [
-      ["app_json", [{"@type": "Product"}]],
-      ["as_dict", {
-        "name": [
-          ["get", ["name"]]
-        ],
-        "stock": [
-          ["gets", ["offers.availability"]],
-          ["stock"]
-        ],
-        "-image": [
-          ["get", ["image"]],
-          ["err 404"]
-        ],
-        "price": [
-          ["ext_price_app"]
-        ]
-      }]
+    "pipe_microdata": [
+      ["product_ldjson"]
     ],
-    "pipe_body": [
+    "pipe_product": [
       ["find", ["body", {"class": "product"}]],
       ["as_dict", {
         "images": [
           ["find", ["div", {"id": "thumbs_list"}]],
           ["find_all_get", ["a", {"class": "thumbnail-no-link"}], {"a_get": "href"}]
-        ],
-        "image": [
-          ["var_get", ["$images"]],
-          ["list", [0]]
         ],
         "price_old": [
           ["var_get", ["$root"]],
@@ -45,12 +25,10 @@
           ["text"],
           ["price"]
         ],
-        "description": [
-        ],
         "features": [
           ["find", ["div", {"class": "product-features-tab-content"}]],
           ["table"],
-          ["keyval2dict", [0, 1]]
+          ["keyval2dict"]
         ],
         "brand": [
           ["var_get", ["$features"]],
@@ -60,6 +38,10 @@
           ["find", ["div", {"class": "breadcrumb"}]],
           ["breadcrumb", [["a"], -1, false]]
         ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
       }]
     ]
   }

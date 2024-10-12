@@ -4,50 +4,28 @@
       "author": "vladvons",
       "date": "2024.08.28 09:00:00",
       "url": [
-        "-https://pc.com.ua/ua/toshiba-z30-i7-8-128",
-        "https://pc.com.ua/ua/noutbuk-156-dell-inspiron-3501-intel-core-i5-1135g7-16gb-ram-240gb-ssd-fullhd-b-class"
+        "-https://pc.com.ua/ua/hp-probook-4540s-core-i5-156",
+        "https://pc.com.ua/ua/noutbuk-156-dell-precision-7560-intel-xeon-w-11855m-32gb-ram-480gb-ssd-nvme-fullhd-ips-nvidia-rtx-a3000-6gb-gddr6",
+        "-https://pc.com.ua/ua/noutbuk-156-dell-inspiron-3501-intel-core-i5-1135g7-16gb-ram-240gb-ssd-fullhd-b-class"
       ]
     },
-    "pipe_schema": [
-      ["app_json", [{"@type": "Product"}]],
-      ["as_dict", {
-        "name": [
-          ["get", ["name"]]
-        ],
-        "brand": [
-          ["gets", ["brand.name"]]
-        ],
-        "-stock": [
-          ["gets", ["offers.availability"]],
-          ["stock"]
-        ],
-        "image": [
-          ["get", ["image"]],
-          ["list", [0]]
-        ],
-        "price": [
-          ["ext_price_app"]
-        ]
-      }]
+    "pipe_microdata": [
+      ["product_ldjson"]
     ],
-    "pipe_body": [
+    "pipe_product": [
       ["find", ["div", {"class": "product-page"}]],
       ["as_dict", {
         "price_old": [
           ["find", ["div", {"class": "card-price-box"}]],
           ["find", ["div", {"class": "price-old"}]],
-          ["text"],
+          ["text_strip"],
           ["price"]
         ],
         "stock": [
           ["find", ["div", {"class": "page-stock"}]],
-          ["text"],
-          ["stock"]
-        ],
-        "category": [
-          ["var_get", ["$root"]],
-          ["find", ["ol", {"class": "breadcrumb"}]],
-          ["breadcrumb", [["a"], -1]]
+          ["text_strip"],
+          ["lower"],
+          ["search_eq", ["в наявності"]]
         ],
         "images": [
           ["find", ["div", {"id": "productGallery"}]],
@@ -66,6 +44,10 @@
           ["find", ["section", {"class": "page-content"}]],
           ["text_strip"]
         ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
       }]
     ]
   }

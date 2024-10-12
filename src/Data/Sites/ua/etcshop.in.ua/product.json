@@ -9,10 +9,10 @@
         "-"
       ]
     },
-    "pipe_itemprop": [
+    "pipe_microdata": [
       ["product_itemprop"]
     ],
-    "pipe_itemprop_ext": [
+    "pipe_product": [
       ["var_get", ["$product_itemprop_root"]],
       ["list", [0]],
       ["as_dict", {

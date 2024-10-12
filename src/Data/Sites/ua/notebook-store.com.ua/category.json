@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.11 10:00:00",
+      "url": [
+        "-https://notebook-store.com.ua/noutbuky-bu/",
+        "https://notebook-store.com.ua/noutbuky-bu/filter/page=3/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "catalog__content"}]],
+          ["find_all", ["li", {"class": "catalog-grid__item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["find", ["a"]],
+                 ["text_strip"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "catalogCard-price"}]],
+                 ["text_strip"],
+                 ["price"]
+              ],
+               "price_old": [
+                 ["find", ["div", {"class": "catalogCard-oldPrice"}]],
+                 ["text_strip"],
+                 ["price"]
+              ],
+              "stock": [
+                 ["find_not", ["a", {"class": "__grayscale"}]]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pager__container"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

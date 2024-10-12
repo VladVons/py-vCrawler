@@ -1,0 +1,40 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.11 18:00:00",
+      "url": [
+        "-",
+        "-https://notebook-store.com.ua/noutbuk-lenovo-e31-70-ram-8-hb-ssd-128-hb/",
+        "https://notebook-store.com.ua/ihrovyi-noutbuk-acer-e5-551g/"
+      ]
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["var_get", ["$product_itemprop_root"]],
+      ["list", [0]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1"]],
+          ["text"]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "product-price__old-price"}]],
+          ["text"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-features"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-description"}]],
+          ["text_tag", ["p"]]
+        ]
+      }]
+    ]
+  }
+}

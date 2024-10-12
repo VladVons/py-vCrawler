@@ -5,58 +5,37 @@
       "date": "2024.08.31 09:00:00",
       "url": [
         "-https://acomp.com.ua/ua/kompyuter-dell-3020-i3-41308gb1tbssd-120gb-desktop-bu/",
-        "-https://acomp.com.ua/ua/kompyuter-alphapc-t3100-i5-33308gbssd-120gb-bu/",
-        "-",
-        "https://acomp.com.ua/ua/kompyuter-dell-3020-pentium-g32204gbssd-120gb-desktop-bu"
+        "https://acomp.com.ua/ua/kompyuter-alphapc-t3100-i5-33308gbssd-120gb-bu/",
+        "-https://acomp.com.ua/ua/noutbuk-fujitsu-lifebook-s6410-133--core2duo-t7250--4gb--500gb-bu/"
       ]
     },
-    "pipe": [
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["article", {"class": "product_page"}]],
       ["as_dict", {
-        "name": [
-          ["find", ["meta", {"property": "og:title"}]],
-          ["get", ["content"]],
-          ["replace", ["•", "/"]]
-        ],
-        "stock": [
-          ["find", ["div", {"class": "stocks"}]],
-          ["text_strip"],
-          ["lower"],
-          ["search_eq", ["в наявності"]]
-        ],
-        "image": [
-          ["find", ["meta", {"property": "og:image"}]],
-          ["get", ["content"]]
-        ],
         "images": [
           ["find", ["div", {"class": "more-images"}]],
           ["find_all_get_url", ["a"], {"a_get": "href"}]
         ],
-        "price": [
-          ["as_list", [
-            [
-              ["find", ["meta", {"property": "product:price:amount"}]],
-              ["get", ["content"]],
-              ["txt2float"]
-            ],
-            [
-              ["find", ["meta", {"property": "product:price:currency"}]],
-              ["get", ["content"]]
-            ]
-          ]]
-        ],
-        "category": [
-          ["find", ["meta", {"property": "product:category"}]],
-          ["get", ["content"]]
-        ],
         "features": [
           ["find", ["div", {"id": "pp_specs"}]],
           ["table"],
-          ["keyval2dict", [0, 1]]
+          ["keyval2dict"]
        ],
         "description": [
           ["find", ["div", {"itemprop": "description"}]],
           ["text_tag", ["p"]]
-       ],
+       ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "category": [
+          ["find", ["meta", {"property": "product:category"}]],
+          ["get", ["content"]]
+        ],
        "brand": [
           ["find", ["meta", {"property": "product:brand"}]],
           ["get", ["content"]]

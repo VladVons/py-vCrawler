@@ -4,37 +4,20 @@
       "author": "vladvons",
       "date": "2024-08-28 12:12:57",
       "url": [
-        "https://www.lapstore.com.ua/product/acer-predator-helios-neo-16-phn16-71-core-i5-13500hx-ram-16-gb-ssd-512-gb-16-fhd/",
-        "https://www.lapstore.com.ua/product/dell-latitude-5421-core-i5-11400h-ram-16-gb-ssd-512-gb-14-fhd/"
+        "-https://www.lapstore.com.ua/product/acer-predator-helios-neo-16-phn16-71-core-i5-13500hx-ram-16-gb-ssd-512-gb-16-fhd/",
+        "https://www.lapstore.com.ua/product/dell-latitude-5421-core-i5-11400h-ram-16-gb-ssd-512-gb-14-fhd/",
+        "-https://www.lapstore.com.ua/product/uczinka-hp-elitebook-8470p-core-i5-3320m-ram-8gb-ssd-240gb-14-hd/"
       ]
     },
-    "pipe": [
+   "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
       ["find",["div", {"class": "product"}]],
       ["as_dict", {
         "name": [
           ["find", ["h1", {"class": "product_title"}]],
           ["text_strip"]
-        ],
-        "price": [
-          ["check_or", [
-            [
-              ["find_path", [
-                ["p", {"class": "price"}],
-                ["ins"],
-                ["bdi"]
-              ]],
-              ["text"],
-              ["price"]
-           ],
-           [
-              ["find_path", [
-                ["p", {"class": "price"}],
-                ["bdi"]
-              ]],
-              ["text"],
-              ["price"]
-           ]
-         ]]
         ],
         "price_old": [
           ["find_path", [
@@ -44,23 +27,6 @@
           ]],
           ["text"],    
           ["price"]
-        ],
-        "stock": [
-          ["var_get", ["$root"]],
-          ["check_or", [
-            [
-              ["find", ["span", {"class": "electro-stock-availability"}]],
-              ["text_strip"],
-              ["lower"],
-              ["search_eq", ["немає в наявності"]],
-              ["invert"]
-            ],
-            [
-              ["val_return", [true]]
-            ]
-          ]]
-        ],
-        "-sku": [
         ],
         "images": [
           ["find", ["div", {"class": "woocommerce-product-gallery"}]],
@@ -74,25 +40,26 @@
             ["ext_image"],
             ["split", ["?", 0]]
          ],
-        "category": [
-          ["var_get", ["$root"]],
-          ["find", ["nav", {"class": "woocommerce-breadcrumb"}]],
-          ["breadcrumb", [["a"], -1]]
-        ],
         "features": [
           ["find", ["div", {"id": "tab-specification"}]],
           ["table"],
           ["keyval2dict"]
          ],
-        "description": [
-          ["find", ["div", {"id": "tab-description"}]],
-          ["text_strip"]
-        ],
         "brand": [
           ["var_get", ["$features"]],
           ["get", ["Виробник"]]
         ],
-        "-mpn": [
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_strip"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "category": [
+          ["find", ["nav", {"class": "woocommerce-breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
         ]
       }]
     ]

@@ -1,0 +1,39 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.12 18:00:00",
+      "url": [
+        "-https://compsoft.com.ua/ua/p1808344310-kompyuter-acer-veriton.html",
+        "-",
+        "-https://compsoft.com.ua/ua/p821285654-blok-pitaniya-730w.html",
+        "https://compsoft.com.ua/ua/g1900796-sistemnye-bloki"
+      ]
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "cs-product__container"}]],
+      ["as_dict", {
+        "-images": [
+          ["find", ["div", {"class": "cs-product__images"}]],
+          ["todo. js prom.ua"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["table", {"class": "b-product-info"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "description": [
+          ["find", ["div", {"data-qaid": "product_description"}]],
+          ["text_tag", ["p"]]
+        ]
+      }]
+    ]
+  }
+}

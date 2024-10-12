@@ -4,48 +4,23 @@
       "author": "vladvons",
       "date": "2024-08-29 12:12:57",
       "url": [
-        "https://laptopchik.top/noutbuki/dlya-grafiki-i-dizayna/bv-noutbuk-hp-zbook-15-g3-fhd-intel-i7-6820hq-16-ram-512-ssd-nvidia-quadro-m2000m-4-gb"
+        "https://laptopchik.top/noutbuki/dlya-raboty-i-biznesa/bv-noutbuk-hp-probook-x360-11-g3-ee-116-intel-n5000-8-ram-250-ssd_2645892",
+        "-https://laptopchik.top/noutbuki/dlya-grafiki-i-dizayna/bv-noutbuk-hp-zbook-15-g3-fhd-intel-i7-6820hq-16-ram-512-ssd-nvidia-quadro-m2000m-4-gb"
       ]
     },
-    "pipe": [
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
       ["find",["div", {"class": "product-status"}]],
       ["as_dict", {
-        "name": [
-          ["find", ["h1", {"itemprop": "name"}]],
-          ["text_strip"]
-        ],
-        "price": [
-          ["find_path", [
-            ["div", {"class": "product-price"}],
-            ["div", {"class": "c-product__price--current"}]
-          ]],
-          ["text"],
-          ["price"]
-        ],
         "price_old": [
           ["find_path", [
             ["div", {"class": "product-price"}],
             ["div", {"class": "c-product__price--old"}]
           ]],
-          ["text"],    
+          ["text_strip"],    
           ["price"]
-        ],
-        "stock": [
-          ["find", ["span", {"class": "c-product__stock"}]],
-          ["text_strip"],
-          ["lower"],
-          ["search_eq", ["є в наявності"]]
-        ],
-        "images": [
-          ["find", ["div", {"class": "product-images"}]],
-          ["find_all_get_url", ["img"], {"a_get": "src"}]
-         ],
-         "image": [
-            ["ext_image"]
-         ],
-        "category": [
-          ["find", ["ul", {"class": "bread-crumbs"}]],
-          ["breadcrumb", [["a"], -2]]
         ],
         "features": [
           ["find", ["div", {"class": "c-tab__content"}]],

@@ -5,43 +5,18 @@
       "date": "2024.09.07 18:00:00",
       "url": [
         "-https://europc.ua/ua/computers/prodesk-600-g2-sff-i3-6100-8-ram-240-ssd/",
-        "https://europc.ua/ua/laptops/hp-zbook-15-g6-15-6-ips-i7-9850h-quadro-t2000-32-ram-480-ssd/"
+        "https://europc.ua/ua/laptops/hp-elitebook-840-g2-14-i5-5200u-radeon-r7-m260-8-ram-240-ssd/"
       ]
     },
-    "pipe_schema": [
-      ["app_json", [{"@type": "Product"}]],
-      ["as_dict", {
-        "name": [
-          ["get", ["name"]]
-        ],
-        "brand": [
-          ["gets", ["brand.name"]]
-        ],
-        "stock": [
-          ["gets", ["offers.availability"]],
-          ["stock"]
-        ],
-        "images": [
-          ["get", ["image"]]
-        ],
-        "image": [
-          ["var_get", ["$images"]],
-          ["list", [0]]
-        ],
-        "price": [
-          ["as_list", [
-            [
-              ["gets", ["offers.price"]]
-            ],
-            [
-              ["gets", ["offers.priceCurrency"]]
-            ]
-          ]]
-        ]
-      }]
+    "pipe_microdata": [
+      ["product_ldjson"]
     ],
-    "pipe_body": [
+    "pipe_product": [
       ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "product_photo_block_sidebar"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
         "price_old": [
           ["find", ["div", {"class": "product_main_block_price_old"}]],
           ["text"],

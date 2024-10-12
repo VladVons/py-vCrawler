@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.12 10:00:00",
+      "url": [
+        "https://compsoft.com.ua/ua/g1900796-sistemnye-bloki"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "cs-product-gallery__list"}]],
+          ["find_all", ["li", {"class": "cs-product-gallery__item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "cs-product-gallery__title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "cs-product-gallery__title"}]],
+                 ["find", ["a"]],
+                 ["text_strip"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "cs-product-gallery__price"}]],
+                 ["text_strip"],
+                 ["price"]
+              ],
+              "stock": [
+                 ["find", ["span", {"class": "cs-goods-data__state"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["готово до відправки", "в наявності"]]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+         ["meta_nears"]
+       ]
+      }]
+    ]
+  }
+}

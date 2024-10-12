@@ -92,10 +92,11 @@ class TApiBase():
         for Key, Val in aConf.items():
             if (not Key.startswith('-')):
                 Type = Val['type']
-                if (Type == 'url'):
-                    Loader = TLoaderApiHttp(Val['user'], Val['password'], Val['url'])
-                elif (Type == 'fs'):
-                    Loader = TLoaderApiFs(Val['module'], Val['class'], self.Name)
-                else:
-                    raise ValueError(f'unknown type {Type}')
+                match Type:
+                    case 'url':
+                        Loader = TLoaderApiHttp(Val['user'], Val['password'], Val['url'])
+                    case 'fs':
+                        Loader = TLoaderApiFs(Val['module'], Val['class'], self.Name)
+                    case _:
+                        raise ValueError(f'unknown type {Type}')
                 self.Loader[Key] = Loader

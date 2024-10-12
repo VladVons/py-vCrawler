@@ -1,58 +1,35 @@
 {
   "product": {
     "info": {
-      "author": "sernuzh",
+      "author": "vladvons",
       "date": "2024.09.19 18:00:00",
       "url": [
-        "https://mt.org.ua/dell-latitude-5480-14hd-i5-6440hq8128ssd/",
-        "-https://mt.org.ua/acer-aspire-3-i3-1115g4-4gb-ram-128gb-ssd-inteluhd-250086/",
+        "-https://mt.org.ua/dell-latitude-5480-14hd-i5-6440hq8128ssd/",
+        "https://mt.org.ua/acer-aspire-3-i3-1115g4-4gb-ram-128gb-ssd-inteluhd-250086/",
         "-акційної ціни не знайшов"
       ]
     },
-    "pipe_body": [
-      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+    "pipe_microdata": [
+      ["product_itemprop"],
+      ["dict_keydel", ["mpn"]]
+    ],
+    "pipe_product": [
+      ["var_get", ["$product_itemprop_root"]],
+      ["list", [0]],   
       ["as_dict", {
         "name": [
           ["find", ["h1", {"class": "product-title"}]],
           ["text"]
         ],
-        "stock":[
-          ["find", ["div", {"class": "product-header__availability"}]],
-          ["text_strip"],
-          ["lower"],
-          ["search_eq", ["в наявності"]]
-        ],
-        "image": [
-          ["ext_image_og"]
-        ],
-        "images":[
-          ["find", ["div", {"class": "product__section--gallery"}]],
-          ["find", ["ul", {"class": "gallery__photos-list"}]],
-          ["find_all_get_url", ["span", {"class": "gallery__link"}], {"a_get": "data-href"}]
-        ],
-        "price": [
-          ["meta_price"]
-        ],
-        "-price_old": [
-        ],
         "features": [
           ["find", ["table", {"class": "product-features__table"}]],
           ["table"],
-          ["keyval2dict", [0, 1]]
-        ],
-        "brand": [
-          ["find", ["div", {"itemtype": "https://schema.org/Brand"}]],
-          ["find", ["meta", {"itemprop": "name"}]],
-          ["get", ["content"]]
+          ["keyval2dict"]
         ],
         "description": [
             ["find", ["div", {"class": "product-description"}]],
             ["find", ["div", {"class": "text"}]],
             ["text_strip"]
-          ],
-        "category": [
-          ["find", ["nav", {"itemtype": "https://schema.org/BreadcrumbList"}]],
-          ["breadcrumb", [["a"], -1]]
         ]
       }]
     ]

@@ -10,8 +10,7 @@
       ]
     },
     "pipe_microdata": [
-      ["product_itemprop"],
-      ["dict_keydel", ["images"]]
+      ["product_itemprop"]
     ],
     "pipe_product": [
       ["var_get", ["$product_itemprop_root"]],
@@ -29,22 +28,21 @@
         "description": [
           ["find", ["div", {"class": "detail_text"}]],
           ["text_tag", ["p"]]
-        ],
-        "images": [
-          ["var_get", ["$root"]],
-          ["find", ["div", {"class": "thumbs"}]],
-          ["find_all", ["li"]],
-          ["list_map", [
-            ["get", ["data-big_img"]],
-            ["url_pad"]
-          ]]
-        ],
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
         "-stock": [
           ["var_get", ["$root"]],
           ["find", ["span", {"class": "stock_msg"}]],
           ["text_strip"],
           ["lower"],
           ["search_start", ["товар в наявності"]]
+        ],
+        "images": [
+          ["find", ["div", {"class": "thumbs"}]],
+          ["find_all_get_url", ["li"], {"a_get": "data-big_img"}]
         ]
       }]
     ]

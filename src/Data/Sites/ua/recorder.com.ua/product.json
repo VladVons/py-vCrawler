@@ -9,10 +9,10 @@
         "https://recorder.com.ua/hp-elitebook-8460p-132404720"
       ]
     },
-    "pipe_itemprop": [
+    "pipe_microdata": [
       ["product_ldjson"]
     ],
-    "pipe_body": [
+    "pipe_product": [
       ["find", ["div", {"id": "product"}]],
       ["as_dict", {
         "price_old": [
@@ -28,6 +28,10 @@
             ["split_cr"]
           ]],
           ["keyval2dict"]
+        ],
+        "-description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_tag", ["p"]]
         ]
       }]
     ]

@@ -1,0 +1,60 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024-10-11 12:12:57",
+      "url": [
+        "https://a-pc.com.ua/bv-noutbuki?product_id=17071"
+      ]
+    },
+    "pipe_product": [
+      ["find_re",["body", {"class": "product-product-"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1"]],
+          ["text"]
+        ],
+        "price": [
+          ["find", ["ul", {"class": "product-info-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["button", {"id": "button-cart"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_eq", ["в корзину"]]
+        ],
+        "images": [
+          ["find", ["li", {"class": "image-additional"}]],
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]]
+          ]]
+         ],
+         "image": [
+           ["find", ["ul", {"class": "image"}]],
+           ["find", ["img"]],
+           ["get", ["src"]]
+         ],
+        "features": [
+          ["find", ["div", {"id": "tab-specification"}]],
+          ["table"],
+          ["keyval2dict"]
+         ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Виробник"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "category": [
+          ["find", ["ul", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

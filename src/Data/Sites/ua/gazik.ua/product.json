@@ -10,18 +10,14 @@
         "https://gazik.ua/catalog/komp-yutery/38489/"
       ]
     },
-    "pipe_body": [
+    "pipe_product": [
       ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
       ["as_dict", {
-        "name": [
-          ["var_get", ["$root"]],
-          ["find", ["h1", {"id": "pagetitle"}]],
-          ["text"]
-        ],
         "stock":[
           ["find", ["span", {"class": "store_view"}]],
           ["text_strip"],
-          ["lower_search", ["в наявності"], {"mode": "start"}]
+          ["lower"],
+          ["search_start", ["в наявності"]]
         ],
         "image":[
           ["find", ["li", {"id": "photo-0"}]],
@@ -49,7 +45,7 @@
         "features": [
           ["find", ["table", {"class": "props_list"}]],
           ["table"],
-          ["keyval2dict", [0, 1]]
+          ["keyval2dict"]
         ],
         "brand": [
           ["var_get", ["$features"]],
@@ -59,9 +55,16 @@
             ["find", ["div", {"class": "tab-content"}]],
             ["find", ["div", {"class": "detail_text"}]],
             ["text_strip"]
-          ],
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"id": "pagetitle"}]],
+          ["text"]
+        ],
         "category": [
-          ["var_get", ["$root"]],
           ["find", ["div", {"itemtype": "http://schema.org/BreadcrumbList"}]],
           ["find_all", ["div", {"itemtype": "http://schema.org/ListItem"}]],
           ["list_map", [

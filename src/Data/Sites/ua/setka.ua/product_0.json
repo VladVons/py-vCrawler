@@ -7,18 +7,12 @@
         "-https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-dell-latitude-5580-15-6-i5-6300u-ddr4-8gb-ssd-nvme-512gb-used/",
         "-https://setka.ua/c/kompyutery/kompyuter-hp-elitedesk-800-g2-sff-i5-6600-ddr4-16gb-ssd-240gb-utsenka/",
         "-https://setka.ua/c/noutbuki/noutbuki_1/noutbuk-hp-pavilion-g6-15-6-i3-2370m-ddr3-4gb-ssd-120gb-used/",
-        "-https://setka.ua/c/kompyutery/kompyuter-golden-field-ryzen-5-3600-ddr4-32gb-rx-5600-xt-6144mb-ssd-500gb-hdd-1tb/",
-        "https://setka.ua/c/kompyutery/kompyuter-hp-elitedesk-800-g1-twr-i5-4590-used/"
+        "https://setka.ua/c/kompyutery/kompyuter-golden-field-ryzen-5-3600-ddr4-32gb-rx-5600-xt-6144mb-ssd-500gb-hdd-1tb/"
       ],
       "reader": "playwright"
     },
-    "pipe_microdata": [
-      ["product_itemprop"],
-      ["dict_keydel", ["stock"]]
-    ],
     "pipe_product": [
-      ["var_get", ["$product_itemprop_root"]],
-      ["list", [0]],
+      ["find",["div", {"class": "product-container"}]],
       ["as_dict", {
         "stock": [
           ["find", ["span", {"class": "store_view"}]],
@@ -29,8 +23,42 @@
         "images": [
           ["find", ["div", {"class": "product-detail-gallery__thmb-container"}]],
           ["find_all_get_url", ["div", {"class": "product-detail-gallery__item"}], {"a_get": "data-big"}]
+         ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"id": "pagetitle"}]],
+          ["text_strip"]
+        ],
+        "price": [
+          ["as_list", [
+            [
+              ["find", ["meta", {"itemprop": "price"}]],
+              ["get", ["content"]],
+              ["txt2int"]
+            ],
+            [
+              ["find", ["meta", {"itemprop": "priceCurrency"}]],
+              ["get", ["content"]]
+            ]
+          ]]
+        ],
+        "category": [
+          ["find", ["div", {"class": "breadcrumbs"}]],
+          ["find_all", ["a", {"class": "breadcrumbs__link"}]],
+          ["list_map", [
+            ["text"]
+          ]],
+          ["list_join", ["/"]]
+        ],
+        "features": [
+          ["find", ["table", {"class": "props_list"}]],
+          ["table"],
+          ["keyval2dict"]
          ],
-         "brand": [
+        "brand": [
           ["var_get", ["$features"]],
           ["get", ["Бренд"]]
         ]

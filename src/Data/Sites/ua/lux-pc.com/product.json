@@ -7,35 +7,12 @@
         "https://lux-pc.com/products/noutbuk-dell-latitude-5290-na-i5-7300u-intel-hd-graphics-620sostoyanie--ideal-na-ssd----po-v-podarok-model-v-kolichestve"
       ]
     },
-    "pipe_schema": [
-      ["app_json", [{"@type": "Product"}]],
-      ["as_dict", {
-        "name": [
-          ["get", ["name"]]
-        ],
-        "brand": [
-          ["gets", ["brand.name"]]
-        ],
-        "stock": [
-          ["gets", ["offers.availability"]],
-          ["stock"]
-        ],
-        "image": [
-          ["get", ["image"]]
-        ],
-        "price": [
-          ["ext_price_app", [true]]
-        ]
-      }]
+    "pipe_microdata": [
+      ["product_ldjson"]
     ],
-    "pipe_body": [
+    "pipe_product": [
       ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
       ["as_dict", {
-         "category": [
-          ["var_get", ["$root"]],
-          ["find", ["ol", {"class": "breadcrumbs"}]],
-          ["breadcrumb", [["a"], -1]]
-        ],
         "images": [
           ["find", ["div", {"class": "fn_images"}]],
           ["find_all_get", ["a", {"class": "images_link"}], {"a_get": "href"}]
@@ -55,6 +32,14 @@
             ["div", {"id": "description"}]
           ]],
           ["text_strip"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+         "category": [
+          ["find", ["ol", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]]
         ]
       }]
     ]

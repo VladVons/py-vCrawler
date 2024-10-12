@@ -11,19 +11,17 @@
     },
     "pipe_microdata": [
       ["product_itemprop"],
-      ["dict_keydel", ["stock"]],
-      ["-stock in emulator"]
+      ["dict_keydel", ["stock"]]
     ],
-    "pipe_product": [
-      ["find", ["div", {"id": "product"}]],
+    "-pipe_product": [
+    ],
+    "pipe_root": [
       ["as_dict", {
         "images": [
-          ["var_get", ["$root"]],
           ["find", ["div", {"class": "image-additional"}]],
           ["find_all_get", ["a"], {"a_get": "data-zoom-image"}]
         ],
         "description": [
-          ["var_get", ["$root"]],
           ["find", ["div", {"id": "tab-description_sss"}]],
           ["replace_br"],
           ["text"]
@@ -33,7 +31,6 @@
           ["get", ["Виробник"]]
         ],
         "stock": [
-          ["var_get", ["$root"]],
           ["find", ["span", {"class": "stock_msg"}]],
           ["text_strip"],
           ["lower"],

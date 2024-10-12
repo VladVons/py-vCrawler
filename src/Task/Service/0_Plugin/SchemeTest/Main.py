@@ -98,24 +98,27 @@ class TSchemer():
 
         print()
 
-        if (aType == 'product'):
-            KeysNeed = ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', 'features', 'description']
-            Urls = []
-            if (isinstance(Pipe.get('images'), list)):
-                Urls += Pipe['images']
-            if (isinstance(Pipe.get('image'), str)):
-                Urls += [Pipe['image']]
-        elif (aType == 'category'):
-            KeysNeed = ['href', 'name', 'stock', 'price', 'pager']
-            Urls = []
-            if (isinstance(Pipe.get('products'), list)):
-                Urls += [x.get('href') for x in Pipe['products']]
-            if (isinstance(Pipe.get('pipe'), list)):
-                Urls += Pipe['pager']
-        else:
-            raise ValueError(f'unknown type {aType}')
+        match aType:
+            case 'product':
+                KeysNeed = ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', 'features', 'description']
+                Urls = []
+                if (isinstance(Pipe.get('images'), list)):
+                    Urls += Pipe['images']
+                if (isinstance(Pipe.get('image'), str)):
+                    Urls += [Pipe['image']]
+            case 'category':
+                KeysNeed = ['href', 'name', 'stock', 'price', 'pager']
+                Urls = []
+                if (isinstance(Pipe.get('products'), list)):
+                    Urls += [x.get('href') for x in Pipe['products']]
+                if (isinstance(Pipe.get('pipe'), list)):
+                    Urls += Pipe['pager']
+            case _:
+                raise ValueError(f'unknown type {aType}')
 
-        Keys = self.GetKeys(aScheme)
+        #Keys = self.GetKeys(aScheme)
+        Keys = list(Pipe.keys())
+
         Err |= bool(self.CheckFields(Pipe, KeysNeed, Keys))
         Err |= bool(self.CheckUrls(Urls))
         return {'err': Err , 'pipe': Pipe}
@@ -136,12 +139,13 @@ class TSchemer():
                 if (not Data):
                     Reader = DeepGetByList(Scheme, [aType, 'info', 'reader'], 'aiohttp')
                     Log.Print(1, 'i', f'Get url with {Reader}')
-                    if (Reader == 'playwright'):
-                        DataU = await UrlGetData_PW(xUrl)
-                    elif (Reader == 'aiohttp'):
-                        DataU = await UrlGetData(xUrl)
-                    else:
-                        raise ValueError(f'Unknown reader {Reader}')
+                    match Reader:
+                        case 'playwright' | '':
+                            DataU = await UrlGetData_PW(xUrl)
+                        case 'aiohttp':
+                            DataU = await UrlGetData(xUrl)
+                        case _:
+                            raise ValueError(f'Unknown reader {Reader}')
 
                     if (DataU['status'] != 200):
                         print(f'Error reading {xUrl}')

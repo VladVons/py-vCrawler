@@ -7,28 +7,9 @@
         "https://www.cibermag.com/ua/noutbuki/b-u-noutbuki/dell/noutbuk-dell-latitude-e7250"
       ]
     },
-    "pipe_schema": [
-      ["app_json", [{"@type": "Product"}]],
-      ["as_dict", {
-        "name": [
-          ["get", ["name"]]
-        ],
-        "stock": [
-          ["gets", ["offers.availability"]],
-          ["stock"]
-        ],
-        "image": [
-          ["get", ["image"]]
-        ],
-        "price": [
-          ["ext_price_app", [true]]
-        ],
-        "category": [
-          ["get", ["category"]]
-        ]
-      }]
+    "-pipe_microdata": [
     ],
-    "pipe_body": [
+    "pipe_product": [
       ["find", ["div", {"class": "product__container"}]],
       ["as_dict", {
         "name": [
@@ -58,16 +39,11 @@
           ["find", ["div", {"class": "product__container__images"}]],
           ["find_all_get_url", ["a", {"class": "cm-image-previewer"}], {"a_get": "href"}]
         ],
-        "category": [
-          ["var_get", ["$root"]],
-          ["find", ["ol", {"class": "breadcrumb"}]],
-          ["breadcrumb", [["li", {"itemprop": "itemListElement"}], -2]]
-        ],
         "features": [
           ["var_get", ["$root"]],
           ["find", ["div", {"id": "content_features"}]],
           ["table"],
-          ["keyval2dict", [0, 1]]
+          ["keyval2dict"]
         ],
         "-description": [
           ["find", ["div", {"id": "tabs_content"}]],
@@ -76,6 +52,14 @@
         "brand": [
           ["var_get", ["$features"]],
           ["get", ["Бренд"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "category": [
+          ["find", ["ol", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["li", {"itemprop": "itemListElement"}], -2]]
         ]
       }]
     ]

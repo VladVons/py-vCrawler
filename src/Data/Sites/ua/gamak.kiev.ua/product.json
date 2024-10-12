@@ -7,7 +7,7 @@
         "https://www.gamak.kiev.ua/ua/notebooks/lenovo_t470_i5_6200"
       ]
     },
-    "pipe_body": [
+    "pipe_product": [
       ["find", ["div", {"class": "product-info"}]],
       ["as_dict", {
         "name": [
@@ -40,9 +40,12 @@
             ["split", [":"]]
           ]],
           ["keyval2dict"]
-        ],
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
         "category": [
-          ["var_get", ["$root"]],
           ["find", ["ul", {"class": "breadcrumb"}]],
           ["breadcrumb", [["li"], -2]]
         ]
