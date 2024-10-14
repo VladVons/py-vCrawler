@@ -1,4 +1,4 @@
-  {% extends '_inc/layout1.j2' %}
+{% extends '_inc/layout1.j2' %}
 
 {% set Fields = ['date', 'title', 'price', 'price-old', 'stock'] %}
 
@@ -34,7 +34,7 @@
     {% for Rec in TDbList().Import(dbl_products) %}
       <div class="gitem text-center">
         <a href="{{Rec.url}}" rel="nofollow">
-          <img src="{{Rec.image}}" alt="Description of the image" class="thumb">
+          <img src="{{Rec.image}}" alt="{{Rec.title |truncate(32, True, '...')}}" class="thumb">
         </a>
       </div>
       <div class="gitem" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}

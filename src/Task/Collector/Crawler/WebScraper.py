@@ -9,6 +9,7 @@ import json
 from urllib.parse import urljoin
 #
 from Inc.Scheme.Scheme import TScheme
+from Inc.Var.Dict import DeepSetByList
 from Inc.Var.Str import StartsWith
 from Inc.Var.Obj import Iif, IifNone
 from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
@@ -66,7 +67,7 @@ class TWebScraper():
 
             Log.Print(2, 'i', f'TWebDcraper. Parse {Rec.url}')
             Url = Rec.url
-            #Url = 'https://a-pc.com.ua/bv-mon-tori/mon-tor-22-philips-225pl2-1680-x-1050-tft-lcd-a-b-v'
+            Url = 'https://midis.zp.ua/catalog/view/noutbuki'
             if (self.DblSite.Rec.emulator):
                 Data = await PW_UrlGetData(Url)
             else:
@@ -85,6 +86,7 @@ class TWebScraper():
                 for xScheme in self.DblSite.Rec.scheme:
                     xScheme = json.loads(xScheme)
                     for Key, Val in xScheme.items():
+                        DeepSetByList(Val, ['info', 'url'], [Url])
                         Schemes[Key] = Val
 
                 for Key, Val in Schemes.items():

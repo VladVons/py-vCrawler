@@ -4,16 +4,18 @@
       "author": "vladvons",
       "date": "2024.10.13 18:00:00",
       "url": [
-        "https://midis.zp.ua/good/view/-fujitsu-siemens-esprimo-e420-e85-sff-intel-eleron-g1820-2700-m-z-2mb-2-dra-2-potoki-4-gb-ddr-3-320-gb-slim-desktop-intel-d-grap-i-s-138425"
+        "https://midis.zp.ua/good/view/-22-p-ilips-brillian-e-220b4l-lass-a-1680-1050-tn-led-p-dsv-uvann-16-10-vga-dvi-au-silver143052",
+        "-https://midis.zp.ua/catalog/view/kompyutery"
       ]
     },
     "pipe_microdata": [
       ["product_ldjson"]
     ],
     "pipe_product": [
+      ["find_check", ["div", {"class": "goods_code"}]],
       ["find_comment", ["Item description"]],
       ["as_dict", {
-        "image": [
+        "images": [
           ["find_comment", ["big img col"]],
           ["find_all_get", ["img"], {"a_get": "src"}]
         ],

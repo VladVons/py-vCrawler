@@ -13,7 +13,7 @@ from Inc.Misc.PlayWrite import UrlGetData as UrlGetData_PW
 from Inc.Misc.aiohttpClient import UrlGetData
 from Inc.Scheme.Scheme import TScheme
 from Inc.Var.Dict import DeepGetByList
-from Inc.Var.Obj import Iif, GetTree
+from Inc.Var.Obj import GetTree
 from IncP.Log import Log
 
 
@@ -92,6 +92,8 @@ class TSchemer():
         BSoup = BeautifulSoup(aHtml, 'lxml')
         #q1 = Soup.find('div', string='Замовити')
         #q1 = BSoup.find('div', class_='catalog_block items')
+
+        #DeepSetByList(aScheme, [aType, 'info', 'url'], [Url])
         Scheme = TScheme(aScheme)
         Scheme.Parse(BSoup)
         Pipe = Scheme.GetPipe(aType)

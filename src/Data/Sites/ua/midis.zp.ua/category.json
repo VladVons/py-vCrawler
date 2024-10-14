@@ -4,13 +4,16 @@
       "author": "vladvons",
       "date": "2024.10.13 10:00:00",
       "url": [
-        "https://midis.zp.ua/catalog/view/kompyutery"
-      ]
+        "https://midis.zp.ua/catalog/view/kompyutery",
+        "-https://midis.zp.ua/good/view/-20-p-elitedisplay-e201-lass-a-1600-900-tn-led-p-dsv-uvann-16-9-vga-dvi-dp-bla-k117127"
+      ],
+      "todo": "cant decode to utf8"
     },
     "pipe": [
       ["as_dict", {
         "products": [
-          ["find_comment", ["Items grid"]],
+          ["find_check", ["ul", {"class": "goods_pages"}]],
+          ["find", ["div", {"class": "item_grid"}]],
           ["find_all", ["div", {"class": "listing-item"}]],
           ["list_map", [
             ["as_dict", {
@@ -20,21 +23,21 @@
                  ["get", ["href"]],
                  ["url_pad"]
                ],
-               "-name": [
-                 ["find", ["div", {"class": "catalogCard-title"}]],
+               "name": [
+                 ["find", ["span", {"class": "title_good"}]],
                  ["text_strip"]
                ],
                "-stock": [ 
                  ["find", ["div", {"class": "catalogCard-order"}]],
                  ["val2bool"]
                ],
-               "-price": [
-                 ["find", ["div", {"class": "catalogCard-price"}]],
+               "price": [
+                 ["find", ["p", {"class": "new_price"}]],
                  ["text_strip"],
                  ["price"]
                ],
                "-price_old": [
-                 ["find", ["div", {"class": "catalogCard-oldPrice"}]],
+                 ["find", ["p", {"class": "old_price"}]],
                  ["text_strip"],
                  ["price"]
                ]
@@ -42,7 +45,7 @@
           ]]
        ],
        "pager": [
-          ["find", ["nav", {"class": "pager"}]],
+          ["find", ["ul", {"class": "goods_pages"}]],
           ["find_all_get_url", ["a"], {"a_get": "href"}]
        ]
       }]
