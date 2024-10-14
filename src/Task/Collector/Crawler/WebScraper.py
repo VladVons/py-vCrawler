@@ -67,7 +67,7 @@ class TWebScraper():
 
             Log.Print(2, 'i', f'TWebDcraper. Parse {Rec.url}')
             Url = Rec.url
-            Url = 'https://midis.zp.ua/catalog/view/noutbuki'
+            #Url = 'https://midis.zp.ua/good/view/-fujitsu-siemens-lifebook-a530-grade-a-15-6-intel-ore-i3-350m-2270m-z-3mb-1nd-4-gb-dd-500gb-no-eb-amera-dmi-intel-d-grap-i-s-151073'
             if (self.DblSite.Rec.emulator):
                 Data = await PW_UrlGetData(Url)
             else:

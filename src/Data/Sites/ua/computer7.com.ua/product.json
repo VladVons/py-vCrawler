@@ -2,12 +2,11 @@
   "product": {
     "info": {
       "author": "vladvons",
-      "date": "2024.10.12 18:00:00",
+      "date": "2024.10.14 18:00:00",
       "url": [
-        "https://compsoft.com.ua/ua/p1808344310-kompyuter-acer-veriton.html",
-        "-",
-        "-https://compsoft.com.ua/ua/p821285654-blok-pitaniya-730w.html",
-        "-https://compsoft.com.ua/ua/g1900796-sistemnye-bloki"
+        "-https://computer7.com.ua/ua/p2378294302-sistemnyj-blok-elitedesk.html",
+        "https://computer7.com.ua/ua/p2378293664-sistemnyj-blok-elitedesk.html",
+        "-https://computer7.com.ua/ua/p1403168952-sistemnyj-blok-germanii.html"
       ],
       "comment": "prom"
     },
@@ -23,6 +22,12 @@
           ["list_map", [
             ["replace", [["h100", "w100"], ["h640", "w640"]]]
           ]]
+         ],
+        "price_old": [
+          ["find", ["div", {"class": "b-product-cost"}]],
+          ["find", ["p", {"class": "b-product-cost__old-price"}]],
+          ["text_strip"],
+          ["price"]
         ]
       }]
     ],

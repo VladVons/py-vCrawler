@@ -4,8 +4,10 @@
 
 
 import os
+import re
 import json
 #
+from Inc.Misc.Misc import FormatJsonStr
 from Inc.DbList import TDbList
 from Inc.ParserX.Common import TFileBase
 from Inc.ParserX.CommonSql import LoadQuery, DASplitDbl
@@ -13,6 +15,20 @@ from Inc.Var.Dict import DeepGetByList
 from Inc.Sql import TDbExecPool, TDbPg
 from IncP.Log import Log
 from .. import SiteCondEnabled
+
+
+def FormatJson(aJson: str, aUrl: str) -> str:
+    reInfo = re.compile(r'"info":\s*\{[^}]*\},?', flags=re.DOTALL)
+    Repl = f'''
+        "info": {{
+            "url": "{aUrl}"
+        }},
+    '''
+    Res = reInfo.sub(Repl, aJson)
+
+    Res = FormatJsonStr(Res)
+    json.loads(Res) # just check json
+    return Res
 
 
 class TMain(TFileBase):
@@ -48,8 +64,8 @@ class TMain(TFileBase):
                         assert(os.path.exists(Path)), f'Path does not exist {Path}'
                         with open(Path, 'r', encoding='utf8') as F:
                             Scheme = F.read()
-                            json.loads(Scheme) # just check
 
+                        Scheme = FormatJson(Scheme, Rec.url)
                         SiteId = Pairs[Rec.url]
                         InsValues.append(f"(true, {SiteId}, '{xType}', '{Scheme}')")
 
