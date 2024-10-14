@@ -1,0 +1,51 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.13 10:00:00",
+      "url": [
+        "https://midis.zp.ua/catalog/view/kompyutery"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_comment", ["Items grid"]],
+          ["find_all", ["div", {"class": "listing-item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["span", {"class": "title_good"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "-name": [
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["text_strip"]
+               ],
+               "-stock": [ 
+                 ["find", ["div", {"class": "catalogCard-order"}]],
+                 ["val2bool"]
+               ],
+               "-price": [
+                 ["find", ["div", {"class": "catalogCard-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "-price_old": [
+                 ["find", ["div", {"class": "catalogCard-oldPrice"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pager"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

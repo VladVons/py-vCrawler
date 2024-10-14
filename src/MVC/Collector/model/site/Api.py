@@ -49,7 +49,7 @@ class TMain(TDbModel):
         )
 
     async def InsUrls(self, aSiteId: int, aUrls: list[str]) -> dict:
-        Arr = [f"({aSiteId}, '{xUrl}')" for xUrl in aUrls]
+        Arr = [f'''({aSiteId}, '{xUrl.replace("'", "''")}')''' for xUrl in aUrls]
         await self.ExecQuery(
             'fmtIns_Urls.sql',
             {

@@ -1,0 +1,25 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.13 18:00:00",
+      "url": [
+        "-https://hwf.com.ua/ru/1090336/",
+        "-",
+        "https://hwf.com.ua/ru/1000764/"
+      ]
+    },
+    "pipe_microdata": [
+      ["product_itemprop"],
+      ["dict_keydel", ["mpn"]]
+    ],
+    "-pipe_product": [
+      ["var_get", ["$product_itemprop_root"]],
+      ["list", [0]],
+      ["as_dict", {
+        "features": [
+        ]
+      }]
+    ]
+  }
+}

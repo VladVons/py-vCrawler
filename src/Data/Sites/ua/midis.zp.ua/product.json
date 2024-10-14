@@ -1,0 +1,43 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.13 18:00:00",
+      "url": [
+        "https://midis.zp.ua/good/view/-fujitsu-siemens-esprimo-e420-e85-sff-intel-eleron-g1820-2700-m-z-2mb-2-dra-2-potoki-4-gb-ddr-3-320-gb-slim-desktop-intel-d-grap-i-s-138425"
+      ]
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find_comment", ["Item description"]],
+      ["as_dict", {
+        "image": [
+          ["find_comment", ["big img col"]],
+          ["find_all_get", ["img"], {"a_get": "src"}]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "green_txt"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_eq", ["є в наявності"]]
+          ],
+        "price_old": [
+          ["find", ["div", {"class": "price_f"}]],
+          ["text_strip"],
+          ["price"]
+         ],
+        "features": [
+          ["find", ["table", {"class": "table"}]],
+          ["table"],
+          ["keyval2dict"]
+         ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Виробник"]]
+        ]
+      }]
+    ]
+  }
+}

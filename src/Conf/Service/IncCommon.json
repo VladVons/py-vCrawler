@@ -171,11 +171,25 @@
         ["/bv-noutbuki", "/bv-sistemn-bloki", "/bv-mon-tori", "/bv-printeri-ta-bfp", "/serverne-obladnannya"]
       ],
       [
-        1,
+        0,
         "compsoft.com.ua",
         "https://compsoft.com.ua/ua",
         ["product", "-category"],
         ["/g1900796-sistemnye-bloki", "/g2180772-monitory", "/g1140673-setevoe-oborudovanie", "/g17707449-ofisnaya-tehnika-periferiya"]
+      ],
+      [
+        0,
+        "hwf.com.ua",
+        "https://hwf.com.ua",
+        ["product", "category"],
+        ["/robochi-stantsiii/"]
+      ],
+      [
+        1,
+        "midis.zp.ua",
+        "https://midis.zp.ua",
+        ["-product", "category"],
+        ["/catalog/view/kompyutery", "/catalog/view/noutbuki", "/catalog/view/monitor", "/catalog/view/servery"]
       ]
     ]
   }

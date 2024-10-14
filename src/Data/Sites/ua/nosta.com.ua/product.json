@@ -7,7 +7,7 @@
         "https://nosta.com.ua/index.php?route=product/product&path=59&product_id=116"
       ]
     },
-    "pipe_itemprop": [
+    "pipe_microdata": [
       ["product_ldjson"]
     ],
     "pipe_product": [
@@ -18,7 +18,6 @@
           ["find_all_get", ["a"], {"a_get": "href"}]
         ],
         "description": [
-
           ["find", ["div", {"class": "fm-product-description-cont"}]],
           ["text_tag", ["font"]]
         ]

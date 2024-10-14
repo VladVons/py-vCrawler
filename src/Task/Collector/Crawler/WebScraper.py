@@ -46,7 +46,8 @@ class TWebScraper():
 
             xUrl = xUrl.rsplit('#', maxsplit=1)[0]
             xUrl = urljoin(self.UrlRoot, xUrl)
-            Res.add(xUrl.rstrip('/'))
+            xUrl = xUrl.rstrip('/')
+            Res.add(xUrl)
         return Res
 
     async def Exec(self) -> dict:
@@ -63,6 +64,7 @@ class TWebScraper():
             SchemeName = None
             Pipe = None
 
+            Log.Print(2, 'i', f'TWebDcraper. Parse {Rec.url}')
             Url = Rec.url
             #Url = 'https://a-pc.com.ua/bv-mon-tori/mon-tor-22-philips-225pl2-1680-x-1050-tft-lcd-a-b-v'
             if (self.DblSite.Rec.emulator):
@@ -89,7 +91,7 @@ class TWebScraper():
                     Scheme = TScheme({Key: Val})
                     Scheme.Parse(Soup)
                     Pipe = Scheme.GetPipe(Key)
-                    #Log.Print(2, 'i', f'TWebDcraper.Exec() {Scheme.Err}')
+                    Log.Print(3, 'i', f'TWebDcraper. {Scheme.Err}')
                     match Key:
                         case 'product':
                             Price = Pipe.get('price')

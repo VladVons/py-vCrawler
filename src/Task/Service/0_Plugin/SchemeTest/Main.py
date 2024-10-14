@@ -4,6 +4,7 @@
 
 
 import os
+import sys
 import json
 from bs4 import BeautifulSoup
 
@@ -50,22 +51,34 @@ class TSchemer():
 
         return ErrCnt
 
-    def ReadFile(self, aFile: str) -> str:
+    def ReadFile(self, aFile: str, aMode = 'r') -> str:
         File = self.Dir + '/' + aFile
         if (os.path.exists(File)):
-            with open(File, 'r', encoding='utf8') as hFile:
-                return hFile.read()
+            if (aMode == 'r'):
+                with open(File, 'r', encoding='utf8') as hFile:
+                    return hFile.read()
+            else:
+                with open(File, 'rb') as hFile:
+                    return hFile.read()
 
     def WriteFile(self, aFile: str, aData: str):
         File = self.Dir + '/' + aFile
-        Mode = Iif(isinstance(aData, str), 'w', 'wb')
-        with open(File, Mode) as hFile:
-            hFile.write(aData)
+        if (isinstance(aData, str)):
+            with open(File, 'w', encoding='utf8') as hFile:
+                hFile.write(aData)
+        else:
+            with open(File, 'wb') as hFile:
+                hFile.write(aData)
 
     def LoadScheme(self, aType: str) -> dict:
         Data = self.ReadFile(aType + '.json')
         if (Data):
-            return json.loads(Data)
+            try:
+                return json.loads(Data)
+            except json.decoder.JSONDecodeError as E:
+                File = self.Dir + '/' + aType + '.json'
+                Log.Print(1, 'e', f'File: {File}. Err: {E}')
+                sys.exit()
 
     @staticmethod
     def GetKeys(aScheme: dict) -> list:
@@ -135,9 +148,12 @@ class TSchemer():
 
                 Cnt += 1
                 File = f'{aType}_{Idx+1}.html'
-                Data = self.ReadFile(File)
+                Data = self.ReadFile(File, 'rb')
                 if (not Data):
-                    Reader = DeepGetByList(Scheme, [aType, 'info', 'reader'], 'aiohttp')
+                    Reader = DeepGetByList(Scheme, [aType, 'info', 'reader'], '')
+                    if (not Reader):
+                        Reader = 'aiohttp'
+
                     Log.Print(1, 'i', f'Get url with {Reader}')
                     match Reader:
                         case 'playwright' | '':
