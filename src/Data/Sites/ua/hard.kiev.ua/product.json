@@ -1,0 +1,61 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.15 18:00:00",
+      "url": [
+        "-https://hard.kiev.ua/noutbuk-lenovo-thinkpad-p50s/",
+        "-https://hard.kiev.ua/noutbuk-lenovo-thinkpad-t460/"
+      ]
+    },
+    "pipe_microdata": [
+      ["-product_itemprop. to wide"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1"]],
+          ["text"]
+        ],
+        "images": [
+          ["find", ["div", {"id": "product-gallery"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}],
+          ["list_map", [
+            ["replace", ["96x96", "970"]]
+          ]]
+        ],
+        "price": [
+          ["find", ["div", {"class": "price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "stocks"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["в наявності"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "category": [
+           ["find", ["ol", {"typeof": "BreadcrumbList"}]],
+           ["breadcrumb", [["li"], -2]]
+        ],
+        "features": [
+          ["find", ["table", {"id": "product-features"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Бренд"]]
+        ],
+        "description": [
+        ]
+      }]
+    ]
+  }
+}

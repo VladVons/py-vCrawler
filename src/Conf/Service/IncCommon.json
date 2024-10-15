@@ -199,11 +199,18 @@
         ["/g28244019-sistemnye-bloki", "/g28243960-monitory", "/g28458565-noutbuki", "/g70366849-igrovye-sistemnye-bloki"]
       ],
       [
-        1,
+        0,
         "trium.com.ua",
         "https://trium.com.ua",
         ["product", "-category"],
         ["/laptops/", "/computers/", "/monitors/", "/all-in-one/"]
+      ],
+      [
+        1,
+        "hard.kiev.ua",
+        "https://hard.kiev.ua",
+        ["-product", "category"],
+        ["/category/kompyuternaya-tekhnika/kompyutery/nastolnye-kompyutery", "/category/kompyuternaya-tekhnika/kompyutery/servery/", ""]
       ]
     ]
   }

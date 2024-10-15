@@ -1,0 +1,50 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.14 10:00:00",
+      "url": [
+        "https://hard.kiev.ua/category/kompyuternaya-tekhnika/kompyutery/nastolnye-kompyutery/",
+        "-https://hard.kiev.ua/chenbro-rm13704-1u-4-hot-swap-35-sata-platforma/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "product-list"}]],
+          ["find_all", ["li", {"itemtype": "http://schema.org/Product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "offers"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "offers"}]],
+                 ["find", ["a"]],
+                 ["text_strip"]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+              ],
+              "stock": [
+                 ["find", ["span", {"class": "stocks"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["в наявності"]]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+         ["find", ["ul", {"class": "pagination"}]],
+         ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
