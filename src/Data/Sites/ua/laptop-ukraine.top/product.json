@@ -1,0 +1,27 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.15 18:00:00",
+      "url": [
+        "https://laptop-ukraine.top/tproduct/776619657-843590736532-bv-noutbuk-u2652-dell-precision-7740-173"
+      ]
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "-pipe_product": [
+    ],
+    "pipe_root": [
+      ["script_var", ["var product"]],
+      ["as_dict", {
+        "images": [
+          ["get", ["gallery"]],
+          ["list_map", [
+            ["get", ["img"]]
+          ]]
+        ]
+      }]
+    ]
+  }
+}

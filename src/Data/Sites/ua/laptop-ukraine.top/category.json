@@ -1,0 +1,54 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.15 10:00:00",
+      "url": [
+        "https://laptop-ukraine.top/bu-noutbuki"
+      ],
+      "reader": "playwright. problem with JS pagination",
+      "comment": "tilda"
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "js-store-grid-cont"}]],
+          ["find_all", ["div", {"class": "js-product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "js-store-prod-name"}]],
+                 ["text_strip"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "js-product-price"}]],
+                 ["text_strip"],
+                 ["price"]
+              ],
+               "price_old": [
+                 ["find", ["div", {"class": "t-store__card__price_old"}]],
+                 ["text_strip"],
+                 ["price"]
+              ],
+              "-stock": [
+                 ["find", ["span", {"class": "stocks"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["в наявності"]]
+              ]
+            }]
+          ]]
+       ],
+       "-pager": [
+         ["find", ["div", {"class": "t-store__pagination"}]],
+         ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

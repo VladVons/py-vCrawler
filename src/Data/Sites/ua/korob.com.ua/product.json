@@ -10,7 +10,8 @@
       ]
     },
     "pipe_microdata": [
-      ["product_ldjson"]
+      ["product_ldjson"],
+      ["dict_keydel", ["image"]]
     ],
     "pipe_product": [
       ["find", ["body", {"class": "product"}]],

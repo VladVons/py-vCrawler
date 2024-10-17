@@ -5,8 +5,10 @@
       "date": "2024-08-28 12:12:57",
       "url": [
         "-https://www.lapstore.com.ua/product/acer-predator-helios-neo-16-phn16-71-core-i5-13500hx-ram-16-gb-ssd-512-gb-16-fhd/",
-        "https://www.lapstore.com.ua/product/dell-latitude-5421-core-i5-11400h-ram-16-gb-ssd-512-gb-14-fhd/",
-        "-https://www.lapstore.com.ua/product/uczinka-hp-elitebook-8470p-core-i5-3320m-ram-8gb-ssd-240gb-14-hd/"
+        "-https://www.lapstore.com.ua/product/dell-latitude-5421-core-i5-11400h-ram-16-gb-ssd-512-gb-14-fhd/",
+        "-https://www.lapstore.com.ua/product/uczinka-hp-elitebook-8470p-core-i5-3320m-ram-8gb-ssd-240gb-14-hd/",
+        "-https://www.lapstore.com.ua/product/dell-precision-7540-core-i7-9850h-ram-32-gb-ssd-512-gb-15-6-4k-quadro-t2000-4-gb/",
+        "https://www.lapstore.com.ua/product/asus-rog-amd-ryzen-9-5900hx-ram-16-gb-ssd-512-256gb-156-fhd/"
       ]
     },
    "pipe_microdata": [
@@ -15,10 +17,6 @@
     "pipe_product": [
       ["find",["div", {"class": "product"}]],
       ["as_dict", {
-        "name": [
-          ["find", ["h1", {"class": "product_title"}]],
-          ["text_strip"]
-        ],
         "price_old": [
           ["find_path", [
             ["p", {"class": "price"}],
@@ -35,10 +33,6 @@
             ["get", ["src"]],
             ["split", ["?", 0]]
           ]]
-         ],
-         "image": [
-            ["ext_image"],
-            ["split", ["?", 0]]
          ],
         "features": [
           ["find", ["div", {"id": "tab-specification"}]],

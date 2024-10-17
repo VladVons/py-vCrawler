@@ -51,6 +51,15 @@ class TWebScraper():
             Res.add(xUrl)
         return Res
 
+    @staticmethod
+    def JoinScheme(aSchemes: list[str]) -> dict:
+        Res = {}
+        for xScheme in aSchemes:
+            xScheme = json.loads(xScheme)
+            for Key, Val in xScheme.items():
+                Res[Key] = Val
+        return Res
+
     async def Exec(self) -> dict:
         CustomRobots = self.DblSite.Rec.robots
         self.Robots = await InitRobots(self.UrlRoot, CustomRobots)
@@ -67,34 +76,28 @@ class TWebScraper():
 
             Log.Print(2, 'i', f'TWebDcraper. Parse {Rec.url}')
             Url = Rec.url
-            #Url = 'https://midis.zp.ua/good/view/-fujitsu-siemens-lifebook-a530-grade-a-15-6-intel-ore-i3-350m-2270m-z-3mb-1nd-4-gb-dd-500gb-no-eb-amera-dmi-intel-d-grap-i-s-151073'
+            #Url = 'https://www.lapstore.com.ua/product/dell-precision-7540-core-i7-9850h-ram-32-gb-ssd-512-gb-15-6-4k-quadro-t2000-4-gb/'
             if (self.DblSite.Rec.emulator):
                 Data = await PW_UrlGetData(Url)
             else:
                 Data = await UrlGetData(Url, self.DblSite.Rec.headers)
             #WriteFileDebug(f'{Url}_{self.Cnt}', Data['data'])
-            #await asyncio.sleep(3)
-            #continue
 
-            if (Data['status'] == 200):
+            Status = Data['status']
+            if (Status == 200):
                 DataSize = len(Data['data'])
                 TotalDataSize += DataSize
 
                 Soup = GetSoup(Data['data'])
-
-                Schemes = {}
-                for xScheme in self.DblSite.Rec.scheme:
-                    xScheme = json.loads(xScheme)
-                    for Key, Val in xScheme.items():
-                        DeepSetByList(Val, ['info', 'url'], [Url])
-                        Schemes[Key] = Val
-
-                for Key, Val in Schemes.items():
-                    Scheme = TScheme({Key: Val})
+                Schemes = self.JoinScheme(self.DblSite.Rec.scheme)
+                for xKey in ['product', 'category']:
+                    Val = Schemes.get(xKey)
+                    DeepSetByList(Val, ['info', 'url'], [Url])
+                    Scheme = TScheme({xKey: Val})
                     Scheme.Parse(Soup)
-                    Pipe = Scheme.GetPipe(Key)
+                    Pipe = Scheme.GetPipe(xKey)
                     Log.Print(3, 'i', f'TWebDcraper. {Scheme.Err}')
-                    match Key:
+                    match xKey:
                         case 'product':
                             Price = Pipe.get('price')
                             if (Pipe.get('name')) and \
@@ -106,14 +109,14 @@ class TWebScraper():
                                 if (not Pipe.get('image')) and (Pipe.get('images')):
                                     Pipe['image'] = Pipe['images'][0]
 
-                                SchemeName = Key
+                                SchemeName = xKey
                                 TotalProduct += 1
                                 EscForSQL(Pipe)
                                 break
                         case 'category':
                             Products = IifNone(Pipe.get('products'), [])
                             if (len(Products) > 1):
-                                SchemeName = Key
+                                SchemeName = xKey
                                 break
 
                 Htrefs = []
@@ -149,7 +152,7 @@ class TWebScraper():
                     'method': 'InsHistUrl',
                     'param': {
                         'aUrlId': Rec.url_id,
-                        'aStatusCode': Data['status'],
+                        'aStatusCode': Status,
                         'aParsedData': Iif(SchemeName == 'product', Pipe, None),
                         'aUrlCount': UrlCount,
                         'aDataSize': DataSize,

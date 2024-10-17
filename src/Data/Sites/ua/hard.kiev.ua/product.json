@@ -9,7 +9,7 @@
       ]
     },
     "pipe_microdata": [
-      ["-product_itemprop. to wide"]
+      ["-product_itemprop. too wide range in page"]
     ],
     "pipe_product": [
       ["find", ["div", {"itemtype": "http://schema.org/Product"}]],

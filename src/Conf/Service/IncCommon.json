@@ -76,14 +76,14 @@
         0,
         "korob.com.ua",
         "https://korob.com.ua/ua",
-        ["product", "category"],
+        ["product", "-category"],
         ["/89-vzhivani_noutbuki", "/74-vzhivani_personalni_komp_yuteri", "/75-vzhivani_monitori", "/117-torgovelne-obladnannya-bv", "/68-orgtekhnika-bv"]
       ],
       [
-        0,
+        1,
         "lapstore.com.ua",
         "https://www.lapstore.com.ua",
-        ["product", "category"],
+        ["product", "-category"],
         ["/productcategory/laptops-uk", "/productcategory/igrovi-noutbuki-ta-bloki", "/productcategory/sistemni-bloki-ta-pk"]
       ],
       [
@@ -206,11 +206,18 @@
         ["/laptops/", "/computers/", "/monitors/", "/all-in-one/"]
       ],
       [
-        1,
+        0,
         "hard.kiev.ua",
         "https://hard.kiev.ua",
         ["-product", "category"],
         ["/category/kompyuternaya-tekhnika/kompyutery/nastolnye-kompyutery", "/category/kompyuternaya-tekhnika/kompyutery/servery/", ""]
+      ],
+      [
+        -1,
+        "laptop-ukraine.top",
+        "https://laptop-ukraine.top",
+        ["-product", "category"],
+        ["/bu-noutbuki"]
       ]
     ]
   }
