@@ -4,11 +4,14 @@
 
 
 import os
+import json
 from aiohttp import web
+from aiohttp_session import get_session
 #
 from Inc.DataClass import DDataClass
 from Inc.Misc.Jinja import TTemplate
 from IncP.ApiBase import TApiBase
+from IncP.Log import Log
 from IncP.Plugins import TViewes
 from .FormBase import TFormBase
 
@@ -102,6 +105,37 @@ class TApiView(TApiBase):
             Text = f'1) {aText}.\n2) Info template {self.Conf.form_info} not found'
             Res = web.Response(text = Text, content_type = 'text/html', status = aStatus)
         Res.set_status(aStatus, aText)
+        return Res
+
+    async def ResponseApi(self, aRequest: web.Request) -> web.Response:
+        Query = dict(aRequest.query)
+        Post = await aRequest.post()
+        Session = await get_session(aRequest)
+        Data = {
+            'type': 'api',
+            'method': Query.get('method', 'Main'),
+            'post': dict(Post),
+            'query': dict(aRequest.query),
+            'session': Session,
+            'path_qs': aRequest.path_qs
+        }
+
+        Post = await aRequest.text()
+        if (Post):
+            try:
+                Post = json.loads(Post)
+                Data.update(Post)
+            except ValueError as E:
+                Log.Print(1, 'i', f'ResponseApi(). {E}')
+
+        Ctrl = self.Loader['ctrl']
+        Data = await Ctrl.Get(Query.get('route'), Data)
+
+        Context = Query.get('context', 'json')
+        if (Context == 'json'):
+            Res = web.json_response(data = Data)
+        else:
+            Res = web.Response(text = Data)
         return Res
 
 

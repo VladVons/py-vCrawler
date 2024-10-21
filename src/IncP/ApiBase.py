@@ -78,11 +78,10 @@ class TApiBase():
 
         Res = self.GetMethod(self.Plugin, aRoute, aData)
         if ('err' not in Res):
-            Param = aData.get('param', {})
             Method = Res['method']
             #Args = Method.__code__.co_varnames[:Method.__code__.co_argcount]
             try:
-                Res = await Method(**Param)
+                Res = await Method(**aData)
             except TypeError as E:
                 Log.Print(1, 'x', 'Exec()', aE = E)
                 Res = {'err': E}

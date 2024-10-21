@@ -27,7 +27,7 @@ class TSrvView(TSrvBase):
     def _GetDefRoutes(self) -> list:
         return [
             web.get('/{name:.*}', self._rIndex),
-            web.post('/{name:.*}', self._rIndex)
+            web.post('/api/{name:.*}', self._rApi),
         ]
 
     async def _LoadFile(self, aRequest: web.Request, aApiView: TApiView) -> web.Response:
@@ -61,6 +61,9 @@ class TSrvView(TSrvBase):
         else:
             Res = await self._LoadFile(aRequest, ApiView)
         return Res
+
+    async def _rApi(self, aRequest: web.Request) -> web.Response:
+        return await ApiView.ResponseApi(aRequest)
 
     async def RunApp(self):
         Log.Print(1, 'i', f'{self.__class__.__name__}.RunApp() on port {self._SrvConf.port}')

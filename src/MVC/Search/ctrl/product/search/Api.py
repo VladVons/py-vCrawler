@@ -9,7 +9,7 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 
 class TMain(TCtrlBase):
-    async def Main(self, aData: dict):
+    async def Main(self, **aData):
         aSearch, aSort, aOrder, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
             ('q', 'sort', 'order', 'page', 'limit'),

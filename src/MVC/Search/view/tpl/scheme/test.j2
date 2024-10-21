@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scheme test</title>
+
+  <script src="/assets/js/lib.js"></script>
+  <link rel="stylesheet" href="/assets/vendor/css/bootstrap.css">
+
+  <style>
+    .editor {
+        display: inline-flex;
+        gap: 10px;
+        padding: 20px 10px;
+    }
+    .numbers {
+      width: 30px;
+      text-align: right;
+    }
+    .numbers span {
+      counter-increment: linenumber;
+    }
+    .numbers span::before {
+      content: counter(linenumber);
+      display: block;
+      color: #506882;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="m-5">
+    <div class="row mt-3">
+      <div class="col-6 editor">
+        <div class="numbers">
+          <span></span>
+        </div>
+        <textarea class="form-control" id="ta_script" rows="20" placeholder="script"></textarea>
+      </div>
+      <div class="col-6 editor">
+        <div class="numbers">
+          <span></span>
+        </div>
+        <textarea class="form-control" id="ta_result" rows="20" placeholder="result" readonly></textarea>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <textarea class="form-control" id="ta_error" rows="5" placeholder="errors" readonly></textarea>
+    </div>
+    <div class="row mt-3">
+      <div class="col-6">
+        <button class="btn btn-primary" id="btn_test">Test</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    const elScript = document.getElementById("ta_script")
+    const elResult = document.getElementById("ta_result")
+    const elError = document.getElementById("ta_error")
+
+    document.getElementById("btn_test").onclick = function(event) {
+      if (elScript.value.trim() != '') {
+        const post = {'script': elScript.value}
+        const res = new TSend().exec(
+          '/api/?route=scheme/test',
+          {'method': 'Parse', 'post': post}
+        )
+
+        elError.value = res['err']
+        elResult.value = res['data'] || ''
+      } else {
+        elError.value = 'empty script'
+      }
+    }
+
+    function TextNumbering() {
+      function AddNumbering(aTextArea, aNumbers) {
+        const num = aTextArea.value.split("\n").length;
+        aNumbers.innerHTML = Array(num).fill("<span></span>").join("");
+      }
+
+      const editors = document.querySelectorAll(".editor");
+      for (const editor of editors) {
+        const textarea = editor.querySelector("textarea");
+        const numbers = editor.querySelector(".numbers");
+        AddNumbering(textarea, numbers)
+
+        textarea.addEventListener('keyup', (e) => {
+          AddNumbering(e.target)
+        });
+      }
+    }
+
+    TextNumbering();
+  </script>
+
+  <script src="/assets/vendor/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

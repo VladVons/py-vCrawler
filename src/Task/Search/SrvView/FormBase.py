@@ -63,18 +63,16 @@ class TFormBase(Form):
         return await self.ExecCtrl(self.out.route, {'method': 'Main'})
 
     async def ExecCtrl(self, aRoute: str, aData: dict = None) -> dict:
-        aData['type'] = 'form'
-        aData['param'] = {
-            'aData': {
-                'post': self.out.data,
-                'query': dict(self.Request.query) | self.out.query,
-                'path_qs': self.Request.path_qs,
-                'extends': self._GetTplExtends(aRoute)
-            }
+        Data = {
+            'type': 'form',
+            'post': self.out.data,
+            'query': dict(self.Request.query) | self.out.query,
+            'path_qs': self.Request.path_qs,
+            'extends': self._GetTplExtends(aRoute)
         }
 
         # debug view
-        return await self.Ctrl.Get(aRoute, aData)
+        return await self.Ctrl.Get(aRoute, aData | Data)
 
     async def PostToData(self) -> bool:
         if (self.Request.method.upper() == 'POST'):
