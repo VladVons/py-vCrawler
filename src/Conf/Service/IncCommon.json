@@ -80,7 +80,7 @@
         ["/89-vzhivani_noutbuki", "/74-vzhivani_personalni_komp_yuteri", "/75-vzhivani_monitori", "/117-torgovelne-obladnannya-bv", "/68-orgtekhnika-bv"]
       ],
       [
-        1,
+        0,
         "lapstore.com.ua",
         "https://www.lapstore.com.ua",
         ["product", "-category"],
@@ -199,7 +199,7 @@
         ["/g28244019-sistemnye-bloki", "/g28243960-monitory", "/g28458565-noutbuki", "/g70366849-igrovye-sistemnye-bloki"]
       ],
       [
-        0,
+        1,
         "trium.com.ua",
         "https://trium.com.ua",
         ["product", "-category"],

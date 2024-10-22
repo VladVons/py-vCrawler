@@ -10,8 +10,8 @@
             "purpose":["debug-in-terminal"],
             "justMyCode": true,
             "_args": ["--conf=Client"],
-            "_args": ["--conf=Service"],
-            "args": ["--conf=View"]
+            "args": ["--conf=Service"],
+            "_args": ["--conf=View"]
          }
     ]
 }
