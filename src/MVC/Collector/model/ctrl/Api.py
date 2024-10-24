@@ -15,7 +15,8 @@ class TMain(TModelBase):
             DblSite = await self.Exec(
                 'site',
                 {
-                    'method': 'GetSiteToUpdate'
+                    'method': 'GetSiteToUpdate',
+                    'param': {}
                 }
             )
 

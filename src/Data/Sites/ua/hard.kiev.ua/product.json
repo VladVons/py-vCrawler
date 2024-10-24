@@ -5,7 +5,8 @@
       "date": "2024.10.15 18:00:00",
       "url": [
         "-https://hard.kiev.ua/noutbuk-lenovo-thinkpad-p50s/",
-        "-https://hard.kiev.ua/noutbuk-lenovo-thinkpad-t460/"
+        "-https://hard.kiev.ua/noutbuk-lenovo-thinkpad-t460/",
+        "https://hard.kiev.ua/full-profile-bracket-lsi-9300-8e-dell-h830"
       ]
     },
     "pipe_microdata": [
@@ -40,6 +41,9 @@
     ],
     "pipe_root": [
       ["as_dict", {
+        "image": [
+          ["ext_image_og"]
+        ],
         "category": [
            ["find", ["ol", {"typeof": "BreadcrumbList"}]],
            ["breadcrumb", [["li"], -2]]

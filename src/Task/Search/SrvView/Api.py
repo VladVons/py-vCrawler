@@ -129,13 +129,13 @@ class TApiView(TApiBase):
                 Log.Print(1, 'i', f'ResponseApi(). {E}')
 
         Ctrl = self.Loader['ctrl']
-        Data = await Ctrl.Get(Query.get('route'), Data)
+        R = await Ctrl.Get(Query.get('route'), Data)
 
         Context = Query.get('context', 'json')
         if (Context == 'json'):
-            Res = web.json_response(data = Data)
+            Res = web.json_response(data = R)
         else:
-            Res = web.Response(text = Data)
+            Res = web.Response(text = R)
         return Res
 
 

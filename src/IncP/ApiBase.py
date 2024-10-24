@@ -81,7 +81,13 @@ class TApiBase():
             Method = Res['method']
             #Args = Method.__code__.co_varnames[:Method.__code__.co_argcount]
             try:
-                Res = await Method(**aData)
+                Param = aData.get('param')
+                if (Param):
+                    Res = await Method(**Param)
+                elif (Param == {}):
+                    Res = await Method()
+                else:
+                    Res = await Method(**aData)
             except TypeError as E:
                 Log.Print(1, 'x', 'Exec()', aE = E)
                 Res = {'err': E}

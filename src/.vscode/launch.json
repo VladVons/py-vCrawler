@@ -9,9 +9,9 @@
             "console": "integratedTerminal",
             "purpose":["debug-in-terminal"],
             "justMyCode": true,
-            "_args": ["--conf=Client"],
-            "args": ["--conf=Service"],
-            "_args": ["--conf=View"]
+            "_args": ["--conf=DevClient"],
+            "_args": ["--conf=Service"],
+            "args": ["--conf=View"]
          }
     ]
 }

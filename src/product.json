@@ -30,7 +30,7 @@
         ],
         "features": [
           ["find", ["table", {"class": "product-features__table"}]],
-          ["table"],
+          ["table1"],
           ["keyval2dict"]
         ],
         "-brand": [

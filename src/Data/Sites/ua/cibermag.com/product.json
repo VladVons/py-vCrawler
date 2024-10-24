@@ -32,9 +32,6 @@
           ["text"],
           ["price"]
         ],
-        "image": [
-          ["ext_image_og"]
-        ],
         "images": [
           ["find", ["div", {"class": "product__container__images"}]],
           ["find_all_get_url", ["a", {"class": "cm-image-previewer"}], {"a_get": "href"}]
@@ -57,6 +54,9 @@
     ],
     "pipe_root": [
       ["as_dict", {
+        "image": [
+          ["ext_image_og"]
+        ],
         "category": [
           ["find", ["ol", {"class": "breadcrumb"}]],
           ["breadcrumb", [["li", {"itemprop": "itemListElement"}], -2]]

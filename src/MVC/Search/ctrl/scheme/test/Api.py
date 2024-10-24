@@ -3,10 +3,12 @@
 # License: GNU, see LICENSE for more details
 
 
+import re
 import json
 #
 from Inc.DbList.DbUtil import TJsonEncoder
 from Inc.Scheme.Scheme import TScheme
+from Inc.Scheme.Utils import FindLineInScheme
 from IncP.CtrlBase import TCtrlBase, Lib
 from .Util import GetSoup, UrlGetData
 
@@ -15,13 +17,12 @@ class TMain(TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
         pass
 
-    async def Parse(self, **aData: dict) -> dict:
-        Script = Lib.DeepGetByList(aData, ['post', 'script'])
+    async def Parse(self, aScript: str) -> dict:
         try:
-            Script = json.loads(Script)
+            Script = json.loads(aScript)
             Type = list(Script.keys())[0]
         except Exception as E:
-            return {'err': f'json {E}'}
+            return {'err': f'json: {E}'}
 
         Urls = Lib.DeepGetByList(Script, [Type, 'info', 'url'])
         if (Urls):
@@ -56,3 +57,21 @@ class TMain(TCtrlBase):
             'err': '\n'.join(Scheme.Err),
             'data': PipeStr
         }
+
+    async def GetLineNo(self, aScript: str, aErr: str) -> dict:
+        Res = {}
+        if (re.search(r'\((none|unknown)\)$', aErr)):
+            Path = aErr.split('->', maxsplit=1)[0]
+            LineNo = FindLineInScheme(aScript, Path)
+            Res = {
+                'line': LineNo,
+                'column': -1
+            }
+        elif (aErr.startswith('json:')):
+            Match = re.search(r'line (\d+) column (\d+)', aErr)
+            if (Match):
+                Res = {
+                    'line': int(Match.group(1)),
+                    'column': int(Match.group(2))
+                }
+        return Res

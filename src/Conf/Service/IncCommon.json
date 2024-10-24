@@ -27,7 +27,7 @@
         0,
         "cibermag.com",
         "https://www.cibermag.com/ua",
-        ["product", "category"],
+        ["product", "-category"],
         []
       ],
       [
@@ -94,10 +94,10 @@
         ["/noutbuki", "/kompyutery", "/monitori"]
       ],
       [
-        0,
+        1,
         "laptop-planet.com.ua",
         "https://laptop-planet.com.ua",
-        ["product", "category"],
+        ["product", "-category"],
         ["/laptop/", "/ihrovi-kompiutery/", "/ihrovi-noutbuky/"]
       ],
       [
@@ -199,7 +199,7 @@
         ["/g28244019-sistemnye-bloki", "/g28243960-monitory", "/g28458565-noutbuki", "/g70366849-igrovye-sistemnye-bloki"]
       ],
       [
-        1,
+        0,
         "trium.com.ua",
         "https://trium.com.ua",
         ["product", "-category"],
@@ -209,7 +209,7 @@
         0,
         "hard.kiev.ua",
         "https://hard.kiev.ua",
-        ["-product", "category"],
+        ["product", "-category"],
         ["/category/kompyuternaya-tekhnika/kompyutery/nastolnye-kompyutery", "/category/kompyuternaya-tekhnika/kompyutery/servery/", ""]
       ],
       [
