@@ -6,6 +6,9 @@
 import asyncio
 import aiohttp
 from bs4 import BeautifulSoup
+from Inc.Scheme.Scheme import TSchemeExt, TSchemeApi
+from Inc.Util.ModHelp import GetClass
+from Inc.Var.Obj import GetTree
 
 
 def GetSoup(aData: str) -> BeautifulSoup:
@@ -41,4 +44,18 @@ async def UrlGetData(aUrl: str) -> object:
         if (Res['status'] not in [403, 503]):
             break
         await asyncio.sleep(1.0)
+    return Res
+
+def GetMacroses(aScheme: dict) -> dict:
+    Res = {}
+    BS4 = ['find', 'find_all', 'text', 'get']
+    Methods = GetClass(TSchemeApi) + GetClass(TSchemeExt)
+    Methods = [xMethod[0] for xMethod in Methods] + BS4
+    for _Nested, _Path, Obj, _Depth in GetTree(aScheme):
+        if (isinstance(Obj, list)) and (len(Obj) > 0):
+            Method = Obj[0]
+            if (isinstance(Method, str)) and (Method in Methods):
+                if (Method not in Res):
+                    Res[Method] = 0
+                Res[Method] += 1
     return Res

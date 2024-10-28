@@ -7,8 +7,9 @@ import re
 import json
 #
 from Inc.DbList.DbUtil import TJsonEncoder
-from Inc.Scheme.Scheme import TScheme
+from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
+from Inc.Util.ModHelp import GetClass
 from IncP.CtrlBase import TCtrlBase, Lib
 from .Util import GetSoup, UrlGetData
 
@@ -75,3 +76,7 @@ class TMain(TCtrlBase):
                     'column': int(Match.group(2))
                 }
         return Res
+
+    async def GetHelp(self, aScript: str) -> dict:
+        Help = TSchemeApi.help(None)
+        return {'help': Help}

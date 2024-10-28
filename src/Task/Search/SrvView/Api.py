@@ -132,7 +132,7 @@ class TApiView(TApiBase):
         R = await Ctrl.Get(Query.get('route'), Data)
 
         Context = Query.get('context', 'json')
-        if (Context == 'json'):
+        if (Context == 'json') and (R is not None):
             Res = web.json_response(data = R)
         else:
             Res = web.Response(text = R)

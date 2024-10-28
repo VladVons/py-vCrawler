@@ -78,7 +78,7 @@ class TApiBase():
 
         Res = self.GetMethod(self.Plugin, aRoute, aData)
         if ('err' not in Res):
-            Method = Res['method']
+            Method = Res.get('method')
             #Args = Method.__code__.co_varnames[:Method.__code__.co_argcount]
             try:
                 Param = aData.get('param')

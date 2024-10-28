@@ -1,12 +1,15 @@
   body, textarea {
     font-family: Consolas, "Courier New", Courier, monospace;
+    background-color: #121212;
+    color: #e0e0e0;
+    resize: none;
   }
 
   .exTextArea {
     overflow-y: hidden;
     resize: none;
     line-height: 1.5em;
-    white-space: pre;
+    --white-space: pre;
   }
 
   #highlight {
@@ -21,7 +24,7 @@
     display: inline-grid;
     grid-template-columns: 3em auto;
     gap: 10px;
-    background: rgb(40 42 58);
+    --background: rgb(40 42 58);
     border-radius: 2px;
     overflow-y: auto;
     min-height: 500px;
