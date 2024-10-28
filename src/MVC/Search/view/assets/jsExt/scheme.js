@@ -2,6 +2,8 @@ const elScript = document.getElementById('ta_script')
 const elResult = document.getElementById('ta_result')
 const elError = document.getElementById('ta_error')
 const elHelp = document.getElementById('ta_help')
+//console.log(elScript, elResult, elError, elHelp)
+
 
 function GetCurLineText(aTextArea) {
     const Lines = aTextArea.value.split('\n');
@@ -95,17 +97,27 @@ function TextNumbering() {
 function TabChange(aTarget) {
   aTarget.addEventListener('shown.bs.tab', function(event) {
     const currentTab = event.target;
-    if (currentTab.id === 'tab-help') {
+    if (currentTab.id === 'help-tab') {
       const res = new TSend().exec(
         '/api/?route=scheme/test',
         {
           'method': 'GetHelp',
           'param': {
-            'aScript': elScript.value.trim()
+            'aScript': {}
           }
         }
       )
-      elHelp.value = res['help']
+
+      let Res = [];
+      for (const xItem of res['help']) {
+        Res.push('')
+        Res.push(xItem[0].trim())
+        let Parts = xItem[1].split('\n');
+        for (const xPart of Parts) {
+          Res.push(xPart.trim())
+        }
+      }
+      elHelp.value = Res.join('\n');
     }
   });
 }
