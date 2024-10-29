@@ -5,11 +5,12 @@
 
 import re
 import json
+from datetime import datetime
 #
 from Inc.DbList.DbUtil import TJsonEncoder
+from Inc.Misc.Template import TDictRepl
 from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
-from Inc.Util.ModHelp import GetClass
 from IncP.CtrlBase import TCtrlBase, Lib
 from .Util import GetSoup, UrlGetData
 
@@ -80,3 +81,13 @@ class TMain(TCtrlBase):
     async def GetHelp(self, aScript: str) -> dict:
         Help = TSchemeApi.help(None)
         return {'help': Help}
+
+    async def GetTemplate(self, aType: str) -> dict:
+        Format = {
+            '$date': datetime.now().strftime('%Y-%m-%d %H:%M')
+        }
+        DictRepl = TDictRepl(Format)
+        CurDir = __package__.replace('.', '/')
+        return {
+            'template': DictRepl.ParseFile(f'{CurDir}/fmt_{aType}.json')
+        }

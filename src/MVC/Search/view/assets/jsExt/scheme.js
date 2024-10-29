@@ -55,6 +55,21 @@ document.getElementById('btn_test').onclick = function(event) {
   }
 }
 
+document.getElementById('btn_template').onclick = function(event) {
+  if (confirm('Load empty template ?')) {
+    const res = new TSend().exec(
+      '/api/?route=scheme/test',
+      {
+        'method': 'GetTemplate',
+        'param': {
+          'aType': 'product'
+        }
+      }
+    )
+    elScript.value = res['template']
+  }
+}
+
 function HandleDblClickErr() {
   elError.addEventListener('dblclick', (event) => {
     const ErrText = GetCurLineText(event.target)

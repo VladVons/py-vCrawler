@@ -1,10 +1,10 @@
 {
   "category": {
     "info": {
-      "author": "vladvons",
-      "date": "2024.09.06 09:00:00",
+      "author": "$author",
+      "date": "$date",
       "url": [
-        "https://1x1.com.ua/category/noutbuki"
+        "https://site.com/category-page"
       ]
     },
     "pipe": [
@@ -14,22 +14,22 @@
           ["find_all", ["div", {"class": "product"}]],
           ["list_map", [
             ["as_dict", {
-               "href": [ 
+               "href": [
                  ["find", ["a", {"class": "product-title"}]],
                  ["get", ["href"]],
                  ["url_pad"]
                ],
-               "name": [ 
+               "-name": [
                  ["find", ["a", {"class": "product-title"}]],
                  ["get", ["title"]]
                ],
-               "stock": [ 
+               "-stock": [
                  ["find", ["button", {"class": "buyButton"}]],
                  ["text_strip"],
                  ["lower"],
                  ["search_start", ["купити"]]
                ],
-               "price": [ 
+               "-price": [
                  ["find", ["h2", {"class": "product-price"}]],
                  ["text_strip"],
                  ["price"]
@@ -37,7 +37,7 @@
             }]
           ]]
        ],
-       "pager": [
+       "-pager": [
           ["find", ["ul", {"class": "pagination"}]],
           ["find_all_get_url", ["a"], {"a_get": "href"}]
        ]
