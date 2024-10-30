@@ -1,4 +1,4 @@
-  body, textarea {
+  body {
     font-family: Consolas, "Courier New", Courier, monospace;
     background-color: #121212;
     color: #e0e0e0;
@@ -9,7 +9,7 @@
     overflow-y: hidden;
     resize: none;
     line-height: 1.5em;
-    --white-space: pre;
+    white-space: pre;
   }
 
   #highlight {

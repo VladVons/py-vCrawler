@@ -9,9 +9,10 @@ from datetime import datetime
 #
 from Inc.DbList.DbUtil import TJsonEncoder
 from Inc.Misc.Template import TDictRepl
+from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
 from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
-from IncP.CtrlBase import TCtrlBase, Lib
+from IncP.CtrlBase import TCtrlBase
 from .Util import GetSoup, UrlGetData
 
 
@@ -19,35 +20,19 @@ class TMain(TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
         pass
 
-    async def Parse(self, aScript: str) -> dict:
+    async def Parse(self, aUrl: str, aScript: str) -> dict:
+        if (aUrl):
+            UrlData = await UrlGetData(aUrl)
+            if (UrlData['status'] != 200):
+                return {'err': f'download status code {UrlData["status"]}'}
+        else:
+            return {'err': 'no url'}
+
         try:
             Script = json.loads(aScript)
             Type = list(Script.keys())[0]
         except Exception as E:
             return {'err': f'json: {E}'}
-
-        Urls = Lib.DeepGetByList(Script, [Type, 'info', 'url'])
-        if (Urls):
-            if (not isinstance(Urls, list)):
-                return {'err': f'not a list: {Type}->info->url'}
-            Urls = [xUrl for xUrl in Urls if xUrl.startswith('http')]
-            if (not Urls):
-                return {'err': 'no urls with http prefix'}
-
-            UrlData = await UrlGetData(Urls[0])
-            if (UrlData['status'] != 200):
-                return {'err': f'download status code {UrlData["status"]}'}
-        else:
-            UrlData = {
-                'data': f'''
-                    <html>
-                        <body>
-                            No {Type}->info->url section found !
-                            The quick brown fox jumps over the lazy dog.
-                        </body>
-                    </html>
-                '''
-            }
 
         BSoup = GetSoup(UrlData['data'])
         Scheme = TScheme(Script)
@@ -91,3 +76,20 @@ class TMain(TCtrlBase):
         return {
             'template': DictRepl.ParseFile(f'{CurDir}/fmt_{aType}.json')
         }
+
+    async def GetSrc(self, aUrl: str, aMode: str) -> dict:
+        if (aMode == 'get_emul'):
+            UrlData = await PW_UrlGetData(aUrl)
+        else:
+            UrlData = await UrlGetData(aUrl)
+
+        if (UrlData['status'] == 200):
+            BSoup = GetSoup(UrlData['data'])
+            DataP = BSoup.prettify()
+            Res = {
+                'src': UrlData['data'],
+                'src_fmt': DataP
+            }
+        else:
+            Res = {'err': f'download status code {UrlData["status"]}'}
+        return Res

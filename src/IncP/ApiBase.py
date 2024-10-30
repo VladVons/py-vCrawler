@@ -90,7 +90,7 @@ class TApiBase():
                     Res = await Method(**aData)
             except TypeError as E:
                 Log.Print(1, 'x', 'Exec()', aE = E)
-                Res = {'err': E}
+                Res = {'err': str(E)}
         return Res
 
     def InitLoader(self, aConf: dict):

@@ -1,9 +1,82 @@
-const elScript = document.getElementById('ta_script')
-const elResult = document.getElementById('ta_result')
-const elError = document.getElementById('ta_error')
-const elHelp = document.getElementById('ta_help')
-//console.log(elScript, elResult, elError, elHelp)
+class TScriptTest {
+  constructor(aName) {
+    this.Name = aName;
 
+    const ElTab = document.getElementById(`tab-${aName}`);
+    this.ElScript = ElTab.querySelector('.idTaScript');
+    this.ElResult = ElTab.querySelector('.idTaResult');
+    this.ElError = ElTab.querySelector('.idTaError');
+    this.ElUrl = ElTab.querySelector('.idUrl');
+
+    ElTab.querySelector('.idBtnTest').onclick = (event) => {
+      this.ScriptTest();
+    }
+    ElTab.querySelector('.idBtnTemplate').onclick = (event) => {
+      this.LoadTemplate();
+    }
+  }
+
+  LoadTemplate() {
+    if (confirm(`Load empty ${this.Name} template ?`)) {
+      const res = new TSend().exec(
+        '/api/?route=scheme/test',
+        {
+          'method': 'GetTemplate',
+          'param': {
+            'aType': this.Name
+          }
+        }
+      )
+      this.ElScript.value = res['template']
+    }
+  }
+
+  ScriptTest() {
+    const Script = this.ElScript.value.trim()
+    if (Script == '') {
+      this.ElError.value = 'empty script';
+      return;
+    }
+
+    const Url = this.ElUrl.value.trim()
+    if (Url == '') {
+      this.ElError.value = 'empty url';
+      return;
+    }
+
+    const res = new TSend().exec(
+      '/api/?route=scheme/test',
+      {
+        'method': 'Parse',
+        'param': {
+          'aUrl': Url,
+          'aScript': Script
+        }
+      }
+    )
+
+    this.ElError.value = res['err']
+    this.ElResult.value = res['data'] || ''
+  }
+
+  TextNumbering() {
+    function AddNumbering(aTextArea, aNumbers) {
+      const num = aTextArea.value.split('\n').length + 1;
+      aNumbers.innerHTML = Array(num).fill('<span></span>').join('');
+    }
+
+    const editors = document.querySelectorAll('.editor');
+    for (const editor of editors) {
+      const textarea = editor.querySelector('textarea');
+      const numbers = editor.querySelector('.numbers');
+      AddNumbering(textarea, numbers)
+
+      textarea.addEventListener('keyup', (e) => {
+        AddNumbering(textarea, numbers)
+      });
+    }
+  }
+}
 
 function GetCurLineText(aTextArea) {
     const Lines = aTextArea.value.split('\n');
@@ -35,40 +108,22 @@ function moveCursorToLine(aTextArea, aLineNo, aColumn = 0) {
   aTextArea.focus();
 }
 
-document.getElementById('btn_test').onclick = function(event) {
-  const Script = elScript.value.trim()
-  if (Script != '') {
-    const res = new TSend().exec(
-      '/api/?route=scheme/test',
-      {
-        'method': 'Parse',
-        'param': {
-          'aScript': Script
-        }
-      }
-    )
+// document.getElementById('btn_get').onclick = function(event) {
+//   const res = new TSend().exec(
+//       '/api/?route=scheme/test',
+//       {
+//         'method': 'GetSrc',
+//         'param': {
+//           'aMode': 'get'
+//         }
+//       }
+//     )
 
-    elError.value = res['err']
-    elResult.value = res['data'] || ''
-  } else {
-    elError.value = 'empty script'
-  }
-}
-
-document.getElementById('btn_template').onclick = function(event) {
-  if (confirm('Load empty template ?')) {
-    const res = new TSend().exec(
-      '/api/?route=scheme/test',
-      {
-        'method': 'GetTemplate',
-        'param': {
-          'aType': 'product'
-        }
-      }
-    )
-    elScript.value = res['template']
-  }
-}
+//     const elScr = document.getElementById('ta_product_src')
+//     const elScrFmt = document.getElementById('ta_product_src_fmt')
+//     elScr.value = res['src']
+//     elScrFmt.value = res['src_fmt']
+// }
 
 function HandleDblClickErr() {
   elError.addEventListener('dblclick', (event) => {
@@ -90,24 +145,6 @@ function HandleDblClickErr() {
     }
   });
 };
-
-function TextNumbering() {
-  function AddNumbering(aTextArea, aNumbers) {
-    const num = aTextArea.value.split('\n').length + 1;
-    aNumbers.innerHTML = Array(num).fill('<span></span>').join('');
-  }
-
-  const editors = document.querySelectorAll('.editor');
-  for (const editor of editors) {
-    const textarea = editor.querySelector('textarea');
-    const numbers = editor.querySelector('.numbers');
-    AddNumbering(textarea, numbers)
-
-    textarea.addEventListener('keyup', (e) => {
-      AddNumbering(textarea, numbers)
-    });
-  }
-}
 
 function TabChange(aTarget) {
   aTarget.addEventListener('shown.bs.tab', function(event) {
