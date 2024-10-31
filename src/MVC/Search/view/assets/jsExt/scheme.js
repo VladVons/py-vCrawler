@@ -1,13 +1,18 @@
-// function GetCurLineText(aTextArea) {
-//   const Lines = aTextArea.value.split('\n');
-//   let charCount = 0;
-//   for (const xLine of Lines) {
-//     charCount += xLine.length + 1;
-//     if (aTextArea.selectionStart < charCount) {
-//       return xLine;
-//     }
-//   }
-// };
+// Created: 2024.10.31
+// Author: Vladimir Vons <VladVons@gmail.com>
+// License: GNU, see LICENSE for more details
+
+
+function GetCurLineText(aTextArea) {
+  const Lines = aTextArea.value.split('\n');
+  let charCount = 0;
+  for (const xLine of Lines) {
+    charCount += xLine.length + 1;
+    if (aTextArea.selectionStart < charCount) {
+      return xLine;
+    }
+  }
+};
 
 function moveCursorToLine(aTextArea, aLineNo, aColumn = 0) {
   const lines = aTextArea.value.split('\n');
