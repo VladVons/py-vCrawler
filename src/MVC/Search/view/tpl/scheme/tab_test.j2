@@ -1,0 +1,32 @@
+<div class="row mt-2">
+  <div class="col-3">
+    <div class="d-flex gap-2">
+      <button class="btn btn-primary flex-fill idBtnTest">
+        <input type="checkbox" class="form-check-input me-3 idBtnTestEmul" onclick="event.stopPropagation()">
+        test
+      </button>
+      <button class="btn btn-primary idBtnTplNew">tpl new</button>
+      <button class="btn btn-primary idBtnTplRnd">tpl random</button>
+    </div>
+  </div>
+  <div class="col-9">
+    <input type="text" class="form-control idUrl" placeholder="url">
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-5 editor">
+    <div class="numbers">
+      <span></span>
+    </div>
+    <textarea class="form-control idTaScript" wrap="off" placeholder="script"></textarea>
+  </div>
+  <div class="col-7 editor">
+    <div class="numbers">
+      <span></span>
+    </div>
+    <textarea class="form-control idTaResult" wrap="off" placeholder="result"></textarea>
+  </div>
+</div>
+<div class="row mt-2">
+  <textarea class="form-control idTaError" rows="10" placeholder="errors" readonly></textarea>
+</div>

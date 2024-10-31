@@ -1,33 +1,77 @@
+// function GetCurLineText(aTextArea) {
+//   const Lines = aTextArea.value.split('\n');
+//   let charCount = 0;
+//   for (const xLine of Lines) {
+//     charCount += xLine.length + 1;
+//     if (aTextArea.selectionStart < charCount) {
+//       return xLine;
+//     }
+//   }
+// };
+
+function moveCursorToLine(aTextArea, aLineNo, aColumn = 0) {
+  const lines = aTextArea.value.split('\n');
+  if (aLineNo < 1 || aLineNo > lines.length) {
+    return;
+  }
+
+  let charOffset = 0;
+  let i = 0;
+  for (; i < aLineNo - 1; i++) {
+    charOffset += lines[i].length + 1;  // Add 1 for newline character
+  }
+
+  if (aColumn == -1) {
+    aColumn = lines[i].length;
+  }
+  aTextArea.setSelectionRange(charOffset, charOffset + aColumn);
+  aTextArea.focus();
+}
+
 class TScriptTest {
   constructor(aName) {
     this.Name = aName;
 
-    const ElTab = document.getElementById(`tab-${aName}`);
-    this.ElScript = ElTab.querySelector('.idTaScript');
-    this.ElResult = ElTab.querySelector('.idTaResult');
-    this.ElError = ElTab.querySelector('.idTaError');
-    this.ElUrl = ElTab.querySelector('.idUrl');
+    this.ElTab = document.getElementById(`tab-${aName}`);
+    this.ElScript = this.ElTab.querySelector('.idTaScript');
+    this.ElResult = this.ElTab.querySelector('.idTaResult');
+    this.ElError = this.ElTab.querySelector('.idTaError');
+    this.ElUrl = this.ElTab.querySelector('.idUrl');
+    this.ElTestEmul = this.ElTab.querySelector('.idBtnTestEmul');
 
-    ElTab.querySelector('.idBtnTest').onclick = (event) => {
+    this.ElTab.querySelector('.idBtnTest').onclick = (event) => {
       this.ScriptTest();
     }
-    ElTab.querySelector('.idBtnTemplate').onclick = (event) => {
-      this.LoadTemplate();
+
+    this.ElTab.querySelector('.idBtnTplNew').onclick = (event) => {
+      this.LoadTemplate('new');
     }
+
+    this.ElTab.querySelector('.idBtnTplRnd').onclick = (event) => {
+      this.LoadTemplate('rnd');
+    }
+
+    this.ElError.addEventListener('dblclick', (event) => {
+      this.OnDblClickErr(event);
+    })
+
+    this.TextNumbering()
   }
 
-  LoadTemplate() {
-    if (confirm(`Load empty ${this.Name} template ?`)) {
+  LoadTemplate(aType) {
+    if (confirm(`Load ${aType} ${this.Name} template ?`)) {
       const res = new TSend().exec(
         '/api/?route=scheme/test',
         {
           'method': 'GetTemplate',
           'param': {
-            'aType': this.Name
+            'aName': this.Name,
+            'aType': aType
           }
         }
       )
-      this.ElScript.value = res['template']
+      this.ElScript.value = res['template'];
+      this.ElResult.value = '';
     }
   }
 
@@ -50,7 +94,8 @@ class TScriptTest {
         'method': 'Parse',
         'param': {
           'aUrl': Url,
-          'aScript': Script
+          'aScript': Script,
+          'aEmul': this.ElTestEmul.checked
         }
       }
     )
@@ -65,7 +110,7 @@ class TScriptTest {
       aNumbers.innerHTML = Array(num).fill('<span></span>').join('');
     }
 
-    const editors = document.querySelectorAll('.editor');
+    const editors = this.ElTab.querySelectorAll('.editor');
     for (const editor of editors) {
       const textarea = editor.querySelector('textarea');
       const numbers = editor.querySelector('.numbers');
@@ -76,37 +121,27 @@ class TScriptTest {
       });
     }
   }
-}
 
-function GetCurLineText(aTextArea) {
-    const Lines = aTextArea.value.split('\n');
-    let charCount = 0;
-    for (const xLine of Lines) {
-      charCount += xLine.length + 1;
-      if (aTextArea.selectionStart < charCount) {
-        return xLine;
+  OnDblClickErr(event) {
+      const ErrText = GetCurLineText(event.target)
+      const Script = this.ElScript.value.trim()
+      const res = new TSend().exec(
+        '/api/?route=scheme/test',
+        {
+          'method': 'GetLineNo',
+          'param': {
+            'aScript': Script,
+            'aErr': ErrText
+          }
+        }
+      )
+
+      if (res['line'] >= 0) {
+        moveCursorToLine(this.ElScript, res['line'], res['column']);
       }
-    }
-};
-
-function moveCursorToLine(aTextArea, aLineNo, aColumn = 0) {
-  const lines = aTextArea.value.split('\n');
-  if (aLineNo < 1 || aLineNo > lines.length) {
-    return;
   }
-
-  let charOffset = 0;
-  let i = 0;
-  for (; i < aLineNo - 1; i++) {
-    charOffset += lines[i].length + 1;  // Add 1 for newline character
-  }
-
-  if (aColumn == -1) {
-    aColumn = lines[i].length;
-  }
-  aTextArea.setSelectionRange(charOffset, charOffset + aColumn);
-  aTextArea.focus();
 }
+
 
 // document.getElementById('btn_get').onclick = function(event) {
 //   const res = new TSend().exec(
@@ -125,26 +160,6 @@ function moveCursorToLine(aTextArea, aLineNo, aColumn = 0) {
 //     elScrFmt.value = res['src_fmt']
 // }
 
-function HandleDblClickErr() {
-  elError.addEventListener('dblclick', (event) => {
-    const ErrText = GetCurLineText(event.target)
-    const Script = elScript.value.trim()
-    const res = new TSend().exec(
-      '/api/?route=scheme/test',
-      {
-        'method': 'GetLineNo',
-        'param': {
-          'aScript': Script,
-          'aErr': ErrText
-        }
-      }
-    )
-
-    if (res['line'] >= 0) {
-      moveCursorToLine(elScript, res['line'], res['column']);
-    }
-  });
-};
 
 function TabChange(aTarget) {
   aTarget.addEventListener('shown.bs.tab', function(event) {

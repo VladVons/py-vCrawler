@@ -17,53 +17,28 @@
 <body class="bg-dark">
   <div class="mt-1">
     <!-- Nav Tabs -->
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <ul class="nav nav-tabs" role="tablist">
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="tab1-tab" data-bs-toggle="tab" href="#tab-product" role="tab" aria-controls="tab1" aria-selected="true">Product</a>
+        <a class="nav-link active" data-bs-toggle="tab" href="#tab-product" aria-selected="true">Product</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link" id="tab2-tab" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">Category</a>
+        <a class="nav-link" data-bs-toggle="tab" href="#tab-category" aria-selected="false">Category</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" data-bs-toggle="tab" href="#tab-service" aria-selected="false">Service</a>
       </li>
     </ul>
 
     <!-- Tab Panes -->
-    <div class="tab-content" id="myTabContent">
+    <div class="tab-content">
       <!-- product -->
-      <div class="tab-pane fade show active" id="tab-product" role="tabpanel" aria-labelledby="tab1-tab">
-        <div class="row mt-2">
-          <div class="col-3">
-            <div class="d-flex gap-2">
-              <button class="btn btn-primary flex-fill idBtnTest">Test</button>
-              <button class="btn btn-primary flex-fill idBtnTemplate">Template</button>
-            </div>
-          </div>
-          <div class="col-9">
-            <input type="text" class="form-control idUrl" placeholder="product url">
-          </div>
-        </div>
-        <div class="row mt-2">
-          <div class="col-5 editor">
-            <div class="numbers">
-              <span></span>
-            </div>
-            <textarea class="form-control idTaScript" wrap="off" placeholder="script"></textarea>
-          </div>
-          <div class="col-7 editor">
-            <div class="numbers">
-              <span></span>
-            </div>
-            <textarea class="form-control idTaResult" wrap="off" placeholder="result"></textarea>
-          </div>
+      <div class="tab-pane show active" id="tab-product">
+        {% include './tab_test.j2' %}
       </div>
-      <div class="row mt-2">
-        <textarea class="form-control idTaError" rows="10" placeholder="errors" readonly></textarea>
-      </div>
-    </div>
 
       <!-- category -->
-      <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
-        <h5 class="mt-3">Content for Tab 2</h5>
-        <p>This is another tab pane with different content.</p>
+      <div class="tab-pane" id="tab-category">
+        {% include './tab_test.j2' %}
       </div>
     </div>
   </div>
@@ -71,8 +46,9 @@
   <script src="/assets/vendor/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/jsExt/scheme.js"></script>
   <script type="text/javascript">
-
     const ScriptProduct = new TScriptTest('product')
+    const ScriptCategory = new TScriptTest('category')
+
     //HandleDblClickErr();
 
     // const tabElement = document.getElementById('tabs');

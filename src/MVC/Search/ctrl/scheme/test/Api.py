@@ -20,9 +20,13 @@ class TMain(TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
         pass
 
-    async def Parse(self, aUrl: str, aScript: str) -> dict:
+    async def Parse(self, aUrl: str, aScript: str, aEmul: bool) -> dict:
         if (aUrl):
-            UrlData = await UrlGetData(aUrl)
+            if (aEmul):
+                UrlData = await PW_UrlGetData(aUrl)
+            else:
+                UrlData = await UrlGetData(aUrl)
+
             if (UrlData['status'] != 200):
                 return {'err': f'download status code {UrlData["status"]}'}
         else:
@@ -67,14 +71,30 @@ class TMain(TCtrlBase):
         Help = TSchemeApi.help(None)
         return {'help': Help}
 
-    async def GetTemplate(self, aType: str) -> dict:
-        Format = {
-            '$date': datetime.now().strftime('%Y-%m-%d %H:%M')
-        }
-        DictRepl = TDictRepl(Format)
-        CurDir = __package__.replace('.', '/')
+    async def GetTemplate(self, aName: str, aType: str) -> dict:
+        match aType:
+            case 'new':
+                Format = {
+                    '$date': datetime.now().strftime('%Y-%m-%d %H:%M')
+                }
+                DictRepl = TDictRepl(Format)
+                CurDir = __package__.replace('.', '/')
+                Scheme = DictRepl.ParseFile(f'{CurDir}/fmt_{aName}.json')
+            case 'rnd':
+                Dbl = await self.ExecModelImport(
+                    'scheme',
+                    {
+                        'method': 'GetSchemeRnd',
+                        'param': {}
+                    }
+                )
+                Pair = Dbl.ExportPair('url_en', 'scheme')
+                Scheme = Pair.get(aName)
+            case _:
+                Scheme = ''
+
         return {
-            'template': DictRepl.ParseFile(f'{CurDir}/fmt_{aType}.json')
+            'template': Scheme
         }
 
     async def GetSrc(self, aUrl: str, aMode: str) -> dict:

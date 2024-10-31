@@ -12,23 +12,14 @@
     white-space: pre;
   }
 
-  #highlight {
-    position: absolute;
-    background-color: rgba(173, 216, 230, 0.3);
-    width: 50%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
   .editor {
     display: inline-grid;
     grid-template-columns: 3em auto;
     gap: 10px;
-    --background: rgb(40 42 58);
     border-radius: 2px;
     overflow-y: auto;
-    min-height: 500px;
-    max-height: 600px;
+    min-height: 600px;
+    max-height: 70vh;
   }
 
   .editor>* {
