@@ -16,17 +16,21 @@ from IncP.CtrlBase import TCtrlBase
 from .Util import GetSoup, UrlGetData
 
 
+async def Download(aUrl: str, aEmul: bool) -> dict:
+    if (aEmul):
+        Res = await PW_UrlGetData(aUrl)
+    else:
+        Res = await UrlGetData(aUrl)
+    return Res
+
+
 class TMain(TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
         pass
 
     async def Parse(self, aUrl: str, aScript: str, aEmul: bool) -> dict:
         if (aUrl):
-            if (aEmul):
-                UrlData = await PW_UrlGetData(aUrl)
-            else:
-                UrlData = await UrlGetData(aUrl)
-
+            UrlData = await Download(aUrl, aEmul)
             if (UrlData['status'] != 200):
                 return {'err': f'download status code {UrlData["status"]}'}
         else:
@@ -67,7 +71,7 @@ class TMain(TCtrlBase):
                 }
         return Res
 
-    async def GetHelp(self, aScript: str) -> dict:
+    async def GetHelp(self) -> dict:
         Help = TSchemeApi.help(None)
         return {'help': Help}
 
@@ -97,19 +101,12 @@ class TMain(TCtrlBase):
             'template': Scheme
         }
 
-    async def GetSrc(self, aUrl: str, aMode: str) -> dict:
-        if (aMode == 'get_emul'):
-            UrlData = await PW_UrlGetData(aUrl)
-        else:
-            UrlData = await UrlGetData(aUrl)
-
+    async def GetPrettySrc(self, aUrl: str, aEmul: bool) -> dict:
+        UrlData = await Download(aUrl, aEmul)
         if (UrlData['status'] == 200):
             BSoup = GetSoup(UrlData['data'])
             DataP = BSoup.prettify()
-            Res = {
-                'src': UrlData['data'],
-                'src_fmt': DataP
-            }
+            Res = {'src': DataP}
         else:
             Res = {'err': f'download status code {UrlData["status"]}'}
         return Res

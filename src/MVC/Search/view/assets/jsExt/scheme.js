@@ -28,6 +28,28 @@ function moveCursorToLine(aTextArea, aLineNo, aColumn = 0) {
   aTextArea.focus();
 }
 
+function GetHelp() {
+  const res = new TSend().exec(
+    '/api/?route=scheme/test',
+    {
+      'method': 'GetHelp',
+      'param': {}
+    }
+  )
+
+  let Res = [];
+  for (const xItem of res['help']) {
+    Res.push('')
+    Res.push(xItem[0].trim())
+    let Parts = xItem[1].split('\n');
+    for (const xPart of Parts) {
+      Res.push(xPart.trim())
+    }
+  }
+
+  return Res.join('\n');
+}
+
 class TScriptTest {
   constructor(aName) {
     this.Name = aName;
@@ -38,6 +60,7 @@ class TScriptTest {
     this.ElError = this.ElTab.querySelector('.idTaError');
     this.ElUrl = this.ElTab.querySelector('.idUrl');
     this.ElTestEmul = this.ElTab.querySelector('.idBtnTestEmul');
+    this.ElService = document.getElementById('TaService');
 
     this.ElTab.querySelector('.idBtnTest').onclick = (event) => {
       this.ScriptTest();
@@ -51,11 +74,15 @@ class TScriptTest {
       this.LoadTemplate('rnd');
     }
 
+    this.ElTab.querySelector('.idBtnPrettySrc').onclick = (event) => {
+      this.LoadPrettySrc();
+    }
+
     this.ElError.addEventListener('dblclick', (event) => {
       this.OnDblClickErr(event);
-    })
+    });
 
-    this.TextNumbering()
+    this.TextNumbering();
   }
 
   LoadTemplate(aType) {
@@ -72,17 +99,18 @@ class TScriptTest {
       )
       this.ElScript.value = res['template'];
       this.ElResult.value = '';
+      this.ElError.value = `${aType} ${this.Name} template loaded`;
     }
   }
 
   ScriptTest() {
-    const Script = this.ElScript.value.trim()
+    const Script = this.ElScript.value.trim();
     if (Script == '') {
       this.ElError.value = 'empty script';
       return;
     }
 
-    const Url = this.ElUrl.value.trim()
+    const Url = this.ElUrl.value.trim();
     if (Url == '') {
       this.ElError.value = 'empty url';
       return;
@@ -100,8 +128,8 @@ class TScriptTest {
       }
     )
 
-    this.ElError.value = res['err']
-    this.ElResult.value = res['data'] || ''
+    this.ElError.value = res['err'];
+    this.ElResult.value = res['data'] || '';
   }
 
   TextNumbering() {
@@ -114,17 +142,17 @@ class TScriptTest {
     for (const editor of editors) {
       const textarea = editor.querySelector('textarea');
       const numbers = editor.querySelector('.numbers');
-      AddNumbering(textarea, numbers)
+      AddNumbering(textarea, numbers);
 
       textarea.addEventListener('keyup', (e) => {
-        AddNumbering(textarea, numbers)
+        AddNumbering(textarea, numbers);
       });
     }
   }
 
   OnDblClickErr(event) {
-      const ErrText = GetCurLineText(event.target)
-      const Script = this.ElScript.value.trim()
+      const ErrText = GetCurLineText(event.target);
+      const Script = this.ElScript.value.trim();
       const res = new TSend().exec(
         '/api/?route=scheme/test',
         {
@@ -140,51 +168,25 @@ class TScriptTest {
         moveCursorToLine(this.ElScript, res['line'], res['column']);
       }
   }
-}
 
+  LoadPrettySrc() {
+    const Url = this.ElUrl.value.trim();
+    if (Url == '') {
+      this.ElError.value = 'empty url';
+      return;
+    }
 
-// document.getElementById('btn_get').onclick = function(event) {
-//   const res = new TSend().exec(
-//       '/api/?route=scheme/test',
-//       {
-//         'method': 'GetSrc',
-//         'param': {
-//           'aMode': 'get'
-//         }
-//       }
-//     )
-
-//     const elScr = document.getElementById('ta_product_src')
-//     const elScrFmt = document.getElementById('ta_product_src_fmt')
-//     elScr.value = res['src']
-//     elScrFmt.value = res['src_fmt']
-// }
-
-
-function TabChange(aTarget) {
-  aTarget.addEventListener('shown.bs.tab', function(event) {
-    const currentTab = event.target;
-    if (currentTab.id === 'help-tab') {
-      const res = new TSend().exec(
-        '/api/?route=scheme/test',
-        {
-          'method': 'GetHelp',
-          'param': {
-            'aScript': {}
-          }
-        }
-      )
-
-      let Res = [];
-      for (const xItem of res['help']) {
-        Res.push('')
-        Res.push(xItem[0].trim())
-        let Parts = xItem[1].split('\n');
-        for (const xPart of Parts) {
-          Res.push(xPart.trim())
+    const res = new TSend().exec(
+      '/api/?route=scheme/test',
+      {
+        'method': 'GetPrettySrc',
+        'param': {
+          'aUrl': Url,
+          'aEmul': this.ElTestEmul.checked
         }
       }
-      elHelp.value = Res.join('\n');
-    }
-  });
+    )
+    this.ElService.value = res['src'];
+    this.ElError.value = 'pretty source loaded into service tab';
+  }
 }

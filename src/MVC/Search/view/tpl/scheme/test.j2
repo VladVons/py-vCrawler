@@ -40,6 +40,21 @@
       <div class="tab-pane" id="tab-category">
         {% include './tab_test.j2' %}
       </div>
+
+      <!-- service -->
+      <div class="tab-pane" id="tab-service">
+        <div class="row mt-2">
+          <div class="d-flex">
+            <button class="btn btn-primary" id="BtnHelp">help</button>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col container-height-90">
+            <textarea class="form-control height-100" id="TaService" readonly></textarea>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -49,10 +64,10 @@
     const ScriptProduct = new TScriptTest('product')
     const ScriptCategory = new TScriptTest('category')
 
-    //HandleDblClickErr();
-
-    // const tabElement = document.getElementById('tabs');
-    // TabChange(tabElement);
+    const ElService = document.getElementById('TaService');
+    document.getElementById('BtnHelp').onclick = (event) => {
+      ElService.value = GetHelp()
+    }
   </script>
 </body>
 </html>
