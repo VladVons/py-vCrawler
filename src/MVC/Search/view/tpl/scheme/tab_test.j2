@@ -1,13 +1,17 @@
 <div class="row mt-2">
   <div class="col-3">
     <div class="d-flex gap-2">
+      <select class="form-select idCommands">
+        <option selected>- commands -</option>
+        <option value="TplNew">load new scheme</option>
+        <option value="TplRnd">load random scheme</option>
+        <option value="PrettySrc">get pretty source</option>
+        <option value="LogClear">clear log</option>
+      </select>
       <button class="btn btn-primary flex-fill idBtnTest">
         <input type="checkbox" class="form-check-input me-3 idBtnTestEmul" onclick="event.stopPropagation()">
         test
       </button>
-      <button class="btn btn-primary idBtnTplNew">tpl new</button>
-      <button class="btn btn-primary idBtnTplRnd">tpl random</button>
-      <button class="btn btn-primary idBtnPrettySrc">source</button>
     </div>
   </div>
   <div class="col-9">
@@ -29,5 +33,5 @@
   </div>
 </div>
 <div class="row mt-2">
-  <textarea class="form-control idTaError" rows="10" placeholder="errors" readonly></textarea>
+  <textarea class="form-control idTaError" rows="10" placeholder="errors"></textarea>
 </div>

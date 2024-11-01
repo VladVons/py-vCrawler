@@ -44,11 +44,11 @@ function GetHelp() {
 
   let Res = [];
   for (const xItem of res['help']) {
-    Res.push('')
-    Res.push(xItem[0].trim())
+    Res.push('');
+    Res.push(xItem[0].trim());
     let Parts = xItem[1].split('\n');
     for (const xPart of Parts) {
-      Res.push(xPart.trim())
+      Res.push(xPart.trim());
     }
   }
 
@@ -71,27 +71,28 @@ class TScriptTest {
       this.ScriptTest();
     }
 
-    this.ElTab.querySelector('.idBtnTplNew').onclick = (event) => {
-      this.LoadTemplate('new');
-    }
-
-    this.ElTab.querySelector('.idBtnTplRnd').onclick = (event) => {
-      this.LoadTemplate('rnd');
-    }
-
-    this.ElTab.querySelector('.idBtnPrettySrc').onclick = (event) => {
-      this.LoadPrettySrc();
-    }
-
     this.ElError.addEventListener('dblclick', (event) => {
       this.OnDblClickErr(event);
+    });
+
+    this.ElTab.querySelector('.idCommands').addEventListener('change', (event) => {
+        const Value = event.target.value;
+        if (Value == 'TplNew') {
+          this.LoadTemplate('new');
+        } else if (Value == 'TplRnd') {
+          this.LoadTemplate('rnd');
+        } else if (Value == 'PrettySrc') {
+          this.LoadPrettySrc();
+        } else if (Value == 'LogClear') {
+          this.ElError.value = '';
+        }
     });
 
     this.TextNumbering();
   }
 
   LoadTemplate(aType) {
-    if (confirm(`Load ${aType} ${this.Name} template ?`)) {
+    if (confirm(`Load ${aType} ${this.Name} scheme ?`)) {
       const res = new TSend().exec(
         '/api/?route=scheme/test',
         {
@@ -104,20 +105,20 @@ class TScriptTest {
       )
       this.ElScript.value = res['template'];
       this.ElResult.value = '';
-      this.ElError.value = `${aType} ${this.Name} template loaded`;
+      this.Log(`${aType} ${this.Name} scheme loaded`);
     }
   }
 
   ScriptTest() {
     const Script = this.ElScript.value.trim();
     if (Script == '') {
-      this.ElError.value = 'empty script';
+      this.Log('empty script');
       return;
     }
 
     const Url = this.ElUrl.value.trim();
     if (Url == '') {
-      this.ElError.value = 'empty url';
+      this.Log('empty url');
       return;
     }
 
@@ -133,8 +134,8 @@ class TScriptTest {
       }
     )
 
-    this.ElError.value = res['err'];
     this.ElResult.value = res['data'] || '';
+    this.Log(res['err']);
   }
 
   TextNumbering() {
@@ -177,7 +178,7 @@ class TScriptTest {
   LoadPrettySrc() {
     const Url = this.ElUrl.value.trim();
     if (Url == '') {
-      this.ElError.value = 'empty url';
+      this.Log('empty url');
       return;
     }
 
@@ -192,6 +193,12 @@ class TScriptTest {
       }
     )
     this.ElService.value = res['src'];
-    this.ElError.value = 'pretty source loaded into service tab';
+    this.Log('pretty source loaded into service tab');
+  }
+
+  Log(Msg) {
+    const Now = getCurrentDateTimeString();
+    this.ElError.value += `\n${Now}\n${Msg}`;
+    this.ElError.scrollTop = this.ElError.scrollHeight;
   }
 }

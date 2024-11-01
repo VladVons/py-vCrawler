@@ -6,10 +6,19 @@
 import asyncio
 import aiohttp
 from bs4 import BeautifulSoup
+from Inc.Misc.Cache import TCacheFile
+from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
 from Inc.Scheme.Scheme import TSchemeExt, TSchemeApi
 from Inc.Util.ModHelp import GetClass
 from Inc.Var.Obj import GetTree
 
+
+async def Download(aUrl: str, aEmul: bool) -> dict:
+    if (aEmul):
+        Res = await PW_UrlGetData(aUrl)
+    else:
+        Res = await UrlGetData(aUrl)
+    return Res
 
 def GetSoup(aData: str) -> BeautifulSoup:
     Res = BeautifulSoup(aData, 'lxml')
@@ -59,3 +68,10 @@ def GetMacroses(aScheme: dict) -> dict:
                     Res[Method] = 0
                 Res[Method] += 1
     return Res
+
+class TCacheFileUrl(TCacheFile):
+    async def Download(self, aUrl: str, aEmul: bool) -> dict:
+        return await self.ProxyA(aUrl, {'emul': aEmul}, Download, [aUrl, aEmul])
+
+Cache = TCacheFileUrl('/tmp/crawler/url', 5*60)
+Cache.Clear()

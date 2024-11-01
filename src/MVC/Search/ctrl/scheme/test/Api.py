@@ -9,20 +9,18 @@ from datetime import datetime
 #
 from Inc.DbList.DbUtil import TJsonEncoder
 from Inc.Misc.Template import TDictRepl
-from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
 from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
 from IncP.CtrlBase import TCtrlBase
-from .Util import GetSoup, UrlGetData
+from .Util import GetSoup, Cache
 
 
-async def Download(aUrl: str, aEmul: bool) -> dict:
-    if (aEmul):
-        Res = await PW_UrlGetData(aUrl)
-    else:
-        Res = await UrlGetData(aUrl)
-    return Res
-
+def _CheckUrlPrefix(aUrls: list[str]) -> list:
+    return [
+        xUrl
+        for xUrl in aUrls
+        if (isinstance(xUrl, str)) and (not xUrl.startswith('http'))
+    ]
 
 class TMain(TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
@@ -30,7 +28,7 @@ class TMain(TCtrlBase):
 
     async def Parse(self, aUrl: str, aScript: str, aEmul: bool) -> dict:
         if (aUrl):
-            UrlData = await Download(aUrl, aEmul)
+            UrlData = await Cache.Download(aUrl, aEmul)
             if (UrlData['status'] != 200):
                 return {'err': f'download status code {UrlData["status"]}'}
         else:
@@ -102,7 +100,7 @@ class TMain(TCtrlBase):
         }
 
     async def GetPrettySrc(self, aUrl: str, aEmul: bool) -> dict:
-        UrlData = await Download(aUrl, aEmul)
+        UrlData = await Cache.Download(aUrl, aEmul)
         if (UrlData['status'] == 200):
             BSoup = GetSoup(UrlData['data'])
             DataP = BSoup.prettify()
