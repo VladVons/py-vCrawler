@@ -4,6 +4,7 @@
 
 
 import asyncio
+import json
 import aiohttp
 from bs4 import BeautifulSoup
 from Inc.Misc.Cache import TCacheFile
@@ -24,6 +25,14 @@ def GetSoup(aData: str) -> BeautifulSoup:
     Res = BeautifulSoup(aData, 'lxml')
     if (len(Res) == 0):
         Res = BeautifulSoup(aData, 'html.parser')
+    return Res
+
+
+def LoadScript(aScript: str) -> dict:
+    try:
+        Res = json.loads(aScript)
+    except Exception as E:
+        Res = {'err': f'json: {E}'}
     return Res
 
 async def UrlGetData(aUrl: str) -> object:
@@ -82,11 +91,17 @@ def CheckPipe(aPipe: dict, aType: str) -> list:
         for xField in aFields:
             Val = aPipe.get(xField)
             if (Val is None):
-                Res.append(f'missed field: {xField}')
+                Res.append(f'{xField}: missed')
             else:
-                if (xField == 'price'):
+                if (xField in ['price', 'price_old']):
                     if (not isinstance(Val[0], (int, float))):
-                        Res.append('price must be float')
+                        Res.append(f'{xField}: not float')
+                elif (xField in ['name', 'brand', 'category', 'description']):
+                    if (Val != Val.strip()):
+                        Res.append(f'{xField}: not stripped')
+                elif (xField == 'features'):
+                    if (not isinstance(Val, dict)):
+                        Res.append(f'{xField}: not key-value')
         return Res
 
     Urls = []
@@ -96,20 +111,30 @@ def CheckPipe(aPipe: dict, aType: str) -> list:
             Urls += aPipe['images']
         if (isinstance(aPipe.get('image'), str)):
             Urls += [aPipe['image']]
+        Res = _CheckFields(aPipe, Fields) + _CheckUrlPrefix(Urls)
     elif (aType == 'category'):
         Fields = ['products', 'pager']
+        Res = _CheckFields(aPipe, Fields)
         if (isinstance(aPipe.get('products'), list)):
             Urls += [x.get('href') for x in aPipe['products']]
+            Fields = ['href', 'name', 'stock', 'price']
+            Res = _CheckFields(aPipe['products'][0], Fields)
         if (isinstance(aPipe.get('pipe'), list)):
             Urls += aPipe['pager']
+        Res += _CheckUrlPrefix(Urls)
     else:
         Fields = []
-    Res = _CheckFields(aPipe, Fields) + _CheckUrlPrefix(Urls)
     return Res
 
+
 class TCacheFileUrl(TCacheFile):
+    def _SetBefore(self, _aPath: str, aData: object):
+        if (aData['status'] == 200):
+            return aData
+
     async def Download(self, aUrl: str, aEmul: bool) -> dict:
         return await self.ProxyA(aUrl, {'emul': aEmul}, Download, [aUrl, aEmul])
 
-Cache = TCacheFileUrl('/tmp/crawler/url', 5*60)
+
+Cache = TCacheFileUrl('/tmp/crawler/cache', 5*60)
 Cache.Clear()

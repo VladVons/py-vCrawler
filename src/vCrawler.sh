@@ -12,3 +12,7 @@ source $Src
 #$py -B vCrawler.py --conf Dev
 #$py -B vCrawler.py --conf Client
 python3 -B vCrawler.py --conf Service
+
+#pip3 install --upgrade pip
+#pip3 install playwright
+#playwright install chromium

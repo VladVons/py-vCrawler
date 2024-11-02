@@ -3,9 +3,11 @@
     "info": {
       "author": "$author",
       "date": "$date",
-      "url": [
-        "https://your-site1.com/product-page1"
-      ]
+      "urls": {
+        "instock": "",
+        "outstock": "",
+        "discount": ""
+      }
     },
     "pipe_microdata": [
       ["product_ldjson"],

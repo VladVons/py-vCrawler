@@ -3,9 +3,10 @@
     "info": {
       "author": "$author",
       "date": "$date",
-      "url": [
-        "https://your-site1.com/category-page1"
-      ]
+      "urls": {
+        "instock": "",
+        "outstock": ""
+      }
     },
     "pipe": [
       ["as_dict", {

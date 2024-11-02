@@ -12,7 +12,7 @@ from Inc.Misc.Template import TDictRepl
 from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
 from IncP.CtrlBase import TCtrlBase
-from .Util import GetSoup, CheckPipe, Cache
+from . import Util
 
 
 class TMain(TCtrlBase):
@@ -21,24 +21,23 @@ class TMain(TCtrlBase):
 
     async def Parse(self, aUrl: str, aScript: str, aEmul: bool) -> dict:
         if (aUrl):
-            UrlData = await Cache.Download(aUrl, aEmul)
+            UrlData = await Util.Cache.Download(aUrl, aEmul)
             if (UrlData['status'] != 200):
                 return {'err': f'download status code {UrlData["status"]}'}
         else:
             return {'err': 'no url'}
 
-        try:
-            Script = json.loads(aScript)
-            Type = list(Script.keys())[0]
-        except Exception as E:
-            return {'err': f'json: {E}'}
+        Script = Util.LoadScript(aScript)
+        if ('err' in Script):
+            return Script
 
-        BSoup = GetSoup(UrlData['data'])
+        Type = list(Script.keys())[0]
+        BSoup = Util.GetSoup(UrlData['data'])
         Scheme = TScheme(Script)
         Scheme.Parse(BSoup)
         Pipe = Scheme.GetPipe(Type)
 
-        Checks = CheckPipe(Pipe, Type)
+        Checks = Util.CheckPipe(Pipe, Type)
         PipeStr = json.dumps(Pipe, indent=2, ensure_ascii=False, cls=TJsonEncoder)
         return {
             'err': '\n'.join(Scheme.Err + Checks),
@@ -94,11 +93,20 @@ class TMain(TCtrlBase):
         }
 
     async def GetPrettySrc(self, aUrl: str, aEmul: bool) -> dict:
-        UrlData = await Cache.Download(aUrl, aEmul)
+        UrlData = await Util.Cache.Download(aUrl, aEmul)
         if (UrlData['status'] == 200):
-            BSoup = GetSoup(UrlData['data'])
+            BSoup = Util.GetSoup(UrlData['data'])
             DataP = BSoup.prettify()
             Res = {'src': DataP}
         else:
             Res = {'err': f'download status code {UrlData["status"]}'}
         return Res
+
+    async def GetMacroses(self, aScript: str) -> dict:
+        R = Util.LoadScript(aScript)
+        if ('err' in R):
+            return R
+
+        Macroses = Util.GetMacroses(R)
+        PopularFirst = sorted(Macroses.items(), key=lambda item: f'{item[1]}{item[0]}')
+        return {'macroses': PopularFirst}

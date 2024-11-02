@@ -58,11 +58,12 @@ function GetHelp() {
 class TScriptTest {
   constructor(aName) {
     this.Name = aName;
+    this.LogCnt = 0;
 
     this.ElTab = document.getElementById(`tab-${aName}`);
     this.ElScript = this.ElTab.querySelector('.idTaScript');
     this.ElResult = this.ElTab.querySelector('.idTaResult');
-    this.ElError = this.ElTab.querySelector('.idTaError');
+    this.ElLog = this.ElTab.querySelector('.idTaLog');
     this.ElUrl = this.ElTab.querySelector('.idUrl');
     this.ElTestEmul = this.ElTab.querySelector('.idBtnTestEmul');
     this.ElService = document.getElementById('TaService');
@@ -71,7 +72,7 @@ class TScriptTest {
       this.ScriptTest();
     }
 
-    this.ElError.addEventListener('dblclick', (event) => {
+    this.ElLog.addEventListener('dblclick', (event) => {
       this.OnDblClickErr(event);
     });
 
@@ -83,8 +84,10 @@ class TScriptTest {
           this.LoadTemplate('rnd');
         } else if (Value == 'PrettySrc') {
           this.LoadPrettySrc();
+        } else if (Value == 'GetMacroses') {
+          this.GetMacroses();
         } else if (Value == 'LogClear') {
-          this.ElError.value = '';
+          this.ElLog.value = '';
         }
     });
 
@@ -92,21 +95,23 @@ class TScriptTest {
   }
 
   LoadTemplate(aType) {
-    if (confirm(`Load ${aType} ${this.Name} scheme ?`)) {
-      const res = new TSend().exec(
-        '/api/?route=scheme/test',
-        {
-          'method': 'GetTemplate',
-          'param': {
-            'aName': this.Name,
-            'aType': aType
-          }
-        }
-      )
-      this.ElScript.value = res['template'];
-      this.ElResult.value = '';
-      this.Log(`${aType} ${this.Name} scheme loaded`);
+    if ((this.ElScript.value.trim() != '') && (!confirm(`Load ${aType} ${this.Name} scheme ?`))) {
+      return;
     }
+
+    const res = new TSend().exec(
+      '/api/?route=scheme/test',
+      {
+        'method': 'GetTemplate',
+        'param': {
+          'aName': this.Name,
+          'aType': aType
+        }
+      }
+    )
+    this.ElScript.value = res['template'];
+    this.ElResult.value = '';
+    this.Log(`${aType} ${this.Name} scheme loaded`);
   }
 
   ScriptTest() {
@@ -196,9 +201,25 @@ class TScriptTest {
     this.Log('pretty source loaded into service tab');
   }
 
+  GetMacroses() {
+    const res = new TSend().exec(
+      '/api/?route=scheme/test',
+      {
+        'method': 'GetMacroses',
+        'param': {
+          'aScript': this.ElScript.value
+        }
+      }
+    )
+
+    const Msg = 'used macroses:\n' + `${res['macroses'].join('\n')}`
+    this.Log(Msg);
+  }
+
   Log(Msg) {
+    this.LogCnt++;
     const Now = getCurrentDateTimeString();
-    this.ElError.value += `\n${Now}\n${Msg}`;
-    this.ElError.scrollTop = this.ElError.scrollHeight;
+    this.ElLog.value += `${this.LogCnt}, ${Now}\n${Msg}\n`;
+    this.ElLog.scrollTop = this.ElLog.scrollHeight;
   }
 }
