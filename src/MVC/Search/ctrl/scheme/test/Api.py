@@ -12,15 +12,8 @@ from Inc.Misc.Template import TDictRepl
 from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
 from IncP.CtrlBase import TCtrlBase
-from .Util import GetSoup, Cache
+from .Util import GetSoup, CheckPipe, Cache
 
-
-def _CheckUrlPrefix(aUrls: list[str]) -> list:
-    return [
-        xUrl
-        for xUrl in aUrls
-        if (isinstance(xUrl, str)) and (not xUrl.startswith('http'))
-    ]
 
 class TMain(TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
@@ -45,9 +38,10 @@ class TMain(TCtrlBase):
         Scheme.Parse(BSoup)
         Pipe = Scheme.GetPipe(Type)
 
+        Checks = CheckPipe(Pipe, Type)
         PipeStr = json.dumps(Pipe, indent=2, ensure_ascii=False, cls=TJsonEncoder)
         return {
-            'err': '\n'.join(Scheme.Err),
+            'err': '\n'.join(Scheme.Err + Checks),
             'data': PipeStr
         }
 

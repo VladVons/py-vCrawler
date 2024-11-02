@@ -69,6 +69,44 @@ def GetMacroses(aScheme: dict) -> dict:
                 Res[Method] += 1
     return Res
 
+def CheckPipe(aPipe: dict, aType: str) -> list:
+    def _CheckUrlPrefix(aUrls: list[str]) -> list:
+        return [
+            f'missed http in url: {xUrl}'
+            for xUrl in aUrls
+            if (isinstance(xUrl, str)) and (not xUrl.startswith('http'))
+        ]
+
+    def _CheckFields(aPipe: dict, aFields: list[str]) -> list:
+        Res = []
+        for xField in aFields:
+            Val = aPipe.get(xField)
+            if (Val is None):
+                Res.append(f'missed field: {xField}')
+            else:
+                if (xField == 'price'):
+                    if (not isinstance(Val[0], (int, float))):
+                        Res.append('price must be float')
+        return Res
+
+    Urls = []
+    if (aType == 'product'):
+        Fields = ['name', 'brand', 'image', 'images', 'stock', 'price', 'price_old', 'category', 'features', 'description']
+        if (isinstance(aPipe.get('images'), list)):
+            Urls += aPipe['images']
+        if (isinstance(aPipe.get('image'), str)):
+            Urls += [aPipe['image']]
+    elif (aType == 'category'):
+        Fields = ['products', 'pager']
+        if (isinstance(aPipe.get('products'), list)):
+            Urls += [x.get('href') for x in aPipe['products']]
+        if (isinstance(aPipe.get('pipe'), list)):
+            Urls += aPipe['pager']
+    else:
+        Fields = []
+    Res = _CheckFields(aPipe, Fields) + _CheckUrlPrefix(Urls)
+    return Res
+
 class TCacheFileUrl(TCacheFile):
     async def Download(self, aUrl: str, aEmul: bool) -> dict:
         return await self.ProxyA(aUrl, {'emul': aEmul}, Download, [aUrl, aEmul])
