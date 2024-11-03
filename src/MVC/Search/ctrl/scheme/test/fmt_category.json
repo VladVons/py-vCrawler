@@ -3,6 +3,7 @@
     "info": {
       "author": "$author",
       "date": "$date",
+      "url": "$url",
       "urls": {
         "instock": "",
         "outstock": ""

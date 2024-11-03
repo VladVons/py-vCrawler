@@ -109,8 +109,16 @@ class TScriptTest {
         }
       }
     )
-    this.ElScript.value = res['template'];
+
+    const Script = res['script'];
+    const ScriptJ = JSON.parse(Script);
+    const Url = ScriptJ[this.Name]['info']['url'];
+    window.open(Url, "_blank");
+
+    this.ElScript.value = Script;
     this.ElResult.value = '';
+    this.ElUrl.value = '';
+
     this.Log(`${aType} ${this.Name} scheme loaded`);
   }
 

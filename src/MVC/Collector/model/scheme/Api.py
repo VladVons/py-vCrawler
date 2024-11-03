@@ -12,3 +12,9 @@ class TMain(TDbModel):
             'fmtGet_SchemeRnd.sql',
             {}
         )
+
+    async def GetSchemeNew(self) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_SchemeNew.sql',
+            {}
+        )

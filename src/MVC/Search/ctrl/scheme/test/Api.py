@@ -11,6 +11,7 @@ from Inc.DbList.DbUtil import TJsonEncoder
 from Inc.Misc.Template import TDictRepl
 from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
+from Inc.Var.Obj import Iif
 from IncP.CtrlBase import TCtrlBase
 from . import Util
 
@@ -69,12 +70,22 @@ class TMain(TCtrlBase):
     async def GetTemplate(self, aName: str, aType: str) -> dict:
         match aType:
             case 'new':
+                Dbl = await self.ExecModelImport(
+                    'scheme',
+                    {
+                        'method': 'GetSchemeNew',
+                        'param': {}
+                    }
+                )
+
+                Url = Iif(Dbl, Dbl.Rec.url, 'http://your-test-site-here.com')
                 Format = {
-                    '$date': datetime.now().strftime('%Y-%m-%d %H:%M')
+                    '$date': datetime.now().strftime('%Y-%m-%d %H:%M'),
+                    '$url': Url
                 }
                 DictRepl = TDictRepl(Format)
                 CurDir = __package__.replace('.', '/')
-                Scheme = DictRepl.ParseFile(f'{CurDir}/fmt_{aName}.json')
+                Script = DictRepl.ParseFile(f'{CurDir}/fmt_{aName}.json')
             case 'rnd':
                 Dbl = await self.ExecModelImport(
                     'scheme',
@@ -84,12 +95,12 @@ class TMain(TCtrlBase):
                     }
                 )
                 Pair = Dbl.ExportPair('url_en', 'scheme')
-                Scheme = Pair.get(aName)
+                Script = Pair.get(aName)
             case _:
-                Scheme = ''
+                Script = ''
 
         return {
-            'template': Scheme
+            'script': Script
         }
 
     async def GetPrettySrc(self, aUrl: str, aEmul: bool) -> dict:
