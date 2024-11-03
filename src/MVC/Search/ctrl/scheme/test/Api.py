@@ -45,23 +45,28 @@ class TMain(TCtrlBase):
             'data': PipeStr
         }
 
-    async def GetLineNo(self, aScript: str, aErr: str) -> dict:
+    async def GetLineNo(self, aScript: str, aCurLine: str) -> dict:
         Res = {}
-        if (re.search(r'\((none|unknown)\)$', aErr)):
-            Path = aErr.split('->', maxsplit=1)[0]
+        if (re.search(r'\((none|unknown)\)$', aCurLine)):
+            Path = aCurLine.split('->', maxsplit=1)[0]
             LineNo = FindLineInScheme(aScript, Path)
             Res = {
                 'line': LineNo,
                 'column': -1
             }
-        elif (aErr.startswith('json:')):
-            Match = re.search(r'line (\d+) column (\d+)', aErr)
+        elif (aCurLine.startswith('json:')):
+            Match = re.search(r'line (\d+) column (\d+)', aCurLine)
             if (Match):
                 Res = {
                     'line': int(Match.group(1)),
                     'column': int(Match.group(2))
                 }
         return Res
+
+    async def GetUrlFromText(self, aText: str) -> dict:
+        Arr = re.findall(r'"(https?://[^\s]+)"', aText)
+        if (Arr):
+            return {'url': Arr[0]}
 
     async def GetHelp(self) -> dict:
         Help = TSchemeApi.help(None)

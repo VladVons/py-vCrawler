@@ -76,6 +76,10 @@ class TScriptTest {
       this.OnDblClickErr(event);
     });
 
+    this.ElResult.addEventListener('dblclick', (event) => {
+      this.OnDblClickResult(event);
+    });
+
     this.ElTab.querySelector('.idCommands').addEventListener('change', (event) => {
         const Value = event.target.value;
         if (Value == 'TplNew') {
@@ -169,8 +173,25 @@ class TScriptTest {
     }
   }
 
+  OnDblClickResult(event) {
+    const CurLine = GetCurLineText(event.target);
+    const res = new TSend().exec(
+      '/api/?route=scheme/test',
+      {
+        'method': 'GetUrlFromText',
+        'param': {
+          'aText': CurLine
+        }
+      }
+    )
+
+    if (res && res['url']) {
+      window.open(res['url'], "_blank");
+    }
+  }
+
   OnDblClickErr(event) {
-      const ErrText = GetCurLineText(event.target);
+      const CurLine = GetCurLineText(event.target);
       const Script = this.ElScript.value.trim();
       const res = new TSend().exec(
         '/api/?route=scheme/test',
@@ -178,7 +199,7 @@ class TScriptTest {
           'method': 'GetLineNo',
           'param': {
             'aScript': Script,
-            'aErr': ErrText
+            'aCurLine': CurLine
           }
         }
       )
