@@ -84,3 +84,21 @@ class TMain(TDbModel):
                 'aUserId': aUserId
             }
         )
+
+    async def GetSiteCountry(self, aCountryId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_SiteCountry.sql',
+            {
+                'aCountryId': aCountryId
+            }
+        )
+
+    async def GetSiteCountries(self, aLangId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_SiteCountries.sql',
+            {
+                'aLangId': aLangId
+            }
+        )
+
+

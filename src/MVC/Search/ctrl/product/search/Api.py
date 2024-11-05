@@ -62,6 +62,7 @@ class TMain(TCtrlBase):
             Rec.SetField('url', Url)
 
         Pagination = Lib.TPagination(aLimit, aData['path_qs'])
+        Pagination.Visible = 7
         PData = Pagination.Get(Dbl.Rec.total, aPage)
         DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
 

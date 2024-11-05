@@ -1,0 +1,38 @@
+{% extends '_inc/layout1.j2' %}
+
+{% set Fields = ['site', 'products'] %}
+
+{% block head %}
+<style>
+  .grid-container {
+    display: grid;
+    grid-template-columns: 250px 90px;
+  }
+
+  .gitem {
+    padding: 1px;
+    text-align: left;
+  }
+  .thumb {
+    height: 16px;
+    width: auto;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container pb-2">
+  <div class="grid-container">
+    {% for xFields in Fields %}
+      <div class="grid-item fw-bold">{{xFields}}</div>
+    {% endfor %}
+
+    {% for Rec in TDbList().Import(dbl_sites) %}
+      <div class="gitem">
+        <a href="{{Rec.url}}" rel="nofollow">{{Rec.host}}</a>
+      </div>
+      <div class="gitem">{{Iif(Rec.products, Rec.products, '')}}</div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

@@ -40,7 +40,9 @@ create table ref_continent (
 create table ref_continent_lang (
     id              smallserial primary key,
     title           varchar(16) not null,
-    lang_id         smallint not null references ref_lang(id)
+    continent_id    smallint not null references ref_continent(id) on delete cascade,
+    lang_id         smallint not null references ref_lang(id),
+    unique(continent_id, lang_id)
 );
 
 -- country
@@ -55,7 +57,9 @@ create table ref_country (
 create table ref_country_lang (
     id              smallserial primary key,
     title           varchar(16) not null,
-    lang_id         smallint not null references ref_lang(id)
+    country_id      smallint not null references ref_country(id) on delete cascade,
+    lang_id         smallint not null references ref_lang(id),
+    unique(country_id, lang_id)
 );
 
 -- user --
