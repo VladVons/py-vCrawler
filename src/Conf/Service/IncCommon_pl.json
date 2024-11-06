@@ -1,0 +1,14 @@
+{
+  "sites": {
+    "head": ["enable", "dir", "url", "type", "category"],
+    "data": [
+      [
+        1,
+        "cebit.pl",
+        "https://cebit.pl",
+        ["product", "category"],
+        ["/komputery-poleasingowe", "/laptopy-poleasingowe", "/monitory-poleasingowe", "/serwery-poleasingowe", "/drukarki-poleasingowe"]
+      ]
+    ]
+  }
+}

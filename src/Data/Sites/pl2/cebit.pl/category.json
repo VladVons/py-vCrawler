@@ -1,11 +1,11 @@
 {
   "category": {
     "info": {
-      "author": "vladvons",
+      "author": "sernuzh",
       "date": "2024.09.20 10:00:00",
       "url": [
-        "-https://www.cebit.pl/komputery-poleasingowe",
-        "https://www.cebit.pl/komputery-poleasingowe/16"
+        "https://www.cebit.pl/komputery-poleasingowe",
+        "-https://www.cebit.pl/komputery-poleasingowe/14"
       ]
     },
     "pipe": [
@@ -21,19 +21,24 @@
               ],
               "href": [
                 ["find", ["a", {"class": "prodname"}]],
-                ["get", ["href"]],
-                ["url_pad"]
+                  ["get", ["href"]],
+                  ["url_pad"]
               ],
               "stock": [
                 ["get", ["class"]],
                 ["list_in", ["product_inactive"]],
                 ["invert"]
               ],
-              "price": [
+              "-price": [
+                ["-todo на продакті працює нормально, а тут ліпить до злотих ціну нетто"],
                 ["find", ["div", {"class": "price"}]],
-                ["find_all", ["em"]],
-                ["list", [0]],
-                ["text_strip"],
+                ["text"],
+                ["price"]
+              ],
+              "-todo": [
+                ["там є прайс нетто , шо то таке хз. наступний код його знаходить"],
+                ["find", ["i", {"class": "price-netto"}]],
+                ["text"],
                 ["price"]
               ]
             }]
@@ -41,7 +46,12 @@
        ],
        "pager": [
           ["find", ["ul", {"class": "paginator"}]],
-          ["find_all_get_url", ["a"], {"a_get": "href"}]
+          ["find_all", ["a"]],
+          ["list_map", [
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
        ]
       }]
     ]
