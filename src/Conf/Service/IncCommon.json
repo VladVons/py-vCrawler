@@ -94,7 +94,7 @@
         ["/noutbuki", "/kompyutery", "/monitori"]
       ],
       [
-        1,
+        0,
         "laptop-planet.com.ua",
         "https://laptop-planet.com.ua",
         ["product", "-category"],
@@ -210,7 +210,7 @@
         "hard.kiev.ua",
         "https://hard.kiev.ua",
         ["product", "-category"],
-        ["/category/kompyuternaya-tekhnika/kompyutery/nastolnye-kompyutery", "/category/kompyuternaya-tekhnika/kompyutery/servery/", ""]
+        ["/category/kompyuternaya-tekhnika/kompyutery/nastolnye-kompyutery", "/category/kompyuternaya-tekhnika/kompyutery/servery/"]
       ],
       [
         -1,
@@ -218,6 +218,13 @@
         "https://laptop-ukraine.top",
         ["-product", "category"],
         ["/bu-noutbuki"]
+      ],
+      [
+        1,
+        "vinlaptop.com.ua",
+        "https://vinlaptop.com.ua",
+        ["product", "category"],
+        ["/noutbuki/", "/sistemnye-bloki/", "/monitory/", "/monobloki/"]
       ]
     ]
   }

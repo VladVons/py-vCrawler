@@ -1,0 +1,40 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-05 15:13",
+      "url": "https://vinlaptop.com.ua/",
+      "urls": {
+        "instock": "https://vinlaptop.com.ua/noutbuk-lenovo-thinkpad-t540p/6375/",
+        "outstock": "https://vinlaptop.com.ua/noutbuk-hp-probook-450-g8-156-i7-1165g7-16gb-512gbssd-intel-iris-xe-graphics-4gb-19201080-ips-8hod-10khvaa/",
+        "discount": "https://vinlaptop.com.ua/amd-radeon-pro-wx-2100-2gb-gddr5-64bit/"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "product-price__old-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-features"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

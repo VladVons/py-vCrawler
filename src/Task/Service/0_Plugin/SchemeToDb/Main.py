@@ -7,10 +7,11 @@ import os
 import re
 import json
 #
-from Inc.Misc.Misc import FormatJsonStr
+from Inc.Var.Str import JsonFormat, JsonKeyPos
+from Inc.Misc.Template import FormatFilePkg
 from Inc.DbList import TDbList
 from Inc.ParserX.Common import TFileBase
-from Inc.ParserX.CommonSql import LoadQuery, DASplitDbl
+from Inc.ParserX.CommonSql import DASplitDbl
 from Inc.Var.Dict import DeepGetByList
 from Inc.Sql import TDbExecPool, TDbPg
 from IncP.Log import Log
@@ -18,15 +19,18 @@ from .. import SiteCondEnabled
 
 
 def FormatJson(aJson: str, aUrl: str) -> str:
-    reInfo = re.compile(r'"info":\s*\{[^}]*\},?', flags=re.DOTALL)
-    Repl = f'''
-        "info": {{
-            "url": "{aUrl}"
-        }},
-    '''
-    Res = reInfo.sub(Repl, aJson)
+    Pos = JsonKeyPos(aJson, 'info')
+    if (Pos):
+        Lines = [
+            Line
+            for Idx, Line in enumerate(aJson.splitlines())
+            if (not Pos[0] <= Idx <= Pos[1])
+        ]
+        Repl = f'"url": "{aUrl}"'
+        Lines.insert(Pos[0], Repl)
+        aJson = '\n'.join(Lines)
 
-    Res = FormatJsonStr(Res)
+    Res = JsonFormat(aJson)
     json.loads(Res) # just check json
     return Res
 
@@ -47,7 +51,7 @@ class TMain(TFileBase):
                 InsValues.append(f"('{Rec.url}', 1)")
                 SelValues.append(f"'{Rec.url}'")
 
-            Query = LoadQuery(__package__, 'fmtSet_Site.sql', {
+            Query = FormatFilePkg(__package__, 'fmtSet_Site.sql', {
                 'InsValues': ', '.join(InsValues),
                 'SelValues': ', '.join(SelValues)
             })
@@ -71,7 +75,7 @@ class TMain(TFileBase):
 
             if (InsValues):
                 Log.Print(1, 'i', f'Updated parser {len(InsValues)}')
-                Query = LoadQuery(__package__, 'fmtSet_SiteParser.sql', {'InsValues': ', '.join(InsValues)})
+                Query = FormatFilePkg(__package__, 'fmtSet_SiteParser.sql', {'InsValues': ', '.join(InsValues)})
                 await TDbExecPool(self.Db.Pool).Exec(Query)
 
             #--- SiteCategory
@@ -84,7 +88,7 @@ class TMain(TFileBase):
 
             if (InsValues):
                 Log.Print(1, 'i', f'Updated category {len(InsValues)}')
-                Query = LoadQuery(__package__, 'fmtSet_SiteCategory.sql', {'InsValues': ', '.join(InsValues)})
+                Query = FormatFilePkg(__package__, 'fmtSet_SiteCategory.sql', {'InsValues': ', '.join(InsValues)})
                 await TDbExecPool(self.Db.Pool).Exec(Query)
 
         Dbl = TDbList().Import(self.Parent.Conf['sites'])

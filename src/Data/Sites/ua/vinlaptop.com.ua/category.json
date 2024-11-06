@@ -1,0 +1,47 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-05 16:33",
+      "url": "https://vinlaptop.com.ua/",
+      "urls": {
+        "instock": "https://vinlaptop.com.ua/katalog/",
+        "outstock": "https://vinlaptop.com.ua/katalog/filter/page=33/"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"data-catalog-view-block": "products"}]],
+          ["find_all", ["li", {"itemprop": "itemListElement"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "catalogCard-image"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                  ["find_not", ["a", {"class": "__grayscale"}]]     
+               ],
+               "price": [
+                 ["find", ["div", {"class": "catalogCard-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pager"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
