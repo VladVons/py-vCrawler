@@ -1,0 +1,37 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-05 17:39",
+      "url": "https://sklep.precio.pl",
+      "urls": {
+        "instock": "-https://sklep.precio.pl/pl/p/Notebook-HP-Elitebook-830-G6-i5-8365U-8GB-512GB-SSD-W11P-/3556",
+        "outstock": "-https://sklep.precio.pl/pl/p/Apple-MacBook-Pro-13-A2251-i7-1068NG7-16GB-512GB-Space-Gray-EURO/3944",
+        "discount": "https://sklep.precio.pl/pl/p/Notebook-DELL-Latitude-7310-i5-10310U-8GB-256GB-SSD-W11P/4043"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "price"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

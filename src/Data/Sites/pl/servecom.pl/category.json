@@ -1,11 +1,11 @@
 {
   "category": {
     "info": {
-      "author": "sernuzh",
+      "author": "vladvons",
       "date": "2024.09.21 18:00:00",
       "url": [
-        "-https://www.servecom.pl/komputery-poleasingowe",
-        "https://www.servecom.pl/laptopy-nowe"
+        "https://www.servecom.pl/komputery-poleasingowe",
+        "-https://www.servecom.pl/laptopy-nowe"
               ]
     },
     "pipe": [
@@ -17,7 +17,7 @@
             ["as_dict", {
                "name": [
                  ["find", ["div", {"class": "product_title"}]],
-                 ["text"]
+                 ["text_strip"]
                ],
                "href": [ 
                  ["find", ["a"]],
@@ -29,7 +29,7 @@
                "price": [
                  ["find", ["p", {"class": "price_area"}]],
                  ["find", ["span", {"class": "actual_price"}]],
-                 ["text"],
+                 ["text_strip"],
                  ["price"]
                ],
                "price_old": [
@@ -43,12 +43,7 @@
        ],
        "pager": [
           ["find", ["div", {"class": "pagination"}]],
-          ["find_all", ["a"]],
-          ["list_map", [
-            ["get", ["href"]],
-            ["url_pad"]
-          ]],
-          ["list_uniq"]
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
        ]
       }]
     ]

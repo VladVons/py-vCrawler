@@ -3,11 +3,25 @@
     "head": ["enable", "dir", "url", "type", "category"],
     "data": [
       [
-        1,
+        0,
         "cebit.pl",
-        "https://cebit.pl",
+        "https://www.cebit.pl",
         ["product", "category"],
         ["/komputery-poleasingowe", "/laptopy-poleasingowe", "/monitory-poleasingowe", "/serwery-poleasingowe", "/drukarki-poleasingowe"]
+      ],
+      [
+        0,
+        "servecom.pl",
+        "https://www.servecom.pl",
+        ["product", "category"],
+        ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe"]
+      ],
+      [
+        1,
+        "sklep.precio.pl",
+        "https://sklep.precio.pl",
+        ["product", "category"],
+        ["/pl/c/Komputery-poleasingowe-stacjonarne/32", "/pl/c/Laptopy-poleasingowe/28", "/pl/c/Monitory-poleasingowe/37", "/pl/c/Tablety-poleasingowe/67", "/pl/c/Serwery-i-storage-poleasingowe/257"]
       ]
     ]
   }

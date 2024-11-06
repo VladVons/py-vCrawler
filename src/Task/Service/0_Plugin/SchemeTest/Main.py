@@ -146,7 +146,7 @@ class TSchemer():
         Urls = DeepGetByList(Scheme, [aType, 'info', 'url'])
         if (not isinstance(Urls, list)):
             Data = DeepGetByList(Scheme, [aType, 'info', 'urls'])
-            Urls = [xVal for xKey, xVal in Data.items() if not xKey.startswith("-")]
+            Urls = [xVal for xVal in Data.values()]
 
         for Idx, xUrl in enumerate(Urls):
             if (not xUrl.startswith('-')):

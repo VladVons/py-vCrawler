@@ -1,0 +1,50 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-05 18:06",
+      "url": "https://sklep.precio.pl/",
+      "urls": {
+        "root": "https://sklep.precio.pl",
+        "instock": "-https://sklep.precio.pl/pl/c/Produkty-poleasingowe/27/1/default/1/f_availability_2/1",
+        "outstock": "-https://sklep.precio.pl/pl/c/Produkty-poleasingowe/27/1/default/1/f_availability_1/1"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["h1", {"class": "category-name"}]],
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "buttons"}]],
+                 ["find_not", ["button", {"class": "availability-notifier-btn"}]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["em"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

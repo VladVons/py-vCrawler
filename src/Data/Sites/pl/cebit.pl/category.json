@@ -5,13 +5,15 @@
       "date": "2024.09.20 10:00:00",
       "url": [
         "-https://www.cebit.pl/komputery-poleasingowe",
-        "https://www.cebit.pl/komputery-poleasingowe/16"
+        "-https://www.cebit.pl/komputery-poleasingowe/16",
+        "https://www.cebit.pl"
       ]
     },
     "pipe": [
       ["as_dict", {
         "products": [
           ["find", ["div", {"id": "box_mainproducts"}]],
+          ["find_check", ["h1", {"class": "cat-h1"}]],
           ["find_all", ["div", {"class": "product"}]],
           ["list_map", [
             ["as_dict", {

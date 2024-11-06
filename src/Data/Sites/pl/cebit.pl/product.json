@@ -14,12 +14,6 @@
     "pipe_product": [
       ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
       ["as_dict", {
-        "-todo": [
-          ["там є прайс нетто , шо то таке хз. наступний код його знаходить"],
-          ["find", ["i", {"class": "price-netto"}]],
-          ["text"],
-          ["price"]
-        ],
         "features": [
           ["find", ["div", {"class": "product-attributes"}]],
           ["find", ["table", {"class": "table"}]],
