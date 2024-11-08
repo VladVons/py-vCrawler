@@ -1,0 +1,50 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-07 19:25",
+      "url": "https://www.tonerownia.pl",
+      "urls": {
+        "instock": "https://www.tonerownia.pl/sklep/komputery-poleasingowe-bielsko/dell-optiplex-3060-sff-core-i5-8500-x8-genx-3x0-ghz-x6-rdzenix-x-8-gb-x-240-ssd-x-win-10-prof.html",
+        "outstock": "-https://www.tonerownia.pl/sklep/listwy-zasilajace/landberg-przedluzacz-1x5m-bialy-ilosc-gniazdx-4-z-wylacznikiem-kabel-wyk.html",
+        "discount": ""
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "productMainArea"}]],
+      ["as_dict", {
+        "image": [
+          ["find", ["div", {"class": "productImage"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}],
+          ["list", [0]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"class": "description"}]],
+          ["replace_br"],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["var_get", ["$description"]],
+          ["split", ["\n"]],
+          ["list_map", [
+            ["split", [":"]]
+          ]],
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+        ],
+        "category": [
+          ["find", ["div", {"class": "pathway"}]],
+          ["breadcrumb", [["a"], -2]],
+          ["split", ["/", -1 ]]
+        ]
+      }]
+    ]
+  }
+}

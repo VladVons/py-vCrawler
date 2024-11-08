@@ -1,0 +1,47 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-07 19:44",
+      "url": "https://www.tonerownia.pl",
+      "urls": {
+        "instock": "https://www.tonerownia.pl/sklep/akcesoria-komputerowe.html",
+        "outstock": "-https://www.tonerownia.pl/sklep/akcesoria-komputerowe.html",
+        "root": "-https://www.tonerownia.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "prodList"}]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "tlt"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_not", ["a", {"class": "more"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "gross"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pageNavig"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

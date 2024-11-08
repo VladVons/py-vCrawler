@@ -59,11 +59,11 @@
         ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe", "/tablety-poleasingowe"]
       ],
       [
-        1,
+        0,
         "hardwaredirect.pl",
         "https://hardwaredirect.pl",
-        ["product", "-category"],
-        ["", "", "", ""]
+        ["product", "category"],
+        ["/serwery", "/stacje-robocze", "/urzadzenia-sieciowe", "/storage"]
       ],
       [
         0,
@@ -71,6 +71,13 @@
         "https://www.laptopypoznan.pl",
         ["product", "category"],
         ["/Laptopy-poleasingowe-c98", "/Komputery-poleasingowe-c229", "/Monitory-poleasingowe-c172", "/Drukarki-c562", "/Podzespoly-uzywane-c484"]
+      ],
+      [
+        1,
+        "tonerownia.pl",
+        "https://www.tonerownia.pl",
+        ["product", "category"],
+        ["/sklep/laptopy-uzywane-bielsko.html", "/sklep/komputery-poleasingowe-bielsko.html", "/sklep/monitory-uzywane-bielsko.html", "/sklep/drukarki-bielsko.html"]
       ]
     ]
   }
