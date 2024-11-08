@@ -1,0 +1,51 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-08 08:46",
+      "url": "https://galbit.sklep.pl",
+      "urls": {
+        "instock": "-https://galbit.sklep.pl/pl/c/Drukarki/21",
+        "outstock": "",
+        "root": "https://galbit.sklep.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["h-select", {"class": "select"}]],
+          ["find", ["product-list", {"class": "product-list"}]],
+          ["find_all", ["product-tile", {"class": "product-tile"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "link_no-underline"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2", {"class": "product-tile__name"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["buy-button"]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["do koszyka"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price__value"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -73,11 +73,18 @@
         ["/Laptopy-poleasingowe-c98", "/Komputery-poleasingowe-c229", "/Monitory-poleasingowe-c172", "/Drukarki-c562", "/Podzespoly-uzywane-c484"]
       ],
       [
-        1,
+        0,
         "tonerownia.pl",
         "https://www.tonerownia.pl",
         ["product", "category"],
         ["/sklep/laptopy-uzywane-bielsko.html", "/sklep/komputery-poleasingowe-bielsko.html", "/sklep/monitory-uzywane-bielsko.html", "/sklep/drukarki-bielsko.html"]
+      ],
+      [
+        0,
+        "galbit.sklep.pl",
+        "https://galbit.sklep.pl",
+        ["product", "category"],
+        ["/pl/c/Komputery-PC/47", "/pl/c/Monitory/46", "/pl/c/Drukarki/21", "/pl/c/Laptopy/92"]
       ]
     ]
   }

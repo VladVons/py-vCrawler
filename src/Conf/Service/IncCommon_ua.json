@@ -225,6 +225,20 @@
         "https://vinlaptop.com.ua",
         ["product", "category"],
         ["/noutbuki/", "/sistemnye-bloki/", "/monitory/", "/monobloki/"]
+      ],
+      [
+        0,
+        "cimes.store",
+        "https://cimes.store",
+        ["product", "category"],
+        ["/noutbuki/?ocf=F49S2V2537584534"]
+      ],
+      [
+        1,
+        "monitory.com.ua",
+        "https://monitory.com.ua/ua",
+        ["product", "category"],
+        ["/g10436027-sistemnye-bloki-dlya", "/g11895491-noutbuki", "/g22559555-monitory", "/g13336243-printery-mfu"]
       ]
     ]
   }

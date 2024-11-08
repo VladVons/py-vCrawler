@@ -1,0 +1,52 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-08 08:02",
+      "url": "https://galbit.sklep.pl",
+      "urls": {
+        "instock": "https://galbit.sklep.pl/pl/p/Drukarka-przenosna-HP-100-BLUETHOOTH-BATERIA-TUSZ/44",
+        "outstock": "",
+        "discount": ""
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["main", {"class": "context-2"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"class": "section-title"}]],
+          ["text_strip"]
+        ],
+        "images": [
+          ["find", ["h-slider", {"id": "product-main-photo-201"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-description__content"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes__attributes"}]],
+          ["table_tag", ["div", {"class": "product-attributes__attribute"}]],
+          ["keyval2dict"]
+        ],
+        "price": [
+          ["find", ["span", {"class": "price__value"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+         "stock": [
+          ["find_not", ["div", {"class": "product-actions__add-to-basket"}]],
+          ["invert"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

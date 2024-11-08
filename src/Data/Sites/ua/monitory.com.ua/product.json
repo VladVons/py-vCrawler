@@ -1,0 +1,56 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-05 20:14",
+      "url": "https://monitory.com.ua",
+      "urls": {
+        "instock": "https://monitory.com.ua/ua/p1479927066-tonkij-klient-fujitsu.html",
+        "outstock": "-https://monitory.com.ua/ua/p1758984551-kompyuter-sff-intel.html",
+        "discount": "-https://monitory.com.ua/ua/p2394526282-kompyuter-lenovo-m710s.html",
+        "category": "-https://monitory.com.ua/ua/g10436027-sistemnye-bloki-dlya"
+      },
+      "comment": "prom"
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "b-product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "b-product__container"}]],
+      ["as_dict", {
+       "images": [
+          ["find", ["div", {"class": "b-extra-photos"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}],
+          ["list_map", [
+            ["replace", [["h40", "w40"], ["h640", "w640"]]]
+          ]]
+        ],
+        "price_old": [
+          ["find", ["p", {"class": "b-product-cost__old-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["li", {"data-qaid": "presence_data"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_in", ["в наявності"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"data-qaid": "product_description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["table", {"class": "b-product-info"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

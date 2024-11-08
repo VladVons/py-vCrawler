@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 09:49",
+      "url": "https://monitory.com.ua",
+      "urls": {
+        "instock": "https://monitory.com.ua/ua/g10436027-sistemnye-bloki-dlya",
+        "outstock": ""
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "b-page__content"}]],
+          ["find_all", ["li", {"class": "b-product-gallery__item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "b-product-gallery__title"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "b-product-gallery__title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["span", {"class": "b-product-gallery__state"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["в наявності"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "b-product-gallery__current-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["meta_nears"]
+       ]
+      }]
+    ]
+  }
+}

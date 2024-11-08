@@ -1,0 +1,45 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-07 22:22",
+      "url": "https://cimes.store",
+      "urls": {
+        "instock": "-https://cimes.store/noutbuki/acer-predator-15704",
+        "outstock": "https://cimes.store/noutbuki/asus-rog-zephyrus-gu502g-8156",
+        "discount": ""
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"class": "product-info"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "list-photo"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "stock": [
+          ["find", ["span", {"class": "stock"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["в наявності"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "description": [
+          ["find", ["section", {"class": "product-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["section", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

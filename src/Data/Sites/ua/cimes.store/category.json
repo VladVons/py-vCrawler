@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-07 22:37",
+      "url": "https://cimes.store",
+      "urls": {
+        "instock": "https://cimes.store/noutbuki/",
+        "outstock": "-https://cimes.store/sistemnye-bloki/",
+        "root": "-https://cimes.store"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["div", {"class": "sort-settings"}]],
+          ["find", ["section", {"class": "catalog"}]],
+          ["find_all", ["div", {"class": "product-card"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prod-title"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prod-title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "btn-container"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["купити"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price-container"}]],
+                 ["find", ["span"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
