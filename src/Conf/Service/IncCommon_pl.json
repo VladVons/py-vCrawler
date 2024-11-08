@@ -17,11 +17,60 @@
         ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe"]
       ],
       [
-        1,
+        0,
         "sklep.precio.pl",
         "https://sklep.precio.pl",
         ["product", "category"],
         ["/pl/c/Komputery-poleasingowe-stacjonarne/32", "/pl/c/Laptopy-poleasingowe/28", "/pl/c/Monitory-poleasingowe/37", "/pl/c/Tablety-poleasingowe/67", "/pl/c/Serwery-i-storage-poleasingowe/257"]
+      ],
+      [
+        0,
+        "dolservice.pl",
+        "https://dolservice.pl",
+        ["product", "category"],
+        ["/laptopy", "/pl/c/Komputery/39", "/pl/c/Monitory/40", "/pl/c/Drukarki/69"]
+      ],
+      [
+        0,
+        "komp-net.pl",
+        "https://komp-net.pl",
+        ["-product", "category"],
+        ["/65-komputery", "/97-laptopy", "/67-monitory"]
+      ],
+      [
+        0,
+        "zikom.pl",
+        "https://zikom.pl",
+        ["product", "category"],
+        ["/poleasingowe-laptopy-notebooki/", "/poleasingowe-komputery-stacjonarne/", "/poleasingowe-monitory/", "/poleasingowe-drukarki-laserowe/", "/poleasingowe-laptopy-notebooki/laptopy-specjalistyczne-/"]
+      ],
+      [
+        0,
+        "slaskiecentrumkomputerowe.pl",
+        "https://slaskiecentrumkomputerowe.pl",
+        ["product", "category"],
+        ["/pl/c/Komputery-poleasingowe/13", "/pl/c/Laptopy-poleasingowe/17", "/pl/c/Monitory/20", "/pl/c/Drukarki/47", "/pl/c/Apple-poleasingowe/121"]
+      ],
+      [
+        0,
+        "mrpecet.pl",
+        "https://mrpecet.pl",
+        ["product", "-category"],
+        ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe", "/tablety-poleasingowe"]
+      ],
+      [
+        1,
+        "hardwaredirect.pl",
+        "https://hardwaredirect.pl",
+        ["product", "-category"],
+        ["", "", "", ""]
+      ],
+      [
+        0,
+        "laptopypoznan.pl",
+        "https://www.laptopypoznan.pl",
+        ["product", "category"],
+        ["/Laptopy-poleasingowe-c98", "/Komputery-poleasingowe-c229", "/Monitory-poleasingowe-c172", "/Drukarki-c562", "/Podzespoly-uzywane-c484"]
       ]
     ]
   }

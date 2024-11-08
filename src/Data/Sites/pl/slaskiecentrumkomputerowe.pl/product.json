@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 14:53",
+      "url": "https://slaskiecentrumkomputerowe.pl",
+      "urls": {
+        "instock": "-https://slaskiecentrumkomputerowe.pl/pl/p/Dell-Latitude-5411-i7-10850H-2%2C7GHz-32GB-DDR4-512GB-SSD-M.2-14-FHD-TOUCH-Windows-11-Pro/31339",
+        "outstock": "-https://slaskiecentrumkomputerowe.pl/pl/p/-Apple-iPhone-6s-32GB-Silver/13770",
+        "discount": "https://slaskiecentrumkomputerowe.pl/pl/p/Fujitsu-Esprimo-P956-i7-6700T-16GB-DDR4-512GB-SSD-Windows-10-Pro/22178"
+      },
+      "reader": "playwright"
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "maininfo"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "price"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "box_productdata"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

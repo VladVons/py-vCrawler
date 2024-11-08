@@ -1,0 +1,45 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-07 20:25",
+      "url": "https://www.laptopypoznan.pl",
+      "urls": {
+        "instock": "-https://www.laptopypoznan.pl/Komputer-ZAR-KOM-ProGamer2-Ryzen-5-5600X-AMD-6700-XT-1TB-M-2-NVMe-Windows-11-Pro-p2183",
+        "outstock": "-https://www.laptopypoznan.pl/Fujitsu-LIFEBOOK-U729-i5-8265U-8-GB-RAM-256-GB-SSD-FHD-Windows-11-Pro-p2186",
+        "discount": "https://www.laptopypoznan.pl/HP-ZbooK-17-G5-i7-8850H-32GB-RAM-DYSK-500GB-SSD-Nvidia-Quadro-P5200-FHD-Windows-11-Pro-p2219"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"class": "product_card"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "horizontal-gallery"}]],
+          ["find_all_get_url", ["img"], {"a_get": "srcset"}]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "price-normal"}]],
+          ["find", ["span", {"class": "core_priceFormat"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"id": "product_description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "product_parameters"}]],
+          ["table_tag", ["div", {"class": "product-parameter-row"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

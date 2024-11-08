@@ -1,0 +1,47 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 13:04",
+      "url": "https://zikom.pl",
+      "urls": {
+        "instock": "-https://zikom.pl/poleasingowe-laptopy-notebooki/",
+        "outstock": "",
+        "root": "https://zikom.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "item-product-list"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "product_name"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "product_name"}]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "page-list"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
+

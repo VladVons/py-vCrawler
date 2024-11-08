@@ -149,7 +149,7 @@ class TSchemer():
             Urls = [xVal for xVal in Data.values()]
 
         for Idx, xUrl in enumerate(Urls):
-            if (not xUrl.startswith('-')):
+            if (xUrl) and (not xUrl.startswith('-')):
                 Log.Print(1, 'i', f'Test(). {xUrl}')
 
                 Cnt += 1
@@ -170,7 +170,7 @@ class TSchemer():
                             raise ValueError(f'Unknown reader {Reader}')
 
                     if (DataU['status'] != 200):
-                        print(f'Error reading {xUrl}')
+                        print(f'Error reading {xUrl}', DataU['status'], DataU['err'])
                         continue
 
                     Data = DataU['data']

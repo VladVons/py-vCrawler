@@ -1,0 +1,47 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 17:56",
+      "url": "https://komp-net.pl",
+      "urls": {
+        "instock": "https://komp-net.pl/65-komputery",
+        "outstock": "",
+        "root": "-https://komp-net.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["div", {"class": "total-products"}]],
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["article", {"itemtype": "http://schema.org/Product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h1", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h1", {"class": "product-title"}]],
+                 ["text_strip"]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["replace", ["brutto", ""]],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

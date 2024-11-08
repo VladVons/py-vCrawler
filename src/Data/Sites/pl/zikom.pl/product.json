@@ -1,0 +1,44 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 12:14",
+      "url": "https://zikom.pl",
+      "urls": {
+        "instock": "https://zikom.pl/poleasingowe-laptopy-notebooki/laptop-lenovo-thinkpad-t490-core-i5-8gen-16gb-256ssd-win11-a.html",
+        "outstock": "",
+        "discount": "-https://zikom.pl/poleasingowe-monitory/monitor-dell-24-p2422he-1920x1080p-ips-ethernet-a-.html"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "main-content"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "box_thumb"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-src"}]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "regular-price"}]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"class": "product-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["section", {"class": "product-features"}]],
+          ["table_tag", [["dt", "dd"]]],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 15:14",
+      "url": "https://hardwaredirect.pl",
+      "urls": {
+        "instock": "https://hardwaredirect.pl/serwer-dell-r630-10x2-5-z-2xheatsink-h730-4x1gbe-2xpsu-szyny-idrac-8-enterprise",
+        "outstock": "",
+        "discount": "-https://hardwaredirect.pl/switch-dell-s5232f-on-32x100gbe-qsfp28-2x10gbe-sfp-r2f-reverse-flow-2x-psu"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "main"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "amasty-gallery-images"}]],
+          ["find_all_get_url", ["a"], {"a_get": "data-image"}]
+        ],
+        "price_old": [
+          ["find", ["span", {"data-price-type": "oldPrice"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"id": "description"}]],
+          ["text_tag", ["div"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "additional"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

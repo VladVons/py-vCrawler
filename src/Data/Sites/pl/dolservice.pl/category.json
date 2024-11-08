@@ -1,0 +1,45 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 09:43",
+      "url": "https://dolservice.pl",
+      "urls": {
+        "instock": "-https://dolservice.pl/pl/c/Producent/50",
+        "outstock": "",
+        "root": "https://dolservice.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["em"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

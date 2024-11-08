@@ -24,7 +24,11 @@ class TMain(TCtrlBase):
         if (aUrl):
             UrlData = await Util.Cache.Download(aUrl, aEmul)
             if (UrlData['status'] != 200):
-                return {'err': f'download status code {UrlData["status"]}'}
+                return {'err': f'download code {UrlData["status"]}'}
+
+            if (not aScript):
+                Size = len(UrlData["data"]) // 1000
+                return {'err': f'download ok. size: {Size}Kb'}
         else:
             return {'err': 'no url'}
 
@@ -126,3 +130,8 @@ class TMain(TCtrlBase):
         Macroses = Util.GetMacroses(R)
         PopularFirst = sorted(Macroses.items(), key=lambda item: f'{item[1]}{item[0]}')
         return {'macroses': PopularFirst}
+
+    async def CacheClear(self) -> dict:
+        FilesCnt = Util.Cache.GetSize()
+        Util.Cache.Clear()
+        return {'files_cnt': FilesCnt}

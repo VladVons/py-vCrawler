@@ -1,0 +1,49 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 19:22",
+      "url": "https://mrpecet.pl",
+      "urls": {
+        "instock": "https://mrpecet.pl/pl/c/Sklep/66/2",
+        "outstock": "-https://mrpecet.pl/monitory-poleasingowe/2",
+        "root": "-https://mrpecet.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["div", {"class": "sortlinks"}]],
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                  ["find_not", ["button", {"class": "addtobasket"}]],
+                  ["invert"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

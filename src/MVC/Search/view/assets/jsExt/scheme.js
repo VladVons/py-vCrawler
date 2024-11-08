@@ -92,6 +92,8 @@ class TScriptTest {
           this.GetMacroses();
         } else if (Value == 'LogClear') {
           this.ElLog.value = '';
+        } else if (Value == 'CacheClear') {
+          this.CacheClear();
         }
     });
 
@@ -127,18 +129,13 @@ class TScriptTest {
   }
 
   ScriptTest() {
-    const Script = this.ElScript.value.trim();
-    if (Script == '') {
-      this.Log('empty script');
-      return;
-    }
-
     const Url = this.ElUrl.value.trim();
     if (Url == '') {
       this.Log('empty url');
       return;
     }
 
+    const Script = this.ElScript.value.trim();
     const res = new TSend().exec(
       '/api/?route=scheme/test',
       {
@@ -243,6 +240,18 @@ class TScriptTest {
 
     const Msg = 'used macroses:\n' + `${res['macroses'].join('\n')}`
     this.Log(Msg);
+  }
+
+  CacheClear() {
+    const res = new TSend().exec(
+      '/api/?route=scheme/test',
+      {
+        'method': 'CacheClear',
+        'param': {}
+      }
+    )
+
+    this.Log(`files removed: ${res['files_cnt']}`);
   }
 
   Log(Msg) {

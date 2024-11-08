@@ -1,0 +1,28 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-05 19:59",
+      "url": "https://dolservice.pl",
+      "urls": {
+        "instock": "https://dolservice.pl/pl/p/Dell-Latitude-E7270-i5-6200U-8GB-256GB-FHD-Klasa-B/768",
+        "outstock": "",
+        "discount": ""
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "-pipe_product": [
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"id": "box_productdata"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

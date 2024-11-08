@@ -2,12 +2,16 @@
   <div class="col-3">
     <div class="d-flex gap-2">
       <select class="form-select idCommands">
-        <option selected>- commands -</option>
-        <option value="TplNew">load new scheme</option>
-        <option value="TplRnd">load random scheme</option>
+        <option selected>- select command -</option>
+        <optgroup label="load">
+          <option value="TplNew">load new scheme</option>
+          <option value="TplRnd">load random scheme</option>
+        </optgroup>
+        <optgroup label="clear">
+          <option value="LogClear">clear log</option>
+          <option value="CacheClear">clear cache</option>
+        </optgroup>
         <option value="PrettySrc">get pretty source</option>
-        <option value="GetMacroses">get macroses</option>
-        <option value="LogClear">clear log</option>
       </select>
       <button class="btn btn-primary flex-fill idBtnTest">
         <input type="checkbox" class="form-check-input me-3 idBtnTestEmul" onclick="event.stopPropagation()">

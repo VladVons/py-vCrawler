@@ -1,0 +1,47 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 15:57",
+      "url": "https://hardwaredirect.pl",
+      "urls": {
+        "instock": "https://hardwaredirect.pl/serwery",
+        "outstock": ""
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "amasty-shopby-product-list"}]],
+          ["find_all", ["div", {"class": "product-item-info"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product-item-link"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product-item-link"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                  ["find_not", ["button", {"class": "tocart"}]],
+                  ["invert"]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pages-items"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

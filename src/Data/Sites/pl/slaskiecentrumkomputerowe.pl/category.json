@@ -1,0 +1,51 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 15:04",
+      "url": "https://slaskiecentrumkomputerowe.pl",
+      "urls": {
+        "instock": "-https://slaskiecentrumkomputerowe.pl/pl/c/Oprogramowanie/53",
+        "outstock": "https://slaskiecentrumkomputerowe.pl/pl/c/Apple-poleasingowe/121",
+        "root": "-https://slaskiecentrumkomputerowe.pl"
+      },
+      "reader": "playwright"
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["h1", {"class": "category-name"}]],
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                  ["find_not", ["button", {"class": "availability-notifier-btn"}]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["p"]],
+                 ["find", ["em"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

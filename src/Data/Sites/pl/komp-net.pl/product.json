@@ -1,0 +1,49 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-06 16:58",
+      "url": "https://komp-net.pl",
+      "urls": {
+        "instock": "https://komp-net.pl/oferta/562-3060-komputer-dell-optiplex-3060-micro.html#/458,pamiec-ram,8-gb/462,pojemnosc-dysku,256-gb",
+        "outstock": "",
+        "discount": ""
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"class": "product-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "product-details"}]],
+          ["table_tag", ["div", {"class": "product-variants-item"}]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Marka"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "category": [
+          ["find", ["ol", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["li", {"itemtype": "http://schema.org/ListItem"}], -1]],
+          ["split", ["/", -1]],
+          ["split", [" ", 0]]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ]
+      }]
+    ]
+  }
+}

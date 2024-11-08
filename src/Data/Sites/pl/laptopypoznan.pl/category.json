@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-07 21:58",
+      "url": "https://www.laptopypoznan.pl",
+      "urls": {
+        "instock": "-https://www.laptopypoznan.pl/Laptopy-poleasingowe-c98/",
+        "outstock": "-https://www.laptopypoznan.pl/Laptopy-poleasingowe-c98/pa/3",
+        "root": "https://www.laptopypoznan.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products_lists_pages_products_presentation"}]],
+          ["find_all", ["figure", {"class": "product-tile"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "product-name-container"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["span", {"class": "product-name"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["div", {"cy-data": "productActions"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["do koszyka"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "product-price-default"}]],
+                 ["find", ["span", {"class": "core_priceFormat"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
