@@ -86,22 +86,43 @@ def CheckPipe(aPipe: dict, aType: str) -> list:
             if (isinstance(xUrl, str)) and (not xUrl.startswith('http'))
         ]
 
+    def _CheckType(aField: str, aVal: object) -> str:
+        if (aField in ['price', 'price_old', 'images']):
+            if (not isinstance(aVal, list)):
+                return f'{aField}: must be list'
+
+            if (aField in ['price', 'price_old']):
+                if (not isinstance(aVal[0], (int, float))):
+                    return f'{aField}: {aVal[0]} must be digit'
+
+                if (not aVal[1]):
+                    return f'{aField}: currency is empty'
+        elif (aField in ['name', 'brand', 'image', 'category', 'description', 'href']):
+            if (not isinstance(aVal, str)):
+                return f'{aField}: must be string'
+        elif (aField == 'features'):
+            if (not isinstance(aVal, dict)):
+                return f'{aField}: must be dict'
+        elif (aField == 'stock'):
+            if (not isinstance(aVal, bool)):
+                return f'{aField}: must be logical'
+
     def _CheckFields(aPipe: dict, aFields: list[str]) -> list:
         Res = []
         for xField in aFields:
             Val = aPipe.get(xField)
             if (Val is None):
                 Res.append(f'{xField}: missed')
-            else:
-                if (xField in ['price', 'price_old']):
-                    if (not isinstance(Val[0], (int, float))):
-                        Res.append(f'{xField}: not float')
-                elif (xField in ['name', 'brand', 'category', 'description']):
-                    if (Val != Val.strip()):
-                        Res.append(f'{xField}: not stripped')
-                elif (xField == 'features'):
-                    if (not isinstance(Val, dict)):
-                        Res.append(f'{xField}: not key-value')
+                continue
+
+            R = _CheckType(xField, Val)
+            if (R):
+                Res.append(R)
+                continue
+
+            if (xField in ['name', 'brand', 'category', 'description', 'href', 'image']):
+                if (Val != Val.strip()):
+                    Res.append(f'{xField}: not stripped')
         return Res
 
     Urls = []
