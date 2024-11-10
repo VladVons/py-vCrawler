@@ -2,7 +2,7 @@
 
 select
   url
-from 
+from
   ref_site rs
  left join
   ref_site_parser rsp on

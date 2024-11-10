@@ -6,13 +6,14 @@
 import os
 import json
 #
-from Inc.Var.Str import JsonFormat, JsonKeyPos
-from Inc.Misc.Template import FormatFilePkg
 from Inc.DbList import TDbList
+from Inc.Http.HttpUrl import UrlToDict, UrlToStr
+from Inc.Misc.Template import FormatFilePkg
 from Inc.ParserX.Common import TFileBase
 from Inc.ParserX.CommonSql import DASplitDbl
-from Inc.Var.Dict import DeepGetByList
 from Inc.Sql import TDbExecPool, TDbPg
+from Inc.Var.Dict import DeepGetByList
+from Inc.Var.Str import JsonFormat, JsonKeyPos
 from IncP.Log import Log
 from .. import SiteCondEnabled
 
@@ -43,9 +44,28 @@ class TMain(TFileBase):
         @DASplitDbl
         async def SSite(aDbl: TDbList, _aMax: int, _aIdx: int = 0, _aLen: int = 0):
             #--- Site
+            Hosts = [UrlToStr(UrlToDict(Rec.url), 'host') for Rec in aDbl]
+            Hosts = [f"'%{xHost}%'" for xHost in Hosts]
+            Query = FormatFilePkg(__package__, 'fmtGet_HostsInUrl.sql', {
+                'aHosts': ', '.join(Hosts)
+            })
+            DblHosts = await TDbExecPool(self.Db.Pool).Exec(Query)
+            Hosts = DblHosts.ExportList('host')
+
+            Dbl = aDbl.New()
+            for Rec in aDbl:
+                Host = UrlToDict(Rec.url)['host']
+                if (Host in Hosts):
+                    Log.Print(1, 'i', f'Host {Host} already in DB')
+                else:
+                    Dbl.RecAdd(Rec.Data)
+
+            if (Dbl.GetSize() == 0):
+                return
+
             InsValues = []
             SelValues = []
-            for Rec in aDbl:
+            for Rec in Dbl:
                 InsValues.append(f"('{Rec.url}', 1)")
                 SelValues.append(f"'{Rec.url}'")
 
@@ -59,7 +79,7 @@ class TMain(TFileBase):
             #--- SiteParser
             InsValues = []
             DirData = self.Parent.Conf['dir_data']
-            for Rec in aDbl:
+            for Rec in Dbl:
                 for xType in Rec.type:
                     if (not xType.startswith('-')):
                         Path = f'{DirData}/{Rec.dir}/{xType}.json'
@@ -78,7 +98,7 @@ class TMain(TFileBase):
 
             #--- SiteCategory
             InsValues = []
-            for Rec in aDbl:
+            for Rec in Dbl:
                 if (Rec.category):
                     SiteId = Pairs[Rec.url]
                     for xCategory in Rec.category:
