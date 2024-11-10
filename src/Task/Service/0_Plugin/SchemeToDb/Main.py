@@ -43,23 +43,26 @@ class TMain(TFileBase):
     async def Upload(self):
         @DASplitDbl
         async def SSite(aDbl: TDbList, _aMax: int, _aIdx: int = 0, _aLen: int = 0):
+            async def FilterExisted(aDbl: TDbList) -> TDbList:
+                Hosts = [UrlToStr(UrlToDict(Rec.url), 'host') for Rec in aDbl]
+                Hosts = [f"'%{xHost}%'" for xHost in Hosts]
+                Query = FormatFilePkg(__package__, 'fmtGet_HostsInUrl.sql', {
+                    'aHosts': ', '.join(Hosts)
+                })
+                DblHosts = await TDbExecPool(self.Db.Pool).Exec(Query)
+                Hosts = DblHosts.ExportList('host')
+
+                DblRes = aDbl.New()
+                for Rec in aDbl:
+                    Host = UrlToDict(Rec.url)['host']
+                    if (Host in Hosts):
+                        Log.Print(1, 'i', f'Host {Host} already in DB')
+                    else:
+                        DblRes.RecAdd(Rec.Data)
+                return DblRes
+
             #--- Site
-            Hosts = [UrlToStr(UrlToDict(Rec.url), 'host') for Rec in aDbl]
-            Hosts = [f"'%{xHost}%'" for xHost in Hosts]
-            Query = FormatFilePkg(__package__, 'fmtGet_HostsInUrl.sql', {
-                'aHosts': ', '.join(Hosts)
-            })
-            DblHosts = await TDbExecPool(self.Db.Pool).Exec(Query)
-            Hosts = DblHosts.ExportList('host')
-
-            Dbl = aDbl.New()
-            for Rec in aDbl:
-                Host = UrlToDict(Rec.url)['host']
-                if (Host in Hosts):
-                    Log.Print(1, 'i', f'Host {Host} already in DB')
-                else:
-                    Dbl.RecAdd(Rec.Data)
-
+            Dbl = await FilterExisted(aDbl)
             if (Dbl.GetSize() == 0):
                 return
 
