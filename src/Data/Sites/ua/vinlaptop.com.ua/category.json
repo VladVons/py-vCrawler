@@ -6,7 +6,7 @@
       "url": "https://vinlaptop.com.ua/",
       "urls": {
         "instock": "https://vinlaptop.com.ua/katalog/",
-        "outstock": "https://vinlaptop.com.ua/katalog/filter/page=33/"
+        "outstock": "-https://vinlaptop.com.ua/katalog/filter/page=33/"
       }
     },
     "pipe": [
@@ -27,7 +27,8 @@
                  ["get", ["title"]]
                ],
                "stock": [
-                  ["find_not", ["a", {"class": "__grayscale"}]]     
+                  ["find_yes", ["a", {"class": "__grayscale"}]],
+                  ["invert"]
                ],
                "price": [
                  ["find", ["div", {"class": "catalogCard-price"}]],

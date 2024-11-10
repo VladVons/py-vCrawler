@@ -108,6 +108,10 @@ def CheckPipe(aPipe: dict, aType: str) -> list:
                 return f'{aField}: must be logical'
 
     def _CheckFields(aPipe: dict, aFields: list[str]) -> list:
+        cMinLen = {
+            'description': 120
+        }
+
         Res = []
         for xField in aFields:
             Val = aPipe.get(xField)
@@ -123,6 +127,10 @@ def CheckPipe(aPipe: dict, aType: str) -> list:
             if (xField in ['name', 'brand', 'category', 'description', 'href', 'image']):
                 if (Val != Val.strip()):
                     Res.append(f'{xField}: not stripped')
+
+                MinLen = cMinLen.get(xField)
+                if (MinLen and len(Val) < MinLen):
+                    Res.append(f'{xField}: too short')
         return Res
 
     Urls = []

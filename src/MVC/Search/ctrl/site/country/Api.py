@@ -24,6 +24,11 @@ class TMain(TCtrlBase):
             }
         )
 
+        Dbl = Lib.TDbList().Import(DblData)
+        Parsed = [Rec.url for Rec in Dbl if Rec.products > 0]
+
         return {
-            'dbl_sites': DblData
+            'dbl_sites': DblData,
+            'cnt_parsed': len(Parsed),
+            'cnt_all': len(Dbl)
         }

@@ -7,7 +7,8 @@
       "urls": {
         "instock": "",
         "outstock": "",
-        "discount": ""
+        "discount": "",
+        "category": ""
       }
     },
     "pipe_microdata": [
@@ -38,6 +39,10 @@
           ["find", ["div", {"id": "tab-specification"}]],
           ["table"],
           ["keyval2dict"]
+        ],
+         "-category": [
+          ["find", ["ol", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]]
         ]
       }]
     ]

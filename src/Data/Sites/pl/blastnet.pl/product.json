@@ -1,0 +1,37 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-08 16:52",
+      "url": "https://blastnet.pl",
+      "urls": {
+        "instock": "-https://blastnet.pl/dell-poweredge-r740/19818-108400-dell-r740-2x10c-silver-4114-220-ghz-32gb-16x25-h330-adapter-2x750w-idrac9ent-szyny.html#/33-wielkosc_pamieci_ram-32gb",
+        "outstock": "https://blastnet.pl/kable-i-tasmy/11565-dell-gpu-power-cable-0n08nh-6039578662079.html",
+        "discount": ""
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "-pipe_product": [
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["section", {"class": "product-features"}]],
+          ["table_tag", [["dt", "dd"]]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ],
+        "category": [
+          ["find", ["ul", {"itemtype": "https://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -1]],
+          ["split", ["/", -1]]
+        ]
+      }]
+    ]
+  }
+}

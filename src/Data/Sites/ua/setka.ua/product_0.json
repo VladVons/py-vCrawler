@@ -37,7 +37,7 @@
             [
               ["find", ["meta", {"itemprop": "price"}]],
               ["get", ["content"]],
-              ["txt2int"]
+              ["text_to_float"]
             ],
             [
               ["find", ["meta", {"itemprop": "priceCurrency"}]],

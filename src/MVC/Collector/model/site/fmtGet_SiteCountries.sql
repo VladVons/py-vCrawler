@@ -4,15 +4,18 @@
 with wt1 as (
   select
     country_id,
-    count(*)
+    count(*) as cnt_all,
+    count(enabled) as cnt_enabled
   from
     ref_site
   group by
     country_id
 )
+
 select 
   wt1.country_id,
-  wt1.count,
+  wt1.cnt_all,
+  wt1.cnt_enabled,
   rcl.title as country,
   rcl2.title as continent 
 from 

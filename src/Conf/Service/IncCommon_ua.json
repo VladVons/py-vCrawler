@@ -160,7 +160,7 @@
         0,
         "notebook-store.com.ua",
         "https://notebook-store.com.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/noutbuky-bu/"]
       ],
       [
@@ -213,7 +213,7 @@
         ["/category/kompyuternaya-tekhnika/kompyutery/nastolnye-kompyutery", "/category/kompyuternaya-tekhnika/kompyutery/servery/"]
       ],
       [
-        -1,
+        0,
         "laptop-ukraine.top",
         "https://laptop-ukraine.top",
         ["-product", "category"],
@@ -223,7 +223,7 @@
         0,
         "vinlaptop.com.ua",
         "https://vinlaptop.com.ua",
-        ["product", "category"],
+        ["-product", "category"],
         ["/noutbuki/", "/sistemnye-bloki/", "/monitory/", "/monobloki/"]
       ],
       [
@@ -234,11 +234,32 @@
         ["/noutbuki/?ocf=F49S2V2537584534"]
       ],
       [
-        1,
+        0,
         "monitory.com.ua",
         "https://monitory.com.ua/ua",
         ["product", "category"],
         ["/g10436027-sistemnye-bloki-dlya", "/g11895491-noutbuki", "/g22559555-monitory", "/g13336243-printery-mfu"]
+      ],
+      [
+        0,
+        "chipchip.ua",
+        "https://chipchip.ua/uk",
+        ["-product", "category"],
+        []
+      ],
+      [
+        0,
+        "streampc.com.ua",
+        "https://streampc.com.ua/ua",
+        ["-product", "category"],
+        ["/g4047206-printery-kopiry-mfu", "/g4030808-monitory", "/g119006051-brendovye-kompyutery", "/g6212191-noutbuki"]
+      ],
+      [
+        1,
+        "pcbaza.com.ua",
+        "https://pcbaza.com.ua/ua",
+        ["-product", "category"],
+        ["/g15514994-noutbuki-germanii", "/g14986098-sistemnye-bloki", "/g15763337-monitory", "/g18453057-kompyutery-komplektom"]
       ]
     ]
   }

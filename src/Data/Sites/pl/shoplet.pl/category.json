@@ -1,0 +1,54 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-08 18:21",
+      "url": "https://asnew.pl",
+      "urls": {
+        "instock": "-https://shoplet.pl/21-laptopy",
+        "outstock": "-https://shoplet.pl/21-laptopy#/page-29",
+        "root": "https://shoplet.pl"
+      },
+      "reader": "playwright"
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["select", {"id": "selectProductSort"}]],
+          ["find", ["div", {"class": "product_list"}]],
+          ["find_all", ["div", {"class": "product-item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3", {"class": "product-name-custom"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3", {"class": "product-name-custom"}]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "product-available"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["produkt dostępny"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "product-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

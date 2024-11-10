@@ -1,12 +1,12 @@
 {% extends '_inc/layout1.j2' %}
 
-{% set Fields = ['country', 'sites'] %}
+{% set Fields = ['country', 'enabled', 'all'] %}
 
 {% block head %}
 <style>
   .grid-container {
     display: grid;
-    grid-template-columns: 250px 90px;
+    grid-template-columns: 250px 100px 100px;
   }
 
   .gitem {
@@ -31,7 +31,8 @@
       <div class="gitem">
         <a href="{{Rec.href}}">{{Rec.country}}</a>
       </div>
-      <div class="gitem">{{Rec.count}}</div>
+      <div class="gitem">{{Rec.cnt_enabled}}</div>
+      <div class="gitem">{{Rec.cnt_all}}</div>
     {% endfor %}
   </div>
 </div>

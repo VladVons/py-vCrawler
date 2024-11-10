@@ -80,6 +80,10 @@ class TScriptTest {
       this.OnDblClickResult(event);
     });
 
+    this.ElScript.addEventListener('paste', (event) => {
+      this.OnPasteScript(event);
+    });
+
     this.ElTab.querySelector('.idCommands').addEventListener('change', (event) => {
         const Value = event.target.value;
         if (Value == 'TplNew') {
@@ -252,6 +256,19 @@ class TScriptTest {
     )
 
     this.Log(`files removed: ${res['files_cnt']}`);
+  }
+
+  OnPasteScript(event) {
+    const clipboardData = event.clipboardData.getData('text');
+    const ScriptJ = JSON.parse(clipboardData);
+    const Data = ScriptJ[this.Name]['info']['urls'];
+    const Urls = Object.values(Data);
+    for (const xUrl of Urls) {
+      if ((xUrl) && (xUrl[0] != '-')) {
+        this.ElUrl.value = xUrl;
+        break;
+      }
+    }
   }
 
   Log(Msg) {

@@ -1,0 +1,59 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-08 17:53",
+      "url": "https://shoplet.pl",
+      "urls": {
+        "instock": "-https://shoplet.pl/komputery-fujitsu/45409-komputer-stacjonarny-fujitsu-esprimo-p757-tower-i5-6500-8gb-256gb-ssd-win10pro-5905902078469.html",
+        "outstock": "https://shoplet.pl/laptopy-lenovo/34652-laptop-lenovo-thinkpad-t490-i7-8665u-32gb-512gb-ssd-full-hd-geforce-mx250-win10p-5905902010872.html",
+        "discount": "-https://shoplet.pl/laptopy-lenovo/34652-laptop-lenovo-thinkpad-t490-i7-8665u-32gb-512gb-ssd-full-hd-geforce-mx250-win10p-5905902010872.html"
+      },
+      "reader": "playwright"
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "primary_block"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["ul", {"id": "thumbs_list_frame"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "price_old": [
+          ["find", ["span", {"id": "old_price_display"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+           ["find", ["p", {"class": "product-status-text"}]],
+           ["text_strip"],
+           ["lower"],
+           ["search_start", ["produkt dostępny"]]
+         ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-features"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Marka"]]
+        ],
+        "category": [
+          ["find", ["span", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -2]]
+        ]
+      }]
+    ]
+  }
+}

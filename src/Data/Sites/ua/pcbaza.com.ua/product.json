@@ -1,0 +1,44 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.11.10 18:00:00",
+      "url": "https://pcbaza.com.ua",
+      "urls": {
+        "instock": "-https://pcbaza.com.ua/ua/p1637315908-ultrabuk-windows-top.html",
+        "outstock": "https://pcbaza.com.ua/ua/p1123348710-141-intel-yadra.html",
+        "category": "-https://pcbaza.com.ua/ua/g15514994-noutbuki-germanii"
+      },
+      "comment": "prom"
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "b-product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "b-product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "cs-images"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}],
+          ["list_map", [
+            ["replace", [["h159", "w159"], ["h640", "w640"]]]
+          ]]
+         ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["table", {"class": "b-product-info"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "description": [
+          ["find", ["div", {"data-qaid": "product_description"}]],
+          ["text_tag", ["p"]]
+        ]
+      }]
+    ]
+  }
+}

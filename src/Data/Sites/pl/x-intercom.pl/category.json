@@ -1,0 +1,49 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-08 16:39",
+      "url": "https://x-intercom.pl",
+      "urls": {
+        "instock": "-https://x-intercom.pl/101-uzywane",
+        "outstock": "-https://x-intercom.pl/101-uzywane",
+        "root": "https://x-intercom.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["div", {"class": "products-selection"}]],
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["article", {"class": "product-miniature"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h2", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2", {"class": "product-title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"class": "add-to-cart"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "product-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

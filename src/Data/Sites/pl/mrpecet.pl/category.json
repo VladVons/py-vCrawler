@@ -28,8 +28,7 @@
                  ["get", ["title"]]
                ],
                "stock": [
-                  ["find_not", ["button", {"class": "addtobasket"}]],
-                  ["invert"]
+                  ["find_yes", ["button", {"class": "addtobasket"}]]
                ],
                "price": [
                  ["find", ["div", {"class": "price"}]],

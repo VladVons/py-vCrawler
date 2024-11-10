@@ -26,8 +26,7 @@
                  ["text_strip"]
                ],
                "stock": [
-                  ["find_not", ["button", {"class": "tocart"}]],
-                  ["invert"]
+                  ["find_yes", ["button", {"class": "tocart"}]]
                ],
                "price": [
                  ["find", ["span", {"class": "price"}]],

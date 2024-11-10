@@ -33,6 +33,9 @@
       </div>
       <div class="gitem">{{Iif(Rec.products, Rec.products, '')}}</div>
     {% endfor %}
+    <div class="pt-2">
+      {{cnt_parsed}}/{{cnt_all}}
+    </div>
   </div>
 </div>
 {% endblock %}

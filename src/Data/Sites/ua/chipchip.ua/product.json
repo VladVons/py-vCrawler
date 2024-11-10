@@ -1,0 +1,55 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-07 17:35",
+      "url": "https://chipchip.ua/uk",
+      "urls": {
+        "instock": "",
+        "outstock": "-https://chipchip.ua/uk/product/lenovo-ideapad-gaming-3-15arh7-ip-00006908",
+        "discount": "https://chipchip.ua/uk/product/lenovo-loq-16aph8-ip-00007230"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product__content"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "thumbnails"}]],
+          ["find_all_get_url", ["img", {"data-type": "image"}], {"a_get": "data-src"}]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "price__old"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "description-block-content"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "description-block-specs"}]],
+          ["table_tag", ["div", {"class": "spec"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "category": [
+          ["find", ["ul", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["li", {"itemtype": "http://schema.org/ListItem"}], -1]],
+          ["split", ["/", -2]]
+        ],
+        "brand": [
+          ["find", ["div", {"class": "data-merchant"}]],
+          ["text_strip"],
+          ["text_to_json"],
+          ["get", ["brand"]]
+        ]
+      }]
+    ]
+  }
+}

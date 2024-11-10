@@ -37,7 +37,8 @@
                  ["price"]
               ],
               "stock": [
-                 ["find_not", ["a", {"class": "__grayscale"}]]
+                 ["find_yes", ["a", {"class": "__grayscale"}]],
+                 ["invert"]
               ]
             }]
           ]]

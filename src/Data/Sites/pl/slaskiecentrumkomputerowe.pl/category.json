@@ -29,7 +29,8 @@
                  ["get", ["title"]]
                ],
                "stock": [
-                  ["find_not", ["button", {"class": "availability-notifier-btn"}]]
+                  ["find_yes", ["button", {"class": "availability-notifier-btn"}]],
+                  ["invert"]
                ],
                "price": [
                  ["find", ["div", {"class": "price"}]],

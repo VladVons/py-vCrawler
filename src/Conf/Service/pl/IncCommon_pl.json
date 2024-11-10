@@ -55,14 +55,14 @@
         0,
         "mrpecet.pl",
         "https://mrpecet.pl",
-        ["product", "-category"],
+        ["-product", "category"],
         ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe", "/tablety-poleasingowe"]
       ],
       [
         0,
         "hardwaredirect.pl",
         "https://hardwaredirect.pl",
-        ["product", "category"],
+        ["-product", "category"],
         ["/serwery", "/stacje-robocze", "/urzadzenia-sieciowe", "/storage"]
       ],
       [
@@ -83,8 +83,29 @@
         0,
         "galbit.sklep.pl",
         "https://galbit.sklep.pl",
-        ["product", "category"],
+        ["product", "-category"],
         ["/pl/c/Komputery-PC/47", "/pl/c/Monitory/46", "/pl/c/Drukarki/21", "/pl/c/Laptopy/92"]
+      ],
+      [
+        0,
+        "x-intercom.pl",
+        "https://x-intercom.pl",
+        ["product", "category"],
+        ["/97-uzywane", "/103-uzywane", "/105-uzywane", "/115-uzywane"]
+      ],
+      [
+        0,
+        "blastnet.pl",
+        "https://blastnet.pl",
+        ["product", "category"],
+        ["/12-serwery-dell", "/20-serwery-hp", "/253-workstation", "/182-serwery-cisco", "/51-serwery-ibm-lenovo"]
+      ],
+      [
+        0,
+        "shoplet.pl",
+        "https://shoplet.pl",
+        ["product", "category"],
+        ["/21-laptopy", "/13-komputery", "/34-monitory", "/115-drukarki"]
       ]
     ]
   }

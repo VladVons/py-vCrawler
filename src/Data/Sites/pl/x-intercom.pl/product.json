@@ -1,0 +1,39 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-08 16:14",
+      "url": "https://x-intercom.pl",
+      "urls": {
+        "instock": "https://x-intercom.pl/all-in-one/17729-1137-aio-dell-optiplex-5270-i5-9500#/10-wielkosc_pamieci_ram-8gb/15-pojemnosc_dysku-256gb_ssd",
+        "outstock": "-https://x-intercom.pl/all-in-one/212-512-aio-dell-optiplex-3050-i5-7500t-hd-195#/10-wielkosc_pamieci_ram-8gb/15-pojemnosc_dysku-256gb_ssd",
+        "discount": ""
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "main-product-wrapper"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "product-images-thumbs"}]],
+          ["find_all_get_url", ["img", {"class": "thumb"}], {"a_get": "data-src"}]
+        ],
+        "description": [
+          ["find", ["section", {"class": "product-description-section"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["section", {"class": "product-features"}]],
+          ["table_tag", [["dt", "dd"]]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

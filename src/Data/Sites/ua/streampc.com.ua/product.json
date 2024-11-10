@@ -1,0 +1,54 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-08 10:14",
+      "url": "https://streampc.com.ua/ua",
+      "urls": {
+        "instock": "-https://streampc.com.ua/ua/p1510825297-videokarta-intel-iris.html",
+        "outstock": "-https://streampc.com.ua/ua/p1707953407-ibp-frimecom-600.html",
+        "discount": "",
+        "category": "https://streampc.com.ua/ua/g4030195-kompyutery"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "b-product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "b-product__container"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "b-extra-photos"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}],
+          ["list_map", [
+            ["replace", ["w40_h40", "w640_h640"]]
+          ]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"data-qaid": "product_description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["table", {"class": "b-product-info"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "category": [
+          ["find", ["div", {"class": "b-breadcrumb"}]],
+          ["get", ["data-crumbs-path"]],
+          ["text_to_json"],
+          ["list_map", [
+            ["get", ["name"]]
+          ]],
+          ["list", [1, -1]],
+          ["list_join", ["/"]]
+         ]
+      }]
+    ]
+  }
+}

@@ -170,7 +170,7 @@ class TSchemer():
                             raise ValueError(f'Unknown reader {Reader}')
 
                     if (DataU['status'] != 200):
-                        print(f'Error reading {xUrl}', DataU['status'], DataU['err'])
+                        print(f'Error reading {xUrl}', DataU['status'], DataU.get('err', ''))
                         continue
 
                     Data = DataU['data']

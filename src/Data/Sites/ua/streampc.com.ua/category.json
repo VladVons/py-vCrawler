@@ -1,0 +1,46 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-08 10:52",
+      "url": "https://streampc.com.ua/ua",
+      "urls": {
+        "instock": "-https://streampc.com.ua/ua/g4030195-kompyutery",
+        "outstock": "https://streampc.com.ua/ua/g4050249-istochniki-besperebojnogo-pitaniya",
+        "root": "-https://streampc.com.ua/ua"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "b-product-list"}]],
+          ["find_all", ["li", {"class": "b-product-list__item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "b-product-list__title-link"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "b-product-list__title-link"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"data-qaid": "buy-button"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "b-product-list__current-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["meta_nears"]
+       ]
+      }]
+    ]
+  }
+}

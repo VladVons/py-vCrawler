@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-07 18:49",
+      "url": "https://chipchip.ua/ua",
+      "urls": {
+        "instock": "https://chipchip.ua/uk/category/noutbuki-iz-evropy-b-u",
+        "outstock": "",
+        "root": "-https://chipchip.ua"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["ul", {"class": "select"}]],
+          ["find", ["div", {"class": "main-products"}]],
+          ["find_all", ["div", {"class": "item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "title"}]],
+                 ["find", ["a", {"class": "product-link"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "title"}]], 
+                 ["find", ["a", {"class": "product-link"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "in-stock"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["є в наявності"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "main-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "-pager": [
+         ["todo sitemap"]
+       ]
+      }]
+    ]
+  }
+}

@@ -39,8 +39,7 @@
           ["price"]
         ],
          "stock": [
-          ["find_not", ["div", {"class": "product-actions__add-to-basket"}]],
-          ["invert"]
+          ["find_yes", ["div", {"class": "product-actions__add-to-basket"}]]
         ]
       }]
     ],
