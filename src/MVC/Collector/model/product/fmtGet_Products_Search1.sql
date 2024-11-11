@@ -1,5 +1,5 @@
 -- fmtGet_Products_Search1.sql
--- in: FilterRe, aOrder, aLimit, aOffset
+-- in: FilterRe, aCountryId, aOrder, aLimit, aOffset
 
 with wt1 as(
     select
@@ -10,7 +10,11 @@ with wt1 as(
     join
         ref_url ru on
         ru.id = rp.url_id
+    join
+        ref_site rs on
+        rs.id = ru.site_id
     where
+        (rs.country_id = {{aCountryId}}) and
         (ru.status_code = 200) and
         (rp.price > 0) and
         (rp.title ilike all (values {{FilterRe}}))

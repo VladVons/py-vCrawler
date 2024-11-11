@@ -258,7 +258,7 @@
         1,
         "pcbaza.com.ua",
         "https://pcbaza.com.ua/ua",
-        ["-product", "category"],
+        ["product", "-category"],
         ["/g15514994-noutbuki-germanii", "/g14986098-sistemnye-bloki", "/g15763337-monitory", "/g18453057-kompyutery-komplektom"]
       ]
     ]

@@ -1,12 +1,12 @@
 {% extends '_inc/layout1.j2' %}
 
-{% set Fields = ['site', 'products'] %}
+{% set Fields = ['site', 'products', 'available'] %}
 
 {% block head %}
 <style>
   .grid-container {
     display: grid;
-    grid-template-columns: 250px 90px;
+    grid-template-columns: 250px 90px 90px;
   }
 
   .gitem {
@@ -36,6 +36,7 @@
         <a href="{{Rec.url}}" rel="nofollow">{{Rec.host}}</a>
       </div>
       <div class="gitem">{{Iif(Rec.products, Rec.products, '')}}</div>
+      <div class="gitem">{{Iif(Rec.onstock, Rec.onstock, '')}}</div>
     {% endfor %}
   </div>
 </div>

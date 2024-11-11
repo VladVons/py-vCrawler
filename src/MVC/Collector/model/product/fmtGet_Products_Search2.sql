@@ -10,7 +10,11 @@ with wt1 as(
     join
         ref_url ru on
         ru.id = rp.url_id
+    join
+        ref_site rs on
+        rs.id = ru.site_id
     where
+        (rs.country_id = {{aCountryId}}) and
         (ru.status_code = 200) and
         (rp.price > 0) and
         tsv_title @@ to_tsquery('simple', '{{aFilter}}')

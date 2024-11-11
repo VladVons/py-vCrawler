@@ -1,0 +1,55 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-10 10:14",
+      "url": "https://tanikomputer.eu",
+      "urls": {
+        "instock": "-https://tanikomputer.eu/dell-latitude-5520,id232.html",
+        "outstock": "-https://tanikomputer.eu/fujitsu-p557-i5-6600-16gb-512ssd-w10,id99.html",
+        "discount": "https://tanikomputer.eu/dell-precision-7770-stacja-robocza-profesjonalna,id215.html"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["-find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["var_get", ["$product_itemprop_root"]],
+      ["list", [0]],
+      ["as_dict", {
+        "images": [
+          ["find", ["ul", {"class": "product-cart__gallery"}]],
+          ["find_all_get_url", ["a", {"class": "product-cart__gallery-link"}], {"a_get": "href"}]
+        ],
+        "price_old": [
+          ["find", ["del", {"class": "price-box__prev-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "desc-text"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "desc-table"}]],
+          ["table_tag", [["li", {"class": "attribute"}, "li", {"class": "attribute-value"}]]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "category": [
+          ["find", ["ol", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -1]],
+          ["split", ["/", -1]]
+        ]
+      }]
+    ]
+  }
+}

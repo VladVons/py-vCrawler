@@ -106,6 +106,27 @@
         "https://shoplet.pl",
         ["product", "category"],
         ["/21-laptopy", "/13-komputery", "/34-monitory", "/115-drukarki"]
+      ],
+      [
+        0,
+        "tanikomputer.eu",
+        "https://tanikomputer.eu",
+        ["product", "category"],
+        ["/laptopy-poleasingowe,c4.html", "/komputery-pc,c8.html", "/monitory,c5.html"]
+      ],
+      [
+        0,
+        "laptopmarket.pl",
+        "https://laptopmarket.pl",
+        ["product", "category"],
+        ["/Laptopy-poleasingowe"]
+      ],
+      [
+        0,
+        "at-outlet.pl",
+        "https://at-outlet.pl",
+        ["product", "category"],
+        ["/laptopy", "/drukarki-2"]
       ]
     ]
   }

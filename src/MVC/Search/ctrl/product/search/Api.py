@@ -10,10 +10,10 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 class TMain(TCtrlBase):
     async def Main(self, **aData):
-        aSearch, aSort, aOrder, aPage, aLimit = Lib.GetDictDefs(
+        aSearch, aCountryId, aSort, aOrder, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
-            ('q', 'sort', 'order', 'page', 'limit'),
-            ('', ('sort_order, title', 'title', 'price', 'stock'), ('asc', 'desc'), 1, 10)
+            ('q', 'country_id', 'sort', 'order', 'page', 'limit'),
+            ('', 1, ('sort_order, title', 'title', 'price', 'stock'), ('asc', 'desc'), 1, 10)
         )
 
         aLimit = min(aLimit, 25)
@@ -21,12 +21,13 @@ class TMain(TCtrlBase):
         if (not Lib.IsDigits([aPage, aLimit])):
             return {'status_code': 404}
 
-        Dbl = await self.ExecModelImport(
+        DblProducts = await self.ExecModelImport(
             'product',
             {
                 'method': 'Get_Products_Search2',
                 'param': {
                     'aFilter': aSearch,
+                    'aCountryId': aCountryId,
                     'aOrder': f'{aSort} {aOrder}',
                     'aLimit': aLimit,
                     'aOffset': (aPage - 1) * aLimit
@@ -34,13 +35,14 @@ class TMain(TCtrlBase):
             }
         )
 
-        if (not Dbl):
-            Dbl = await self.ExecModelImport(
+        if (not DblProducts):
+            DblProducts = await self.ExecModelImport(
                 'product',
                 {
                     'method': 'Get_Products_Search1',
                     'param': {
                         'aFilter': aSearch,
+                        'aCountryId': aCountryId,
                         'aOrder': f'{aSort} {aOrder}',
                         'aLimit': aLimit,
                         'aOffset': (aPage - 1) * aLimit
@@ -48,24 +50,24 @@ class TMain(TCtrlBase):
                 }
             )
 
-        Res = {'search': aSearch}
-        if (not Dbl):
+        Res = {}
+        if (not DblProducts):
             Res['status_code'] = 404
             return Res
 
         Marker = 'findwares.com'
         Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
-        Dbl.ToList()
-        for Rec in Dbl:
+        DblProducts.ToList()
+        for Rec in DblProducts:
             Url = Rec.url
             Url = Url + Lib.Iif('?' in Url, '&', '?') + f'srsltid={Hash}'
             Rec.SetField('url', Url)
 
         Pagination = Lib.TPagination(aLimit, aData['path_qs'])
         Pagination.Visible = 7
-        PData = Pagination.Get(Dbl.Rec.total, aPage)
+        PData = Pagination.Get(DblProducts.Rec.total, aPage)
         DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
 
-        Res['dbl_products'] = Dbl.Export()
+        Res['dbl_products'] = DblProducts.Export()
         Res['dbl_pagenation'] = DblPagination.Export()
         return Res

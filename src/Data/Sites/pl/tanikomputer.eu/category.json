@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-10 10:48",
+      "url": "https://tanikomputer.eu",
+      "urls": {
+        "instock": "-https://tanikomputer.eu/laptopy-poleasingowe,c4.html",
+        "outstock": "-https://tanikomputer.eu/komputery-pc,c8.html",
+        "root": "https://tanikomputer.eu"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["h1", {"class": "category-title"}]],
+          ["find", ["div", {"class": "product-list__content"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product__name-link"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3", {"class": "product__name"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["a", {"class": "add-to-cart"}]]
+               ],
+               "price": [
+                 ["find", ["strong", {"class": "pprice"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pages"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

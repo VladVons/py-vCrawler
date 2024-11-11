@@ -1,0 +1,27 @@
+<!-- header + -->
+<nav class="navbar navbar-expand-lg  navbar-dark">
+  <div class="container-fluid">
+    <div class="d-flex col-2 col-sm-2 col-md-3 order-1 justify-content-between">
+      <a href="/" id="ALogo" title="{{lang.home}}">
+        <picture>
+          <source media="(min-width: 465px)" srcset="/assets/img/logo-1x1.png">
+          <img src="/assets/img/logo-x.png" alt="company logo" height="45" id="viLogo">
+        </picture>
+      </a>
+    </div>
+    <div class="d-flex col-12 col-sm-12 col-md-8 order-3 order-md-2 justify-content-between">
+      <div class="d-flex col-12 col-sm-12 col-md-7 justify-content-center">
+        <form autocomplete="off" method="get" class="d-flex col-9 col-sm-9 col-md-9 col-lg-9 align-items-center">
+          <div class="input-group autocomplete-block1">
+            <div class="autocomplete vSearch">
+              <input type="hidden" name="route" value="product/search"/>
+              <input type="text" class="form-control" value="{{search}}" name="q" placeholder="{{lang.search}}" id="viSearchInput"/>
+            </div>
+          </div>
+          <button class="btn float-end" type="submit"><i class="fa fa-search" title="{{lang.search}}"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- header - -->

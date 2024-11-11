@@ -29,16 +29,17 @@ class TApiCtrl(TApiBase):
         Type = aData.get('type')
         match Type:
             case 'form':
-                Routes = Lib.DeepGetByList(aData, ['param', 'aData', 'extends'], [])
+                Routes = aData.get('extends', [])
                 Routes.append(aRoute)
                 for xRoute in Routes:
                     await self.Lang.Add('ua', xRoute, 'tpl')
                 Lang = self.Lang.Join()
                 Res = {'lang': Lang}
 
-                ResExec = await super().Exec(aRoute, aData)
-                if (isinstance(ResExec, dict)):
-                    Res.update(ResExec)
+                for xRoute in Routes:
+                    ResExec = await super().Exec(xRoute, aData)
+                    if (isinstance(ResExec, dict)):
+                        Res.update(ResExec)
             case 'api':
                 Res = await super().Exec(aRoute, aData)
             case _:

@@ -1,0 +1,50 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-10 12:19",
+      "url": "https://laptopmarket.pl",
+      "urls": {
+        "instock": "-https://laptopmarket.pl/pl/c/Laptopy-Ultrabooki-Notebooki/13",
+        "outstock": "-https://laptopmarket.pl/pl/c/Laptopy-Ultrabooki-Notebooki/13/2",
+        "root": "https://laptopmarket.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["select", {"class": "gotourl"}]],
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"class": "addtobasket"}]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["em"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find_check", ["select", {"class": "gotourl"}]],
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

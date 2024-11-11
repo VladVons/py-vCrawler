@@ -1,0 +1,45 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-10 12:28",
+      "url": "https://at-outlet.pl",
+      "urls": {
+        "instock": "-https://at-outlet.pl/komputery-gamingowe-3/komputer-gamingowy-ryzen-5-3600-32gb-2tb-ssd-nvme-rtx-4070-12gb-win11-gw24",
+        "outstock": "",
+        "discount": "https://at-outlet.pl/laptopy-lenovo/lenovo-thinkpad-yoga-370-2w1-i5-7300u-8gb-256ssd-win10-gw12m-a"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "ProductGallery"}]],
+          ["find", ["div", {"class": "carousel-inner"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "base-price"}]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"class": "product-specification"}]],
+          ["table_tag", ["div", {"class": "attr-box"}]],
+          ["keyval2dict"]
+        ],
+        "category": [
+          ["find", ["ul", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], -2]]
+        ]
+      }]
+    ]
+  }
+}

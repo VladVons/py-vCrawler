@@ -62,9 +62,10 @@ class TMain(TFileBase):
                 return DblRes
 
             #--- Site
-            Dbl = await FilterExisted(aDbl)
-            if (Dbl.GetSize() == 0):
-                return
+            #Dbl = await FilterExisted(aDbl)
+            #if (Dbl.GetSize() == 0):
+            #    return
+            Dbl = aDbl
 
             InsValues = []
             SelValues = []

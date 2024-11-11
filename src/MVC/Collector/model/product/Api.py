@@ -20,20 +20,21 @@ class TMain(TDbModel):
             }
         )
 
-    async def Get_Products_Search1(self, aFilter: str, aOrder: str, aLimit: int = 100, aOffset: int = 0) -> dict:
+    async def Get_Products_Search1(self, aFilter: str, aCountryId: int, aOrder: str, aLimit: int = 100, aOffset: int = 0) -> dict:
         FilterRe = [f"('%{x}%')" for x in re.split(r'\s+', aFilter)]
         return await self.ExecQuery(
             'fmtGet_Products_Search1.sql',
             {
                 'aFilter': aFilter,
                 'FilterRe': ', '.join(FilterRe),
+                'aCountryId': aCountryId,
                 'aOrder': aOrder,
                 'aLimit': aLimit,
                 'aOffset': aOffset
             }
         )
 
-    async def Get_Products_Search2(self, aFilter: str, aOrder: str, aLimit: int = 100, aOffset: int = 0) -> dict:
+    async def Get_Products_Search2(self, aFilter: str, aCountryId: int, aOrder: str, aLimit: int = 100, aOffset: int = 0) -> dict:
         aFilter = aFilter.replace('-', ' ').replace('/', ' ').strip('&').strip()
         aFilter = re.sub(r'\s+', '&', aFilter)
 
@@ -41,6 +42,7 @@ class TMain(TDbModel):
             'fmtGet_Products_Search2.sql',
             {
                 'aFilter': aFilter,
+                'aCountryId': aCountryId,
                 'aOrder': aOrder,
                 'aLimit': aLimit,
                 'aOffset': aOffset

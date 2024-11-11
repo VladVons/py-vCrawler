@@ -101,4 +101,8 @@ class TMain(TDbModel):
             }
         )
 
-
+    async def GetCountries(self) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_Countries.sql',
+            {}
+        )

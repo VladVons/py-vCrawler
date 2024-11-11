@@ -1,0 +1,31 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-10 12:00",
+      "url": "https://laptopmarket.pl",
+      "urls": {
+        "instock": "https://laptopmarket.pl/pl/p/Dell-Latitude-5500-i5-15%2C6-FHD-IPS-SSD-Win1011-Pro/22684",
+        "outstock": "-https://laptopmarket.pl/pl/p/DELL-Latitude-7400-i7-8gen.-14.0-FHD-Dotyk-SSD-W10P/22593",
+        "discount": ""
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
