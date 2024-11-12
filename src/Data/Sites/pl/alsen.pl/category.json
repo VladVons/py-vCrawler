@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 20:11",
+      "url": "https://www.alsen.pl",
+      "urls": {
+        "instock": "https://www.alsen.pl/laptopy-i-komputery/komputery-pc",
+        "outstock": "",
+        "root": "-https://www.alsen.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["div", {"class": "options"}]],
+          ["find", ["ul", {"class": "product-list"}]],
+          ["find_all", ["div", {"class": "product-box"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h2", {"class": "product-name"}]],
+                 ["find", ["a", {"data-type": "product-url"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2", {"class": "product-name"}]],
+                 ["find", ["a", {"data-type": "product-url"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["a", {"class": "product-add-cart"}]]
+               ],
+               "-price": [
+                 "todo: application/ld+json"
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

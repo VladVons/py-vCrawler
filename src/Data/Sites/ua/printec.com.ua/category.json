@@ -1,0 +1,55 @@
+{
+  "category": {
+    "info": {
+      "author": "-author-",
+      "date": "2024-11-12 06:43",
+      "url": "https://printec.com.ua",
+      "urls": {
+        "instock": "https://printec.com.ua/laptops/",
+        "outstock": "",
+        "root": ""
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "catalog__content"}]],
+          ["find_all", ["li", {"class": "catalog-grid__item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "catalogCard-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["a", {"class": "__grayscale"}]],
+                 ["invert"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "catalogCard-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["div", {"class": "catalogCard-oldPrice"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "-pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

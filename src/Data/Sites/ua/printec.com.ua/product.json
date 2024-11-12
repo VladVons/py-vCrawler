@@ -1,0 +1,37 @@
+{
+  "product": {
+    "info": {
+      "author": "-author-",
+      "date": "2024-11-12 06:22",
+      "url": "https://printec.com.ua",
+      "urls": {
+        "instock": "https://printec.com.ua/lenovo-thinkpad-t480s-20l7002cus-i5-8350u-18gb-ram-256gb-ssd/",
+        "outstock": "https://printec.com.ua/dell-optiplex-9010-usff-i7-3770s-16gb-ram-256gb-ssd/",
+        "discount": "https://printec.com.ua/receipt-printer-epson-tm-t88v/",
+        "category": "https://printec.com.ua/laptops/"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["var_get", ["$product_itemprop_root"]], ["list", [0]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "product-price__old-price"}]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"class": "product-features"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

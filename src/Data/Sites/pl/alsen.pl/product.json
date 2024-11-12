@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 19:57",
+      "url": "https://www.alsen.pl",
+      "urls": {
+        "instock": "-https://www.alsen.pl/thermaltake-obudowa-versa-xm1-tempered-glass-120mm-fan-usb3-0-czarna",
+        "outstock": "",
+        "discount": "-https://www.alsen.pl/endorfy-zasilacz-supremo-fm5-gold-650w",
+        "category": "https://www.alsen.pl/laptopy-i-komputery/komputery-pc"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product-column"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "page-content"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["span", {"class": "base-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-specification"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

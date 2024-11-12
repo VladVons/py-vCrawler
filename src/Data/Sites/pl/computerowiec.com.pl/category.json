@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 12:23",
+      "url": "https://computerowiec.com.pl",
+      "urls": {
+        "instock": "-https://computerowiec.com.pl/3-komputery-stacjonarne",
+        "outstock": "",
+        "root": "https://computerowiec.com.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"id": "products-list"}]],
+          ["find_all", ["div", {"class": "item-product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product_name"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product_name"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"class": "add-to-cart"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"itemprop": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
+

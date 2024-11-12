@@ -92,7 +92,7 @@ create table if not exists ref_site (
     url                 varchar(64) not null unique,
     update_hours        int2 not null default 12,
     urls_parse          int2 not null default 5,
-    sleep_seconds       numeric(5,2) not null default 10,
+    sleep_seconds       numeric(5,2) not null default 15,
     robots              text,
     headers             json,
     country_zone        varchar(8),

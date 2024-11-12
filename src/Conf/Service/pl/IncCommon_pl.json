@@ -127,6 +127,34 @@
         "https://at-outlet.pl",
         ["product", "category"],
         ["/laptopy", "/drukarki-2"]
+      ],
+      [
+        0,
+        "otokomputery.pl",
+        "https://www.otokomputery.pl",
+        ["product", "category"],
+        ["/pl/c/Laptopy/18", "/pl/c/Komputery/2", "/pl/c/Monitory/198", "/pl/c/Smartfony/127", "/pl/c/Tablety/126"]
+      ],
+      [
+        0,
+        "computerowiec.com.pl",
+        "https://computerowiec.com.pl",
+        ["product", "category"],
+        ["/41-laptopy", "/3-komputery-stacjonarne", "/43-monitory", "/4-serwery"]
+      ],
+      [
+        0,
+        "alsen.pl",
+        "https://www.alsen.pl",
+        ["-product", "category"],
+        ["/laptopy-i-komputery/komputery-pc/komputery-poleasingowe", "/laptopy-i-komputery/laptopy/laptopy-poleasingowe"]
+      ],
+      [
+        1,
+        "enerson.com.pl",
+        "https://www.enerson.com.pl",
+        ["product", "category"],
+        ["/laptopy-poleasingowe", "/Laptopy-powystawowe-i-odnowione-refurbished-c112", "/komputery-poleasingowe-pc", "/komputery-all-in-one-poleasingowe", "/monitory-poleasingowe", "/drukarki-laserowe"]
       ]
     ]
   }

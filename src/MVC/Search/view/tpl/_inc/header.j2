@@ -10,13 +10,13 @@
   </select>
 </div>
 
-<form class="search-group ms-3" method="get" autocomplete="off">
+<form class="search-group ms-3" method="get" autocomplete="off" id="viSearchForm">
   <input type="hidden" name="route" value="product/search"/>
   <input type="text" class="form-control search-input" name="q" value="{{search}}" id="viSearchInput" placeholder="Search">
   <button type="submit" class="search-icon ms-2" aria-label="Search">
     <i class="bi bi-search"></i>
   </button>
-  <select class="form-select ms-2 d-none d-md-inline" name="country_id">
+  <select class="form-select ms-2 d-none d-md-inline" name="country_id" id="viCountry">
     {% for Rec in TDbList().Import(dbl_country) %}
     {% if Rec.id == country_id %}
       <option value="{{Rec.id}}" selected>{{Rec.alias}}</option>
@@ -26,4 +26,16 @@
     {% endfor %}
   </select>
 </form>
+
+<script type="text/javascript">
+    const elForm = document.getElementById('viSearchForm');
+    const elSearch = document.getElementById('viSearchInput');
+
+    document.getElementById('viCountry').addEventListener('change', (event) => {
+      const Search = elSearch.value.trim();
+      if (Search) {
+        elForm.submit();
+      }
+  });
+</script>
 <!-- header - -->

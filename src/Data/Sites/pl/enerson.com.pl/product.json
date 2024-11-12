@@ -1,0 +1,43 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 15:38",
+      "url": "https://www.enerson.com.pl",
+      "urls": {
+        "instock": "-https://www.enerson.com.pl/HP-Notebook-HP-255-G9-15-6FHD-Ryzen-5-5625U-8GB-SSD512GB-Radeon-DOS-Dark-Ash-Silver-p101844",
+        "outstock": "-https://www.enerson.com.pl/DELL-Komputer-Dell-Vostro-3910-i7-12700-16GB-SSD512GB-UHD770-DVD-RW-11PR-3Y-p52966",
+        "discount": "",
+        "category": "https://www.enerson.com.pl/Komputery-PC-poleasingowe-c549"
+      },
+      "todo": "language - Untitled product in: https://www.enerson.com.pl/Monitor-Dell-P2414H-p89981"
+    },
+    "pipe_microdata": [
+      ["find", ["section", {"class": "product-card"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"class": "product-card"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "product-img"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-zoom-image"}]
+        ],
+        "description": [
+          ["find", ["div", {"data-tab": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-parameters"}]],
+          ["table_tag", ["div", {"class": "product-parameter-row"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
+

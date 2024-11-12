@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 11:33",
+      "url": "https://www.otokomputery.pl",
+      "urls": {
+        "instock": "https://www.otokomputery.pl/pl/c/Komputery/2",
+        "outstock": "",
+        "root": "-https://www.otokomputery.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"class": "addtobasket"}]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["em"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 11:09",
+      "url": "https://www.otokomputery.pl",
+      "urls": {
+        "instock": "-https://www.otokomputery.pl/pl/p/Komputer-PC-Lenovo-Thinkstation-P500-Intel-Xeon-E5-1620V3-32GB-RAM-512SSD-2TB-HDD-Nvidia-QUADRO-K4200/5353",
+        "outstock": "",
+        "discount": "-https://www.otokomputery.pl/pl/p/Laptop-Lenovo-ThinkPad-T540p-i7-4700MQ-8GB-RAM-256GB-SSD-15%2C6-Geforce-GT-730M-HD-Klasa-B/3947",
+        "category": "https://www.otokomputery.pl/pl/c/Komputery/2"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-main-box"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "price"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["table_tag", ["div", {"class": "infoTabela"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

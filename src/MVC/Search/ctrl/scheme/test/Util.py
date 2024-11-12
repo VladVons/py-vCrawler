@@ -147,7 +147,11 @@ def CheckPipe(aPipe: dict, aType: str) -> list:
         if (isinstance(aPipe.get('products'), list)):
             Urls += [x.get('href') for x in aPipe['products']]
             Fields = ['href', 'name', 'stock', 'price']
-            Res = _CheckFields(aPipe['products'][0], Fields)
+            Products = aPipe['products']
+            if (Products):
+                Res = _CheckFields(Products[0], Fields)
+            else:
+                Res = ['no products']
         if (isinstance(aPipe.get('pipe'), list)):
             Urls += aPipe['pager']
         Res += _CheckUrlPrefix(Urls)

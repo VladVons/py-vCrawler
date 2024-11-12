@@ -1,12 +1,12 @@
 {% extends '_inc/layout1.j2' %}
 
-{% set Fields = ['site', 'products', 'available'] %}
+{% set Fields = ['no', 'site', 'products', 'available'] %}
 
 {% block head %}
 <style>
   .grid-container {
     display: grid;
-    grid-template-columns: 250px 90px 90px;
+    grid-template-columns: 50px 250px 90px 90px;
   }
 
   .gitem {
@@ -32,6 +32,7 @@
     {% endfor %}
 
     {% for Rec in TDbList().Import(dbl_sites) %}
+      <div class="gitem">{{loop.index}}</div>
       <div class="gitem">
         <a href="{{Rec.url}}" rel="nofollow">{{Rec.host}}</a>
       </div>

@@ -1,0 +1,54 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 15:06",
+      "url": "https://lviv.skladova.com.ua",
+      "urls": {
+        "instock": "https://lviv.skladova.com.ua/sistemnyjj-blok-dell-optiplex-7010-sff-intel-pentium-g2020-4gb-ram-120gb-ssd",
+        "outstock": "",
+        "discount": "-https://lviv.skladova.com.ua/e700-4ram-320hdd",
+        "category": "-https://lviv.skladova.com.ua/computers"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "productGallery"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "price-wrapper"}]],
+          ["find", ["div", {"class": "price-old"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "-description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "features"}]],
+          ["table_tag", ["div", {"class": "feature"}]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Бренд"]]
+        ],
+         "category": [
+          ["find", ["ul", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

@@ -84,6 +84,7 @@ class TMain(TFileBase):
             InsValues = []
             DirData = self.Parent.Conf['dir_data']
             for Rec in Dbl:
+                Log.Print(1, 'i', f'Id: {Pairs[Rec.url]},  Url: {Rec.url}')
                 for xType in Rec.type:
                     if (not xType.startswith('-')):
                         Path = f'{DirData}/{Rec.dir}/{xType}.json'

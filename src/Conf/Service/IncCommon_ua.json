@@ -255,11 +255,25 @@
         ["/g4047206-printery-kopiry-mfu", "/g4030808-monitory", "/g119006051-brendovye-kompyutery", "/g6212191-noutbuki"]
       ],
       [
-        1,
+        0,
         "pcbaza.com.ua",
         "https://pcbaza.com.ua/ua",
         ["product", "-category"],
         ["/g15514994-noutbuki-germanii", "/g14986098-sistemnye-bloki", "/g15763337-monitory", "/g18453057-kompyutery-komplektom"]
+      ],
+      [
+        0,
+        "lviv.skladova.com.ua",
+        "https://lviv.skladova.com.ua",
+        ["product", "category"],
+        ["/bu-apple", "/computers", "/thin-client", "/server", "/laptops", "/monitors"]
+      ],
+      [
+        1,
+        "printec.com.ua",
+        "https://printec.com.ua",
+        ["product", "category"],
+        ["/laptops/", "/computers/", "/monitors/"]
       ]
     ]
   }

@@ -1,0 +1,51 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 17:50",
+      "url": "https://www.enerson.com.pl",
+      "urls": {
+        "instock": "-https://www.enerson.com.pl/Laptopy-nowe-c506",
+        "outstock": "-https://www.enerson.com.pl/Komputery-PC-poleasingowe-c549",
+        "root": "https://www.enerson.com.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["div", {"class": "list-options"}]],
+          ["find", ["div", {"class": "product-tiles-wrapper"}]],
+          ["find_all", ["figure", {"class": "product-tile"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "product-name"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "product-name"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "product-actions"}]],
+                 ["find_yes", ["i", {"class": "fa-shopping-basket"}]]
+
+               ],
+               "price": [
+                 ["find", ["span", {"class": "core_priceFormat"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
