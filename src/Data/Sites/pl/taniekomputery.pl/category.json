@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 14:19",
+      "url": "https://taniekomputery.pl",
+      "urls": {
+        "instock": "-https://taniekomputery.pl/komputery-poleasingowe",
+        "outstock": "-https://taniekomputery.pl/komputery-poleasingowe",
+        "root": "https://taniekomputery.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "pr-boxes"}]],
+          ["find_all", ["div", {"class": "pr-box"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "name"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "pr-button"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["kup teraz"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", [], {"recursive": false, "text": true}],
+                 ["-remove", ["div", {"class": "price-old"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination-box"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

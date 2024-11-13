@@ -183,6 +183,7 @@ class TSchemer():
 
                 Res = self.TestHtml(Scheme, Data, aType)
                 Log.Print(1, 'i', f'Test(). {xUrl}')
+                Log.Print(1, 'i', f'{"=" * 100}\n')
 
                 #if (not Res['err']):
                 if (not True):

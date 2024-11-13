@@ -185,11 +185,18 @@
         ["/poleasingowe-komputery", "/poleasingowe-laptopy", "/poleasingowe-monitory"]
       ],
       [
-        1,
+        0,
         "laurem.pl",
         "https://laurem.pl",
         ["product", "category"],
         ["/pol_m_Komputery-135.html", "/pol_m_Laptopy-100.html", "/pol_m_Monitory-160.html"]
+      ],
+      [
+        1,
+        "taniekomputery.pl",
+        "https://taniekomputery.pl",
+        ["product", "category"],
+        ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/laptopy-powystawowe", "/monitory"]
       ]
     ]
   }
