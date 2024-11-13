@@ -1,0 +1,50 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 22:05",
+      "url": "https://mtech.pl",
+      "urls": {
+        "instock": "https://mtech.pl/pl/menu/komputery-155.html?counter=0",
+        "outstock": "-https://mtech.pl/pl/menu/komputery-155.html?counter=1",
+        "root": "-https://mtech.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product__name"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product__name"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["get_yes", ["data-product_disable"]],
+                 ["invert"]
+               ],
+               "price": [
+                 ["find", ["strong", {"class": "price"}]],
+                 ["contents"],
+                 ["list", [0]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

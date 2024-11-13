@@ -182,6 +182,8 @@ class TSchemer():
                     self.WriteFile(File, DataP)
 
                 Res = self.TestHtml(Scheme, Data, aType)
+                Log.Print(1, 'i', f'Test(). {xUrl}')
+
                 #if (not Res['err']):
                 if (not True):
                     Data = json.dumps(Res['pipe'], indent=2, ensure_ascii=False)

@@ -18,3 +18,12 @@ class TMain(TDbModel):
             'fmtGet_SchemeNew.sql',
             {}
         )
+
+    async def UpdReserveTask(self, aUrl: str, aHours: int) -> dict:
+        return await self.ExecQuery(
+            'fmtUpd_ReserveTask.sql',
+            {
+              'aUrl': aUrl,
+              'aHours': aHours
+            }
+        )

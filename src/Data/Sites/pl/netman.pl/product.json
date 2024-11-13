@@ -1,0 +1,38 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 08:44",
+      "url": "https://netman.pl",
+      "urls": {
+        "instock": "-https://netman.pl/16200-dell-precision-7720-i7-7920hq-32gb-1tb-ssd-quadro-p4000-fhd-ips-win11-pro-lte-klasa-a-8785286137566.html",
+        "outstock": "",
+        "discount": "",
+        "category": "https://netman.pl/3-laptopy-poleasingowe"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"id": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find_all", ["section", {"class": "product-features"}]],
+          ["list", [1]],
+          ["find", ["dl", {"class": "data-sheet"}]],
+          ["table_tag", [["dt", "dd"]]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

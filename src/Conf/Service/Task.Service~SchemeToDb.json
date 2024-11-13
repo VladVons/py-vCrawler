@@ -4,12 +4,12 @@
   ],
   "plugin": {
     "SchemeToDb": {
-      "dir_data": "./Data/Sites/ua",
+      "dir_data": "./Data/Sites/pl",
       "sql": {
         "parts": 10
       },
       "auth": "{% file_json Conf/IncSrvDB.json:db_auth %}",
-      "sites": "{% file_json Conf/Service/IncCommon_ua.json:sites %}"
+      "sites": "{% file_json Conf/Service/IncCommon_pl.json:sites %}"
     }
   }
 }

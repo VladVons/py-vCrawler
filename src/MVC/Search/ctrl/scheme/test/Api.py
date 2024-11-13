@@ -21,6 +21,7 @@ class TMain(TCtrlBase):
         pass
 
     async def Parse(self, aUrl: str, aScript: str, aEmul: bool) -> dict:
+        Size = 0
         if (aUrl):
             UrlData = await Util.Cache.Download(aUrl, aEmul)
             if (UrlData['status'] != 200):
@@ -46,7 +47,8 @@ class TMain(TCtrlBase):
         PipeStr = json.dumps(Pipe, indent=2, ensure_ascii=False, cls=TJsonEncoder)
         return {
             'err': '\n'.join(Scheme.Err + Checks),
-            'data': PipeStr
+            'data': PipeStr,
+            'size': Size
         }
 
     async def GetLineNo(self, aScript: str, aCurLine: str) -> dict:
@@ -135,3 +137,17 @@ class TMain(TCtrlBase):
         FilesCnt = Util.Cache.GetSize()
         Util.Cache.Clear()
         return {'files_cnt': FilesCnt}
+
+    async def ReserveTask(self, aUrl: str) -> dict:
+        Dbl = await self.ExecModelImport(
+            'scheme',
+            {
+                'method': 'UpdReserveTask',
+                'param': {
+                    'aUrl': aUrl,
+                    'aHours': 24
+                }
+            }
+        )
+        UnlockDate = Dbl.Rec.unlock_date.strftime('%Y-%m-%d %H:%M')
+        return {'unlock_date': UnlockDate}

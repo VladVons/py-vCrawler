@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 21:46",
+      "url": "https://mtech.pl",
+      "urls": {
+        "instock": "-https://mtech.pl/pl/products/komputer-dell-3070-sff-i5-9gen-16gb-250ssd-m-2-dvdrw-windows-gwarancja-24-79.html",
+        "outstock": "-https://mtech.pl/pl/products/komputer-dell-9010-i7-3gen-ddr3-win10-541.html",
+        "discount": "",
+        "category": "https://mtech.pl/pl/menu/komputery-155.html"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"id": "photos_nav"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "content"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["section", {"id": "projector_photos"}]],
+          ["find", ["div", {"id": "photos_slider"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "description": [
+          ["find", ["div", {"class": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["section", {"id": "projector_dictionary"}]],
+          ["table_tag", ["div", {"class": "dictionary__param"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

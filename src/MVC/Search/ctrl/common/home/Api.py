@@ -6,5 +6,5 @@
 from IncP.CtrlBase import TCtrlBase
 
 class TMain(TCtrlBase):
-    async def Main(self, aData = None):
-        return {'t1': 123}
+    async def Main(self, **aData):
+        return

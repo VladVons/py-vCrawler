@@ -1,0 +1,51 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 08:33",
+      "url": "https://www.mdmkomputery.pl",
+      "urls": {
+        "instock": "https://www.mdmkomputery.pl/poleasingowe-komputery",
+        "outstock": "",
+        "root": "https://www.mdmkomputery.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "index-right"}]],
+          ["find_all", ["div", {"class": "box-wide"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "box-wide-left"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "btn-do-koszyka"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["dodaj do koszyka"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "scena"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

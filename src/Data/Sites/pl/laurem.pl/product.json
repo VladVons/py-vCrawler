@@ -1,0 +1,52 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 19:57",
+      "url": "https://laurem.pl",
+      "urls": {
+        "instock": "https://laurem.pl/product-pol-18032-Dell-Optiplex-7020-SFF-i7-4770-8GB-240GB-SSD-Windows-10-HOME.html",
+        "outstock": "",
+        "discount": "https://laurem.pl/product-pol-18224-Dell-Optiplex-5050-MICRO-i3-6100T-8GB-240GB-SSD-Windows-10-HOME.html",
+        "category": "https://laurem.pl/pol_m_Komputery-135.html"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["form", {"id": "projector_form"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "content"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "photos"}]],
+          ["find", ["ul", {"class": "bxslider"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price_old": [
+          ["find", ["del", {"id": "projector_price_maxprice"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"id": "component_projector_longdescription_not"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "component_projector_dictionary_no"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
+

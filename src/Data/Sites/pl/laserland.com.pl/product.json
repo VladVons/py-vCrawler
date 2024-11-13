@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 20:45",
+      "url": "https://www.laserland.com.pl",
+      "urls": {
+        "instock": "https://www.laserland.com.pl/DELL-Optiplex-7040-MT-i5-6600-256SSD-8GB-W10P-p17407",
+        "outstock": "-https://www.laserland.com.pl/Drukarka-etykiet-Zebra-ZT510-termotransferowa-LAN-300dpi-Super-Stan-Niski-Przebieg-p16425",
+        "discount": "-https://www.laserland.com.pl/LEXMARK-MX511-drukarka-skan-duplex-siec-USB-KL-A-35S5763-p17172",
+        "category": "-https://www.laserland.com.pl/Komputery-Poleasingowe-c1438"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"class": "product-card"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "product-img"}]],
+          ["find_all_get_url", ["img", {"class": "mousetrap"}], {"a_get": "data-zoom-image"}]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "price-normal"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"data-tab": "description"}]],
+          ["text_tag", ["p"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+        "features": [],
+        "category": []
+      }]
+    ]
+  }
+}

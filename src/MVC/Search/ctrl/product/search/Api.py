@@ -52,7 +52,7 @@ class TMain(TCtrlBase):
 
         Res = {}
         if (not DblProducts):
-            Res['status_code'] = 404
+            Res['dbl_products'] = DblProducts.Export()
             return Res
 
         Marker = 'findwares.com'

@@ -1,0 +1,47 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 20:15",
+      "url": "https://laurem.pl",
+      "urls": {
+        "instock": "https://laurem.pl/pol_m_Komputery-135.html",
+        "outstock": "",
+        "root": "https://laurem.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "search"}]],
+          ["find_all", ["div", {"class": "product_wrapper"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product-name"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product-name"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["a", {"class": "config_button"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

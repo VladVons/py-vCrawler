@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 09:33",
+      "url": "https://netman.pl",
+      "urls": {
+        "instock": "https://netman.pl/3-laptopy-poleasingowe",
+        "outstock": "",
+        "root": "-https://netman.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["div", {"class": "products-selection"}]],
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "item-product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h2", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2", {"class": "product-title"}]],
+                 ["text_strip"]
+               ],
+               "-stock": [
+               ],
+               "price": [
+                 ["find", ["span", {"itemprop": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "page-list"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

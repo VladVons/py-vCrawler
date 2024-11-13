@@ -60,6 +60,9 @@ class TScriptTest {
     this.Name = aName;
     this.LogCnt = 0;
 
+    this.TestCnt = 0;
+    this.TplNewUrl = '';
+
     this.ElTab = document.getElementById(`tab-${aName}`);
     this.ElScript = this.ElTab.querySelector('.idTaScript');
     this.ElResult = this.ElTab.querySelector('.idTaResult');
@@ -125,11 +128,18 @@ class TScriptTest {
     const Url = ScriptJ[this.Name]['info']['url'];
     window.open(Url, "_blank");
 
+    this.TestCnt = 0;
+    if (aType == 'new') {
+      this.TplNewUrl = Url;
+    }else{
+      this.TplNewUrl = '';
+    }
+
     this.ElScript.value = Script;
     this.ElResult.value = '';
     this.ElUrl.value = '';
 
-    this.Log(`${aType} ${this.Name} scheme loaded`);
+    this.Log(`${aType} ${this.Name} scheme loaded ${Url}`);
   }
 
   ScriptTest() {
@@ -137,6 +147,20 @@ class TScriptTest {
     if (Url == '') {
       this.Log('empty url');
       return;
+    }
+
+    this.TestCnt++;
+    if (this.TestCnt == 2 && this.TplNewUrl != '' && confirm('Reserve this new task for you ?')) {
+      const res = new TSend().exec(
+        '/api/?route=scheme/test',
+        {
+          'method': 'ReserveTask',
+          'param': {
+            'aUrl': this.TplNewUrl
+          }
+        }
+      )
+      this.Log(`Task ${this.TplNewUrl} locked till ${res['unlock_date']}`)
     }
 
     const Script = this.ElScript.value.trim();

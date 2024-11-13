@@ -1,0 +1,49 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 20:45",
+      "url": "https://www.laserland.com.pl",
+      "urls": {
+        "instock": "-https://www.laserland.com.pl/Komputery-Poleasingowe-c1438",
+        "outstock": "-https://www.laserland.com.pl/Drukarki-Poleasingowe-c1435/pa/12",
+        "root": "https://www.laserland.com.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"class": "products-list-page"}]],
+          ["find_all", ["figure", {"class": "product-tile"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "product-name"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "product-name"}]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"class": "add-to-cart"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price-special"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

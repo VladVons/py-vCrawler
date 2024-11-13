@@ -13,7 +13,7 @@
         0,
         "servecom.pl",
         "https://www.servecom.pl",
-        ["product", "category"],
+        ["product", "-category"],
         ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe"]
       ],
       [
@@ -146,15 +146,50 @@
         0,
         "alsen.pl",
         "https://www.alsen.pl",
-        ["-product", "category"],
+        ["product", "category"],
         ["/laptopy-i-komputery/komputery-pc/komputery-poleasingowe", "/laptopy-i-komputery/laptopy/laptopy-poleasingowe"]
       ],
       [
-        1,
+        0,
         "enerson.com.pl",
         "https://www.enerson.com.pl",
         ["product", "category"],
         ["/laptopy-poleasingowe", "/Laptopy-powystawowe-i-odnowione-refurbished-c112", "/komputery-poleasingowe-pc", "/komputery-all-in-one-poleasingowe", "/monitory-poleasingowe", "/drukarki-laserowe"]
+      ],
+      [
+        0,
+        "netman.pl",
+        "https://netman.pl",
+        ["product", "category"],
+        ["/11-komputery-poleasingowe", "/3-laptopy-poleasingowe"]
+      ],
+      [
+        0,
+        "mtech.pl",
+        "https://mtech.pl",
+        ["product", "category"],
+        ["/pl/menu/laptopy-154.html", "/pl/menu/komputery-155.html", "/pl/menu/monitory-156.html", "/pl/menu/apple-100.html", "/pl/menu/tablety-153.html"]
+      ],
+      [
+        0,
+        "laserland.com.pl",
+        "https://www.laserland.com.pl",
+        ["product", "category"],
+        ["/Laptopy-Poleasingowe-c1437", "/Drukarki-Poleasingowe-c1435", "/Komputery-Poleasingowe-c1438", "/Monitory-Poleasingowe-c1519"]
+      ],
+      [
+        0,
+        "mdmkomputery.pl",
+        "https://www.mdmkomputery.pl",
+        ["product", "category"],
+        ["/poleasingowe-komputery", "/poleasingowe-laptopy", "/poleasingowe-monitory"]
+      ],
+      [
+        1,
+        "laurem.pl",
+        "https://laurem.pl",
+        ["product", "category"],
+        ["/pol_m_Komputery-135.html", "/pol_m_Laptopy-100.html", "/pol_m_Monitory-160.html"]
       ]
     ]
   }
