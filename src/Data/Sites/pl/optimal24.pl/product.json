@@ -1,0 +1,65 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 12:33",
+      "url": "https://optimal24.pl",
+      "urls": {
+        "instock": "https://optimal24.pl/product/komputer-poleasingowy-ibm-m581",
+        "outstock": "",
+        "discount": "",
+        "category": "https://optimal24.pl/category/komputery"
+      }
+    },
+    "-pipe_microdata": [
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "section"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"class": "section__header"}]],
+          ["text_strip"]
+        ],
+        "brand": [
+          ["find", ["div", {"class": "section__text"}]],
+          ["find", ["b"]],
+          ["text_strip"]
+        ],
+        "images": [
+          ["find", ["div", {"id": "productGallery"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "stock": [
+          ["find", ["button", {"class": "counter__button"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["dodaj do zapytania"]]
+        ],
+        "price": [
+          ["find", ["div", {"class": "section__price"}]],
+          ["contents"],
+          ["list", [-1]],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"class": "section"}]],
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"class": "components"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["div", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], 1]]
+        ]
+      }]
+    ]
+  }
+}

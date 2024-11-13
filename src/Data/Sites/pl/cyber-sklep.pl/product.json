@@ -1,0 +1,51 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 13:39",
+      "url": "https://www.cyber-sklep.pl",
+      "urls": {
+        "instock": "-https://www.cyber-sklep.pl/dell-wyse-5070-celeron-j4105416-emccnolic-p-12676.html",
+        "outstock": "",
+        "discount": "-https://www.cyber-sklep.pl/zestaw-netgear-av-line-m4250-10g2f-poe-avmatrix-ptz1271-30x-poe-feelworld-kbc10-p-12690.html",
+        "category": "https://www.cyber-sklep.pl/komputery-i-sprzet-c-5.html"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "ZdjeciaDuze"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price_old": [
+          ["find", ["p", {"id": "CenaPoprzednia"}]],
+          ["find", ["strong"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["replace_br"],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "ListaOpisy"}]],
+          ["table_tag", ["p", {"class": "TbPoz"}]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Marka"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

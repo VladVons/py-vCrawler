@@ -1,0 +1,45 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 12:34",
+      "url": "https://optimal24.pl",
+      "urls": {
+        "instock": "https://optimal24.pl/category/komputery",
+        "outstock": "",
+        "root": "https://optimal24.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "productList"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["span", {"class": "product__name"}]],
+                 ["text_strip"]
+               ],
+               "-stock": [],
+               "price": [
+                 ["find", ["div", {"class": "product__price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

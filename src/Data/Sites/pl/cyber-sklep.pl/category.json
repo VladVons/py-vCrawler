@@ -1,0 +1,61 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 13:45",
+      "url": "https://www.cyber-sklep.pl",
+      "urls": {
+        "instock": "https://www.cyber-sklep.pl/komputery-i-sprzet-c-5.html",
+        "outstock": "",
+        "root": "https://www.cyber-sklep.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "ListingWierszeKontener"}]],
+          ["find_all", ["div", {"class": "Wiersz"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3"]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3"]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find", ["span", {"class": "DoKoszyka"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["do koszyka"]]
+               ],
+               "price": [
+                 ["find", ["em", {"class": "Brutto"}]],
+                 ["contents"],
+                 ["list", [0]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["span", {"class": "CenaPromocyjna"}]],
+                 ["contents"],
+                 ["list", [0]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "IndexStron"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

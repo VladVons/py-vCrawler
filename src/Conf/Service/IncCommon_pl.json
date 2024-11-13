@@ -192,11 +192,25 @@
         ["/pol_m_Komputery-135.html", "/pol_m_Laptopy-100.html", "/pol_m_Monitory-160.html"]
       ],
       [
-        1,
+        0,
         "taniekomputery.pl",
         "https://taniekomputery.pl",
         ["product", "category"],
         ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/laptopy-powystawowe", "/monitory"]
+      ],
+      [
+        0,
+        "cyber-sklep.pl",
+        "https://www.cyber-sklep.pl",
+        ["product", "category"],
+        ["/laptopy-c-300_301.html", "/komputery-c-300_303.html", "/monitory-c-300_302.html", "/drukarki-c-300_307.html", "/pozostaletablety-c-300_311.html", "/pozostaletelefony-c-300_308.html", "/projektory-c-300_309.html"]
+      ],
+      [
+        1,
+        "optimal24.pl",
+        "https://optimal24.pl",
+        ["product", "category"],
+        ["/category/sprzet-uzywany"]
       ]
     ]
   }
