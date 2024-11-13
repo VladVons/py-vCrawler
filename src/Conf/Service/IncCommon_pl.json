@@ -206,11 +206,32 @@
         ["/laptopy-c-300_301.html", "/komputery-c-300_303.html", "/monitory-c-300_302.html", "/drukarki-c-300_307.html", "/pozostaletablety-c-300_311.html", "/pozostaletelefony-c-300_308.html", "/projektory-c-300_309.html"]
       ],
       [
-        1,
+        0,
         "optimal24.pl",
         "https://optimal24.pl",
         ["product", "category"],
         ["/category/sprzet-uzywany"]
+      ],
+      [
+        0,
+        "drukarki.skleptpi.pl",
+        "https://drukarki.skleptpi.pl",
+        ["product", "category"],
+        ["/sklep/"]
+      ],
+      [
+        0,
+        "b2b.agat-it.eu",
+        "https://b2b.agat-it.eu",
+        ["product", "category"],
+        ["/produkty/laptopy,2,2", "/komputery-stacjonarne,2,1", "/produkty/monitory,2,3", "/produkty/drukarki,2,5", "/produkty/sprzet-klasy-b,2,5125"]
+      ],
+      [
+        1,
+        "grand-kom.pl",
+        "https://grand-kom.pl",
+        ["product", "category"],
+        ["/product-category/komputery/", "/pl/menu/laptopy-poleasingowe-177.html", "/product-category/monitory/", "/pl/menu/tablety-188.html", "/pl/menu/telefony-189.html"]
       ]
     ]
   }

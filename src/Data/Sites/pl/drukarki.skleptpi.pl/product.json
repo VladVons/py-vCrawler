@@ -1,0 +1,49 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 17:29",
+      "url": "https://drukarki.skleptpi.pl",
+      "urls": {
+        "instock": "https://drukarki.skleptpi.pl/produkt/epson-eb-1945w-3lcd-wxga-hdmi-lan-usb-770h-4200lm-267/",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://drukarki.skleptpi.pl/kategoria-produktu/drukarki/"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "primary"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["figure", {"class": "woocommerce-product-gallery__wrapper"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-additional_information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["span", {"class": "single-product-category"}]],
+          ["text_strip"],
+          ["split", [", ", -1]]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Marka"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

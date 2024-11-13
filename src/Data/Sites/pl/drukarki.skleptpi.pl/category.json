@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 17:57",
+      "url": "https://drukarki.skleptpi.pl",
+      "urls": {
+        "instock": "https://drukarki.skleptpi.pl/kategoria-produktu/drukarki/",
+        "outstock": "",
+        "root": "https://drukarki.skleptpi.pl"
+      }
+    },
+    "pipe": [
+      ["find_check", ["form", {"class": "woocommerce-ordering"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["li", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "ast-loop-product__link"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2", {"class": "woocommerce-loop-product__title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["span", {"class": "gtm4wp_productdata"}]],
+                 ["get", ["data-gtm4wp_product_data"]],
+                 ["text_to_json"],
+                 ["get", ["stockstatus"]],
+                 ["search_start", ["instock"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "page-numbers"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

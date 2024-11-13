@@ -1,0 +1,51 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 09:54",
+      "url": "https://b2b.agat-it.eu",
+      "urls": {
+        "instock": "https://b2b.agat-it.eu/produkty/komputery-stacjonarne,2,1",
+        "outstock": "",
+        "root": "https://b2b.agat-it.eu"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"class": "product-list-ui"}]],
+          ["find_all", ["div", {"class": "product-item-ui"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3", {"class": "product-name-ui"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3", {"class": "product-name-ui"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "stock-level-ui"}]],
+                 ["find", ["div", {"class": "centered-ui"}]],
+                 ["text_strip"],
+                 ["search_start", ["0"]],
+                 ["invert"]
+               ],
+               "price": [
+                 ["find", ["p", {"class": "price-ui"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["meta_nears"]
+       ]
+      }]
+    ]
+  }
+}

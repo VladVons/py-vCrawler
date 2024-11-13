@@ -1,0 +1,49 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 10:01",
+      "url": "https://b2b.agat-it.eu",
+      "urls": {
+        "instock": "https://b2b.agat-it.eu/apple-imac-14-2-a1419-27-i5-4570-16gb-251gb-ssd,3,1,17563",
+        "outstock": "",
+        "discount": "",
+        "category": "https://b2b.agat-it.eu/produkty/komputery-stacjonarne,2,1"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-presentation-js"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "gallery-container-ui"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-lazy"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-description-ui"}]],
+          ["text_strip"],
+          ["replace", ["Opis towaru\n", ""]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "attributes-container-ui"}]],
+          ["table_tag", ["li"]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
