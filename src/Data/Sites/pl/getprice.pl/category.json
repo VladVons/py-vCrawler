@@ -1,0 +1,47 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 22:04",
+      "url": "https://getprice.pl",
+      "urls": {
+        "instock": "https://getprice.pl/pl/serwery.html",
+        "outstock": "",
+        "root": "https://getprice.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product-item-link"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product-item-link"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["span", {"string": "Dostępny"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"data-label": "brutto"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ol", {"class": "pages-items"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

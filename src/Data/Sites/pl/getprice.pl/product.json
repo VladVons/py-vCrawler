@@ -1,0 +1,33 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 21:26",
+      "url": "https://getprice.pl",
+      "urls": {
+        "instock": "https://getprice.pl/pl/dell-poweredge-r630-8x-25-2x-e5-2620-v3-64gb-h730-mini-2x-1tb-4x-1gbe-0012014.html",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://getprice.pl/pl/serwery.html"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-info-main"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "gallery"}]],
+          ["find_all_get_url", ["img", {"class": "object-contain"}], {"a_get": "src"}]
+        ],
+        "features": [
+          ["find", ["div", {"id": "product-attributes"}]],
+          ["table_tag", ["li"]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}

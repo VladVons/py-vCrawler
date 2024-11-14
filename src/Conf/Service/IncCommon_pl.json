@@ -304,11 +304,18 @@
         ["/laptopy-poleasingowe", "/komputery-poleasingowe"]
       ],
       [
-        1,
+        0,
         "konkretnasztuka.pl",
         "https://konkretnasztuka.pl",
         ["product", "category"],
         ["/Poleasingowe-laptopy", "/pol_m_MONITORY-2932.html"]
+      ],
+      [
+        1,
+        "getprice.pl",
+        "https://getprice.pl",
+        ["product", "category"],
+        ["/pl/serwery/state-uzywany.html"]
       ]
     ]
   }
