@@ -1,0 +1,54 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 20:27",
+      "url": "https://mastermedia.lublin.pl",
+      "urls": {
+        "instock": "-https://mastermedia.lublin.pl/11-komputery-pc",
+        "outstock": "https://mastermedia.lublin.pl/10-laptopy",
+        "root": "https://mastermedia.lublin.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "js-product-list"}]],
+          ["find", ["div", {"class": "products"}]],
+          ["find", ["div", {"id": "tab-gridview3"}]],
+          ["find_all", ["article", {"class": "product-miniature"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3", {"class": "product-title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["button", {"class": "add-to-cart"}]],
+                 ["get", ["title"]],
+                 ["lower"],
+                 ["search_start", ["brak na stanie"]],
+                 ["invert"]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "page-list"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

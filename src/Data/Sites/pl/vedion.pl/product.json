@@ -1,0 +1,49 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 09:52",
+      "url": "https://www.vedion.pl",
+      "urls": {
+        "instock": "https://www.vedion.pl/pl/products/laptop-dell-latitude-7410-i5-10310u-8gb-ddr4-1000gb-ssd-14-full-hd-w11p-klasa-a-27545.html",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://www.vedion.pl/laptopy-poleasingowe"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "content"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "photos_slider"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-lazy"}]
+        ],
+        "price_old": [
+          ["find", ["del", {"id": "projector_price_maxprice"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["section", {"id": "projector_dictionary"}]],
+          ["table_tag", ["div", {"class": "dictionary__param"}]],
+          ["keyval2dict"]
+        ],
+        "stock": [
+          ["find", ["button", {"id": "projector_button_basket"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["dodaj do koszyka"]]
+       ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+         "category": [
+         ]
+      }]
+    ]
+  }
+}

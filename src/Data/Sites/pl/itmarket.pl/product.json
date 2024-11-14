@@ -1,0 +1,50 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 10:12",
+      "url": "https://itmarket.pl",
+      "urls": {
+        "instock": "-https://itmarket.pl/2639-dell-optiplex-790-dt-i5-2400-8gb-500gb.html",
+        "outstock": "-https://itmarket.pl/2651-konsola-sony-playstation-5-slim-blu-ray-2x-kontroler-bialy-i-czarny-711719577188.html",
+        "discount": "https://itmarket.pl/2205-sluchawki-apple-airpods-2-mv7n2zma-bluetooth-0190199098572.html",
+        "category": "-https://itmarket.pl/komputery-do-gier-46"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product_container"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product_container"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["ul", {"class": "product-images"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-image-large-src"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "product-discount"}]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"id": "itm_desc"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "itm_spec"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

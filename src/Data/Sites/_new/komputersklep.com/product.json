@@ -1,0 +1,53 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 08:20",
+      "url": "https://komputersklep.com",
+      "urls": {
+        "instock": "https://komputersklep.com/product-pol-26136-KOMPUTER-PC-PRIME-2-3770-580-P16-S512-WINDOWS-10-PRO-PL.html",
+        "outstock": "-https://komputersklep.com/product-pol-51947-Monitor-Gamingowy-SAMSUNG-Odyssey-G7-32-4K-UHD-144Hz-G70B-LS32BG700EUXEN.html",
+        "discount": "-https://komputersklep.com/product-pol-12533-Serwer-Rackowy-Netgear-ReadyNAS-RR4312S3-10000S.html",
+        "category": "-https://komputersklep.com/pol_m_Monitory-141.html"
+      },
+      "comment": "no used pc"
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"id": "content"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "content"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["section", {"id": "projector_photos"}]],
+          ["find", ["div", {"class": "photos___slider_wrapper"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "price": [
+          ["find", ["strong", {"id": "projector_price_value"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["del", {"id": "projector_omnibus_price_value"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "--description"}]],
+          ["text_tag", ["li"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["section", {"class": "dictionary"}]],
+          ["table_tag", ["div", {"class": "dictionary__param"}]],
+          ["keyval2dict", [0, 1, ", "]]
+        ]
+      }]
+    ]
+  }
+}

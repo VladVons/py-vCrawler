@@ -1,0 +1,49 @@
+
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 17:53",
+      "url": "https://www.atrium-pc.pl",
+      "urls": {
+        "instock": "https://www.atrium-pc.pl/15-Komputery-poleasingowe.html",
+        "outstock": "https://www.atrium-pc.pl/15-Komputery-poleasingowe.html?p=3",
+        "root": "https://www.atrium-pc.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["form", {"id": "productsSortForm"}]],
+          ["find", ["div", {"class": "product_list"}]],
+          ["find_all", ["div", {"class": "product-container"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product-name"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product-name"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["span", {"class": "available-now"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"itemprop": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

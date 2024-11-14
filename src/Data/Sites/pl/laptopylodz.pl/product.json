@@ -1,0 +1,56 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 11:52",
+      "url": "https://laptopylodz.pl",
+      "urls": {
+        "instock": "-https://laptopylodz.pl/2w1-dotykowy-fujitsu-t902-i5-3340m-3-gen-p-124.html",
+        "outstock": "https://laptopylodz.pl/2w1-dotykowy-fujitsu-t935-i5-5200u-5-gen-p-35.html",
+        "discount": "-https://laptopylodz.pl/fujitsu-e754-i5-4300m-15-6-win10-hdmi-nowa-bateria-p-77.html",
+        "category": "-https://laptopylodz.pl/laptopy-i-komputery-poleasingowe-c-9.html"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "ZdjeciaDuze"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price_old": [
+          ["find", ["p", {"id": "CenaPoprzednia"}]],
+          ["find", ["strong"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["find_or", [
+            ["h2", {}, {"text": "Dane techniczne:"}],
+            ["h2", {}, {"text": "Specyfikacja:"}],
+            ["p", {}, {"text": "Specyfikacja:"}]
+          ]],
+          ["find_next", ["ul"]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["text_strip"],
+            ["split", [": "]]
+          ]],
+          ["keyval2dict"]
+         ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

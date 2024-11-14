@@ -1,0 +1,46 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 14:54",
+      "url": "https://www.mmcomp.pl",
+      "urls": {
+        "instock": "-https://www.mmcomp.pl/pl/p/Komputer-Stacjonarny-Dell-OptiPlex-3060-SFF-i5-8500-8GB-256GB-SSD/6970",
+        "outstock": "",
+        "discount": "https://www.mmcomp.pl/pl/p/Komputer-Stacjonarny-HP-EliteDesk-800-G4-Tower-i7-8700-8GB-512GB-SSD-WIN11/6047",
+        "category": "https://www.mmcomp.pl/laptopy"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "innersmallgallery"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "price"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+         "category": [
+          ["find", ["ul", {"itemtype": "https://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["span", {"itemprop": "name"}], -2]]
+        ]
+      }]
+    ]
+  }
+}

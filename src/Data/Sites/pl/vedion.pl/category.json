@@ -1,0 +1,49 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 10:15",
+      "url": "https://www.vedion.pl",
+      "urls": {
+        "instock": "https://www.vedion.pl/laptopy-poleasingowe",
+        "outstock": "",
+        "root": "https://www.vedion.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["find_check", ["a", {"class": "product__name"}]],
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product__name"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product__name"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"title": "Dodaj do koszyka"}]]
+               ],
+               "price": [
+                 ["find", ["strong", {"class": "price"}]],
+                 ["text_strip"],
+                 ["split", ["/", 0]],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

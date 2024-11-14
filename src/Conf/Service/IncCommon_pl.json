@@ -139,7 +139,7 @@
         0,
         "computerowiec.com.pl",
         "https://computerowiec.com.pl",
-        ["product", "category"],
+        ["product", "-category"],
         ["/41-laptopy", "/3-komputery-stacjonarne", "/43-monitory", "/4-serwery"]
       ],
       [
@@ -227,11 +227,81 @@
         ["/produkty/laptopy,2,2", "/komputery-stacjonarne,2,1", "/produkty/monitory,2,3", "/produkty/drukarki,2,5", "/produkty/sprzet-klasy-b,2,5125"]
       ],
       [
-        1,
+        0,
         "grand-kom.pl",
         "https://grand-kom.pl",
         ["product", "category"],
         ["/product-category/komputery/", "/pl/menu/laptopy-poleasingowe-177.html", "/product-category/monitory/", "/pl/menu/tablety-188.html", "/pl/menu/telefony-189.html"]
+      ],
+      [
+        0,
+        "pclider.pl",
+        "https://pclider.pl",
+        ["product", "category"],
+        ["/komputery-poleasingowe", "/laptopy-poleasingowe", "/monitory-poleasingowe", "/komputery-all-in-one", "/drukarki-poleasingowe", "/telefony-poleasingowe", "/apple", "/serwery-i-stacje-graficzne"]
+      ],
+      [
+        0,
+        "asnew.pl",
+        "https://asnew.pl",
+        ["product", "category"],
+        ["/laptopy-notebooki-poleasingowe", "/komputery-poleasingowe-stacjonarne", "/monitory-poleasingowe", "/tanie-uzywane-apple"]
+      ],
+      [
+        0,
+        "mastermedia.lublin.pl",
+        "https://mastermedia.lublin.pl",
+        ["product", "category"],
+        ["/10-laptopy", "/11-komputery-pc", "/12-monitory", "/217-drukowanie"]
+      ],
+      [
+        0,
+        "atrium-pc.pl",
+        "https://www.atrium-pc.pl",
+        ["product", "-category"],
+        ["", "", "", ""]
+      ],
+      [
+        0,
+        "amb.sklep.pl",
+        "https://www.amb.sklep.pl",
+        ["product", "category"],
+        ["/category/LAPTOPY-Poleasingowe-204645#OfertaProduktowa", "/category/Drukarki-Laserowe-Poleasingowe-204646", "/category/Monitory-poleasingowe-204648", "/category/Komputery-poleasingowe-204653"]
+      ],
+      [
+        0,
+        "itmarket.pl",
+        "https://itmarket.pl",
+        ["product", "category"],
+        ["/komputery-uzywane-poleasingowe-i-nowe-4", "/laptopy-poleasingowe-uzywane-i-nowe-5", "/monitory-poleasingowe-uzywane-i-nowe-8", "/drukarki-faksy-i-skanery-9"]
+      ],
+      [
+        0,
+        "vedion.pl",
+        "https://www.vedion.pl",
+        ["product", "category"],
+        ["pl/menu/apple-589.html", "/laptopy-poleasingowe", "/pl/menu/pc-926.html"]
+      ],
+      [
+        0,
+        "laptopylodz.pl",
+        "https://laptopylodz.pl",
+        ["product", "category"],
+        ["/laptopy-i-komputery-poleasingowe-c-9.html"]
+      ],
+      [
+        0,
+        "sklep.laptopyplock.pl",
+        "https://sklep.laptopyplock.pl",
+        ["product", "category"],
+        ["/kategoria-produktu/komputery/laptopy-komputery/"]
+      ],
+      [
+        1,
+        "mmcomp.pl",
+        "https://www.mmcomp.pl",
+        ["product", "category"],
+        ["/laptopy-poleasingowe", "/komputery-poleasingowe"]
       ]
     ]
   }

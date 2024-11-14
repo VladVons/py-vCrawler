@@ -1,12 +1,10 @@
 {
   "category": {
     "info": {
-      "author": "user142",
-      "date": "2024-11-13 09:54",
       "url": "https://grand-kom.pl",
       "urls": {
         "instock": "https://grand-kom.pl/pl/menu/laptopy-poleasingowe-177.html",
-        "outstock": "-https://grand-kom.pl/pl/menu/laptopy-poleasingowe-177.html",
+        "outstock": "https://grand-kom.pl/pl/menu/laptopy-poleasingowe-177.html",
         "root": "https://grand-kom.pl"
       }
     },
@@ -17,33 +15,33 @@
           ["find_all", ["div", {"class": "product"}]],
           ["list_map", [
             ["as_dict", {
-               "href": [
-                 ["find", ["a", {"class": "product__name"}]],
-                 ["get", ["href"]],
-                 ["url_pad"]
-               ],
-               "name": [
-                 ["find", ["a", {"class": "product__name"}]],
-                 ["get", ["title"]]
-               ],
-               "stock": [
-                 ["find_yes", ["span", {"class": "--disable"}]],
-                 ["invert"]
-               ],
-               "price": [
-                 ["find", ["strong", {"class": "price"}]],
-                 ["contents"],
-                 ["list", [0]],
-                 ["text_strip"],
-                 ["price"]
-               ]
+              "href": [
+                ["find", ["a", {"class": "product__name"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product__name"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find_yes", ["span", {"class": "--disable"}]],
+                ["invert"]
+              ],
+              "price": [
+                ["find", ["strong", {"class": "price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["text_strip"],
+                ["price"]
+              ]
             }]
           ]]
-       ],
-       "pager": [
+        ],
+        "pager": [
           ["find", ["ul", {"class": "pagination"}]],
           ["find_all_get_url", ["a"], {"a_get": "href"}]
-       ]
+        ]
       }]
     ]
   }

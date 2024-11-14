@@ -1,0 +1,49 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 13:27",
+      "url": "https://sklep.laptopyplock.pl",
+      "urls": {
+        "instock": "-https://sklep.laptopyplock.pl/produkt/pancerny-dell-5414-rugged-i7-6600-16gb-256gb-dotyk/",
+        "outstock": "-https://sklep.laptopyplock.pl/produkt/apple-imac-215-slim-i5-4x-27ghz-8gb-1024gb-ssd-gt640-stan-bdb/",
+        "discount": "",
+        "category": "https://sklep.laptopyplock.pl/kategoria-produktu/komputery/komputery-stacjonarne-komputery/"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "type-product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "type-product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "woocommerce-product-gallery__wrapper"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-additional_information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Marka"]]
+        ],
+         "category": [
+          ["find", ["span", {"class": "gtmkit_product_data"}]],
+          ["get", ["data-gtmkit_product_data"]],
+          ["text_to_json"],
+          ["gets", ["item_category"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+    ]
+  }
+}

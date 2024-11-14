@@ -1,0 +1,51 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 11:52",
+      "url": "https://laptopylodz.pl",
+      "urls": {
+        "instock": "https://laptopylodz.pl/laptopy-i-komputery-poleasingowe-c-9.html",
+        "outstock": "https://laptopylodz.pl/laptopy-i-komputery-poleasingowe-c-9.html",
+        "root": "https://laptopylodz.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "OknaRwd"}]],
+          ["find_all", ["div", {"class": "OknoRwd"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3"]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3"]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["span", {"class": "DoKoszyka"}]]
+               ],
+               "price": [
+                 ["find", ["em", {"class": "Brutto"}]],
+                 ["contents"],
+                 ["list", [0]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "IndexStron"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

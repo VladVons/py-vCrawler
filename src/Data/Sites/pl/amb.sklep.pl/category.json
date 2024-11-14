@@ -1,0 +1,47 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 08:09",
+      "url": "https://www.amb.sklep.pl",
+      "urls": {
+        "instock": "https://www.amb.sklep.pl/category/LAPTOPY-Poleasingowe-204645#OfertaProduktowa",
+        "outstock": "",
+        "root": "https://www.amb.sklep.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "list-products-offer"}]],
+          ["find_all", ["div", {"class": "product-item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3", {"class": "product-title"}]],
+                 ["text_strip"]
+               ],
+               "-stock": [],
+               "price": [
+                 ["find", ["p", {"class": "product-price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "list-products-offer"}]],
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

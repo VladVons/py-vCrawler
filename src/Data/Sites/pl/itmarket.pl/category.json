@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 10:28",
+      "url": "https://itmarket.pl",
+      "urls": {
+        "instock": "https://itmarket.pl/laptopy-poleasingowe-uzywane-i-nowe-5",
+        "outstock": "-https://itmarket.pl/laptopy-poleasingowe-uzywane-i-nowe-5",
+        "root": "https://itmarket.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "js-product-list"}]],
+          ["find_all", ["article", {"class": "product-miniature"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3", {"class": "product-title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"class": "add-to-cart"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "-pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

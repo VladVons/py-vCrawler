@@ -1,0 +1,37 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 22:00",
+      "url": "https://asnew.pl",
+      "urls": {
+        "instock": "https://asnew.pl/pl/p/Lenovo-ThinkCentre-M910t-i5-7500%2C-8GB%2C-256GB-NVMe-Wydajny-Komputer/36403",
+        "outstock": "",
+        "discount": "",
+        "category": "https://asnew.pl/komputery-poleasingowe-stacjonarne"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+          ["find", ["ul"]],
+          ["find_all", ["li"]],
+          ["list_map", [
+              ["text_strip"],
+              ["split", [":"]]
+          ]],
+          ["keyval2dict"]
+         ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

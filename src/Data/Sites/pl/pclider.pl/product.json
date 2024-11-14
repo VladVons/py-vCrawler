@@ -1,0 +1,37 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 08:41",
+      "url": "https://pclider.pl",
+      "urls": {
+        "instock": "-https://pclider.pl/Lenovo_M720q_TINY_4_128",
+        "outstock": "-https://pclider.pl/dell_e6410",
+        "discount": "-https://pclider.pl/hp_640_4_120ssd_windows11pl",
+        "category": "https://pclider.pl/komputery-poleasingowe"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["del", {"class": "price__inactive"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

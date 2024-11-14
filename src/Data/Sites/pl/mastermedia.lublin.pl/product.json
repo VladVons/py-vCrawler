@@ -1,0 +1,46 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-13 20:10",
+      "url": "https://mastermedia.lublin.pl",
+      "urls": {
+        "instock": "-https://mastermedia.lublin.pl/komputery-dla-gracza/3952-komputer-i512400-rtx-4060-16gb-512gb-win11-gra.html",
+        "outstock": "https://mastermedia.lublin.pl/hp/3908-laptop-hp-probook-650-g5-i58250u-8gb-ram-256gb-ssd-nvme-win-11-156-5905902036452.html",
+        "discount": "",
+        "category": "-https://mastermedia.lublin.pl/11-komputery-pc"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["section", {"id": "content"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-container"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["ul", {"class": "product-images"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-image-large-src"}]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["section", {"id": "content"}]],
+      ["as_dict", {
+        "features": [
+          ["find", ["section", {"class": "product-features"}]],
+          ["table_tag", [["dt", "dd"]]],
+          ["keyval2dict"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-description"}]],
+          ["text_tag", ["p"]]
+        ],
+         "category": [
+          ["find", ["nav", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], 1]]
+        ]
+      }]
+    ]
+  }
+}

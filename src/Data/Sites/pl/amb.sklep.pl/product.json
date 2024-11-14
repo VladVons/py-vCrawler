@@ -1,0 +1,48 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 07:48",
+      "url": "https://www.amb.sklep.pl",
+      "urls": {
+        "instock": "https://www.amb.sklep.pl/product/Dell-Precision-5510-UHD-dotykowy-s1397",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://www.amb.sklep.pl/category/LAPTOPY-Poleasingowe-204645?#OfertaProduktowa"
+      },
+      "reader": "playwright",
+      "todo": "blocked from ukraine"
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "product-details-image-container"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "features": [
+          ["find", ["div", {"class": "item-description"}]],
+          ["table_tag", ["p"]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ],
+        "-stock": []
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["div", {"class": "breadcrumbs-nav"}]],
+          ["breadcrumb", [["a"], -2]]
+        ]
+      }]
+    ]
+  }
+}

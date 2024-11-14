@@ -5,14 +5,15 @@
       "date": "2024-11-11 11:49",
       "url": "https://computerowiec.com.pl",
       "urls": {
-        "instock": "-https://computerowiec.com.pl/komputery-stacjonarne/7156-fujitsu-m740n-35-e5-16gb-ssdhdd-k2200-w10-pro-m740n.html",
+        "instock": "https://computerowiec.com.pl/komputery-stacjonarne/7156-fujitsu-m740n-35-e5-16gb-ssdhdd-k2200-w10-pro-m740n.html",
         "outstock": "",
         "discount": "-https://computerowiec.com.pl/procesory/3705-procesor-xeon-e5-2650-200ghz-8core-sr0kq-xeon-e5-2650.html",
-        "category": "https://computerowiec.com.pl/3-komputery-stacjonarne"
+        "category": "-https://computerowiec.com.pl/3-komputery-stacjonarne"
       }
     },
     "pipe_microdata": [
-      ["find_check", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["parent"],
       ["product_itemprop"]
     ],
     "pipe_product": [

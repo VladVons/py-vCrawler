@@ -1,0 +1,50 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 09:00",
+      "url": "https://komputersklep.com",
+      "urls": {
+        "instock": "https://komputersklep.com/pol_m_Monitory-141.html",
+        "outstock": "-https://komputersklep.com/pol_m_Monitory-141.html",
+        "root": "https://komputersklep.com"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product__name"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product__name"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["get_yes", ["data-product_disable"]],
+                 ["invert"]
+               ],
+               "price": [
+                 ["find", ["strong", {"class": "price"}]],
+                 ["contents"],
+                 ["list", [0]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

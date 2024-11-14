@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 14:21",
+      "url": "https://sklep.laptopyplock.pl",
+      "urls": {
+        "instock": "-https://sklep.laptopyplock.pl/kategoria-produktu/komputery/komputery-stacjonarne-komputery/",
+        "outstock": "https://sklep.laptopyplock.pl/kategoria-produktu/komputery/komputery-stacjonarne-komputery/",
+        "root": "https://sklep.laptopyplock.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["p", {"id": "breadcrumbs"}]],
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["li", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "woocommerce-loop-product__link"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2", {"class": "woocommerce-loop-product__title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["a", {"class": "product_type_simple"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["dodaj do koszyka"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "woocommerce-Price-amount amount"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find_check", ["p", {"id": "breadcrumbs"}]],
+          ["find", ["ul", {"class": "page-numbers"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

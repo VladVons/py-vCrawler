@@ -1,0 +1,59 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 15:09",
+      "url": "https://www.mmcomp.pl",
+      "urls": {
+        "instock": "-https://www.mmcomp.pl/laptopy",
+        "outstock": "",
+        "discount": "https://www.mmcomp.pl/laptopy/8",
+        "root": "https://www.mmcomp.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["div", {"class": "sortlinks"}]],
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find", ["button", {"class": "addtobasket"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["do koszyka"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["em"]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["del"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

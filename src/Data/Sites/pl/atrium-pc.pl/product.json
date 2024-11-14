@@ -1,0 +1,61 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-12 17:09",
+      "url": "https://www.atrium-pc.pl",
+      "urls": {
+        "instock": "https://www.atrium-pc.pl/glowna/7628-komputer-dell-optiplex-5040-i7-6700-8gb-256gb-ssd-m2-win11-pro.html",
+        "outstock": "-https://www.atrium-pc.pl/xeon/744-KOMP-Dell-690-2xXEON-3GHz-6GB-147Gb-DVD-XP-100105702.html",
+        "discount": "-https://www.atrium-pc.pl/glowna/7647-pc-dell-optiplex-7040-i5-6500-16gb-ssd-512gb-win-11pro-152.html",
+        "category": "-https://www.atrium-pc.pl/15-Komputery-poleasingowe.html"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["section", {"class": "page-product-box"}]],
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find_check", ["section", {"class": "page-product-box"}]],
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "thumbs_list"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price": [
+          ["find", ["span", {"itemprop": "price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["p", {"id": "old_price"}]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["section", {"class": "page-product-box"}]],
+      ["as_dict", {
+        "description": [
+          ["find", ["section", {"class": "page-product-box"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["section", {"class": "page-product-box"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ],
+         "category": [
+          ["find", ["div", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], 1]]
+        ]
+      }]
+    ]
+  }
+}
