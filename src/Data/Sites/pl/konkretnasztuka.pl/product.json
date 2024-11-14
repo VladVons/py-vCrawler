@@ -1,0 +1,50 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 20:29",
+      "url": "https://konkretnasztuka.pl",
+      "urls": {
+        "instock": "-https://konkretnasztuka.pl/product-pol-267774-Dell-Latitude-7410-i5-10310U-1920x1080-Klasa-A-S-N-49JR9C3.html",
+        "outstock": "",
+        "discount": "https://konkretnasztuka.pl/product-pol-169593-Dotykowy-Lenovo-ThinkPad-T470s-i5-7300U-1920x1080-Klasa-B-S-N-PC0M9L65.html",
+        "category": "-https://konkretnasztuka.pl/Poleasingowe-laptopy"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["form", {"id": "projector_form"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["form", {"id": "projector_form"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "projector_photos"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price_old": [
+          ["find", ["del", {"id": "projector_price_maxprice"}]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"class": "projector_longdescription"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["ul", {"class": "parameter_list"}]],
+          ["find_all", ["li", {"class": "parameter_element"}]],
+          ["list_map", [
+            ["get_text", ["", true]],
+            ["split", [":"]]
+          ]],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

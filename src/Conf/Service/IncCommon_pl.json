@@ -255,7 +255,7 @@
         ["/10-laptopy", "/11-komputery-pc", "/12-monitory", "/217-drukowanie"]
       ],
       [
-        1,
+        0,
         "atrium-pc.pl",
         "https://www.atrium-pc.pl",
         ["product", "-category"],
@@ -302,6 +302,13 @@
         "https://www.mmcomp.pl",
         ["product", "category"],
         ["/laptopy-poleasingowe", "/komputery-poleasingowe"]
+      ],
+      [
+        1,
+        "konkretnasztuka.pl",
+        "https://konkretnasztuka.pl",
+        ["product", "category"],
+        ["/Poleasingowe-laptopy", "/pol_m_MONITORY-2932.html"]
       ]
     ]
   }

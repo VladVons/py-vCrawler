@@ -1,0 +1,45 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 20:26",
+      "url": "https://konkretnasztuka.pl",
+      "urls": {
+        "instock": "https://konkretnasztuka.pl/Poleasingowe-laptopy",
+        "outstock": "",
+        "root": "https://konkretnasztuka.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "search"}]],
+          ["find_all", ["div", {"class": "product_wrapper"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product-name"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product-name"}]],
+                 ["get", ["title"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["replace", ["/ szt.", ""]],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
