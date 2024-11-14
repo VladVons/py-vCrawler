@@ -255,7 +255,7 @@
         ["/10-laptopy", "/11-komputery-pc", "/12-monitory", "/217-drukowanie"]
       ],
       [
-        0,
+        1,
         "atrium-pc.pl",
         "https://www.atrium-pc.pl",
         ["product", "-category"],
@@ -297,7 +297,7 @@
         ["/kategoria-produktu/komputery/laptopy-komputery/"]
       ],
       [
-        1,
+        0,
         "mmcomp.pl",
         "https://www.mmcomp.pl",
         ["product", "category"],
