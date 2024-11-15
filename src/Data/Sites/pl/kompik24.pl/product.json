@@ -1,0 +1,37 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 08:25",
+      "url": "https://kompik24.pl",
+      "urls": {
+        "instock": "https://kompik24.pl/pl/p/DELL-Optiplex-5070-i7-9700-8-Rdzeni-32GB-1TB-NVME-11-Pro/2833",
+        "outstock": "-https://kompik24.pl/pl/p/DELL-Optiplex-7040-i5-6500-8G-DDR4-256GB-SSD-WIN-10P/2694",
+        "discount": "-https://kompik24.pl/pl/p/Lenovo-ThinkPad-T580-FHD-15%2C6-i5-8250U-8GB-256GB-WIN-11P/2766",
+        "category": "-https://kompik24.pl/komputerypoleasingowe"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["del", {"class": "price__inactive"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

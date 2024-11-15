@@ -379,13 +379,54 @@
         "no monitor, printer, laptop"
       ],
       [
-        1,
+        0,
         "ag.pl",
         "https://www.ag.pl",
         ["product", "category"],
         ["/laptopy-uzywane-c-1.html", "/laptopy-powystawowe-dell-notebooki-powystawowe-dell-c-2.html"],
         ""
+      ],
+      [
+        0,
+        "kompik24.pl",
+        "https://kompik24.pl",
+        ["product", "category"],
+        ["/komputerypoleasingowe", "/laptopy-uzywane-poleasingowe", "/pl/c/Monitory/108"],
+        ""
+      ],
+      [
+        0,
+        "eltech.waw.pl",
+        "https://eltech.waw.pl",
+        ["product", "category"],
+        ["/laptopy-poleasingowe"],
+        ""
+      ],
+      [
+        0,
+        "cp24.pl",
+        "https://cp24.pl",
+        ["product", "category"],
+        ["/outlet-it/komputery.html", "/outlet-it/laptopy.html", "/outlet-it/monitory.html"],
+        ""
+      ],
+      [
+        0,
+        "sprzetowo.pl",
+        "https://sprzetowo.pl",
+        ["product", "category"],
+        ["/komputery-stacjonarne/komputery-poleasingowe", "/laptopy", "/monitory-poleasingowe", "/drukarki-i-skanery"],
+        ""
+      ],
+      [
+        1,
+        "xlap24.pl",
+        "https://xlap24.pl",
+        ["product", "category"],
+        ["/laptopy-poleasingowe", "/komputery-stacjonarne-poleasingowe"],
+        ""
       ]
+
     ]
   }
 }

@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 12:49",
+      "url": "https://xlap24.pl",
+      "urls": {
+        "instock": "https://xlap24.pl/komputery-stacjonarne-poleasingowe/",
+        "outstock": "",
+        "root": "https://xlap24.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"class": "products-list-page"}]],
+          ["find_all", ["figure", {"class": "product-tile"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "product-name"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "product-name"}]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find", ["button", {"class": "add-to-cart"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["dodaj do koszyka"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price-special"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

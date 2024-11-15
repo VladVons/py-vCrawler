@@ -1,0 +1,64 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 16:27",
+      "url": "https://cp24.pl",
+      "urls": {
+        "instock": "-https://cp24.pl/outlet-it/komputery/dell-optiplex-780-core-2-duo-3000-intel-q45-q43-express-chipset-8192-ddr3-256gb-ssd-dvd-win-7-pro-tower.html",
+        "outstock": "https://cp24.pl/outlet-it/monitory/dell-1908wfpf-19-m3-o1-black-sil-lcd-18542.html",
+        "discount": "",
+        "category": "https://cp24.pl/outlet-it/monitory.html"
+      }
+    },
+    "-pipe_microdata": [],
+    "pipe_product": [
+      ["find", ["div", {"class": "yt-product-detail"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["div", {"class": "product-name"}]],
+          ["text_strip"]
+        ],
+        "images": [
+          ["find", ["div", {"class": "more-views"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price": [
+          ["find", ["span", {"class": "price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find_yes", ["button", {"class": "btn-cart"}]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-shop"}]],
+          ["find_all", ["div"]],
+          ["list_map", [
+             ["text_strip"],
+             ["split", [": "]]
+          ]],
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"class": "yt-product-detail"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["ul", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

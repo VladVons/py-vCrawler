@@ -1,0 +1,46 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 11:57",
+      "url": "https://xlap24.pl",
+      "urls": {
+        "instock": "-https://xlap24.pl/Dell-Optiplex-7050-Tiny-Intel-Core-i5-8GB-DDR4-256GB-SSD-Windows-10-Pro-p68274",
+        "outstock": "",
+        "discount": "https://xlap24.pl/Lenovo-M83-Intel-Pentium-8GB-DDR3-256GB-SSD-Windows-10-Pro-p67817",
+        "category": "-https://xlap24.pl/komputery-stacjonarne-poleasingowe/"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["section", {"class": "product-card"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"class": "product-card"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "product-img"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-zoom-image"}]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "price-normal"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-parameters"}]],
+          ["table_tag", ["div", {"class": "product-parameter-row"}]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Marka"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

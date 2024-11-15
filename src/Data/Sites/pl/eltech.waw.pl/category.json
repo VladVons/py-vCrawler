@@ -1,0 +1,49 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 16:11",
+      "url": "https://eltech.waw.pl",
+      "urls": {
+        "instock": "https://eltech.waw.pl/laptopy-poleasingowe",
+        "outstock": "https://eltech.waw.pl/laptopy-poleasingowe",
+        "root": "https://eltech.waw.pl"
+      }
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "sortlinks"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"class": "addtobasket"}]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["em"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 11:25",
+      "url": "https://sprzetowo.pl",
+      "urls": {
+        "instock": "https://sprzetowo.pl/komputery-stacjonarne/komputer-do-gier-intel-i5-rtx-3060-16gb-ssd-240-windows-10_1",
+        "outstock": "",
+        "discount": "-https://sprzetowo.pl/komputery-stacjonarne/hp-prodesk-400-g4-sff--i5-7500-ddr4-16gb-ssd-240gb-win10-kl.-a-",
+        "category": "https://sprzetowo.pl/komputery-stacjonarne"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "price"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}

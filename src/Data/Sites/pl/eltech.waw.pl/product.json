@@ -1,0 +1,29 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 16:01",
+      "url": "https://eltech.waw.pl",
+      "urls": {
+        "instock": "-https://eltech.waw.pl/pl/p/Dell-Vostro-3510-i5-11.-generacji-1135G7-8-GB-RAM-256-GB-SSD-matryca-IRIS-15%2C6-klasa-A/75",
+        "outstock": "https://eltech.waw.pl/pl/p/HP-Zbook-15-G3-i7-6.-generacji-6820HQ-32-GB-RAM-512-GB-SSD-matryca-Full-HD-15%2C6-NVIDIA-M1000M-klasa-A/77",
+        "discount": "",
+        "category": "https://eltech.waw.pl/laptopy-poleasingowe"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}

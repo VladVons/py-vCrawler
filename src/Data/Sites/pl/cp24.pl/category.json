@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 17:19",
+      "url": "https://cp24.pl",
+      "urls": {
+        "instock": "https://cp24.pl/outlet-it/akcesoria-do-komputerow.html",
+        "outstock": "",
+        "root": "https://cp24.pl"
+      }
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "sorter"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "yt-products-container"}]],
+          ["find_all", ["div", {"class": "item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "product-name"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "product-name"}]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "-stock": [],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

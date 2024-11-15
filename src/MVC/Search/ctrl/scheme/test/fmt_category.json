@@ -7,6 +7,7 @@
       "urls": {
         "instock": "",
         "outstock": "",
+        "discount": "",
         "root": ""
       }
     },
