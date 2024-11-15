@@ -6,7 +6,7 @@ with wt1 as (
     ref_url
   group by
     site_id
-  having 
+  having
     count(*) > 1
 )
 update ref_site
@@ -15,5 +15,5 @@ set
 from
     wt1
 where
-    ref_site.id = wt1.site_id and 
+    ref_site.id = wt1.site_id and
     ref_site.enabled

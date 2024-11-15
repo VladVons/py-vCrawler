@@ -1,0 +1,64 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 18:33",
+      "url": "https://www.ag.pl",
+      "urls": {
+        "instock": "https://www.ag.pl/laptopy-nowe-dell-notebooki-dell-outlet-c-3.html",
+        "outstock": "-https://www.ag.pl/laptopy-nowe-dell-notebooki-dell-outlet-c-3.html",
+        "root": "https://www.ag.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "OknaRwd"}]],
+          ["find_all", ["div", {"class": "OknoRwd"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3"]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3"]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find", ["ul", {"class": "ListaOpisowa"}]],
+                 ["find_all_text", ["li"], {"a_text": "Dostępność"}],
+                 ["list", [0]],
+                 ["text_strip"],
+                 ["search_in", ["Dostępny"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "ProduktCena"}]],
+                 ["find_or", [
+                   ["span", {"class": "Cena"}],
+                   ["span", {"class": "CenaPromocyjna"}]
+                 ]],
+                 ["contents"],
+                 ["list", [-1]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["em", {"class": "CenaPoprzednia"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "ListingNawigacja"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

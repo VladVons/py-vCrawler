@@ -1,0 +1,47 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 18:16",
+      "url": "https://www.ag.pl",
+      "urls": {
+        "instock": "https://www.ag.pl/nowy-model-2w1-dell-latitude-5330-i5-1245u-16gb-256gb-ssd-13-3-fhdt-1920x1080-w11p-gw12mc-p-6872.html",
+        "outstock": "-https://www.ag.pl/dell-alienware-m18-r1-amd-ryzen-9-7845hx-32gb-1tb-m2-18-qhd-165hz-rtx-4070-8gb-gw12mc-p-10765.html",
+        "discount": "-https://www.ag.pl/dell-vostro-5415-ryzen3-5300u-8gb-256ssd-14-fhd-1920x1080-matt-amd-radeon-win11pro-gw12mc-p-8114.html",
+        "category": "-https://www.ag.pl/laptopy-nowe-dell-notebooki-dell-outlet-c-3.html"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "ZdjeciaDuze"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}],
+          ["-list_map", [
+            ["replace", [" ", "%20"]]
+          ]]
+        ],
+        "price_old": [
+          ["find", ["p", {"id": "CenaPoprzednia"}]],
+          ["find", ["strong"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "GlownyOpisProduktu"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "GlownyOpisProduktu"}]],
+          ["find", ["table", {"id": "uniqueTable"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 20:16",
+      "url": "https://www.delllow.com",
+      "urls": {
+        "instock": "https://www.delllow.com/komputery-poleasingowe-c-1.html",
+        "outstock": "-https://www.delllow.com/komputery-poleasingowe-c-1.html",
+        "root": "https://www.delllow.com"
+      }
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "Sortowanie"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "OknaRwd"}]],
+          ["find_all", ["div", {"class": "OknoRwd"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3"]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3"]],
+                 ["find", ["a"]],
+                 ["get", ["title"]]
+               ],
+               "price": [
+                 ["find", ["em", {"class": "Brutto"}]],
+                 ["contents"],
+                 ["list", [0]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["em", {"class": "CenaPoprzednia"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "IndexStron"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

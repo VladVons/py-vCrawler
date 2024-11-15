@@ -1,0 +1,49 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 19:10",
+      "url": "https://demari.pl",
+      "urls": {
+        "instock": "https://demari.pl/category/komputery-poleasingowe?horizontal",
+        "outstock": "-https://demari.pl/category/komputery-poleasingowe?horizontal",
+        "root": "https://demari.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_check", ["div", {"id": "producer-filter"}]],
+          ["find", ["div", {"class": "product-list"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product_name"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product_name"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["div", {"class": "btn-disable"}]],
+                 ["invert"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

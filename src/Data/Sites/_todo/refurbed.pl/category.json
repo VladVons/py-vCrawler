@@ -1,0 +1,17 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 19:49",
+      "url": "https://www.refurbed.pl",
+      "urls": {
+        "instock": "https://www.refurbed.pl/c/komputery-stacjonarne/",
+        "outstock": "",
+        "root": "-https://www.refurbed.pl"
+      },
+      "reader": "playwright",
+      "comment": "no pager"
+    },
+    "-pipe": []
+  }
+}

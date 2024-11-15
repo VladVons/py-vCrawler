@@ -1,321 +1,390 @@
 {
   "sites": {
-    "head": ["enable", "dir", "url", "type", "category"],
+    "head": ["enable", "dir", "url", "type", "category", "note"],
     "data": [
       [
         0,
         "cebit.pl",
         "https://www.cebit.pl",
         ["product", "category"],
-        ["/komputery-poleasingowe", "/laptopy-poleasingowe", "/monitory-poleasingowe", "/serwery-poleasingowe", "/drukarki-poleasingowe"]
+        ["/komputery-poleasingowe", "/laptopy-poleasingowe", "/monitory-poleasingowe", "/serwery-poleasingowe", "/drukarki-poleasingowe"],
+        ""
       ],
       [
         0,
         "servecom.pl",
         "https://www.servecom.pl",
         ["product", "-category"],
-        ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe"]
+        ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe"],
+        ""
       ],
       [
         0,
         "sklep.precio.pl",
         "https://sklep.precio.pl",
         ["product", "category"],
-        ["/pl/c/Komputery-poleasingowe-stacjonarne/32", "/pl/c/Laptopy-poleasingowe/28", "/pl/c/Monitory-poleasingowe/37", "/pl/c/Tablety-poleasingowe/67", "/pl/c/Serwery-i-storage-poleasingowe/257"]
+        ["/pl/c/Komputery-poleasingowe-stacjonarne/32", "/pl/c/Laptopy-poleasingowe/28", "/pl/c/Monitory-poleasingowe/37", "/pl/c/Tablety-poleasingowe/67", "/pl/c/Serwery-i-storage-poleasingowe/257"],
+        ""
       ],
       [
         0,
         "dolservice.pl",
         "https://dolservice.pl",
         ["product", "category"],
-        ["/laptopy", "/pl/c/Komputery/39", "/pl/c/Monitory/40", "/pl/c/Drukarki/69"]
+        ["/laptopy", "/pl/c/Komputery/39", "/pl/c/Monitory/40", "/pl/c/Drukarki/69"],
+        ""
       ],
       [
         0,
         "komp-net.pl",
         "https://komp-net.pl",
         ["-product", "category"],
-        ["/65-komputery", "/97-laptopy", "/67-monitory"]
+        ["/65-komputery", "/97-laptopy", "/67-monitory"],
+        ""
       ],
       [
         0,
         "zikom.pl",
         "https://zikom.pl",
         ["product", "category"],
-        ["/poleasingowe-laptopy-notebooki/", "/poleasingowe-komputery-stacjonarne/", "/poleasingowe-monitory/", "/poleasingowe-drukarki-laserowe/", "/poleasingowe-laptopy-notebooki/laptopy-specjalistyczne-/"]
+        ["/poleasingowe-laptopy-notebooki/", "/poleasingowe-komputery-stacjonarne/", "/poleasingowe-monitory/", "/poleasingowe-drukarki-laserowe/", "/poleasingowe-laptopy-notebooki/laptopy-specjalistyczne-/"],
+        ""
       ],
       [
         0,
         "slaskiecentrumkomputerowe.pl",
         "https://slaskiecentrumkomputerowe.pl",
         ["product", "category"],
-        ["/pl/c/Komputery-poleasingowe/13", "/pl/c/Laptopy-poleasingowe/17", "/pl/c/Monitory/20", "/pl/c/Drukarki/47", "/pl/c/Apple-poleasingowe/121"]
+        ["/pl/c/Komputery-poleasingowe/13", "/pl/c/Laptopy-poleasingowe/17", "/pl/c/Monitory/20", "/pl/c/Drukarki/47", "/pl/c/Apple-poleasingowe/121"],
+        ""
       ],
       [
         0,
         "mrpecet.pl",
         "https://mrpecet.pl",
         ["-product", "category"],
-        ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe", "/tablety-poleasingowe"]
+        ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/monitory-poleasingowe", "/tablety-poleasingowe"],
+        ""
       ],
       [
         0,
         "hardwaredirect.pl",
         "https://hardwaredirect.pl",
         ["-product", "category"],
-        ["/serwery", "/stacje-robocze", "/urzadzenia-sieciowe", "/storage"]
+        ["/serwery", "/stacje-robocze", "/urzadzenia-sieciowe", "/storage"],
+        ""
       ],
       [
         0,
         "laptopypoznan.pl",
         "https://www.laptopypoznan.pl",
         ["product", "category"],
-        ["/Laptopy-poleasingowe-c98", "/Komputery-poleasingowe-c229", "/Monitory-poleasingowe-c172", "/Drukarki-c562", "/Podzespoly-uzywane-c484"]
+        ["/Laptopy-poleasingowe-c98", "/Komputery-poleasingowe-c229", "/Monitory-poleasingowe-c172", "/Drukarki-c562", "/Podzespoly-uzywane-c484"],
+        ""
       ],
       [
         0,
         "tonerownia.pl",
         "https://www.tonerownia.pl",
         ["product", "category"],
-        ["/sklep/laptopy-uzywane-bielsko.html", "/sklep/komputery-poleasingowe-bielsko.html", "/sklep/monitory-uzywane-bielsko.html", "/sklep/drukarki-bielsko.html"]
+        ["/sklep/laptopy-uzywane-bielsko.html", "/sklep/komputery-poleasingowe-bielsko.html", "/sklep/monitory-uzywane-bielsko.html", "/sklep/drukarki-bielsko.html"],
+        ""
       ],
       [
         0,
         "galbit.sklep.pl",
         "https://galbit.sklep.pl",
         ["product", "-category"],
-        ["/pl/c/Komputery-PC/47", "/pl/c/Monitory/46", "/pl/c/Drukarki/21", "/pl/c/Laptopy/92"]
+        ["/pl/c/Komputery-PC/47", "/pl/c/Monitory/46", "/pl/c/Drukarki/21", "/pl/c/Laptopy/92"],
+        ""
       ],
       [
         0,
         "x-intercom.pl",
         "https://x-intercom.pl",
         ["product", "category"],
-        ["/97-uzywane", "/103-uzywane", "/105-uzywane", "/115-uzywane"]
+        ["/97-uzywane", "/103-uzywane", "/105-uzywane", "/115-uzywane"],
+        ""
       ],
       [
         0,
         "blastnet.pl",
         "https://blastnet.pl",
         ["product", "category"],
-        ["/12-serwery-dell", "/20-serwery-hp", "/253-workstation", "/182-serwery-cisco", "/51-serwery-ibm-lenovo"]
+        ["/12-serwery-dell", "/20-serwery-hp", "/253-workstation", "/182-serwery-cisco", "/51-serwery-ibm-lenovo"],
+        ""
       ],
       [
         0,
         "shoplet.pl",
         "https://shoplet.pl",
         ["product", "category"],
-        ["/21-laptopy", "/13-komputery", "/34-monitory", "/115-drukarki"]
+        ["/21-laptopy", "/13-komputery", "/34-monitory", "/115-drukarki"],
+        ""
       ],
       [
         0,
         "tanikomputer.eu",
         "https://tanikomputer.eu",
         ["product", "category"],
-        ["/laptopy-poleasingowe,c4.html", "/komputery-pc,c8.html", "/monitory,c5.html"]
+        ["/laptopy-poleasingowe,c4.html", "/komputery-pc,c8.html", "/monitory,c5.html"],
+        ""
       ],
       [
         0,
         "laptopmarket.pl",
         "https://laptopmarket.pl",
         ["product", "category"],
-        ["/Laptopy-poleasingowe"]
+        ["/Laptopy-poleasingowe"],
+        ""
       ],
       [
         0,
         "at-outlet.pl",
         "https://at-outlet.pl",
         ["product", "category"],
-        ["/laptopy", "/drukarki-2"]
+        ["/laptopy", "/drukarki-2"],
+        ""
       ],
       [
         0,
         "otokomputery.pl",
         "https://www.otokomputery.pl",
         ["product", "category"],
-        ["/pl/c/Laptopy/18", "/pl/c/Komputery/2", "/pl/c/Monitory/198", "/pl/c/Smartfony/127", "/pl/c/Tablety/126"]
+        ["/pl/c/Laptopy/18", "/pl/c/Komputery/2", "/pl/c/Monitory/198", "/pl/c/Smartfony/127", "/pl/c/Tablety/126"],
+        ""
       ],
       [
         0,
         "computerowiec.com.pl",
         "https://computerowiec.com.pl",
         ["product", "-category"],
-        ["/41-laptopy", "/3-komputery-stacjonarne", "/43-monitory", "/4-serwery"]
+        ["/41-laptopy", "/3-komputery-stacjonarne", "/43-monitory", "/4-serwery"],
+        ""
       ],
       [
         0,
         "alsen.pl",
         "https://www.alsen.pl",
         ["product", "category"],
-        ["/laptopy-i-komputery/komputery-pc/komputery-poleasingowe", "/laptopy-i-komputery/laptopy/laptopy-poleasingowe"]
+        ["/laptopy-i-komputery/komputery-pc/komputery-poleasingowe", "/laptopy-i-komputery/laptopy/laptopy-poleasingowe"],
+        ""
       ],
       [
         0,
         "enerson.com.pl",
         "https://www.enerson.com.pl",
         ["product", "category"],
-        ["/laptopy-poleasingowe", "/Laptopy-powystawowe-i-odnowione-refurbished-c112", "/komputery-poleasingowe-pc", "/komputery-all-in-one-poleasingowe", "/monitory-poleasingowe", "/drukarki-laserowe"]
+        ["/laptopy-poleasingowe", "/Laptopy-powystawowe-i-odnowione-refurbished-c112", "/komputery-poleasingowe-pc", "/komputery-all-in-one-poleasingowe", "/monitory-poleasingowe", "/drukarki-laserowe"],
+        ""
       ],
       [
         0,
         "netman.pl",
         "https://netman.pl",
         ["product", "category"],
-        ["/11-komputery-poleasingowe", "/3-laptopy-poleasingowe"]
+        ["/11-komputery-poleasingowe", "/3-laptopy-poleasingowe"],
+        ""
       ],
       [
         0,
         "mtech.pl",
         "https://mtech.pl",
         ["product", "category"],
-        ["/pl/menu/laptopy-154.html", "/pl/menu/komputery-155.html", "/pl/menu/monitory-156.html", "/pl/menu/apple-100.html", "/pl/menu/tablety-153.html"]
+        ["/pl/menu/laptopy-154.html", "/pl/menu/komputery-155.html", "/pl/menu/monitory-156.html", "/pl/menu/apple-100.html", "/pl/menu/tablety-153.html"],
+        ""
       ],
       [
         0,
         "laserland.com.pl",
         "https://www.laserland.com.pl",
         ["product", "category"],
-        ["/Laptopy-Poleasingowe-c1437", "/Drukarki-Poleasingowe-c1435", "/Komputery-Poleasingowe-c1438", "/Monitory-Poleasingowe-c1519"]
+        ["/Laptopy-Poleasingowe-c1437", "/Drukarki-Poleasingowe-c1435", "/Komputery-Poleasingowe-c1438", "/Monitory-Poleasingowe-c1519"],
+        ""
       ],
       [
         0,
         "mdmkomputery.pl",
         "https://www.mdmkomputery.pl",
         ["product", "category"],
-        ["/poleasingowe-komputery", "/poleasingowe-laptopy", "/poleasingowe-monitory"]
+        ["/poleasingowe-komputery", "/poleasingowe-laptopy", "/poleasingowe-monitory"],
+        ""
       ],
       [
         0,
         "laurem.pl",
         "https://laurem.pl",
         ["product", "category"],
-        ["/pol_m_Komputery-135.html", "/pol_m_Laptopy-100.html", "/pol_m_Monitory-160.html"]
+        ["/pol_m_Komputery-135.html", "/pol_m_Laptopy-100.html", "/pol_m_Monitory-160.html"],
+        ""
       ],
       [
         0,
         "taniekomputery.pl",
         "https://taniekomputery.pl",
         ["product", "category"],
-        ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/laptopy-powystawowe", "/monitory"]
+        ["/laptopy-poleasingowe", "/komputery-poleasingowe", "/laptopy-powystawowe", "/monitory"],
+        ""
       ],
       [
         0,
         "cyber-sklep.pl",
         "https://www.cyber-sklep.pl",
         ["product", "category"],
-        ["/laptopy-c-300_301.html", "/komputery-c-300_303.html", "/monitory-c-300_302.html", "/drukarki-c-300_307.html", "/pozostaletablety-c-300_311.html", "/pozostaletelefony-c-300_308.html", "/projektory-c-300_309.html"]
+        ["/laptopy-c-300_301.html", "/komputery-c-300_303.html", "/monitory-c-300_302.html", "/drukarki-c-300_307.html", "/pozostaletablety-c-300_311.html", "/pozostaletelefony-c-300_308.html", "/projektory-c-300_309.html"],
+        ""
       ],
       [
         0,
         "optimal24.pl",
         "https://optimal24.pl",
         ["product", "category"],
-        ["/category/sprzet-uzywany"]
+        ["/category/sprzet-uzywany"],
+        ""
       ],
       [
         0,
         "drukarki.skleptpi.pl",
         "https://drukarki.skleptpi.pl",
         ["product", "category"],
-        ["/sklep/"]
+        ["/sklep/"],
+        ""
       ],
       [
         0,
         "b2b.agat-it.eu",
         "https://b2b.agat-it.eu",
         ["product", "category"],
-        ["/produkty/laptopy,2,2", "/komputery-stacjonarne,2,1", "/produkty/monitory,2,3", "/produkty/drukarki,2,5", "/produkty/sprzet-klasy-b,2,5125"]
+        ["/produkty/laptopy,2,2", "/komputery-stacjonarne,2,1", "/produkty/monitory,2,3", "/produkty/drukarki,2,5", "/produkty/sprzet-klasy-b,2,5125"],
+        ""
       ],
       [
         0,
         "grand-kom.pl",
         "https://grand-kom.pl",
         ["product", "category"],
-        ["/product-category/komputery/", "/pl/menu/laptopy-poleasingowe-177.html", "/product-category/monitory/", "/pl/menu/tablety-188.html", "/pl/menu/telefony-189.html"]
+        ["/product-category/komputery/", "/pl/menu/laptopy-poleasingowe-177.html", "/product-category/monitory/", "/pl/menu/tablety-188.html", "/pl/menu/telefony-189.html"],
+        ""
       ],
       [
         0,
         "pclider.pl",
         "https://pclider.pl",
         ["product", "category"],
-        ["/komputery-poleasingowe", "/laptopy-poleasingowe", "/monitory-poleasingowe", "/komputery-all-in-one", "/drukarki-poleasingowe", "/telefony-poleasingowe", "/apple", "/serwery-i-stacje-graficzne"]
+        ["/komputery-poleasingowe", "/laptopy-poleasingowe", "/monitory-poleasingowe", "/komputery-all-in-one", "/drukarki-poleasingowe", "/telefony-poleasingowe", "/apple", "/serwery-i-stacje-graficzne"],
+        ""
       ],
       [
         0,
         "asnew.pl",
         "https://asnew.pl",
         ["product", "category"],
-        ["/laptopy-notebooki-poleasingowe", "/komputery-poleasingowe-stacjonarne", "/monitory-poleasingowe", "/tanie-uzywane-apple"]
+        ["/laptopy-notebooki-poleasingowe", "/komputery-poleasingowe-stacjonarne", "/monitory-poleasingowe", "/tanie-uzywane-apple"],
+        ""
       ],
       [
         0,
         "mastermedia.lublin.pl",
         "https://mastermedia.lublin.pl",
         ["product", "category"],
-        ["/10-laptopy", "/11-komputery-pc", "/12-monitory", "/217-drukowanie"]
+        ["/10-laptopy", "/11-komputery-pc", "/12-monitory", "/217-drukowanie"],
+        ""
       ],
       [
         0,
         "atrium-pc.pl",
         "https://www.atrium-pc.pl",
         ["product", "-category"],
-        ["", "", "", ""]
+        ["", "", "", ""],
+        ""
       ],
       [
         0,
         "amb.sklep.pl",
         "https://www.amb.sklep.pl",
         ["product", "category"],
-        ["/category/LAPTOPY-Poleasingowe-204645#OfertaProduktowa", "/category/Drukarki-Laserowe-Poleasingowe-204646", "/category/Monitory-poleasingowe-204648", "/category/Komputery-poleasingowe-204653"]
+        ["/category/LAPTOPY-Poleasingowe-204645#OfertaProduktowa", "/category/Drukarki-Laserowe-Poleasingowe-204646", "/category/Monitory-poleasingowe-204648", "/category/Komputery-poleasingowe-204653"],
+        ""
       ],
       [
         0,
         "itmarket.pl",
         "https://itmarket.pl",
         ["product", "category"],
-        ["/komputery-uzywane-poleasingowe-i-nowe-4", "/laptopy-poleasingowe-uzywane-i-nowe-5", "/monitory-poleasingowe-uzywane-i-nowe-8", "/drukarki-faksy-i-skanery-9"]
+        ["/komputery-uzywane-poleasingowe-i-nowe-4", "/laptopy-poleasingowe-uzywane-i-nowe-5", "/monitory-poleasingowe-uzywane-i-nowe-8", "/drukarki-faksy-i-skanery-9"],
+        ""
       ],
       [
         0,
         "vedion.pl",
         "https://www.vedion.pl",
         ["product", "category"],
-        ["pl/menu/apple-589.html", "/laptopy-poleasingowe", "/pl/menu/pc-926.html"]
+        ["pl/menu/apple-589.html", "/laptopy-poleasingowe", "/pl/menu/pc-926.html"],
+        ""
       ],
       [
         0,
         "laptopylodz.pl",
         "https://laptopylodz.pl",
         ["product", "category"],
-        ["/laptopy-i-komputery-poleasingowe-c-9.html"]
+        ["/laptopy-i-komputery-poleasingowe-c-9.html"],
+        ""
       ],
       [
         0,
         "sklep.laptopyplock.pl",
         "https://sklep.laptopyplock.pl",
         ["product", "category"],
-        ["/kategoria-produktu/komputery/laptopy-komputery/"]
+        ["/kategoria-produktu/komputery/laptopy-komputery/"],
+        ""
       ],
       [
         0,
         "mmcomp.pl",
         "https://www.mmcomp.pl",
         ["product", "category"],
-        ["/laptopy-poleasingowe", "/komputery-poleasingowe"]
+        ["/laptopy-poleasingowe", "/komputery-poleasingowe"],
+        ""
       ],
       [
         0,
         "konkretnasztuka.pl",
         "https://konkretnasztuka.pl",
         ["product", "category"],
-        ["/Poleasingowe-laptopy", "/pol_m_MONITORY-2932.html"]
+        ["/Poleasingowe-laptopy", "/pol_m_MONITORY-2932.html"],
+        ""
       ],
       [
-        1,
+        0,
         "getprice.pl",
         "https://getprice.pl",
         ["product", "category"],
-        ["/pl/serwery/state-uzywany.html"]
+        ["/pl/serwery/state-uzywany.html"],
+        ""
+      ],
+      [
+        0,
+        "delllow.com",
+        "https://www.delllow.com",
+        ["product", "category"],
+        ["/komputery-poleasingowe-c-1.html", "/monitory-c-29.html", "/laptopy-notebooki-c-32.html", "/zestawy-all-in-one-aio-c-78.html"],
+        ""
+      ],
+      [
+        0,
+        "demari.pl",
+        "https://demari.pl",
+        ["product", "category"],
+        ["/category/komputery-poleasingowe"],
+        "no monitor, printer, laptop"
+      ],
+      [
+        1,
+        "ag.pl",
+        "https://www.ag.pl",
+        ["product", "category"],
+        ["/laptopy-uzywane-c-1.html", "/laptopy-powystawowe-dell-notebooki-powystawowe-dell-c-2.html"],
+        ""
       ]
     ]
   }

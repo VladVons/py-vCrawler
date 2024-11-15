@@ -1,0 +1,59 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 19:17",
+      "url": "https://www.refurbed.pl",
+      "urls": {
+        "instock": "https://www.refurbed.pl/p/apple-imac-2021-m1-24/",
+        "outstock": "",
+        "discount": "-https://www.refurbed.pl/p/lenovo-thinkcentre-m720q-tiny/",
+        "category": "-https://www.refurbed.pl/c/komputery-stacjonarne/"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["span", {"data-cypress": "product-name"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find_check", ["span", {"data-cypress": "product-name"}]],
+      ["find", ["div", {"id": "wrapper"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"data-cypress": "primary-image"}]],
+          ["find_next", ["ul"]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}],
+          ["list_map", [
+              ["replace", [["h=40", "w=40"], ["h=600", "w=800"]]]
+          ]]
+        ],
+        "price": [
+          ["find", ["p", {"data-cypress": "product-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["p", {"data-cypress": "product-price"}]],
+          ["find_next", ["p"]],
+          ["find_next", ["span"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"id": "szczegoły-produktu"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"data-gotest": "details-attributes-container"}]],
+          ["table_tag", [["dt", "dd"]]],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["ol", {"itemtype": "https://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}

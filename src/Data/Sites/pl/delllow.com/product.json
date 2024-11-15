@@ -1,0 +1,49 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 20:02",
+      "url": "https://www.delllow.com",
+      "urls": {
+        "instock": "https://www.delllow.com/dell-9010-i3-3220-3-3ghz-4gb-250gb-dvd-sff-mar-win-7-home-refurbished-p-138.html",
+        "outstock": "-https://www.delllow.com/hp-6300-quad-i5-3470-3-2ghz-4gb-250gb-dvd-rw-sff-coa-win-7-pro-p-168.html",
+        "discount": "-https://www.delllow.com/monitor-dell-p190s-lcd-19-p-21.html",
+        "category": "-https://www.delllow.com/komputery-poleasingowe-c-1.html"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "ZdjeciaDuze"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price_old": [
+          ["find", ["p", {"id": "CenaPoprzednia"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["p", {"id": "Dostepnosc"}]],
+          ["find", ["strong"]],
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["dostępny"]]
+        ],
+        "description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["text_tag", ["div"]]
+        ],
+        "features": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}

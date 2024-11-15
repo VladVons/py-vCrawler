@@ -1,0 +1,43 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 18:56",
+      "url": "https://demari.pl",
+      "urls": {
+        "instock": "https://demari.pl/dell-optiplex-7070-i5-9500-32gb-ddr4-256gb-nvme-windows-11-professional.html",
+        "outstock": "-https://demari.pl/hp-dc-5700.html",
+        "discount": "-https://demari.pl/dell-precision-3650-i5-11500-16gb-ddr4-1024gb-nvme-windows-11-professional.html",
+        "category": "-https://demari.pl/category/komputery-poleasingowe?horizontal"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["ul", {"id": "product-gallery"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "stock": [
+          ["find", ["li", {"class": "shopping-cart"}]],
+          ["find_yes", ["div", {"class": "btn-disable"}]],
+          ["invert"]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "old_price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"id": "pa_attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}
