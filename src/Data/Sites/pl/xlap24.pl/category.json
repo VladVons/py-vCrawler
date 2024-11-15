@@ -38,6 +38,11 @@
                  ["find", ["span", {"class": "price-special"}]],
                  ["text_strip"],
                  ["price"]
+               ],
+               "price_old": [
+                 ["find", ["span", {"class": "price-normal"}]],
+                 ["text_strip"],
+                 ["price"]
                ]
             }]
           ]]
