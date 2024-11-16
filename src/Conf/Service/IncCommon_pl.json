@@ -419,14 +419,21 @@
         ""
       ],
       [
-        1,
+        0,
         "xlap24.pl",
         "https://xlap24.pl",
         ["product", "category"],
         ["/laptopy-poleasingowe", "/komputery-stacjonarne-poleasingowe"],
         ""
+      ],
+      [
+        1,
+        "laptopfactory.pl",
+        "https://laptopfactory.pl",
+        ["-product", "category"],
+        ["/laptopy"],
+        ""
       ]
-
     ]
   }
 }

@@ -1,0 +1,35 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 18:13",
+      "url": "https://laptopfactory.pl",
+      "urls": {
+        "instock": "-https://laptopfactory.pl/Laptop-HP-EliteBook-840-G7-i5-10310U-FHD-",
+        "outstock": "-https://laptopfactory.pl/laptop-Apple-MacBook-Pro-16-A2141-i7-9750H-16GB-512B-Radeon-Pro-5300M-Space-gray",
+        "discount": "https://laptopfactory.pl/Laptop-Apple-MacBook-Pro-14-A2442-M1-Pro-32GB-512GB-US-Silver-120Hz-NOWY",
+        "category": "https://laptopfactory.pl/pl/promotions"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "price"}]],
+          ["find", ["p", {"class": "price__regular"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "gc__product__attributes"}]],
+          ["table_tag", ["div", {"class": "gc__product__attribute"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}

@@ -77,3 +77,20 @@ create or replace trigger hist_url_tai
     for each row
     when (new.parsed_data is not null)
     execute function hist_url_fai();
+
+---
+
+create or replace function ref_url_fau() returns trigger 
+as $$
+begin
+  delete from ref_product
+  where url_id = new.id;
+
+  return new;
+end $$ language plpgsql;
+
+create or replace trigger ref_url_tau
+  after update of url_en, status_code on ref_url
+  for each row
+  when (new.url_en is null or new.url_en != 'product' or new.status_code != 200)
+  execute function ref_url_fau();

@@ -1,0 +1,54 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 18:35",
+      "url": "https://kompshop.pl",
+      "urls": {
+        "instock": "-https://laptopfactory.pl/laptopy",
+        "outstock": "https://laptopfactory.pl/pl/promotions",
+        "discount": "-https://laptopfactory.pl/pl/promotions",
+        "root": "https://kompshop.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["find_yes", ["button", {"class": "addtobasket"}]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["em"]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["p", {"class": "price__regular"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

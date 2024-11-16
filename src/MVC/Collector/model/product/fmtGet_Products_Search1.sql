@@ -15,7 +15,6 @@ with wt1 as(
         rs.id = ru.site_id
     where
         (rs.country_id = {{aCountryId}}) and
-        (ru.status_code = 200) and
         (rp.price > 0) and
         (rp.title ilike all (values {{FilterRe}}))
     order by
