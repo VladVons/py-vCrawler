@@ -102,6 +102,7 @@ create table if not exists ref_site (
 
 create table if not exists ref_site_parser (
     create_date         timestamp default current_timestamp,
+    update_date         timestamp,
     moderated           bool default false,
     scheme              json not null,
     url_en              url_enum not null default 'product', 

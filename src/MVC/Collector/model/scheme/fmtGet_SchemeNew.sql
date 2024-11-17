@@ -1,6 +1,7 @@
 -- fmtGet_SchemeNew.sql
 
 select
+  id as site_id,
   url
 from
   ref_site rs

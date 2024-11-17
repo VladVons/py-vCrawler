@@ -9,7 +9,10 @@
         "outstock": "",
         "discount": "",
         "root": ""
-      }
+      },
+      "filter": [
+
+      ]
     },
     "pipe": [
       ["as_dict", {

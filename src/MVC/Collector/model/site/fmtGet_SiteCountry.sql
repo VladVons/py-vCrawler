@@ -5,7 +5,8 @@ with wt1 as (
   select
     ru.site_id,
     count(case when ru.url_en = 'product' then 1 end) as products,
-    count(case when rp.stock then 1 end) as onstock
+    count(case when rp.stock then 1 end) as onstock,
+    count(case when rp.price_old > 0 then 1 end) as discount
   from
     ref_url ru
   join
@@ -24,7 +25,8 @@ select
   regexp_replace(rs.url, '(://[^/]+).*', '\1') as url,
   regexp_replace(rs.url, 'https?://(www\.)?([^/]+).*', '\2') as host,
   wt1.products,
-  wt1.onstock
+  wt1.onstock,
+  wt1.discount
 from
   ref_site rs
 left join wt1 on

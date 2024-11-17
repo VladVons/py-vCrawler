@@ -19,11 +19,26 @@ class TMain(TDbModel):
             {}
         )
 
+    async def GetSchemeModerate(self) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_SchemeModerate.sql',
+            {}
+        )
+
     async def UpdReserveTask(self, aUrl: str, aHours: int) -> dict:
         return await self.ExecQuery(
             'fmtUpd_ReserveTask.sql',
             {
               'aUrl': aUrl,
               'aHours': aHours
+            }
+        )
+
+    async def UpdScheme(self, aSiteId: str, aUrlEn: str, aScheme: str) -> dict:
+        Values = f"({aSiteId}, '{aUrlEn}'::url_enum, '{aScheme}'::json)"
+        return await self.ExecQuery(
+            'fmtUpd_Scheme.sql',
+            {
+              'aValues': Values
             }
         )

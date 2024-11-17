@@ -1,6 +1,7 @@
 -- fmtGet_SchemeRnd.sql
 
 select
+  site_id,
   url_en,
   scheme::text
 from

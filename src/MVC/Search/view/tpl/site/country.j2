@@ -1,12 +1,12 @@
 {% extends '_inc/layout1.j2' %}
 
-{% set Fields = ['no', 'site', 'products', 'available'] %}
+{% set Fields = ['no', 'site', 'products', 'available', 'discount'] %}
 
 {% block head %}
 <style>
   .grid-container {
     display: grid;
-    grid-template-columns: 50px 250px 90px 90px;
+    grid-template-columns: 50px 250px 90px 90px 90px;
   }
 
   .gitem {
@@ -31,6 +31,7 @@
     <div class="gitem">{{cnt_parsed}}</div>
     <div class="gitem">{{"{:,}".format(cnt_products) | replace(",","`")}}</div>
     <div class="gitem">{{"{:,}".format(cnt_onstock) | replace(",","`")}}</div>
+    <div class="gitem">{{"{:,}".format(cnt_discount) | replace(",","`")}}</div>
 
     {% for Rec in TDbList().Import(dbl_sites) %}
       <div class="gitem">{{loop.index}}</div>
@@ -39,7 +40,8 @@
       </div>
       <div class="gitem">{{Iif(Rec.products, Rec.products, '')}}</div>
       <div class="gitem">{{Iif(Rec.onstock, Rec.onstock, '')}}</div>
-    {% endfor %}
+      <div class="gitem">{{Iif(Rec.discount, Rec.discount, '')}}</div>
+      {% endfor %}
   </div>
 </div>
 {% endblock %}

@@ -64,6 +64,7 @@ class TScripter {
     this.LogCnt = 0;
     this.TestCnt = 0;
     this.TplNewUrl = '';
+    this.SiteId = -1;
 
     this.ElTab = document.getElementById(`tab-${aName}`);
     this.ElScript = this.ElTab.querySelector('.idTaScript');
@@ -95,6 +96,10 @@ class TScripter {
           this.ScriptsLoad('new');
         } else if (Value == 'TplRnd') {
           this.ScriptsLoad('rnd');
+        } else if (Value == 'TplModerate') {
+          this.ScriptsLoad('moderate');
+        } else if (Value == 'TplSave') {
+          this.ScriptSave();
         } else if (Value == 'PrettySrc') {
           this.LoadPrettySrc();
         } else if (Value == 'GetMacroses') {
@@ -119,34 +124,59 @@ class TScripter {
     }
   }
 
+  ScriptSave() {
+    if (this.TplNewUrl == '') {
+      alert('You can save only new task');
+      return;
+    }
+
+    const res = new TSend().exec(
+      '/api/?route=scheme/test',
+      {
+        'method': 'ScriptSave',
+        'param': {
+          'aSiteId': this.SiteId,
+          'aName': this.Name,
+          'aScript': this.ElScript.value
+        }
+      }
+    )
+  }
+
   ScriptsLoad(aType) {
     const res = new TSend().exec(
       '/api/?route=scheme/test',
       {
-        'method': 'GetTemplate',
+        'method': 'ScriptsLoad',
         'param': {
           'aType': aType
         }
       }
     )
 
-    const Scripts = res['script'];
-    for (const xName of ['product', 'category']) {
-      let Script = Scripts[xName];
-      let ScriptJ = JSON.parse(Script);
-      let Url = ScriptJ[xName]['info']['url'];
+    const Dbl = new TDbList(res['dbl_script']);
+    if (Dbl.GetSize() == 0) {
+      this.Log(`${aType} is empty`);
+      return;
+    }
 
-      let Scripter = this.Manager.Get(xName);
-      Scripter.ScriptLoad(aType, Script, Url);
+    for (const Rec of Dbl) {
+      const Name = Rec.GetField('url_en')
+      const Scheme = Rec.GetField('scheme')
+      let Scripter = this.Manager.Get(Name);
+      let ScriptJ = JSON.parse(Scheme);
+      let Url = ScriptJ[Name]['info']['url'];
+      Scripter.ScriptLoad(aType, Scheme, Url, Rec.GetField('site_id'));
     }
   }
 
-  ScriptLoad(aType, aScript, aUrl) {
+  ScriptLoad(aType, aScript, aUrl, aSiteId = -1) {
     if ((this.ElScript.value.trim() != '') && (!confirm(`Load ${aType} ${this.Name} scheme ?`))) {
       return;
     }
 
     this.TestCnt = 0;
+    this.SiteId = aSiteId;
     if (aType == 'new') {
       this.TplNewUrl = aUrl;
     }else{
@@ -189,7 +219,7 @@ class TScripter {
     const res = new TSend().exec(
       '/api/?route=scheme/test',
       {
-        'method': 'Parse',
+        'method': 'ScriptTest',
         'param': {
           'aUrl': Url,
           'aScript': Script,

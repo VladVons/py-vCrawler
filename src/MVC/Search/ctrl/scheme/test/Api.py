@@ -8,6 +8,7 @@ import json
 from datetime import datetime
 #
 from Inc.DbList.DbUtil import TJsonEncoder
+from Inc.DbList import TDbList
 from Inc.Misc.Template import TDictRepl
 from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
@@ -20,7 +21,66 @@ class TMain(TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
         pass
 
-    async def Parse(self, aUrl: str, aScript: str, aEmul: bool) -> dict:
+    async def ScriptsLoad(self, aType: str) -> dict:
+        async def _GetNew() -> dict:
+            Dbl = await self.ExecModelImport(
+                'scheme',
+                {
+                    'method': 'GetSchemeNew',
+                    'param': {}
+                }
+            )
+
+            if (Dbl):
+                Format = {
+                    '$date': datetime.now().strftime('%Y-%m-%d %H:%M'),
+                    '$url': Dbl.Rec.url
+                }
+                DictRepl = TDictRepl(Format)
+                CurDir = __package__.replace('.', '/')
+
+                DblRes = TDbList(['site_id', 'url_en', 'scheme'])
+                for xName in ['product', 'category']:
+                    DblRes.RecAdd([
+                        Dbl.Rec.site_id,
+                        xName,
+                        DictRepl.ParseFile(f'{CurDir}/fmt_{xName}.json')
+                    ])
+                return DblRes.Export()
+
+        async def _GetRnd() -> dict:
+            return await self.ExecModel(
+                'scheme',
+                {
+                    'method': 'GetSchemeRnd',
+                    'param': {}
+                }
+            )
+
+        async def _GetModerate() -> dict:
+            return await self.ExecModel(
+                'scheme',
+                {
+                    'method': 'GetSchemeModerate',
+                    'param': {}
+                }
+            )
+
+        match aType:
+            case 'new':
+                Res = await _GetNew()
+            case 'rnd':
+                Res = await _GetRnd()
+            case 'moderate':
+                Res = await _GetModerate()
+            case _:
+                Res = {}
+
+        return {
+            'dbl_script': Res
+        }
+
+    async def ScriptTest(self, aUrl: str, aScript: str, aEmul: bool) -> dict:
         Size = 0
         if (aUrl):
             UrlData = await Util.Cache.Download(aUrl, aEmul)
@@ -52,6 +112,20 @@ class TMain(TCtrlBase):
             'size': Size
         }
 
+    async def ScriptSave(self, aSiteId: int, aName: str, aScript: str) -> dict:
+        await self.ExecModel(
+            'scheme',
+            {
+                'method': 'UpdScheme',
+                'param': {
+                    'aSiteId': aSiteId,
+                    'aUrlEn': aName,
+                    'aScheme': aScript
+                }
+            }
+        )
+
+
     async def GetLineNo(self, aScript: str, aCurLine: str) -> dict:
         Res = {}
         if (re.search(r'\((none|unknown)\)$', aCurLine)):
@@ -78,44 +152,6 @@ class TMain(TCtrlBase):
     async def GetHelp(self) -> dict:
         Help = TSchemeApi.help(None)
         return {'help': Help}
-
-    async def GetTemplate(self, aType: str) -> dict:
-        match aType:
-            case 'new':
-                Dbl = await self.ExecModelImport(
-                    'scheme',
-                    {
-                        'method': 'GetSchemeNew',
-                        'param': {}
-                    }
-                )
-
-                Url = Iif(Dbl, Dbl.Rec.url, 'http://your-test-site-here.com')
-                Format = {
-                    '$date': datetime.now().strftime('%Y-%m-%d %H:%M'),
-                    '$url': Url
-                }
-                DictRepl = TDictRepl(Format)
-                CurDir = __package__.replace('.', '/')
-
-                Scripts = {}
-                for xName in ['product', 'category']:
-                    Scripts[xName] = DictRepl.ParseFile(f'{CurDir}/fmt_{xName}.json'),
-            case 'rnd':
-                Dbl = await self.ExecModelImport(
-                    'scheme',
-                    {
-                        'method': 'GetSchemeRnd',
-                        'param': {}
-                    }
-                )
-                Scripts = Dbl.ExportPair('url_en', 'scheme')
-            case _:
-                Scripts = {}
-
-        return {
-            'script': Scripts
-        }
 
     async def GetPrettySrc(self, aUrl: str, aEmul: bool) -> dict:
         UrlData = await Util.Cache.Download(aUrl, aEmul)
