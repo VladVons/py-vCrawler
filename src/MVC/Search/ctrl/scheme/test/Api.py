@@ -45,8 +45,9 @@ class TMain(TCtrlBase):
 
         Checks = Util.CheckPipe(Pipe, Type)
         PipeStr = json.dumps(Pipe, indent=2, ensure_ascii=False, cls=TJsonEncoder)
+        UniqErr = list(set(Scheme.Err))
         return {
-            'err': '\n'.join(Scheme.Err + Checks),
+            'err': '\n'.join(UniqErr + Checks),
             'data': PipeStr,
             'size': Size
         }
@@ -78,7 +79,7 @@ class TMain(TCtrlBase):
         Help = TSchemeApi.help(None)
         return {'help': Help}
 
-    async def GetTemplate(self, aName: str, aType: str) -> dict:
+    async def GetTemplate(self, aType: str) -> dict:
         match aType:
             case 'new':
                 Dbl = await self.ExecModelImport(
@@ -96,7 +97,10 @@ class TMain(TCtrlBase):
                 }
                 DictRepl = TDictRepl(Format)
                 CurDir = __package__.replace('.', '/')
-                Script = DictRepl.ParseFile(f'{CurDir}/fmt_{aName}.json')
+
+                Scripts = {}
+                for xName in ['product', 'category']:
+                    Scripts[xName] = DictRepl.ParseFile(f'{CurDir}/fmt_{xName}.json'),
             case 'rnd':
                 Dbl = await self.ExecModelImport(
                     'scheme',
@@ -105,13 +109,12 @@ class TMain(TCtrlBase):
                         'param': {}
                     }
                 )
-                Pair = Dbl.ExportPair('url_en', 'scheme')
-                Script = Pair.get(aName)
+                Scripts = Dbl.ExportPair('url_en', 'scheme')
             case _:
-                Script = ''
+                Scripts = {}
 
         return {
-            'script': Script
+            'script': Scripts
         }
 
     async def GetPrettySrc(self, aUrl: str, aEmul: bool) -> dict:

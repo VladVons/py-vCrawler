@@ -12,13 +12,13 @@ with wt1 as (
     country_id
 )
 
-select 
+select
   wt1.country_id,
   wt1.cnt_all,
   wt1.cnt_enabled,
   rcl.title as country,
-  rcl2.title as continent 
-from 
+  rcl2.title as continent
+from
   wt1
 join
   ref_country rc on

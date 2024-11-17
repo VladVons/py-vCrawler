@@ -22,14 +22,15 @@
 
 {% block content %}
 <div class="container pb-2">
-  <div class="p-4">
-    {{cnt_parsed}} / {{cnt_all}}
-  </div>
-
   <div class="grid-container">
     {% for xFields in Fields %}
       <div class="grid-item fw-bold">{{xFields}}</div>
     {% endfor %}
+
+    <div class="gitem">{{cnt_all}}</div>
+    <div class="gitem">{{cnt_parsed}}</div>
+    <div class="gitem">{{"{:,}".format(cnt_products) | replace(",","`")}}</div>
+    <div class="gitem">{{"{:,}".format(cnt_onstock) | replace(",","`")}}</div>
 
     {% for Rec in TDbList().Import(dbl_sites) %}
       <div class="gitem">{{loop.index}}</div>

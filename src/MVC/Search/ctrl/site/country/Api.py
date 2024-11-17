@@ -25,10 +25,17 @@ class TMain(TCtrlBase):
         )
 
         Dbl = Lib.TDbList().Import(DblData)
-        Parsed = [Rec.url for Rec in Dbl if Rec.products > 0]
+        cntParsed = cntProducts = cntOnStock = 0
+        for Rec in Dbl:
+            if (Rec.products):
+                cntParsed += 1
+                cntProducts += Rec.products
+                cntOnStock += Rec.onstock
 
         return {
             'dbl_sites': DblData,
-            'cnt_parsed': len(Parsed),
+            'cnt_parsed': cntParsed,
+            'cnt_products': cntProducts,
+            'cnt_onstock': cntOnStock,
             'cnt_all': len(Dbl)
         }

@@ -26,11 +26,11 @@ with wt1 as(
         {{aOffset}}
 )
 
-select 
+select
     wt1.*,
     ru.url
-from 
+from
     wt1
 join
-    ref_url ru on 
+    ref_url ru on
     (ru.id = wt1.url_id)

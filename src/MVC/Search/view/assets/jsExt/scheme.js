@@ -55,11 +55,13 @@ function GetHelp() {
   return Res.join('\n');
 }
 
-class TScriptTest {
-  constructor(aName) {
-    this.Name = aName;
-    this.LogCnt = 0;
 
+class TScripter {
+  constructor(aName, aManager) {
+    this.Name = aName;
+    this.Manager = aManager;
+
+    this.LogCnt = 0;
     this.TestCnt = 0;
     this.TplNewUrl = '';
 
@@ -90,9 +92,9 @@ class TScriptTest {
     this.ElTab.querySelector('.idCommands').addEventListener('change', (event) => {
         const Value = event.target.value;
         if (Value == 'TplNew') {
-          this.LoadTemplate('new');
+          this.ScriptsLoad('new');
         } else if (Value == 'TplRnd') {
-          this.LoadTemplate('rnd');
+          this.ScriptsLoad('rnd');
         } else if (Value == 'PrettySrc') {
           this.LoadPrettySrc();
         } else if (Value == 'GetMacroses') {
@@ -107,48 +109,68 @@ class TScriptTest {
     this.TextNumbering();
   }
 
-  LoadTemplate(aType) {
-    if ((this.ElScript.value.trim() != '') && (!confirm(`Load ${aType} ${this.Name} scheme ?`))) {
-      return;
+  _GetFirstUrl(aScript) {
+    const ScriptJ = JSON.parse(aScript);
+    const Urls = Object.values(ScriptJ[this.Name]['info']['urls']);
+    for (const xUrl of Urls) {
+      if (xUrl && xUrl[0] != '-') {
+        return xUrl;
+      }
     }
+  }
 
+  ScriptsLoad(aType) {
     const res = new TSend().exec(
       '/api/?route=scheme/test',
       {
         'method': 'GetTemplate',
         'param': {
-          'aName': this.Name,
           'aType': aType
         }
       }
     )
 
-    const Script = res['script'];
-    const ScriptJ = JSON.parse(Script);
-    const Url = ScriptJ[this.Name]['info']['url'];
-    window.open(Url, "_blank");
+    const Scripts = res['script'];
+    for (const xName of ['product', 'category']) {
+      let Script = Scripts[xName];
+      let ScriptJ = JSON.parse(Script);
+      let Url = ScriptJ[xName]['info']['url'];
+
+      let Scripter = this.Manager.Get(xName);
+      Scripter.ScriptLoad(aType, Script, Url);
+    }
+  }
+
+  ScriptLoad(aType, aScript, aUrl) {
+    if ((this.ElScript.value.trim() != '') && (!confirm(`Load ${aType} ${this.Name} scheme ?`))) {
+      return;
+    }
 
     this.TestCnt = 0;
     if (aType == 'new') {
-      this.TplNewUrl = Url;
+      this.TplNewUrl = aUrl;
     }else{
       this.TplNewUrl = '';
     }
 
-    this.ElScript.value = Script;
+    this.ElScript.value = aScript;
     this.ElResult.value = '';
     this.ElUrl.value = '';
 
-    this.Log(`${aType} ${this.Name} scheme loaded ${Url}`);
+    this.Log(`${aType} ${this.Name} scheme loaded ${aUrl}`);
   }
 
   ScriptTest() {
-    const Url = this.ElUrl.value.trim();
+    let Url = this.ElUrl.value.trim();
     if (Url == '') {
-      this.Log('empty url');
-      return;
+      Url = this._GetFirstUrl(this.ElScript.value);
+      if (isEmpty(Url)) {
+        this.Log('empty url');
+        return;
+      }
     }
 
+    this.ElResult.value = '';
     this.TestCnt++;
     if (this.TestCnt == 2 && this.TplNewUrl != '' && confirm('Reserve this new task for you ?')) {
       const res = new TSend().exec(
@@ -284,14 +306,9 @@ class TScriptTest {
 
   OnPasteScript(event) {
     const clipboardData = event.clipboardData.getData('text');
-    const ScriptJ = JSON.parse(clipboardData);
-    const Data = ScriptJ[this.Name]['info']['urls'];
-    const Urls = Object.values(Data);
-    for (const xUrl of Urls) {
-      if ((xUrl) && (xUrl[0] != '-')) {
-        this.ElUrl.value = xUrl;
-        break;
-      }
+    const Url = this._GetFirstUrl(clipboardData);
+    if (!isEmpty(Url)) {
+      this.ElUrl.value = Url;
     }
   }
 
@@ -300,5 +317,21 @@ class TScriptTest {
     const Now = getCurrentDateTimeString();
     this.ElLog.value += `${this.LogCnt}, ${Now}\n${Msg}\n`;
     this.ElLog.scrollTop = this.ElLog.scrollHeight;
+  }
+}
+
+
+class TScriptManager {
+  constructor() {
+    this.Scripter = {};
+  }
+
+  Add(aScripter) {
+    const Name = aScripter.Name;
+    this.Scripter[Name] = aScripter;
+  }
+
+  Get(aName) {
+    return this.Scripter[aName];
   }
 }

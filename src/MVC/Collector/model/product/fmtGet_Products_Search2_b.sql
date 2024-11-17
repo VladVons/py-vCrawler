@@ -20,14 +20,14 @@ with wt1 as(
         {{aOffset}}
 )
 
-select 
+select
     wt1.*,
     ru.url,
     hu.create_date::date
-from 
+from
     wt1
 join
-    ref_url ru on 
+    ref_url ru on
     (ru.id = wt1.url_id)
 join lateral (
     select

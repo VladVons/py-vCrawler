@@ -6,7 +6,7 @@ select
     hu.parsed_data,
     ru.update_date
 from
-    ref_product rp 
+    ref_product rp
 join
     ref_url ru on
     (ru.id =rp.url_id)

@@ -60,9 +60,13 @@
 
   <script src="/assets/vendor/js/bootstrap.bundle.min.js"></script>
   <script src="/assets/jsExt/scheme.js"></script>
+
   <script type="text/javascript">
-    const ScriptProduct = new TScriptTest('product')
-    const ScriptCategory = new TScriptTest('category')
+    const ScriptManager = new TScriptManager();
+    for (const xSheet of ['product', 'category']) {
+      let Scripter = new TScripter(xSheet, ScriptManager);
+      ScriptManager.Add(Scripter);
+    }
 
     const ElService = document.getElementById('TaService');
     document.getElementById('BtnHelp').onclick = (event) => {

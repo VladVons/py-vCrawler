@@ -5,7 +5,7 @@ select
   rc.alias
 from
   ref_site rs
-join 
+join
   ref_country rc on
   rc.id = rs.country_id
 group by
