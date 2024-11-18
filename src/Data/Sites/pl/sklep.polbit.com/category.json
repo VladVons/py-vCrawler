@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-17 14:13",
+      "url": "https://www.sklep.polbit.com",
+      "urls": {
+        "instock": "https://www.sklep.polbit.com/laptopy-notebooki-poleasingowe",
+        "outstock": "-https://www.sklep.polbit.com/laptopy-notebooki-poleasingowe/2",
+        "discount": "",
+        "root": "-https://www.sklep.polbit.com"
+      }
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "sortlinks"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "prodname"}]],
+                 ["get", ["title"]]
+               ],
+               "stock": [
+                 ["get", ["class"]],
+                 ["list_in", ["unavailable"]],
+                 ["invert"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["em"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

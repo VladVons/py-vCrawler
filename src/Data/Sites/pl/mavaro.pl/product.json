@@ -1,0 +1,69 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 10:13",
+      "url": "https://mavaro.pl",
+      "urls": {
+        "instock": "-https://mavaro.pl/pl/p/Dell-Latitude-5520-i5-1145G7-16GB-512GB-FHD-Ultrabook-Klawiatura-US-LED-FV/591",
+        "outstock": "-https://mavaro.pl/pl/p/Lenovo-Thinkpad-T14-G2-i5-1145G7-16GB-512GB-SSD-FHD-W10P-Ultrabook/567",
+        "discount": "",
+        "category": "https://mavaro.pl/pl/c/Laptopy/2"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["h1", {"class": "product-section-title"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["main", {"class": "context-2"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"class": "section-title"}]],
+          ["text_strip"]
+        ],
+        "brand": [
+          ["find", ["img", {"class": "product-producer__image"}]],
+          ["get", ["alt"]],
+          ["split", [" ", 1]]
+        ],
+        "stock": [
+          ["find_yes", ["div", {"class": "product-actions__add-to-basket"}]]
+        ],
+        "images": [
+          ["find", ["div", {"data-module-name": "product_gallery"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price": [
+          ["find", ["h-tab-panel", {"class": "js__product-price-gross"}]],
+          ["find", ["span", {"class": "price__value"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["product-description", {"class": "product-description"}]],
+          ["find", ["div", {"class": "product-description__content"}]],
+          ["text_strip"]
+        ],
+        "features": [
+          ["var_get", ["$description"]],
+          ["split", ["\n"]],
+          ["list_map", [
+              ["split", [":"]]
+          ]],
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+         ],
+         "category": [
+          ["find", ["ol", {"class": "breadcrumbs__list"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
+

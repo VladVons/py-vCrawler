@@ -1,0 +1,58 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 13:47",
+      "url": "https://komputernet.pl",
+      "urls": {
+        "instock": "-https://komputernet.pl/dell-d630-kl-a-intel-core-2-duo-4gb-poleasingowy-windows-7/",
+        "outstock": "-https://komputernet.pl/brother-hl-5350dn/",
+        "various": "https://komputernet.pl/hp-laserjet-managed-flow-e52645c-odpowiednik-hp-m528-monochromatyczne-urzadzenie-wielofunkcyjne/",
+        "discount": "",
+        "category": "https://komputernet.pl/urzadzenia-wielofunkcyjne/"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find_check", ["h1", {"class": "product-title"}]],
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "woocommerce-product-gallery__wrapper"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price_max": [
+          ["find", ["p", {"class": "price"}]],
+          ["text_strip"],
+          ["split", [" – "]],
+          ["list", [1]],
+          ["price"]
+        ],
+        "stock": [
+          ["find_yes", ["button", {"class": "single_add_to_cart_button"}]]
+        ],
+        "description": [
+          ["find_all_text", ["h5"], {"a_text": "Opis"}],
+          ["list", [0]],
+          ["find_next", ["div"]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["table", {"class": "shop_attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

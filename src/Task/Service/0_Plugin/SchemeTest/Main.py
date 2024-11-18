@@ -6,6 +6,7 @@
 import os
 import sys
 import json
+import asyncio
 from bs4 import BeautifulSoup
 
 #
@@ -146,50 +147,53 @@ class TSchemer():
         Urls = DeepGetByList(Scheme, [aType, 'info', 'url'])
         if (not isinstance(Urls, list)):
             Data = DeepGetByList(Scheme, [aType, 'info', 'urls'])
-            Urls = [xVal for xVal in Data.values()]
+            Urls = list(Data.values())
 
         for Idx, xUrl in enumerate(Urls):
-            if (xUrl) and (not xUrl.startswith('-')):
-                Log.Print(1, 'i', f'Test(). {xUrl}')
+            if (not xUrl) or (xUrl.startswith('-')):
+                continue
 
-                Cnt += 1
-                File = f'{aType}_{Idx+1}.html'
-                Data = self.ReadFile(File, 'rb')
-                if (not Data):
-                    Reader = DeepGetByList(Scheme, [aType, 'info', 'reader'], '')
-                    if (not Reader):
-                        Reader = 'aiohttp'
+            Log.Print(1, 'i', f'Test(). {xUrl}')
+            await asyncio.sleep(1)
 
-                    Log.Print(1, 'i', f'Get url with {Reader}')
-                    match Reader:
-                        case 'playwright' | '':
-                            DataU = await UrlGetData_PW(xUrl)
-                        case 'aiohttp':
-                            DataU = await UrlGetData(xUrl)
-                        case _:
-                            raise ValueError(f'Unknown reader {Reader}')
+            Cnt += 1
+            File = f'{aType}_{Idx+1}.html'
+            Data = self.ReadFile(File, 'rb')
+            if (not Data):
+                Reader = DeepGetByList(Scheme, [aType, 'info', 'reader'], '')
+                if (not Reader):
+                    Reader = 'aiohttp'
 
-                    if (DataU['status'] != 200):
-                        print(f'Error reading {xUrl}', DataU['status'], DataU.get('err', ''))
-                        continue
+                Log.Print(1, 'i', f'Get url with {Reader}')
+                match Reader:
+                    case 'playwright' | '':
+                        DataU = await UrlGetData_PW(xUrl)
+                    case 'aiohttp':
+                        DataU = await UrlGetData(xUrl)
+                    case _:
+                        raise ValueError(f'Unknown reader {Reader}')
 
-                    Data = DataU['data']
-                    self.WriteFile(File, Data)
+                if (DataU['status'] != 200):
+                    print(f'Error reading {xUrl}', DataU['status'], DataU.get('err', ''))
+                    continue
 
-                    BSoup = BeautifulSoup(Data, 'lxml')
-                    DataP = BSoup.prettify()
-                    File = f'{aType}_{Idx+1}_human.html'
-                    self.WriteFile(File, DataP)
+                Data = DataU['data']
+                self.WriteFile(File, Data)
 
-                Res = self.TestHtml(Scheme, Data, aType)
-                Log.Print(1, 'i', f'Test(). {xUrl}')
-                Log.Print(1, 'i', f'{"=" * 100}\n')
+                BSoup = BeautifulSoup(Data, 'lxml')
+                DataP = BSoup.prettify()
+                File = f'{aType}_{Idx+1}_human.html'
+                self.WriteFile(File, DataP)
 
-                #if (not Res['err']):
-                if (not True):
-                    Data = json.dumps(Res['pipe'], indent=2, ensure_ascii=False)
-                    self.WriteFile(File + '.json', Data)
-                    print('Ok. Saved', File + '.json')
+            Res = self.TestHtml(Scheme, Data, aType)
+            Log.Print(1, 'i', f'Test(). {xUrl}')
+            Log.Print(1, 'i', f'{"=" * 100}\n')
+
+            #if (not Res['err']):
+            if (not True):
+                Data = json.dumps(Res['pipe'], indent=2, ensure_ascii=False)
+                self.WriteFile(File + '.json', Data)
+                print('Ok. Saved', File + '.json')
 
         if (not Cnt):
             Log.Print(1, 'i', 'Err: No url parsed')

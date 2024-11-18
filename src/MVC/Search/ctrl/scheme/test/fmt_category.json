@@ -11,41 +11,41 @@
         "root": ""
       },
       "filter": [
-
-      ]
+      ],
+      "comment": ""
     },
     "pipe": [
       ["as_dict", {
         "products": [
-          ["find", ["div", {"class": "product-list"}]],
+          ["find", ["div", {"class": "products"}]],
           ["find_all", ["div", {"class": "product"}]],
           ["list_map", [
             ["as_dict", {
-               "href": [
-                 ["find", ["a", {"class": "product-title"}]],
-                 ["get", ["href"]],
-                 ["url_pad"]
-               ],
-               "-name": [
-                 ["find", ["a", {"class": "product-title"}]],
-                 ["get", ["title"]]
-               ],
-               "-stock": [
-                 ["find", ["button", {"class": "buyButton"}]],
-                 ["text_strip"],
-                 ["lower"],
-                 ["search_start", ["купити"]]
-               ],
-               "-price": [
-                 ["find", ["h2", {"class": "product-price"}]],
-                 ["text_strip"],
-                 ["price"]
-               ]
+              "href": [
+                ["find", ["a", {"class": "prodname"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "-name": [
+                ["find", ["a", {"class": "prodname"}]],
+                ["get", ["title"]]
+              ],
+              "-stock": [
+                ["find", ["button", {"class": "buyButton"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["купити"]]
+              ],
+              "-price": [
+                ["find", ["div", {"class": "price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
             }]
           ]]
        ],
        "-pager": [
-          ["find", ["ul", {"class": "pagination"}]],
+        ["find", ["ul", {"class": "pagination"}]],
           ["find_all_get_url", ["a"], {"a_get": "href"}]
        ]
       }]

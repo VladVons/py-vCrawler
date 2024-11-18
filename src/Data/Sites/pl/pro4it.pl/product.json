@@ -1,0 +1,38 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 13:34",
+      "url": "https://pro4it.pl",
+      "urls": {
+        "instock": "-https://pro4it.pl/pl/p/DELL-Latitude-3301-13.3-FHD-i5-8365U-8GB-DDR3-256GB-SSD-Intel-UHD-Graphisc-WINDOWS-11-PRO/577",
+        "outstock": "-https://pro4it.pl/pl/p/LENOVO-ThinkCentre-M800-MT-i5-6500-8GB-DDR4-256GB-SSD-Intel-HD-530-WINDOWS-10-PRO/405",
+        "discount": "-https://pro4it.pl/pl/p/DELL-Latitude-5420-14-FHD-i7-1185G7-16GB-DDR4-512GB-SSD-Intel-Iris-Xe-Graphics-WINDOWS-11-PRO-/584",
+        "category": "https://pro4it.pl/komputery"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "price"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

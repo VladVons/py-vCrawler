@@ -1,0 +1,49 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 10:48",
+      "url": "https://mavaro.pl",
+      "urls": {
+        "instock": "https://mavaro.pl/pl/c/Czesci-do-laptopow/5",
+        "outstock": "-https://mavaro.pl/pl/c/Monitory/4",
+        "discount": "",
+        "root": "-https://mavaro.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["product-list", {"class": "product-list"}]],
+          ["find_all", ["product-tile", {"class": "product-tile"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["product-link"]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2", {"class": "product-tile__name"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["buy-button", {"is-buyable": "1"}]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price__value"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

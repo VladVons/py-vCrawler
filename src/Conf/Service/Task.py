@@ -1,1 +1,2 @@
-plugins = '-Service.SchemeTest Service.SchemeToDb'
+plugins = 'Service.SchemeTest'
+plugins = 'Service.SchemeToDb'

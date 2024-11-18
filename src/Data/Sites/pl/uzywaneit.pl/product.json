@@ -1,0 +1,57 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-17 11:16",
+      "url": "https://uzywaneit.pl",
+      "urls": {
+        "instock": "-https://uzywaneit.pl/p/komputer-poleasingowy-dell-optiplex-7070-sff-core-i5-9500-16gb-512gb-ssd/",
+        "outstock": "",
+        "discount": "https://uzywaneit.pl/p/laptop-poleasingowy-dell-latitude-7410-core-i5-10310u-8gb-512gb-ssd-fhd-2-in-1/",
+        "category": "-https://uzywaneit.pl/k/laptopy-poleasingowe/"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["h2", {"class": "product-title"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "single-product-thumbnail"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "price_old": [
+          ["find", ["p", {"class": "price-amount"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_strip"],
+          ["split", ["\n"]],
+          ["list_map", [
+            ["split", [":"]]
+          ]],
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ],
+         "category": [
+          ["find", ["span", {"class": "posted_in"}]],
+          ["find", ["a"]],
+          ["text_strip"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 14:37",
+      "url": "https://restartplus.pl",
+      "urls": {
+        "instock": "-https://restartplus.pl/dell-3000-micro-mff-i3-12100t-16gb-512gb-nvme-windows-11-pro",
+        "outstock": "",
+        "discount": "https://restartplus.pl/dell-optiplex-7070-mff-i5-8500-16gb-512gb-nvme-windows-11-pro",
+        "category": "-https://restartplus.pl/k/6/komputery-stacjonarne"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "m-product-gallery-1__slider-main"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-original-src"}]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "m-product-data-1__price--old"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "m-product-attributes-2__wrapper"}]],
+          ["table_tag", ["div", {"class": "m-product-attributes-2__row"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

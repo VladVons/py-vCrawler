@@ -1,0 +1,45 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 16:37",
+      "url": "https://clearpc.pl",
+      "urls": {
+        "instock": "https://clearpc.pl/sklep/laptopy/dell-e5420-i5-2410m-4gb-120ssd-win7/",
+        "outstock": "",
+        "discount": "",
+        "category": "https://clearpc.pl/sklep/k/laptopy/"
+      }
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["ul", {"class": "thumbnail-nav"}]],
+          ["find_all_get_url", ["div", {"class": "thumb"}], {"a_get": "data-hq"}]
+        ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-additional_information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

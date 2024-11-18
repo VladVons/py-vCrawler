@@ -1,0 +1,46 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 22:55",
+      "url": "https://dell24.pl",
+      "urls": {
+        "instock": "-https://dell24.pl/p/17654/Laptop-DELL-Vostro-3440-14-FHD-i5-1335U-8GB-512GB-SSD-FPR-BK-W11P-3YPS",
+        "outstock": "-https://dell24.pl/p/14156/Laptop-DELL-Wyse-5470-14-FHD-N4100-8GB-32GB-Wyse-ThinOS-3YProSupport",
+        "discount": "https://dell24.pl/p/17633/Goracy-strzal",
+        "category": "-https://dell24.pl/k/356/Komputery-DELL-All-In-One"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product_details"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["ul", {"id": "gallery_01"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "old_price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product_d_table"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"class": "product_details"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["div", {"class": "breadcrumb_content"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

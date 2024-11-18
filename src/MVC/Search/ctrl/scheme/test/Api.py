@@ -125,7 +125,6 @@ class TMain(TCtrlBase):
             }
         )
 
-
     async def GetLineNo(self, aScript: str, aCurLine: str) -> dict:
         Res = {}
         if (re.search(r'\((none|unknown)\)$', aCurLine)):

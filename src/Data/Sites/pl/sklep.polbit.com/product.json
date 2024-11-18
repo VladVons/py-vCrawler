@@ -1,0 +1,41 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-17 14:13",
+      "url": "https://www.sklep.polbit.com",
+      "urls": {
+        "instock": "-https://www.sklep.polbit.com/pl/p/Dell-Chromebook-3180-11%2C6-Intel-Celeron-N3060-1%2C6GHz/13285",
+        "outstock": "https://www.sklep.polbit.com/pl/p/Lenovo-ThinkPad-L470-i5-7300U-2.6-GHz-/13515",
+        "discount": "",
+        "category": "-https://www.sklep.polbit.com/laptopy-notebooki-poleasingowe"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "innersmallgallery"}]],
+          ["find_all_get_url", ["a", {"class": "gallery"}], {"a_get": "href"}]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "category": [
+          ["find", ["div", {"class": "breadcrumbs"}]],
+          ["find", ["ul", {"class": "path"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

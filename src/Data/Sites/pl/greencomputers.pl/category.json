@@ -1,0 +1,61 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 09:09",
+      "url": "https://greencomputers.pl",
+      "urls": {
+        "instock": "-https://greencomputers.pl/pl/menu/pcs-152?filter_availability=y",
+        "outstock": "https://greencomputers.pl/pl/menu/pcs-152?filter_default=n",
+        "discount": "-https://greencomputers.pl/pl/discounts/wyprzedaz",
+        "root": "-https://greencomputers.pl"
+      },
+      "-filter": [
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product__name"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product__name"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["get_yes", ["data-product_disable"]],
+                ["invert"]
+              ],
+              "price": [
+                ["find", ["strong", {"class": "price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["del", {"class": "price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+        ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-14 22:23",
+      "url": "https://retropc.pl",
+      "urls": {
+        "instock": "-https://retropc.pl/produkt/komputer-stacjonarny-hp-elitedesk-800-g3-sff-i5-6500-16gb-512ssd-m-2-nvme-dvd-rw-win10/",
+        "outstock": "https://retropc.pl/produkt/dell-optiplex-7050-sff-i7-8gb-ram-128gb-ssd-m-2-win10/",
+        "discount": "",
+        "category": "-https://retropc.pl/produkty/komputery/"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["figure", {"class": "woocommerce-product-gallery__wrapper"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "description": [
+          ["find", ["div", {"class": "woocommerce-product-details__short-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-additional_information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["span", {"class": "posted_in"}]],
+          ["find", ["a"]],
+          ["text_strip"]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}

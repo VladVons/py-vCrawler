@@ -1,0 +1,53 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 14:49",
+      "url": "https://restartplus.pl",
+      "urls": {
+        "instock": "-https://restartplus.pl/k/6/komputery-stacjonarne",
+        "outstock": "",
+        "discount": "https://restartplus.pl/k/6/komputery-stacjonarne",
+        "root": "https://restartplus.pl"
+      },
+      "comment": "no pager for few products"
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "l-listing"}]],
+          ["find_all", ["div", {"class": "c-product-box"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "c-product-box__block-part"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3", {"class": "c-product-box__title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_all_text", ["button"], {"a_text": "Produkt niedostępny"}],
+                 ["list", [0]],
+                 ["get_yes", {"class": "c-button--disabled"}]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "c-product-box__price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["div", {"class": "c-product-box__price--old"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "-pager": []
+      }]
+    ]
+  }
+}

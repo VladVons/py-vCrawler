@@ -16,3 +16,5 @@ python3 -B vCrawler.py --conf Service
 #pip3 install --upgrade pip
 #pip3 install playwright
 #playwright install chromium
+
+#pip3 install jsonfix

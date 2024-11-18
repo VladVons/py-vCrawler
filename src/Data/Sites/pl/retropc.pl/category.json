@@ -1,0 +1,51 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 08:17",
+      "url": "https://retropc.pl",
+      "urls": {
+        "instock": "-https://retropc.pl/produkty/komputery/",
+        "outstock": "https://retropc.pl/produkty/komputery/",
+        "root": "-https://retropc.pl"
+      },
+      "comment": "slow"
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "mf-shop-content"}]],
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["li", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h2"]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2"]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["span", {"class": "out-of-stock"}]],
+                 ["invert"]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "page-numbers"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 23:09",
+      "url": "https://dell24.pl",
+      "urls": {
+        "instock": "-https://dell24.pl/k/348/Laptopy-DELL-Vostro",
+        "outstock": "-https://dell24.pl/k/348/Laptopy-DELL-Vostro",
+        "discount": "https://dell24.pl/tag/3/Gratis",
+        "root": "-https://dell24.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "shop_wrapper"}]],
+          ["find_all", ["div", {"class": "single_product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "product_name"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "product_name"}]],
+                 ["find", ["a"]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find_yes", ["strong", {"class": "nostock"}]],
+                 ["invert"]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "current_price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["span", {"class": "old_price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "-pager": []
+      }]
+    ]
+  }
+}

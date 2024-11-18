@@ -1,0 +1,56 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 15:34",
+      "url": "https://komputernet.pl",
+      "urls": {
+        "instock": "https://komputernet.pl/urzadzenia-wielofunkcyjne/",
+        "outstock": "",
+        "discount": "",
+        "root": "-https://komputernet.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["p", {"class": "product-title"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["p", {"class": "product-title"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find_yes", ["span", {"class": "price"}]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "price"}]],
+                ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_max": [
+                ["find", ["span", {"class": "price"}]],
+                ["text_strip"],
+                ["split", [" – ", -1]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+        ["find", ["ul", {"class": "nav-pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

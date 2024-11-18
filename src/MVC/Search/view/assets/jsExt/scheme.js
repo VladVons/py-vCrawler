@@ -215,21 +215,27 @@ class TScripter {
       this.Log(`Task ${this.TplNewUrl} locked till ${res['unlock_date']}`)
     }
 
-    const Script = this.ElScript.value.trim();
-    const res = new TSend().exec(
-      '/api/?route=scheme/test',
-      {
-        'method': 'ScriptTest',
-        'param': {
-          'aUrl': Url,
-          'aScript': Script,
-          'aEmul': this.ElTestEmul.checked
-        }
-      }
-    )
+    this.Log('Sending request...')
+    this.ElResult.value = '';
 
-    this.ElResult.value = res['data'] || '';
-    this.Log(res['err']);
+    // allow redraw
+    setTimeout(() => {
+      const Script = this.ElScript.value.trim();
+      const res = new TSend().exec(
+        '/api/?route=scheme/test',
+        {
+          'method': 'ScriptTest',
+          'param': {
+            'aUrl': Url,
+            'aScript': Script,
+            'aEmul': this.ElTestEmul.checked
+          }
+        }
+      )
+
+      this.ElResult.value = res['data'] || '';
+      this.Log(res['err']);
+    }, 0.1);
   }
 
   TextNumbering() {

@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 16:48",
+      "url": "https://clearpc.pl",
+      "urls": {
+        "instock": "https://clearpc.pl/sklep/k/laptopy/",
+        "outstock": "",
+        "discount": "",
+        "root": "https://clearpc.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["li", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "woocommerce-LoopProduct-link"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2", {"class": "woocommerce-loop-product__title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["get_yes", {"class": "instock"}]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "woocommerce-pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

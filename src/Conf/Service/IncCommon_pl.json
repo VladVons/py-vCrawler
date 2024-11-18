@@ -382,7 +382,7 @@
         0,
         "ag.pl",
         "https://www.ag.pl",
-        ["product", "category"],
+        ["product", "-category"],
         ["/laptopy-uzywane-c-1.html", "/laptopy-powystawowe-dell-notebooki-powystawowe-dell-c-2.html"],
         ""
       ],
@@ -427,11 +427,91 @@
         ""
       ],
       [
-        1,
+        0,
         "laptopfactory.pl",
         "https://laptopfactory.pl",
         ["-product", "category"],
         ["/laptopy"],
+        ""
+      ],
+      [
+        0,
+        "retropc.pl",
+        "https://retropc.pl",
+        ["product", "category"],
+        ["/produkty/laptopy/", "/produkty/komputery/", "/produkty/monitory/"],
+        ""
+      ],
+      [
+        0,
+        "clearpc.pl",
+        "https://clearpc.pl",
+        ["product", "category"],
+        ["/sklep/k/laptopy/", "/sklep/k/komputery/", "/sklep/k/monitory/"],
+        ""
+      ],
+      [
+        0,
+        "pro4it.pl",
+        "https://pro4it.pl",
+        ["product", "category"],
+        ["/laptopy", "/komputery", "/pl/c/Monitory/61"],
+        ""
+      ],
+      [
+        0,
+        "uzywaneit.pl",
+        "https://uzywaneit.pl",
+        ["product", "category"],
+        ["/k/laptopy-poleasingowe/", "/k/komputery-poleasingowe/", "/k/monitory-poleasingowe/"],
+        ""
+      ],
+      [
+        0,
+        "sklep.polbit.com",
+        "https://www.sklep.polbit.com",
+        ["product", "category"],
+        ["/komputery-poleasingowe/", "/laptopy-notebooki-poleasingowe", "/monitory-poleasingowe", "/Poleasingowe-drukarki-skanery"],
+        ""
+      ],
+      [
+        0,
+        "greencomputers.pl",
+        "https://greencomputers.pl",
+        ["product", "category"],
+        ["/pl/menu/komputery-poleasingowe-152", "/pl/menu/monitory-poleasingowe-135", "/pl/menu/drukarki-poleasingowe-153", "/pl/menu/laptopy-poleasingowe-100", "/pl/menu/projektory-poleasingowe-155"],
+        ""
+      ],
+      [
+        0,
+        "komputernet.pl",
+        "https://komputernet.pl",
+        ["product", "category"],
+        ["/laptopy/", "/monitory/", "/drukarki-laserowe/", "/urzadzenia-wielofunkcyjne/"],
+        ""
+      ],
+      [
+        0,
+        "mavaro.pl",
+        "https://mavaro.pl",
+        ["product", "category"],
+        ["/pl/c/Laptopy/2", "/pl/c/Komputery-PC/3", "/pl/c/Monitory/4"],
+        ""
+      ],
+      [
+        0,
+        "restartplus.pl",
+        "https://restartplus.pl",
+        ["product", "category"],
+        ["/k/7/monitory", "/k/5/laptopy", "/k/6/komputery-stacjonarne", "/k/8/drukarkimain"],
+        ""
+      ],
+      [
+        1,
+        "dell24.pl",
+        "https://dell24.pl",
+        ["product", "category"],
+        ["/k/348/Laptopy-DELL-Vostro", "/k/347/Laptopy-DELL", "/k/352/Komputery-DELL", "/k/361/Serwery-DELL", "/k/367/Monitory-i-projektory-DELL", "/k/396/DELL-Refurbished"],
         ""
       ]
     ]

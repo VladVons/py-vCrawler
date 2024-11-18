@@ -1,0 +1,72 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 09:09",
+      "url": "https://greencomputers.pl",
+      "urls": {
+        "instock": "-https://greencomputers.pl/pl/products/dell-optiplex-3090-i5-10600t-16-1tb-m-2-w11p-3767",
+        "outstock": "https://greencomputers.pl/pl/products/lenovo-l13-gen-2-i5-1135g7-8-256m-2-13-w10p-nowy-1681",
+        "discount": "-https://greencomputers.pl/pl/products/stacja-dokujaca-dell-k16a-tb16-usb-c-no-ac-737",
+        "category": "-https://greencomputers.pl/en/menu/pcs-152"
+      },
+      "comment": "product_ldjson не на всіх товарах спрацьовував, тому деякі поля переписав"
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "-pipe_product": [
+      ["find", ["div", {"id": "content"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"class": "product_name__name"}]],
+          ["text_strip"]
+        ],
+        "images": [
+          ["find", ["section", {"id": "projector_photos"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price": [
+          ["find", ["strong", {"id": "projector_price_value"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["div", {"id": "projector_price_maxprice_wrapper"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["div", {"id": "projector_status_description"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["produkt niedostępny"]],
+          ["invert"]
+        ],
+        "description": [
+          ["find", ["section", {"id": "projector_longdescription"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["section", {"id": "projector_dictionary"}]],
+          ["table_tag", ["div", {"class": "dictionary__param"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["h1", {"class": "product_name__name"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["div", {"id": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

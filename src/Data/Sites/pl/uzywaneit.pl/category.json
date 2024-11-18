@@ -1,0 +1,59 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-17 11:16",
+      "url": "https://uzywaneit.pl",
+      "urls": {
+        "instock": "https://uzywaneit.pl/k/laptopy-poleasingowe/",
+        "outstock": "",
+        "discount": "-https://uzywaneit.pl/k/laptopy-poleasingowe/",
+        "root": "-https://uzywaneit.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h5", {"class": "title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h5", {"class": "title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["get", ["class"]],
+                 ["list_in", ["instock"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find_all", ["span", {"class": "woocommerce-Price-amount"}]],
+                 ["list", [-2]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_old": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["find", ["del"]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["meta_nears"]
+       ]
+      }]
+    ]
+  }
+}
+
+
