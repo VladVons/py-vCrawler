@@ -1,0 +1,43 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 08:30",
+      "url": "https://netland24.pl",
+      "urls": {
+        "instock": "https://netland24.pl/sklep/644361/Komputer-ASUS-ExpertCenter-E3402WBAK-BA024X-23-8-IPS-i5-1235U-8GB-RAM-512GB-SSD-W11Pro",
+        "outstock": "-https://netland24.pl/sklep/645057/Komputer-HP-ProOne-240-G10-AiO-23-8-N200-16GB-512GB-W11P",
+        "discount": "",
+        "category": "-https://netland24.pl/k/527/Komputery-All-in-One"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "httpa://schema.org/Offer"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "more-views"}]],
+          ["find_all_get_url", ["a", {"class": "cloud-zoom-gallery"}], {"a_get": "href"}]
+        ],
+        "features": [
+          ["find", ["h2", {"id": "specyfikacja"}]],
+          ["find_next", ["div", {"class": "std"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"itemtype": "httpa://schema.org/Offer"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["div", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

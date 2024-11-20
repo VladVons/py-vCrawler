@@ -1,0 +1,69 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 15:15",
+      "url": "https://delle.pl",
+      "urls": {
+        "instock": "https://delle.pl/produkt/dell-poweredge-r650-2xgold-5315y-8c-3-2-3-6ghz-256gb-ram-3x1-92tb-nvme-ssd-s150-boss-s2/",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://delle.pl/kategoria-produktu/serwery-rack/"
+      }
+    },
+    "pipe_microdata": [],
+    "pipe_product": [
+      ["find_check", ["div", {"class": "woocommerce-product-gallery__wrapper"}]],
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["span", {"class": "elementor-heading-title"}]],
+          ["find", ["h3"]],
+          ["text_strip"]
+        ],
+        "brand": [
+          ["var_get", ["$name"]],
+          ["split", [" "]],
+          ["list", [0]],
+          ["text_eqi", ["dell", "hp", "lenovo"]]
+        ],
+        "images": [
+          ["find", ["div", {"class": "woocommerce-product-gallery__wrapper"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price": [
+          ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find_yes", ["button", {"class": "single_add_to_cart_button"}]]
+        ],
+        "description": [
+          ["find", ["div", {"data-tab-index": "1"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "elementor-widget-woocommerce-product-additional-information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find_all_text", ["div", {"class": "elementor-widget-container"}], {"a_text": "Kategoria:"}],
+          ["list", [0]],
+          ["find_all", ["a"]],
+          ["list", [-1]],
+          ["text_strip"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

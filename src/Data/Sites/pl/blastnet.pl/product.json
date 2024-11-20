@@ -29,7 +29,8 @@
         "category": [
           ["find", ["ul", {"itemtype": "https://schema.org/BreadcrumbList"}]],
           ["breadcrumb", [["a"], -1]],
-          ["split", ["/", -1]]
+          ["split", ["/"]],
+          ["list", [-1]]
         ]
       }]
     ]

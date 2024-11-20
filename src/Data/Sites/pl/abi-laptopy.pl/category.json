@@ -1,0 +1,52 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 18:53",
+      "url": "https://abi-laptopy.pl",
+      "urls": {
+        "instock": "-https://abi-laptopy.pl/sklep/",
+        "outstock": "https://abi-laptopy.pl/sklep/",
+        "discount": "",
+        "root": "https://abi-laptopy.pl"
+      },
+      "-filter": [
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["li", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "ast-loop-product__link"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h2", {"class": "woocommerce-loop-product__title"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["get", ["class"]],
+                ["list_in", ["instock"]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+        ["find", ["ul", {"class": "page-numbers"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

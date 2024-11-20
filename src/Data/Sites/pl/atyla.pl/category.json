@@ -1,0 +1,59 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 21:15",
+      "url": "https://atyla.pl",
+      "urls": {
+        "instock": "https://atyla.pl/laptopy",
+        "outstock": "-https://atyla.pl/laptopy",
+        "discount": "-https://atyla.pl/promocje",
+        "root": "-https://atyla.pl"
+      },
+      "filter": ["/laptopy/", "/komputery/", "/monitory/"],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product_list_item"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["p", {"itemprop": "name"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["p", {"itemprop": "name"}]],
+                ["find", ["a"]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find_yes", ["p", {"class": "stock-plus"}]]
+              ],
+              "price": [
+                ["find", ["span", {"itemprop": "price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "regular-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+         ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

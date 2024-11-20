@@ -2,12 +2,13 @@
   "category": {
     "info": {
       "author": "user142",
-      "date": "2024-11-14 10:15",
-      "url": "https://www.vedion.pl",
+      "date": "2024-11-16 17:12",
+      "url": "https://return.com.pl",
       "urls": {
-        "instock": "https://www.vedion.pl/laptopy-poleasingowe",
+        "instock": "https://return.com.pl/pl/menu/komputery-182.html",
         "outstock": "",
-        "root": "https://www.vedion.pl"
+        "discount": "",
+        "root": "https://return.com.pl"
       }
     },
     "pipe": [
@@ -16,7 +17,6 @@
           ["find", ["section", {"class": "products"}]],
           ["find_all", ["div", {"class": "product"}]],
           ["list_map", [
-            ["find_check", ["a", {"class": "product__name"}]],
             ["as_dict", {
                "href": [
                  ["find", ["a", {"class": "product__name"}]],
@@ -27,14 +27,12 @@
                  ["find", ["a", {"class": "product__name"}]],
                  ["get", ["title"]]
                ],
-               "stock": [
-                 ["find_yes", ["button", {"title": "Dodaj do koszyka"}]]
-               ],
+               "-stock": [],
                "price": [
                  ["find", ["strong", {"class": "price"}]],
-                 ["text_strip"],
-                 ["split", ["/"]],
+                 ["contents"],
                  ["list", [0]],
+                 ["text_strip"],
                  ["price"]
                ]
             }]

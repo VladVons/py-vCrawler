@@ -1,0 +1,47 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 18:12",
+      "url": "https://alekom.pl",
+      "urls": {
+        "instock": "-https://alekom.pl/laptopy/25-59-msi-prestige-14evo.html#/27-pamiec_ram-16gb/30-pojemnosc_dysku-512gb",
+        "outstock": "-https://alekom.pl/laptopy/34-116-acer-extensa-215-54.html#/26-pamiec_ram-8gb/29-pojemnosc_dysku-256gb",
+        "discount": "https://alekom.pl/laptopy/312-2234-acer-swift-1-sf114-34.html#/32-pamiec_ram-4gb/37-pojemnosc_dysku-128gb",
+        "category": "-https://alekom.pl/11-laptopy"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product-container"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-container"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "images-container"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-image-large-src"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "regular-price"}]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["section", {"class": "product-features"}]],
+          ["table_tag", [["dt", "dd"]]],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

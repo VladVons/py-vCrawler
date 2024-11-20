@@ -1,0 +1,40 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-17 10:35",
+      "url": "https://fajnykomputer.pl",
+      "urls": {
+        "instock": "-https://fajnykomputer.pl/13034-hp-elitedesk-800-g4-sff-i58500-8-gb-10p-256-gb-nvme-klasa-a.html",
+        "outstock": "https://fajnykomputer.pl/10037-serwer-nl-sm-sys-60x-2u.html",
+        "discount": "",
+        "category": "-https://fajnykomputer.pl/22-komputery-poleasingowe"
+      }
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["ul", {"class": "product-images"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-image-large-src"}]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-features"}]],
+          ["table_tag", [["dt", "dd"]]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

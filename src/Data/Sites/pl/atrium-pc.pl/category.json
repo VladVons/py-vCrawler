@@ -2,39 +2,37 @@
   "category": {
     "info": {
       "author": "user142",
-      "date": "2024-11-14 10:15",
-      "url": "https://www.vedion.pl",
+      "date": "2024-11-12 17:53",
+      "url": "https://www.atrium-pc.pl",
       "urls": {
-        "instock": "https://www.vedion.pl/laptopy-poleasingowe",
-        "outstock": "",
-        "root": "https://www.vedion.pl"
+        "instock": "https://www.atrium-pc.pl/15-Komputery-poleasingowe.html",
+        "outstock": "https://www.atrium-pc.pl/15-Komputery-poleasingowe.html?p=3",
+        "root": "https://www.atrium-pc.pl"
       }
     },
     "pipe": [
+      ["find_check", ["form", {"id": "productsSortForm"}]],
       ["as_dict", {
         "products": [
-          ["find", ["section", {"class": "products"}]],
-          ["find_all", ["div", {"class": "product"}]],
+          ["find", ["div", {"class": "product_list"}]],
+          ["find_all", ["div", {"class": "product-container"}]],
           ["list_map", [
-            ["find_check", ["a", {"class": "product__name"}]],
             ["as_dict", {
                "href": [
-                 ["find", ["a", {"class": "product__name"}]],
+                 ["find", ["a", {"class": "product-name"}]],
                  ["get", ["href"]],
                  ["url_pad"]
                ],
                "name": [
-                 ["find", ["a", {"class": "product__name"}]],
+                 ["find", ["a", {"class": "product-name"}]],
                  ["get", ["title"]]
                ],
                "stock": [
-                 ["find_yes", ["button", {"title": "Dodaj do koszyka"}]]
+                 ["find_yes", ["span", {"class": "available-now"}]]
                ],
                "price": [
-                 ["find", ["strong", {"class": "price"}]],
+                 ["find", ["span", {"itemprop": "price"}]],
                  ["text_strip"],
-                 ["split", ["/"]],
-                 ["list", [0]],
                  ["price"]
                ]
             }]

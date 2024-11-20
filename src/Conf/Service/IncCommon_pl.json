@@ -294,8 +294,8 @@
         0,
         "atrium-pc.pl",
         "https://www.atrium-pc.pl",
-        ["product", "-category"],
-        ["", "", "", ""],
+        ["product", "category"],
+        ["/13-Notebooki-poleasingowe.html", "/15-Komputery-poleasingowe.html"],
         ""
       ],
       [
@@ -507,11 +507,159 @@
         ""
       ],
       [
-        1,
+        0,
         "dell24.pl",
         "https://dell24.pl",
         ["product", "category"],
         ["/k/348/Laptopy-DELL-Vostro", "/k/347/Laptopy-DELL", "/k/352/Komputery-DELL", "/k/361/Serwery-DELL", "/k/367/Monitory-i-projektory-DELL", "/k/396/DELL-Refurbished"],
+        ""
+      ],
+      [
+        0,
+        "zx.pl",
+        "https://www.zx.pl",
+        ["product", "category"],
+        ["/?apple,31", "/?komputery,6", "/?monitory,8", "/?drukarki,22", "/?laptopy,7"],
+        ""
+      ],
+      [
+        0,
+        "biznesowekomputery.pl",
+        "https://biznesowekomputery.pl",
+        ["product", "category"],
+        ["/sklep/laptopy-poleasingowe/", "/sklep/komputery-stacjonarne/"],
+        ""
+      ],
+      [
+        0,
+        "delle.pl",
+        "https://delle.pl",
+        ["product", "category"],
+        ["/kategoria-produktu/serwery-rack/", "/kategoria-produktu/serwery-tower/"],
+        ""
+      ],
+      [
+        0,
+        "return.com.pl",
+        "https://return.com.pl",
+        ["product", "category"],
+        ["/pl/menu/laptopy-100.html", "/pl/menu/komputery-182.html"],
+        ""
+      ],
+      [
+        0,
+        "lapcenter.pl",
+        "https://lapcenter.pl",
+        ["product", "category"],
+        ["/laptopy/", "/komputery/", "/monitory/", "/tablety/"],
+        "todo. no pager"
+      ],
+      [
+        0,
+        "kompshop.pl",
+        "https://kompshop.pl",
+        ["product", "category"],
+        ["/sklep/"],
+        ""
+      ],
+      [
+        0,
+        "fajnykomputer.pl",
+        "https://fajnykomputer.pl",
+        ["product", "category"],
+        ["/23-serwery", "/10-laptopy-poleasingowe", "/22-komputery-poleasingowe", "/12-monitory", "/257-telefony"],
+        ""
+      ],
+      [
+        0,
+        "alekom.pl",
+        "https://alekom.pl",
+        ["product", "category"],
+        ["/11-laptopy"],
+        ""
+      ],
+      [
+        0,
+        "abi-laptopy.pl",
+        "https://abi-laptopy.pl",
+        ["product", "category"],
+        ["/sklep/"],
+        ""
+      ],
+      [
+        0,
+        "atyla.pl",
+        "https://atyla.pl",
+        ["product", "category"],
+        ["/monitory", "/komputery", "/laptopy"],
+        ""
+      ],
+      [
+        0,
+        "pcbird.pl",
+        "http://www.pcbird.pl",
+        ["product", "category"],
+        ["/monitory-dotykowe-c-53.html", "/komputery-przemysłowe-panel-pc-c-136.html", "/mini-komputerylaptopy-c-137.html", "/terminale-dotykowe-pos-c-97.html"],
+        ""
+      ],
+      [
+        0,
+        "pc-data.com.pl",
+        "https://pc-data.com.pl",
+        ["product", "category"],
+        [
+          "/sklep/kategoria-produktu/elektronika/komputery/drukarki-i-skanery/drukarki-laserowe-i-atramentowe/",
+          "/sklep/kategoria-produktu/elektronika/komputery/monitory-komputerowe/",
+          "/sklep/kategoria-produktu/elektronika/komputery/komputery-stacjonarne/",
+          "/sklep/kategoria-produktu/elektronika/laptopy/"
+        ],
+        ""
+      ],
+      [
+        0,
+        "centrumelektronikimobilnej.pl",
+        "https://centrumelektronikimobilnej.pl",
+        ["product", "category"],
+        ["/sklep/"],
+        ""
+      ],
+      [
+        0,
+        "netland24.pl",
+        "https://netland24.pl",
+        ["product", "category"],
+        [
+          "/k/264/Laptopy-poleasingowe",
+          "/k/263/Monitory-poleasingowe",
+          "/k/267/Urzadzenia-MFP",
+          "/k/262/Komputery-poleasingowe",
+          "/k/265/Drukarki-poleasingowe"
+        ],
+        ""
+      ],
+      [
+        0,
+        "pofirmowe.pl",
+        "https://pofirmowe.pl",
+        ["product", "category"],
+        [
+          "/laptopy-poleasingowe-dell-hp-lenovo/",
+          "/komputery-poleasingowe-dell-hp-lenovo/",
+          "/monitory-poleasingowe/",
+          "/telefony-poleasingowe-apple-samsung/"
+        ],
+        ""
+      ],
+      [
+        1,
+        "catom.pl",
+        "https://catom.pl",
+        ["product", "category"],
+        [
+          "/notebooki-poleasingowe/",
+          "/komputery-stacjonarne-poleasingowe/",
+          "/monitory-poleasingowe/"
+        ],
         ""
       ]
     ]

@@ -33,7 +33,8 @@
          "category": [
           ["find", ["span", {"class": "single-product-category"}]],
           ["text_strip"],
-          ["split", [", ", -1]]
+          ["split", [", "]],
+          ["list", [-1]]
         ],
         "brand": [
           ["var_get", ["$features"]],

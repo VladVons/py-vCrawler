@@ -114,7 +114,7 @@ create table if not exists ref_site_category (
     id                  serial primary key,
     create_date         timestamp default current_timestamp,
     enabled             boolean default true,
-    path                varchar(64) not null,
+    path                varchar(128) not null,
     site_id             int not null references ref_site(id) on delete cascade,
     unique (site_id, path)
 );

@@ -1,0 +1,52 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 13:38",
+      "url": "https://www.zx.pl",
+      "urls": {
+        "instock": "https://www.zx.pl/?489,komputery-dell-hp-lenovo-c2d-4gb-250gb-win-7-faktura-gwarancja-lpt-com",
+        "outstock": "",
+        "discount": "",
+        "category": "https://www.zx.pl/?komputery,6"
+      }
+    },
+    "-pipe_microdata": [],
+    "pipe_product": [
+      ["find", ["div", {"id": "product"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1"]],
+          ["text_strip"]
+        ],
+        "category": [
+          ["find", ["div", {"class": "breadcrumb"}]],
+          ["find", ["a"]],
+          ["text_strip"]
+        ],
+        "images": [
+          ["find", ["ul", {"class": "imagesList"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price": [
+          ["find", ["div", {"id": "price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find_yes", ["form", {"id": "addBasket"}]]
+        ],
+        "description": [
+          ["find", ["div", {"id": "productDescription"}]],
+          ["replace_br"],
+          ["text_strip"]
+        ]
+      }]
+    ],
+    "-pipe_root": []
+  }
+}

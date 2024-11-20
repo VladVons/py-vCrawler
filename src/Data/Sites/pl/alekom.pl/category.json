@@ -1,0 +1,59 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 18:12",
+      "url": "https://alekom.pl",
+      "urls": {
+        "instock": "-https://alekom.pl/11-laptopy",
+        "outstock": "-https://alekom.pl/11-laptopy",
+        "discount": "https://alekom.pl/promocje",
+        "root": "-https://alekom.pl"
+      },
+      "-filter": [
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "products-sort-order"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "product_list"}]],
+          ["find_all", ["li", {"class": "product_item"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["h3", {"class": "product-title"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h3", {"class": "product-title"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find_yes", ["li", {"class": "out_of_stock"}]],
+                ["invert"]
+              ],
+              "price": [
+                ["find", ["span", {"class": "price"}]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "regular-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 20:47",
+      "url": "https://www.apollo.pl",
+      "urls": {
+        "instock": "https://www.apollo.pl/laptopy-tablety/laptopy/",
+        "outstock": "",
+        "discount": "-https://www.apollo.pl/laptopy-tablety/laptopy/",
+        "root": "-https://www.apollo.pl"
+      },
+      "-filter": [
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "select_sortowanie"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products-list"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["h2", {"class": "title"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h2", {"class": "title"}]],
+                ["find", ["a"]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["a", {"class": "shop-btn"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["do koszyka"]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "old-price"}]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pager"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

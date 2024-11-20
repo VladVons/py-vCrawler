@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-19 17:09",
+      "url": "https://pc-data.com.pl",
+      "urls": {
+        "instock": "https://pc-data.com.pl/sklep/produkt/komputer-hp-workstation-z420-xeon-e5-1620v2-32gb-2tb-hdd-dvd-quadro-k2000/",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://pc-data.com.pl/sklep/kategoria-produktu/elektronika/komputery/komputery-stacjonarne/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "product-images"}]],
+          ["find_all_get_url", ["img"], {"a_get": "href"}]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-additional_information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Marka"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

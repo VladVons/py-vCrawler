@@ -2,14 +2,16 @@
   "category": {
     "info": {
       "author": "user142",
-      "date": "2024-11-18 15:34",
-      "url": "https://komputernet.pl",
+      "date": "2024-11-19 16:19",
+      "url": "https://centrumelektronikimobilnej.pl",
       "urls": {
-        "instock": "https://komputernet.pl/urzadzenia-wielofunkcyjne/",
+        "instock": "https://centrumelektronikimobilnej.pl/sklep/",
         "outstock": "",
-        "discount": "",
-        "root": "-https://komputernet.pl"
-      }
+        "discount": "https://centrumelektronikimobilnej.pl/sklep/",
+        "root": "https://centrumelektronikimobilnej.pl"
+      },
+      "filter": ["/sklep/"],
+      "comment": ""
     },
     "pipe": [
       ["as_dict", {
@@ -29,26 +31,26 @@
                 ["text_strip"]
               ],
               "stock": [
-                ["find_yes", ["span", {"class": "price"}]]
+                ["get", ["class"]],
+                ["list_in", ["instock"]]
               ],
               "price": [
                 ["find", ["span", {"class": "price"}]],
-                ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                ["find", ["ins"]],
                 ["text_strip"],
                 ["price"]
               ],
-              "price_max": [
+              "price_old": [
                 ["find", ["span", {"class": "price"}]],
+                ["find", ["del"]],
                 ["text_strip"],
-                ["split", [" – "]],
-                ["list", [-1]],
                 ["price"]
               ]
             }]
           ]]
        ],
        "pager": [
-        ["find", ["ul", {"class": "nav-pagination"}]],
+          ["find", ["nav", {"class": "woocommerce-pagination"}]],
           ["find_all_get_url", ["a"], {"a_get": "href"}]
        ]
       }]

@@ -1,0 +1,53 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 13:58",
+      "url": "https://www.zx.pl",
+      "urls": {
+        "instock": "https://www.zx.pl",
+        "outstock": "",
+        "root": "https://www.zx.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "products"}]],
+          ["find", ["ul", {"class": "list"}]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h2"]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h2"]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "basket"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["do koszyka"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pages"}]],
+          ["find", ["ul"]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

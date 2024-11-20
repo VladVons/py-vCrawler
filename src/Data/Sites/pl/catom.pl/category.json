@@ -1,0 +1,59 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 10:40",
+      "url": "https://catom.pl",
+      "urls": {
+        "instock": "https://catom.pl/notebooki-poleasingowe",
+        "outstock": "",
+        "discount": "",
+        "root": "https://catom.pl"
+      },
+      "filter": [
+        "/notebooki-poleasingowe/",
+        "/komputery-stacjonarne-poleasingowe/",
+        "/monitory-poleasingowe/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "sortlinks"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "prodname"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "prodname"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["button", {"class": "addtobasket"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["do koszyka"]]
+              ],
+              "price": [
+                ["find", ["div", {"class": "price"}]],
+                ["find", ["em"]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+        ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

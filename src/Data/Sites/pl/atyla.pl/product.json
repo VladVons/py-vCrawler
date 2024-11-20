@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 21:15",
+      "url": "https://atyla.pl",
+      "urls": {
+        "instock": "-https://atyla.pl/lenovo-chromebook-100e-12-celeron-n4000-4gb-32gb-chrome-os#/42-klasa_produktu-ba_/51-system_operacyjny-chrome_os",
+        "outstock": "-https://atyla.pl/lenovo-thinkpad-x260-i5-6300u-16gb-256gb-ssd-fullhd-w11p#/2-system_operacyjny-windows_11pro/7-klasa_produktu-bb",
+        "discount": "https://atyla.pl/lenovo-thinkpad-l380-yoga-13-i5-8350u-16gb-256gb-ssd-nvme-w11p-2w1-360-dotykowy#/2-system_operacyjny-windows_11pro/45-klasa_produktu-a_b",
+        "category": "-https://atyla.pl/laptopy"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["span", {"class": "old-price-top"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"id": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["section", {"class": "product-features"}]],
+          ["table_tag", [["dt", "dd"]]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

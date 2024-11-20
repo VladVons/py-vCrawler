@@ -1,0 +1,52 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-19 16:19",
+      "url": "https://centrumelektronikimobilnej.pl",
+      "urls": {
+        "instock": "https://centrumelektronikimobilnej.pl/laptop-poleasingowy/dell-latitude-e7250-12-i5-5300u-256ssd-8gb-hd-w10pro/",
+        "outstock": "",
+        "discount": "-https://centrumelektronikimobilnej.pl/laptop-poleasingowy/dell-latitude-e7250-12-i5-5300u-256ssd-8gb-hd-w10pro/",
+        "category": "-https://centrumelektronikimobilnej.pl/sklep/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product-main"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-main"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "woocommerce-product-gallery__wrapper"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price_old": [
+          ["find", ["p", {"class": "price"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ],
+         "category": [
+          ["find", ["nav", {"class": "woocommerce-breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"id": "tab-additional_information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["marka"]]
+        ]
+      }]
+    ]
+  }
+}

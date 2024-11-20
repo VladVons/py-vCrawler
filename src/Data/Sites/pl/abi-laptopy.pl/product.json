@@ -1,0 +1,54 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 18:53",
+      "url": "https://abi-laptopy.pl",
+      "urls": {
+        "instock": "-https://abi-laptopy.pl/produkt/dell-latitude-7430/",
+        "outstock": "-https://abi-laptopy.pl/produkt/lenovo-thinkpad-x1-yoga/",
+        "discount": "",
+        "category": "https://abi-laptopy.pl/sklep/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "woocommerce-product-gallery__wrapper"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-additional_information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Producent"]]
+        ],
+         "category": [
+          ["find", ["nav", {"class": "woocommerce-breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

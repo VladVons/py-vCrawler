@@ -47,7 +47,8 @@
         "category": [
           ["find", ["ol", {"itemtype": "http://schema.org/BreadcrumbList"}]],
           ["breadcrumb", [["a"], -1]],
-          ["split", ["/", -1]]
+          ["split", ["/"]],
+          ["list", [-1]]
         ]
       }]
     ]

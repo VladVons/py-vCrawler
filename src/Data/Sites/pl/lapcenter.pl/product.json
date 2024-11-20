@@ -1,0 +1,70 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 15:10",
+      "url": "https://lapcenter.pl",
+      "urls": {
+        "instock": "-https://lapcenter.pl/laptopy/poleasingowe/hp-elitebook-g1-i5-8-gb-ram-240-gb-ssd-win10",
+        "outstock": "https://lapcenter.pl/komputery/komputery-poleasingowe/dell-optiplex-380-sff/",
+        "discount": "-https://lapcenter.pl/laptopy/poleasingowe/hp-elitebook-g1-i5-8-gb-ram-240-gb-ssd-win10/",
+        "category": "-https://lapcenter.pl/komputery/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "single-product"}]],
+      ["as_dict", {
+        "-name": [
+          ["find", ["h1", {"class": "productTitle"}]],
+          ["text_strip"]
+        ],
+        "-brand": [
+          ["find", ["h2", {"class": "brand"}]],
+          ["text_strip"],
+          ["split", [": ", -1]]
+        ],
+        "images": [
+          ["find", ["div", {"id": "owl-single-product"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "-image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "-stock": [
+          ["find", ["span", {"class": "available"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["tak"]]
+        ],
+        "-price": [
+          ["find", ["div", {"class": "price-current"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "price-prev"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+         "category": [
+          ["find", ["div", {"itemprop": "breadcrumb"}]],
+          ["breadcrumb", [["a"], 1]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["ul", {"class": "specification"}]],
+          ["table_tag", ["li"]],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

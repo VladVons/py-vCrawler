@@ -1,0 +1,50 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 16:04",
+      "url": "https://delle.pl",
+      "urls": {
+        "instock": "https://delle.pl/kategoria-produktu/serwery-rack/",
+        "outstock": "",
+        "discount": "",
+        "root": "https://delle.pl"
+      }
+    },
+    "pipe": [
+      ["find_check", ["span", {"class": "wpgb-select-controls"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "elementor-loop-container"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["h3"]],
+                 ["find_parent", ["span", {"class": "elementor-heading-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["h3"]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["get_yes", {"class": "instock"}]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["meta_nears"]
+       ]
+      }]
+    ]
+  }
+}

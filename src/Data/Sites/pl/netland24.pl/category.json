@@ -1,0 +1,64 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 08:30",
+      "url": "https://netland24.pl",
+      "urls": {
+        "instock": "-https://netland24.pl/k/527/Komputery-All-in-One",
+        "instock2": "https://netland24.pl/k/190/KOMPUTERY",
+        "outstock": "-https://netland24.pl/k/527/Komputery-All-in-One",
+        "discount": "",
+        "root": "-https://netland24.pl"
+      },
+      "filter": [
+        "/k/551/Zestawy-promocyjne", 
+        "/k/263/Monitory-poleasingowe", 
+        "/k/267/Urzadzenia-MFP", 
+        "/k/262/Komputery-poleasingowe", 
+        "/k/265/Drukarki-poleasingowe", 
+        "/k/513/Sprzet-sieciowy"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["p", {"class": "toolbar-sort"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "products-grid"}]],
+          ["find_all", ["li", {"class": "sale-product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["h2", {"class": "product-name"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h2", {"class": "product-name"}]],
+                ["find", ["a"]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "stock-label"}]],
+                ["text_strip"],
+                ["search_start", ["0"]],
+                ["invert"]
+              ],
+              "price": [
+                ["find", ["span", {"class": "price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pages"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

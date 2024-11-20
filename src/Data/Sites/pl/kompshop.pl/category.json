@@ -1,0 +1,58 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-17 09:48",
+      "url": "https://kompshop.pl",
+      "urls": {
+        "instock": "https://kompshop.pl/sklep/",
+        "outstock": "-https://kompshop.pl/sklep/",
+        "discount": "",
+        "root": "-https://kompshop.pl"
+      },
+      "reader": "playwright"
+    },
+    "pipe": [
+      ["find_check", ["form", {"class": "woocommerce-ordering"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["li", {"class": "product-col"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a", {"class": "product-loop-title"}]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product-loop-title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["get", ["class"]],
+                 ["list_in", ["instock"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                 ["text_strip"],
+                 ["price"]
+               ],
+               "price_max": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["split", [" – "]],
+                 ["list", [-1]],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "page-numbers"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

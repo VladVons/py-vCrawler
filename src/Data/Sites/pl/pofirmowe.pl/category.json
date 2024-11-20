@@ -1,0 +1,60 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 09:48",
+      "url": "https://pofirmowe.pl",
+      "urls": {
+        "instock": "https://pofirmowe.pl/laptopy-poleasingowe-dell-hp-lenovo/1/full",
+        "outstock": "-https://pofirmowe.pl/komputery-poleasingowe-dell-hp-lenovo/1/full",
+        "discount": "",
+        "root": "https://pofirmowe.pl"
+      },
+      "-filter": [
+         "/laptopy-poleasingowe-dell-hp-lenovo/",
+         "/komputery-poleasingowe-dell-hp-lenovo/",
+         "/monitory-poleasingowe/",
+         "/telefony-poleasingowe-apple-samsung/",
+         "/Tablety/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["span", {"class": "products-active-sort"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "prodname"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "prodname"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["get", ["class"]],
+                ["list_in", ["product_inactive"]],
+                ["invert"]
+              ],
+              "price": [
+                ["find", ["div", {"class": "price"}]],
+                ["find", ["em"]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+        ["find", ["ul", {"class": "paginator"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

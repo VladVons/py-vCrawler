@@ -1,0 +1,53 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-17 10:35",
+      "url": "https://fajnykomputer.pl",
+      "urls": {
+        "instock": "-https://fajnykomputer.pl/22-komputery-poleasingowe",
+        "outstock": "https://fajnykomputer.pl/23-serwery",
+        "discount": "",
+        "root": "-https://fajnykomputer.pl"
+      }
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["article", {"class": "item"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "product-title"}]],
+                 ["find", ["a"]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["button", {"data-button-action": "add-to-cart"}]],
+                 ["get", ["data-original-title"]],
+                 ["lower"],
+                 ["search_start", ["dodaj do koszyka"]]
+               ],
+               "price": [
+                 ["find", ["span", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

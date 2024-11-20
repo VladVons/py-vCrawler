@@ -1,0 +1,46 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 19:24",
+      "url": "https://www.pcbird.pl",
+      "urls": {
+        "instock": "https://www.pcbird.pl/monitory-dotykowe-c-53.html",
+        "outstock": "",
+        "discount": "",
+        "root": "https://www.pcbird.pl"
+      }
+    },
+    "pipe": [
+      ["find_check", ["td", {"class": "pageHeading"}]],
+      ["as_dict", {
+        "products": [
+          ["find_all", ["table", {"class": "infoBoxContents"}]],
+          ["list", [5]],
+          ["find_all", ["td"]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find_all", ["a"]],
+                 ["list", [1]],
+                 ["text_strip"]
+               ],
+               "price": [
+                 ["contents"],
+                 ["list", [-1]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "-pager": []
+      }]
+    ]
+  }
+}

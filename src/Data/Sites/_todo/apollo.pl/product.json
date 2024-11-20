@@ -1,0 +1,51 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-18 20:47",
+      "url": "https://www.apollo.pl",
+      "urls": {
+        "instock": "-https://www.apollo.pl/produkt/laptop-lenovo-ideapad-3-15itl-i3-1115g415-6-fhd8gbssd-256gbwin-10,251524.html",
+        "outstock": "",
+        "discount": "https://www.apollo.pl/produkt/laptop-asus-f543ma-dm695t-n400015-6-fhd4gb256gb-ssdwin10,213287.html",
+        "category": "-https://www.apollo.pl/laptopy-tablety/laptopy/"
+      },
+      "comment": "new products"
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "cena-przekreslona"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "brand": [
+          ["find", ["img", {"class": "producer-info"}]],
+          ["get", ["alt"]]
+        ],
+        "features": [
+          ["find", ["table", {"id": "karta-produktu-cechy-tabelka"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["div", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -2]]
+        ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-19 17:09",
+      "url": "https://pc-data.com.pl",
+      "urls": {
+        "instock": "https://pc-data.com.pl/sklep/kategoria-produktu/elektronika/komputery/komputery-stacjonarne/",
+        "outstock": "",
+        "discount": "",
+        "root": "-https://pc-data.com.pl"
+      },
+      "-filter": [
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["form", {"class": "woocommerce-ordering"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["li", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product-loop-title"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h3", {"class": "woocommerce-loop-product__title"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["get", ["class"]],
+                ["list_in", ["instock"]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "price"}]],
+                ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+         ["meta_nears"]
+       ]
+      }]
+    ]
+  }
+}

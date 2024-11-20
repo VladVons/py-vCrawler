@@ -25,7 +25,8 @@
         "brand": [
           ["find", ["img", {"class": "product-producer__image"}]],
           ["get", ["alt"]],
-          ["split", [" ", 1]]
+          ["split", [" "]],
+          ["list", [1]]
         ],
         "stock": [
           ["find_yes", ["div", {"class": "product-actions__add-to-basket"}]]

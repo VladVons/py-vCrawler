@@ -1,0 +1,52 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 09:48",
+      "url": "https://pofirmowe.pl",
+      "urls": {
+        "instock": "https://pofirmowe.pl/pl/p/Nowy-Laptop-Gamingowy-GIGABYTE-G5-MKF5-15%2C6-i5-12500H-16GB-RAM-512GB-SSD-nVidia-RTX-4060-IPS-Full-HD-144Hz-WIN-11-Pro/2012",
+        "outstock": "-https://pofirmowe.pl/pl/p/Komputer-Gamingowy-i5-12400f32GB-RAM1000GB-SSDRTX4060-Win-11/1672",
+        "discount": "",
+        "category": "-https://pofirmowe.pl/laptopy-poleasingowe-dell-hp-lenovo/1/full"
+      },
+      "-reader": "playwright",
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "features": [
+           ["check_or", [
+           [
+             ["find", ["div", {"id": "box_productdata"}]],
+             ["table"],
+             ["keyval2dict"]
+           ],
+           [
+             ["find", ["div", {"itemprop": "description"}]],
+             ["find_all", ["li"]],
+             ["list_map", [
+                ["text_strip"],
+                 ["split", [":"]]
+            ]],
+             ["list_filter_len", [2]],
+             ["keyval2dict"]
+            ]
+          ]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

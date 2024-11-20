@@ -1,0 +1,72 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-15 18:42",
+      "url": "http://www.pcbird.pl",
+      "urls": {
+        "instock": "https://www.pcbird.pl/monitor-dotykowy-19-aoc-e960prda-rezystancyjny-p-1884.html",
+        "outstock": "",
+        "discount": "",
+        "category": "https://www.pcbird.pl/monitory-dotykowe-c-53.html"
+      }
+    },
+    "-pipe_microdata": [
+    ],
+    "pipe_product": [
+      ["find", ["form", {"name": "cart_quantity"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["td", {"class": "pageHeading"}]],
+          ["text_strip"]
+        ],
+        "images": [
+          ["find_all", ["td", {"class": "main"}]],
+          ["list", [0]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}],
+          ["list_map", [
+            ["replace", [" ", "%20"]]
+          ]]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "stock": [
+          ["find_yes", ["input", {"alt": "Do Koszyka"}]]
+        ],
+        "price": [
+          ["find_all", ["td", {"class": "pageHeading"}]],
+          ["list", [1]],
+          ["remove", ["span", {"class": "smallText"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find_all", ["td", {"class": "main"}]],
+          ["list", [0]],
+          ["replace_br"],
+          ["text_strip"]
+        ],
+        "features": [
+          ["var_get", ["$description"]],
+          ["split", ["\n"]],
+          ["list_map", [
+            ["split", [":"]]
+          ]],
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["find_check", ["form", {"name": "cart_quantity"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["td", {"class": "headerNavigation"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

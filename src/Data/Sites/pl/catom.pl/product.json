@@ -1,0 +1,33 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 09:29",
+      "url": "https://catom.pl",
+      "urls": {
+        "instock": "https://catom.pl/pl/p/DELL-3010-tower-i3-3240-4GB-120GB-SSD-WIN10-Pro/1388",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://catom.pl/komputery-stacjonarne-poleasingowe"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-17 09:48",
+      "url": "https://kompshop.pl",
+      "urls": {
+        "instock": "-https://kompshop.pl/s/laptopy/dell/laptop-dell-latitude-5400-14-intel-core-i5-16-gb-512-gb-czarny/",
+        "outstock": "https://kompshop.pl/s/laptopy/hewlett-packard/hp-elitebook-850-g4-i5-7300u-16gb-480gb-ssd-win10/",
+        "discount": "",
+        "category": "-https://kompshop.pl/sklep/"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "product-images"}]],
+          ["find_all_get_url", ["img"], {"a_get": "href"}]
+        ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-additional_information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "price_max": [
+          ["find", ["p", {"class": "price"}]],
+          ["text_strip"],
+          ["split", [" – "]],
+          ["list", [-1]],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"class": "product"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["ul", {"itemtype": "https://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

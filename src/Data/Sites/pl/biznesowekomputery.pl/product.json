@@ -1,0 +1,51 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-16 10:59",
+      "url": "https://biznesowekomputery.pl",
+      "urls": {
+        "instock": "-https://biznesowekomputery.pl/produkt/komputery-stacjonarne/dell-optiplex-7050-i5-16gb-1tb-nvme-hdmi-win10/",
+        "instock2": "https://biznesowekomputery.pl/produkt/komputery-stacjonarne/dell-optiplex-3050-tiny-i5-6400t-16gb-128gb-ssd-wifi-win11/",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://biznesowekomputery.pl/sklep/komputery-stacjonarne/"
+      }
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "woocommerce-product-gallery__wrapper"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price": [
+          ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"class": "woocommerce-Tabs-panel--additional_information"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["li", {"class": "current-cat-parent"}]],
+          ["find", ["a"]],
+          ["text_strip"]
+        ]
+      }]
+    ]
+  }
+}
