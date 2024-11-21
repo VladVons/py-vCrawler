@@ -57,11 +57,11 @@ class TMain(TCtrlBase):
 
         Marker = 'findwares.com'
         Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
-        DblProducts.ToList()
+        DblProducts.AddFieldsFill(['href_int', 'href_ext'], False)
         for Rec in DblProducts:
-            Url = Rec.url
-            Url = Url + Lib.Iif('?' in Url, '&', '?') + f'srsltid={Hash}'
-            Rec.SetField('url', Url)
+            HrefInt = f'/?route=product/product&url_id={Rec.url_id}'
+            HrefExt = Rec.url + Lib.Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
+            DblProducts.RecMerge([HrefInt, HrefExt])
 
         Pagination = Lib.TPagination(aLimit, aData['path_qs'])
         Pagination.Visible = 7

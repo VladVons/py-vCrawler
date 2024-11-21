@@ -48,3 +48,11 @@ class TMain(TDbModel):
                 'aOffset': aOffset
             }
         )
+
+    async def GetProductByUrlId(self, aUrlId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_ProductByUrlId.sql',
+            {
+                'aUrlId': aUrlId
+            }
+        )

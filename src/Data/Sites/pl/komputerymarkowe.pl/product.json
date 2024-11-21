@@ -1,0 +1,46 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 10:58",
+      "url": "https://komputerymarkowe.pl",
+      "urls": {
+        "instock": "-https://komputerymarkowe.pl/komputery-poleasingowe/1592-komputer-optiplex-3040-micro-pc-core-i3-6100t-4gb-128gb-wifi-ssd.html",
+        "outstock": "https://komputerymarkowe.pl/laptopy-poleasingowe/8333-laptop-dell-latitude-5480-core-i5-7300u8gb256gbssdhd.html",
+        "discount": "",
+        "category": "-https://komputerymarkowe.pl/12-komputery-poleasingowe"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["ul", {"class": "product-images"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-image-large-src"}]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "regular-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-features"}]],
+          ["table_tag", [[["div", {"class": "name"}], ["div", {"class": "value"}]]]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

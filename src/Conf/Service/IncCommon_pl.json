@@ -641,7 +641,7 @@
         0,
         "pofirmowe.pl",
         "https://pofirmowe.pl",
-        ["product", "category"],
+        ["product", "-category"],
         [
           "/laptopy-poleasingowe-dell-hp-lenovo/",
           "/komputery-poleasingowe-dell-hp-lenovo/",
@@ -651,7 +651,7 @@
         ""
       ],
       [
-        1,
+        0,
         "catom.pl",
         "https://catom.pl",
         ["product", "category"],
@@ -661,7 +661,41 @@
           "/monitory-poleasingowe/"
         ],
         ""
+      ],
+      [
+        0,
+        "komputerymarkowe.pl",
+        "https://komputerymarkowe.pl",
+        ["product", "category"],
+        [
+          "/12-komputery-poleasingowe/",
+          "/13-monitory/",
+          "/14-laptopy-poleasingowe/"
+        ],
+        ""
+      ],
+      [
+        0,
+        "computer-alliance.pl",
+        "https://www.computer-alliance.pl",
+        ["product", "category"],
+        [
+          "/sklep/komputery-poleasingowe/",
+          "/sklep/laptopy-poleasingowe/",
+          "/sklep/monitory-poleasingowe/"
+        ],
+        ""
+      ],
+      [
+        1,
+        "rnew.pl",
+        "https://rnew.pl",
+        ["product", "-category"],
+        [
+        ],
+        ""
       ]
+
     ]
   }
 }

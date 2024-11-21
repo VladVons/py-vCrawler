@@ -1,0 +1,65 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 12:45",
+      "url": "https://www.computer-alliance.pl",
+      "urls": {
+        "instock": "https://www.computer-alliance.pl/p/komputer-dell-optiplex-3090-sff-i5-10400-8gb-256gb-uhd-630/",
+        "outstock": "-https://www.computer-alliance.pl/p/komputer-dell-vostro-3681-16-gb-ddr4-512-gb-ssd-intel-uhd-630/",
+        "discount": "-https://www.computer-alliance.pl/p/laptop-dell-precision-3591-ultra-5-135h-64gb-512gb-rtx-500-ada-15-full-hd-box-new/",
+        "category": "-https://www.computer-alliance.pl/sklep/laptopy-poleasingowe/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "ct-product-gallery-container"}]],
+          ["find_all_get_url", ["figure"], {"a_get": "data-src"}]
+        ],
+        "price_old": [
+          ["find", ["p", {"class": "price"}]],
+          ["find", ["del"]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "entry-content"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "entry-content"}]],
+          ["find_or", [
+            ["", {}, {"re_text": "Specyfikacja"}],
+            ["span", {}, {"re_text": "Specyfikacja techniczna"}]
+          ]],
+          ["find_parent", ["div", {"class": "wp-block-columns"}]],
+          ["replace_br"],
+          ["text_strip"],
+          ["split", ["\n"]],
+          ["list_map", [
+            ["split", [":"]]
+          ]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["find", ["div", {"class": "entry-content"}]],
+          ["find", ["img"]],
+          ["get", ["alt"]],
+          ["replace", [" logo", ""]],
+          ["replace", ["logo ", ""]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

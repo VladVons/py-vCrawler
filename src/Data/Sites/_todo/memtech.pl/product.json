@@ -1,0 +1,59 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 17:26",
+      "url": "https://memtech.pl",
+      "urls": {
+        "instock": "https://memtech.pl/hp-zbook-fury-g7-core-i7-1920x1080-32gb-1tb-ssd-nvidia-2",
+        "outstock": "-https://memtech.pl/hp-zbook-firefly-14-g7-core-i7-1920x1080-16gb-512gb-ssd-nvidia-2",
+        "discount": "",
+        "category": "-https://memtech.pl/laptopy"
+      },
+      "comment": "Ціни та наявності немає в джерелі"
+    },
+    "-pipe_microdata": [],
+    "pipe_product": [
+      ["find_check", ["section", {"class": "product-info"}]],
+      ["find", ["main"]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"class": "page__header"}]],
+          ["text_strip"]
+        ],
+        "brand": [
+          ["find", ["p", {"class": "product-info__text"}]],
+          ["find", ["span"]],
+          ["text_strip"]
+        ],
+        "images": [
+          ["find", ["div", {"class": "product-gallery"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "description": [
+          ["find", ["section", {"class": "product-description"}]],
+          ["text_strip"]
+        ],
+        "features": [
+          ["find", ["section", {"class": "product-specification"}]],
+          ["table_tag", ["div", {"class": "product-specification__item"}]],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["section", {"class": "breadcrumbs"}]],
+          ["breadcrumb", [["a"], -1]]
+        ],
+        "-stock": [],
+        "-price": []
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 10:58",
+      "url": "https://komputerymarkowe.pl",
+      "urls": {
+        "instock": "-https://komputerymarkowe.pl/12-komputery-poleasingowe",
+        "outstock": "",
+        "discount": "https://komputerymarkowe.pl/12-komputery-poleasingowe",
+        "root": "-https://komputerymarkowe.pl"
+      },
+      "filter": [
+        "/12-komputery-poleasingowe/",
+        "/13-monitory/",
+        "/14-laptopy-poleasingowe/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "products-sort-order"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products"}]],
+          ["find_all", ["article", {"itemtype": "http://schema.org/Product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["h2", {"class": "product-title"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h2", {"class": "product-title"}]],
+                ["find", ["span"]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "instock"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["dostępny"]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "regular-price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+        ["find", ["ul", {"class": "page-list"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

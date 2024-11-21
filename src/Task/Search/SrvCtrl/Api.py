@@ -32,7 +32,7 @@ class TApiCtrl(TApiBase):
                 Routes = aData.get('extends', [])
                 Routes.append(aRoute)
                 for xRoute in Routes:
-                    await self.Lang.Add('ua', xRoute, 'tpl')
+                    await self.Lang.Add('en', xRoute, 'tpl')
                 Lang = self.Lang.Join()
                 Res = {'lang': Lang}
 

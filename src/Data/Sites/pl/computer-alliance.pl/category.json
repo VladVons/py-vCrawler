@@ -1,0 +1,73 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 12:45",
+      "url": "https://www.computer-alliance.pl",
+      "urls": {
+        "instock": "https://www.computer-alliance.pl/sklep/laptopy-poleasingowe/",
+        "outstock": "-https://www.computer-alliance.pl/sklep/laptopy-poleasingowe/",
+        "discount": "-https://www.computer-alliance.pl/sklep/laptopy-poleasingowe/",
+        "root": "-https://www.computer-alliance.pl"
+      },
+      "filter": [
+        "/laptopy-poleasingowe/",
+        "/komputery-poleasingowe/",
+        "/monitory-poleasingowe/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["form", {"class": "woocommerce-ordering"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["li", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "woocommerce-LoopProduct-link"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h2", {"class": "woocommerce-loop-product__title"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["get", ["class"]],
+                ["list_in", ["instock"]]
+              ],
+              "price": [
+                ["check_or", [
+                  [
+                    ["find", ["span", {"class": "sale-price"}]],
+                    ["find_all", ["span", {"class": "woocommerce-Price-amount"}]],
+                    ["list", [-1]],
+                    ["text_strip"],
+                    ["price"]
+                  ],
+                  [
+                    ["find", ["span", {"class": "price"}]],
+                    ["text_strip"],
+                    ["price"]
+                  ]
+                ]]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "sale-price"}]],
+                ["find", ["del"]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+        ["find", ["nav", {"class": "ct-pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

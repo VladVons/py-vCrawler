@@ -12,7 +12,6 @@ from Inc.DbList import TDbList
 from Inc.Misc.Template import TDictRepl
 from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
-from Inc.Var.Obj import Iif
 from IncP.CtrlBase import TCtrlBase
 from . import Util
 

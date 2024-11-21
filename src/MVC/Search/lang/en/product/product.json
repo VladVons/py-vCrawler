@@ -1,0 +1,14 @@
+{
+   "tpl": {
+        "code": "code",
+        "description": "description",
+        "features": "features",
+        "to_favorite": "to favorites",
+        "to_compare": "to compare",
+        "available": "available",
+        "price": "price",
+        "buy": "buy",
+        "not_available": "not available"
+    }
+}
+

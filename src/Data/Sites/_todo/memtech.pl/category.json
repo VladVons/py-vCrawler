@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-20 17:26",
+      "url": "https://memtech.pl",
+      "urls": {
+        "instock": "https://memtech.pl/laptopy",
+        "outstock": "https://memtech.pl/laptopy",
+        "discount": "",
+        "root": "https://memtech.pl"
+      },
+      "-filter": [
+      ],
+      "comment": "todo. Наявності та пагінатора немає"
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "products__filters"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "row__products"}]],
+          ["find_all", ["div", {"class": "product-tile"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["p", {"class": "product-tile__title"}]],
+                ["find_parent", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["p", {"class": "product-tile__title"}]],
+                ["text_strip"]
+              ],
+              "-stock": [],
+              "price": [
+                ["find", ["h4", {"class": "product-tile__price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "-pager": []
+      }]
+    ]
+  }
+}
