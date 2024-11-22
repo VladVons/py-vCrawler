@@ -1,2 +1,2 @@
 plugins = 'Service.SchemeTest'
-#plugins = 'Service.SchemeToDb'
+plugins = 'Service.SchemeToDb'

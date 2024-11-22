@@ -1,6 +1,6 @@
 {% extends '_inc/layout1.j2' %}
 
-{% set Fields = ['country', 'enabled', 'all'] %}
+{% set Fields = ['country', 'all', 'enabled'] %}
 
 {% block head %}
 <style>
@@ -31,8 +31,8 @@
       <div class="gitem">
         <a href="{{Rec.href}}">{{Rec.country}}</a>
       </div>
-      <div class="gitem">{{Rec.cnt_enabled}}</div>
       <div class="gitem">{{Rec.cnt_all}}</div>
+      <div class="gitem">{{Rec.cnt_enabled}}</div>
     {% endfor %}
   </div>
 </div>

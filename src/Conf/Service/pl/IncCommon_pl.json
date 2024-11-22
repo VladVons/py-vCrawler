@@ -688,14 +688,14 @@
       ],
       [
         1,
-        "rnew.pl",
-        "https://rnew.pl",
-        ["product", "-category"],
+        "frogtech.pl",
+        "https://frogtech.pl",
+        ["product", "category"],
         [
+          "/kategoria-produktu/serwery/"
         ],
         ""
       ]
-
     ]
   }
 }

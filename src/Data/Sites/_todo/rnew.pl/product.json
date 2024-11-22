@@ -1,0 +1,68 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-21 17:19",
+      "url": "https://rnew.pl",
+      "urls": {
+        "instock": "https://rnew.pl/pl/products/laptop-lenovo-thinkpad-t480-i7-8650u-16-gb-256-ssd-nvidia-geforce-mx150-gp108m-4gb-14-fhd-w11pro-a-63429.html",
+        "outstock": "-https://rnew.pl/pl/products/laptop-dell-latitude-9420-2in1-i5-1145g7-16-gb-256-ssd-14-2560x1600-dotyk-w11pro-a-nocam-63431.html",
+        "discount": "-https://rnew.pl/pl/products/laptop-dell-latitude-5511-i7-10850h-16-gb-512-ssd-nvidia-geforce-mx150-gp107m-2gb-15-6-fhd-w11pro-a-63404.html",
+        "category": "-https://rnew.pl/pl/menu/laptopy-156.html"
+      },
+      "comment": "slow size, no images"
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "projector_top"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "projector_top"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["section", {"id": "thumbnail-carousel"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "stock": [
+          ["find_yes", ["img", {"alt": "Zapytaj Sprzedawcę"}]],
+          ["invert"]
+        ],
+        "price_old": [
+          ["find", ["del", {"id": "projector_price_maxprice"}]],
+          ["text_strip"],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"class": "projector_top"}]],
+      ["as_dict", {
+        "description": [
+          ["find", ["section", {"id": "projector_longdescription"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["section", {"id": "projector_dictionary"}]],
+          ["table_tag", ["div", {"class": "dictionary__group"}]],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["check_or", [
+            [
+              ["find", ["div", {"class": "breadcrumbs"}]],
+              ["find_all", ["a", {"class": "category"}]],
+              ["list", [0]],
+              ["text_strip"]
+            ],
+            [
+              ["find", ["ul", {"class": "navbar-nav"}]],
+              ["find", ["a", {"class": "active"}]],
+              ["text_strip"]
+            ]
+          ]]
+        ]
+      }]
+    ]
+  }
+}
+

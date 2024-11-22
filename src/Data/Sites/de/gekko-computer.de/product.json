@@ -3,57 +3,36 @@
     "info": {
       "author": "vladvons",
       "date": "2024.09.19 18:00:00",
-      "url": [
-        "https://www.gekko-computer.de/Netzwerk/Switch/Infiniband-Switch/Mellanox-MQM8700-HS2F-Quantum-HDR-Edge-Switch-QM8700-40x-200Gbit-QSFP56.html"
-      ]
+      "url": "https://www.gekko-computer.de",
+      "urls": {
+        "instock": "https://www.gekko-computer.de/Netzwerk/Switch/Infiniband-Switch/Mellanox-MQM8700-HS2F-Quantum-HDR-Edge-Switch-QM8700-40x-200Gbit-QSFP56.html",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://www.gekko-computer.de/c/Server"
+      }
     },
-    "pipe_schema": [
-      ["app_json", [{"@type": "Product"}]],
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["var_get", ["$product_itemprop_root"]],
+      ["list", [0]],
       ["as_dict", {
-        "name": [
-          ["get", ["name"]]
+        "images": [
+          ["find", ["div", {"class": "gallery-slides"}]],
+          ["find_all_get_url", ["a", {"class": "MagicZoom"}], {"a_get": "href"}]
         ],
-        "stock": [
-          ["gets", ["offers.availability"]],
-          ["stock"]
-        ],
-        "image": [
-          ["get", ["image"]]
-        ],
-        "price": [
-          ["ext_price_app"]
+        "features": [
+          ["find", ["div", {"class": "sml-table"}]],
+          ["table_tag", ["div", {"class": "sml-row"}]],
+          ["keyval2dict"]
         ]
       }]
     ],
-    "pipe_body": [
-      ["find", ["body", {"class": "product"}]],
+    "pipe_root": [
       ["as_dict", {
-        "images": [
-          ["find", ["div", {"id": "thumbs_list"}]],
-          ["find_all", ["a", {"class": "thumbnail-no-link"}]],
-          ["list_map", [
-            ["get", ["href"]]
-          ]]
-        ],
-        "price_old": [
-          ["var_get", ["$root"]],
-          ["find", ["span", {"id": "old_price_display"}]],
-          ["text"],
-          ["price"]
-        ],
-        "description": [
-        ],
-        "features": [
-          ["find", ["div", {"class": "product-features-tab-content"}]],
-          ["table"],
-          ["keyval2dict", [0, 1]]
-        ],
-        "brand": [
-          ["var_get", ["$features"]],
-          ["get", ["Виробник"]]
-        ],
         "category": [
-          ["find", ["div", {"class": "breadcrumb"}]],
+          ["find", ["ol", {"class": "breadcrumb-list"}]],
           ["breadcrumb", [["a"], -1, false]]
         ]
       }]

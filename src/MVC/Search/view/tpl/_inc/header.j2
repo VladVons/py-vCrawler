@@ -18,11 +18,7 @@
   </button>
   <select class="form-select ms-2 d-none d-md-inline" name="country_id" id="viCountry">
     {% for Rec in TDbList().Import(dbl_country) %}
-    {% if Rec.id == country_id %}
-      <option value="{{Rec.id}}" selected>{{Rec.alias}}</option>
-    {% else %}
-      <option value="{{Rec.id}}">{{Rec.alias}}</option>
-    {% endif %}
+      <option value="{{Rec.id}}" {{Iif(Rec.id == country_id, 'selected', '')}}>{{Rec.alias}}</option>
     {% endfor %}
   </select>
 </form>

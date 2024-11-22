@@ -1,0 +1,56 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-21 18:05",
+      "url": "https://frogtech.pl",
+      "urls": {
+        "instock": "https://frogtech.pl/kategoria-produktu/czesci/czesci-inne/",
+        "outstock": "",
+        "discount": "",
+        "root": "https://frogtech.pl"
+      },
+      "-filter": [
+      ],
+      "comment": "",
+      "reader": "playwright"
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "products"}]],
+          ["find_all", ["li", {"class": "products-by-category"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"class": "frt_product_description"}]],
+                ["find", ["h6"]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "custom-button"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["skonfiguruj", "zobacz"]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "woocommerce-Price-amount"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

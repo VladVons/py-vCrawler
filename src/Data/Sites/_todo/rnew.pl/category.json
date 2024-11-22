@@ -1,0 +1,62 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-21 17:19",
+      "url": "https://rnew.pl",
+      "urls": {
+        "instock": "https://rnew.pl/pl/menu/laptopy-156.html",
+        "outstock": "-https://rnew.pl/pl/menu/laptopy-156.html",
+        "discount": "-https://rnew.pl/pl/menu/laptopy-156.html",
+        "root": "-https://rnew.pl"
+      },
+      "filter": [
+        "/laptopy-156.html",
+        "/komputery-stacjonarne-157.html",
+        "/monitory-229.html"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"class": "products"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product__name"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product__name"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "product__prices"}]],
+                ["find_yes", ["a", {"class": "--phone"}]],
+                ["invert"]
+              ],
+              "price": [
+                ["find", ["strong", {"class": "price"}]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["del", {"class": "price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
+

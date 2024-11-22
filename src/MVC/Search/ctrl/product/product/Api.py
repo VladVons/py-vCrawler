@@ -53,12 +53,13 @@ class TMain(TCtrlBase):
             Product['stock'] = False
 
         Schema = {
-            '@context': 'https://schema.org/',
+            '@context': 'https://schema.org',
             '@type': 'Product',
             'image': Product.get('images'),
             'name': Product.get('name'),
             'description': Product.get('description'),
             'category': Product.get('category'),
+            'brand': Product.get('brand'),
             'offers': {
                 '@type': 'Offer',
                 'availability': 'https://schema.org/' + Lib.Iif(Product.get('stock'), 'InStock', 'OutOfStock'),
@@ -66,6 +67,7 @@ class TMain(TCtrlBase):
                 'priceCurrency': Product.get('price')[1]
             }
         }
+        Lib.DelValues(Schema, ['', [], {}, None])
 
         Res['schema'] = json.dumps(Schema, ensure_ascii=False)
         Res['product'] = Product

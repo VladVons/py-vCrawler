@@ -1,0 +1,25 @@
+{
+  "sites": {
+    "head": ["enable", "dir", "url", "type", "category", "note"],
+    "data": [
+      [
+        1,
+        "gekko-computer.de",
+        "https://www.gekko-computer.de",
+        ["product", "category"],
+        ["/c/Server", "/c/Workstations", "/c/Storage", "/c/Netzwerk"],
+        ""
+      ],
+      [
+        0,
+        "frogtech.pl",
+        "https://frogtech.pl",
+        ["product", "category"],
+        [
+          "/kategoria-produktu/serwery/"
+        ],
+        ""
+      ]
+    ]
+  }
+}

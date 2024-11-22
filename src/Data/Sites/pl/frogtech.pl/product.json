@@ -1,0 +1,60 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-21 18:05",
+      "url": "https://frogtech.pl",
+      "urls": {
+        "instock": "https://frogtech.pl/produkt/supermicro-sys-6019p-wtr-x11ddw-l-rev-1-11-bpn-sas3-815tq-rev-1-00-4-x-35-konfigurator/",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://frogtech.pl/kategoria-produktu/serwery/"
+      },
+      "comment": "price needs emul",
+      "reader": "playwright"
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product-container"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-container"}]],
+      ["as_dict", {
+        "brand": [
+          ["var_get", ["$name"]],
+          ["split", [" "]],
+          ["list", [0]],
+          ["text_eqi", ["dell", "hp", "lenovo", "supermicro"]]
+        ],
+        "images": [
+          ["find", ["div", {"class": "frt-product-slides"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price": [
+          ["find", ["span", {"class": "formattedTotalPrices"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "frt-product-slides"}]],
+          ["next_sibling"],
+          ["text_strip"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"class": "product-container"}]],
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"id": "tabs-specs"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["nav", {"itemprop": "breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}
