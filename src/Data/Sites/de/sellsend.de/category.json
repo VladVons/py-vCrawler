@@ -1,0 +1,66 @@
+
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 11:42",
+      "url": "https://www.sellsend.de",
+      "urls": {
+        "instock": "-https://www.sellsend.de/Notebook:::2.html",
+        "outstock": "",
+        "discount": "https://www.sellsend.de/specials.php",
+        "root": "-https://www.sellsend.de"
+      },
+      "filter": [
+        "/Computer:::1.html",
+        "/Notebook:::2.html",
+        "/Drucker:::3.html",
+        "/specials.php"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "filter_bar"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "listingcontainer"}]],
+          ["find_all", ["div", {"class": "listingrow"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"class": "lr_title"}]],
+                ["find", ["a"]], 
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"class": "lr_title"}]],
+                ["text_strip"]
+              ],
+              "-stock": [],
+              "price": [
+                ["find_or", [
+                  ["span", {"class": "standard_price"}],
+                  ["span", {"class": "new_price"}]
+                ]], 
+                ["contents"],
+                ["list", [-1]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "old_price"}]],
+                ["contents"],
+                ["list", [-1]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination_list"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

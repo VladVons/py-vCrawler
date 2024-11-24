@@ -1,0 +1,57 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 11:42",
+      "url": "https://www.sellsend.de",
+      "urls": {
+        "instock": "https://www.sellsend.de/Computer/PC-DELL-OPTIPLEX-3060-Intel-Core-i5-8500T-HexaCore-6-x-2-1GHz-8GB-RAM-250GB-SSD-M-2::174.html",
+        "outstock": "",
+        "discount": "-https://www.sellsend.de/Notebook/Lenovo-ThinkPad-T560-i5-6300U-8GB-256GB-SSD-15-6-FHD-Win11-GRADE-A::168.html",
+        "category": "-https://www.sellsend.de/Notebook:::2.html"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "image": [
+          ["find", ["div", {"class": "pd_imagebox"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}],
+          ["list", [0]]
+        ],
+        "images": [
+          ["find", ["div", {"class": "pd_small_image_tab_row"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "old_price"}]],
+          ["contents"],
+          ["list", [-1]],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Hersteller"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["span", {"itemtype": "http://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 15:10",
+      "url": "https://notebook-pro.de",
+      "urls": {
+        "instock": "https://notebook-pro.de/collections/dell-refurbished-notebook",
+        "outstock": "",
+        "discount": "",
+        "root": "-https://notebook-pro.de"
+      },
+      "filter": [
+        "/collections/refurbished-mini-pcs",
+        "/collections/dell-refurbished-notebook",.
+        "/collections/hp-refurbished-elitebooks-probooks",
+        "/collections/lenovo-thinkpads",
+        "/collections/refurbished-asus-notebooks"
+      ],
+      "comment": "",
+      "reader": "playwright"
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["-script_var", ["window.boostSDFallback"]],
+          ["find", ["div", {"class": "boost-sd__fallback-product-list"}]],
+          ["find_all", ["div", {"class": "boost-sd__fallback-product-item"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "boost-sd__fallback-product-link"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h2"]],
+                ["text_strip"]
+              ],
+              "-stock": [
+                ["find", ["button"]],
+                ["text_strip"],
+                ["lower"],
+                ["search_eq", ["add to cart"]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "boost-sd__fallback-product-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "boost-sd__fallback-pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

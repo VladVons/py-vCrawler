@@ -1,0 +1,59 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 11:02",
+      "url": "https://www.quantelectronic.de",
+      "urls": {
+        "instock": "https://www.quantelectronic.de/en/62155.html",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://www.quantelectronic.de/de/Notebook.html"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"id": "pictures-gallery"}]],
+          ["find_all_get_url", ["a", {"data-id": "GalleryItem"}], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "quant-stock"}]],
+          ["text_strip"],
+          ["find", ["span"]],  
+          ["search_eq", ["0"]],
+          ["invert"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "description": [
+          ["find_all_text", ["div", {"class": "h4"}], {"a_text": "Beschreibung"}],
+          ["list", [0]],
+          ["next_sibling"],
+          ["text_strip"]
+        ],
+        "features": [
+          ["find", ["div", {"id": "groupedattributes"}]],
+          ["table_tag", [["label", "span"]]], 
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["ol", {"data-id": "BreadcrumbList"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

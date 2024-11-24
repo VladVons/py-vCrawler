@@ -1,0 +1,64 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 15:10",
+      "url": "https://notebook-pro.de",
+      "urls": {
+        "instock": "https://notebook-pro.de/products/dell-latitude-5580-i5-6200u-16gb-ddr4-512gb-ssd-full-hd-refurbished-windows-11-refurbished",
+        "outstock": "",
+        "discount": "",
+        "category": "https://notebook-pro.de/collections/dell-refurbished-notebook"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "brand": [
+          ["var_get", ["$name"]],
+          ["split", [" ", 0]],
+          ["text_eqi", ["dell", "hp", "lenovo", "acer", "asus", "fujitsu"]]
+        ],
+        "images": [
+          ["find", ["ul", {"class": "thumbnail-list"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}],
+          ["list_map", [
+            ["split", ["?", 0]]
+          ]]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product__description"}]],
+          ["replace_br"],
+          ["text_strip"],
+          ["split", ["\n\n"]],
+          ["list_map", [
+            ["split", [":"]]
+          ]], 
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+         "category": [
+          ["find", ["script", {"class": "analytics"}]],
+          ["text_strip"],
+          ["split", ["Viewed Product\",", -1]],
+          ["split", [");", 0]],
+          ["text_to_json"],
+          ["get", ["category"]]
+        ]
+      }]
+    ]
+  }
+}

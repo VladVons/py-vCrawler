@@ -72,7 +72,7 @@
         ""
       ],
       [
-        1,
+        0,
         "uli-ludwig.de",
         "https://www.uli-ludwig.de",
         ["product", "category"],
@@ -80,6 +80,92 @@
           "/Workstations-CAD-Videoschnitt",
           "/Notebooks-CAD-Videoschnitt",
           "/Monitore"
+        ],
+        ""
+      ],
+      [
+        0,
+        "quantelectronic.de",
+        "https://www.quantelectronic.de",
+        ["product", "category"],
+        [
+          "/Notebook.html",
+          "/Computer.html",
+          "/Monitore.html",
+          "/Server-Workstation.html",
+          "/Drucker-Kopierer.html",
+          "/Multimedia-HDTV.html",
+          "/Handy-Telefonie.html"
+        ],
+        ""
+      ],
+      [
+        0,
+        "shop.das-tintenhaus.de",
+        "https://shop.das-tintenhaus.de",
+        ["product", "category"],
+        [
+          "/hardware/gebraucht-refurbished-leasing-ruecklaeufer/"
+        ],
+        ""
+      ],
+      [
+        0,
+        "sellsend.de",
+        "https://www.sellsend.de",
+        ["product", "category"],
+        [
+          "/Computer:::1.html",
+          "/Notebook:::2.html",
+          "/Drucker:::3.html",
+          "/specials.php"
+        ],
+        ""
+      ],
+      [
+        0,
+        "second-it-store.de",
+        "https://second-it-store.de",
+        ["product", "category"],
+        [
+          "/notebook/",
+          "/pc/",
+          "/tablet/",
+          "/smartphone/",
+          "/monitor/",
+          "/drucker/"
+         ],
+        ""
+      ],
+      [
+        0,
+        "notebookgalerie.de",
+        "https://www.notebookgalerie.de",
+        ["product", "category"],
+        ["/notebooks.html", "/pc.html", "/monitore.html", "/tablet.html", "/smartphones.html"],
+        ""
+      ],
+      [
+        0,
+        "pcbilliger.de",
+        "https://www.pcbilliger.de",
+        ["product", "category"],
+        [
+          "/pc-computer/", "/laptop-notebook/", "/tablet-pcs/", "/tft-monitore/", "/smartphone-handy/"
+        ],
+        ""
+      ],
+      [
+        1,
+        "notebook-pro.de",
+        "https://notebook-pro.de",
+        ["product", "category"],
+        [
+          "/collections/refurbished-mini-pcs",
+          "/collections/dell-refurbished-notebook", 
+          "/collections/hp-refurbished-elitebooks-probooks",
+          "/collections/lenovo-thinkpads",
+          "/collections/refurbished-asus-notebooks"
         ],
         ""
       ]

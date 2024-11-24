@@ -1,0 +1,63 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 11:02",
+      "url": "https://www.quantelectronic.de",
+      "urls": {
+        "instock": "https://www.quantelectronic.de/en/Notebooks-1.html",
+        "outstock": "",
+        "discount": "",
+        "root": "-https://www.quantelectronic.de"
+      },
+      "filter": [
+        "/Notebook.html",
+        "/Computer.html",
+        "/Monitore.html",
+        "/Server-Workstation.html",
+        "/Drucker-Kopierer.html",
+        "/Multimedia-HDTV.html",
+        "/Handy-Telefonie.html"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "cl-listing"}]],
+          ["find_all", ["article", {"data-id": "AL.ClassicItem"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"data-id": "AL.ClassicItemTitle"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"data-id": "AL.ClassicItemTitle"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "quant-stock"}]],
+                ["text_strip"],
+                ["find", ["span"]],  
+                ["search_eq", ["0"]],
+                ["invert"]
+              ],
+              "price": [
+                ["find", ["div", {"data-id": "AL.ClassicItemPrice"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"data-id": "PAS.Pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

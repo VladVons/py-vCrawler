@@ -1,0 +1,54 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-22 18:35",
+      "url": "https://www.pcbilliger.de",
+      "urls": {
+        "instock": "https://www.pcbilliger.de/laptop-notebook/",
+        "outstock": "",
+        "discount": "",
+        "root": "-https://www.pcbilliger.de"
+      },
+      "filter": ["/pc-computer/", "/laptop-notebook/", "/tablet-pcs/", "/tft-monitore/", "/smartphone-handy/"],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "listing"}]],
+          ["find_all", ["div", {"class": "product--box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "product--gobutton"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["in den warenkorb"]]
+              ],
+              "price": [
+                ["find", ["div", {"class": "product--price"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "listing--paging"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

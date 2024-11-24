@@ -114,9 +114,8 @@ class TScripter {
     this.TextNumbering();
   }
 
-  _GetFirstUrl(aScript) {
-    const ScriptJ = JSON.parse(aScript);
-    const Urls = Object.values(ScriptJ[this.Name]['info']['urls']);
+  _GetFirstUrl(aScriptJ) {
+    const Urls = Object.values(aScriptJ[this.Name]['info']['urls']);
     for (const xUrl of Urls) {
       if (xUrl && xUrl[0] != '-') {
         return xUrl;
@@ -191,9 +190,12 @@ class TScripter {
   }
 
   ScriptTest() {
+    const Script = this.ElScript.value.trim();
+
     let Url = this.ElUrl.value.trim();
     if (Url == '') {
-      Url = this._GetFirstUrl(this.ElScript.value);
+      const ScriptJ = JSON.parse(Script);
+      Url = this._GetFirstUrl(ScriptJ);
       if (isEmpty(Url)) {
         this.Log('empty url');
         return;
@@ -217,10 +219,10 @@ class TScripter {
 
     this.Log('Sending request...')
     this.ElResult.value = '';
+    //const IsEmul = ScriptJ[this.Name]['info']['reader'] == 'playwright';
 
     // allow redraw
     setTimeout(() => {
-      const Script = this.ElScript.value.trim();
       const res = new TSend().exec(
         '/api/?route=scheme/test',
         {

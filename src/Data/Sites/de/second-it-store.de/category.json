@@ -1,0 +1,60 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 10:43",
+      "url": "https://second-it-store.de",
+      "urls": {
+        "instock": "-https://second-it-store.de/notebook/",
+        "outstock": "https://second-it-store.de/peripherie/",
+        "discount": "",
+        "root": "-https://second-it-store.de"
+      },
+      "filter": [
+        "/notebook/",
+        "/pc/",
+        "/tablet/",
+        "/smartphone/",
+        "/monitor/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "cms-element-product-listing"}]],
+          ["find_all", ["div", {"class": "product-box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["title"]]
+              ],
+              "-stock": [
+              ],
+              "price": [
+                ["find", ["span", {"class": "product-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["li", {"class": "page-item"}]],
+          ["list_map", [
+            ["text_strip"],
+            ["url_format", ["&p={0}"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

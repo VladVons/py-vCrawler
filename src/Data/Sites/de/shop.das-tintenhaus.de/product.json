@@ -1,0 +1,41 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 14:22",
+      "url": "https://shop.das-tintenhaus.de",
+      "urls": {
+        "instock": "-https://shop.das-tintenhaus.de/hardware/gebraucht-refurbished-leasing-ruecklaeufer/laptop-notebook-gebraucht/3943/hp-elitebook-850-g7-intel-10510u-core-i7-4x1.80-ghz-15.6-1920x1080-refurbished-intel-uhd-grap?c=213",
+        "outstock": "",
+        "discount": "https://shop.das-tintenhaus.de/hardware/gebraucht-refurbished-leasing-ruecklaeufer/laptop-notebook-gebraucht/3776/hewlett-packard-hp-17-cn0534ng-intel-1125g4-core-i3-4x2.50-ghz-17.3-zoll-1600x900-intel-uhd-gra?c=214",
+        "category": "-https://shop.das-tintenhaus.de/hardware/?p=1"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "features": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["select", ["td:not([colspan])"]],
+          ["list_map", [
+            ["text_strip"]
+          ]],
+          ["list_group", [2, [0, 1]]],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Hersteller"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

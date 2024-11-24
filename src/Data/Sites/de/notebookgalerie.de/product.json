@@ -1,0 +1,69 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-22 17:38",
+      "url": "https://www.notebookgalerie.de",
+      "urls": {
+        "instock": "https://www.notebookgalerie.de/gebrauchte-business-pcs-hp-prodesk-600-g2-usff-i3-6te.gen.html",
+        "outstock": "",
+        "discount": "-https://www.notebookgalerie.de/pcs-gebraucht-dell-optiplex-3040-sff-i5-6500.html",
+        "category": "-https://www.notebookgalerie.de/pc.html"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find_check", ["h1", {"class": "page-title"}]],
+      ["find", ["div", {"class": "main"}]],
+      ["as_dict", {
+        "brand": [
+          ["find", ["div", {"class": "attribute_overview"}]],
+          ["find_all_text", ["div"], {"a_text": "Hersteller:"}],
+          ["list", [0]],
+          ["find_next", ["div", {"class": "product_page_overview_value_div"}]],
+          ["text_strip"]
+        ],
+        "images": [
+          ["find", ["div", {"class": "gallery-placeholder"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "stock": [
+          ["find", ["button", {"id": "product-addtocart-button"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["in den warenkorb"]]
+        ],
+        "price_old": [
+          ["find", ["span", {"data-price-type": "oldPrice"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "specification"}]],
+          ["table_tag", ["div", {"class": "attributecolumn"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+         "category": [
+          ["find", ["meta", {"property": "product:category"}]],
+          ["get", ["content"]],
+          ["split", [" > ", 0]]
+        ]
+      }]
+    ]
+  }
+}

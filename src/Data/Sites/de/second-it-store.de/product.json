@@ -1,0 +1,40 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 10:43",
+      "url": "https://second-it-store.de",
+      "urls": {
+        "instock": "https://second-it-store.de/apple-macbook-pro-13-inch-touch-2019-intel-core-i7-8569u-2-80ghz-16gb-500gb-nvme-macos-SISSK18806.3",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://second-it-store.de/notebook/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "stock": [
+          ["find_yes", ["button", {"class": "btn-buy"}]]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-detail-description tab-pane-container"}]],
+          ["text_strip"]
+        ],
+        "features": [
+          ["find", ["table", {"class": "product-detail-properties-table"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
