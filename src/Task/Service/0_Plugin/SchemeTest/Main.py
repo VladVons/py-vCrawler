@@ -185,6 +185,8 @@ class TSchemer():
                 File = f'{aType}_{Idx+1}_human.html'
                 self.WriteFile(File, DataP)
 
+
+            Scheme[aType]['info']['url'] = xUrl
             Res = self.TestHtml(Scheme, Data, aType)
             Log.Print(1, 'i', f'Test(). {xUrl}')
             Log.Print(1, 'i', f'{"=" * 100}\n')

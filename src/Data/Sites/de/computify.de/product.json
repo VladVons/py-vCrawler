@@ -1,0 +1,44 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-22 20:13",
+      "url": "https://www.computify.de",
+      "urls": {
+        "instock": "-https://www.computify.de/products/lenovo-thinkcentre-m720q-tiny-i5-8400t-8-gb-256-gb-nvme-ssd-win-11-pro",
+        "outstock": "-https://www.computify.de/products/fujitsu-lifebook-u757-15-6-i3-7100u-8-gb-256-gb-ssd-fhd-win-10-pro",
+        "discount": "-https://www.computify.de/products/dell-latitude-5521-15-6-i5-11500h-16-gb-512-gb-ssd-hd-win-11-pro",
+        "category": "https://www.computify.de/collections/laptops-dell"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["product-gallery", {"class": "product-gallery"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "price_old": [
+          ["find", ["compare-at-price"]],
+          ["contents"],
+          ["list", [-1]],
+          ["price"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find", ["feature-chart", {"class": "feature-chart"}]],
+          ["table_tag", ["div", {"class": "feature-chart__table-row"}]],
+          ["keyval2dict"]
+        ]
+      }]
+    ]
+  }
+}

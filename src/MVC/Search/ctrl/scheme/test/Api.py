@@ -97,6 +97,7 @@ class TMain(TCtrlBase):
             return Script
 
         Type = list(Script.keys())[0]
+        Script[Type]['info']['url'] = aUrl
         BSoup = Util.GetSoup(UrlData['data'])
         Scheme = TScheme(Script)
         Scheme.Parse(BSoup)

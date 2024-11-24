@@ -1,0 +1,54 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 17:05",
+      "url": "https://www.luxnote-hannover.de",
+      "urls": {
+        "instock": "https://www.luxnote-hannover.de/laufwerk-lenovo-thinkpad-t420-t430-t520-t530-dvd-rw-multi-brenner-sata-75y5111.html",
+        "outstock": "",
+        "discount": "-https://www.luxnote-hannover.de/lenovo-thinkpad-t14-gen1-ryzen-7-pro-8-x-1-7-ghz-32gb-512gb-ssd-14-zoll-win11pro-1920-jk8.html",
+        "category": "-https://www.luxnote-hannover.de/notebooks.html"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find_check", ["body", {"itemtype": "http://schema.org/Product"}]],
+      ["find", ["main", {"id": "maincontent"}]],
+      ["as_dict", {
+        "stock": [
+          ["find_yes", ["span", {"class": "in-stock"}]]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "old-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "additional-attributes-wrapper"}]],
+          ["table_tag", ["li"]], 
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Hersteller"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+         "category": [
+          ["find", ["div", {"class": "breadcrumbs1"}]],
+          ["breadcrumb", [["a"], -2]]
+        ]
+      }]
+    ]
+  }
+}

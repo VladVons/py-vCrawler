@@ -1,0 +1,66 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 18:18",
+      "url": "https://gebrauchte-technik.de",
+      "urls": {
+        "instock": "-https://gebrauchte-technik.de/Notebooks/",
+        "outstock": "",
+        "discount": "https://gebrauchte-technik.de/Handys-Tablets/",
+        "root": "-https://gebrauchte-technik.de"
+      },
+      "filter": [
+         "/Handys-Tablets/",
+         "/Notebooks/",
+         "/Computer/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "cms-listing-row"}]],
+          ["find_all", ["div", {"class": "product-box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find_yes", ["button", {"class": "btn-buy"}]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "product-price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["replace", ["*", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "list-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["input", {"title": "pagination"}]],
+          ["list_map", [
+            ["get", ["value"]],
+            ["url_format", ["&p={0}"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

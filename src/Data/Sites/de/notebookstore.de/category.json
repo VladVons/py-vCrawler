@@ -1,0 +1,65 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 16:14",
+      "url": "https://www.notebookstore.de",
+      "urls": {
+        "instock": "https://www.notebookstore.de/Notebooks/",
+        "outstock": "-https://www.notebookstore.de/Refurbished-Notebooks/",
+        "discount": "-https://www.notebookstore.de/Notebooks/",
+        "root": "-https://www.notebookstore.de"
+      },
+      "filter": [
+        "/Refurbished-Notebooks/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "cms-element-product-listing"}]],
+          ["find_all", ["div", {"class": "product-box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["span", {"class": "delivery-status-indicator"}]],
+                ["get", ["class"]],
+                ["list_in", ["bg-success"]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "product-price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "list-price-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["input", {"title": "pagination"}]],
+          ["list_map", [
+            ["get", ["value"]],
+            ["url_format", ["&p={0}"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

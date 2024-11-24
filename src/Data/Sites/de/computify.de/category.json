@@ -1,0 +1,62 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-22 20:13",
+      "url": "https://www.computify.de",
+      "urls": {
+        "instock": "https://www.computify.de/collections/laptops-dell",
+        "outstock": "-https://www.computify.de/collections/laptops-dell",
+        "discount": "-https://www.computify.de/collections/laptops-dell",
+        "root": "-https://www.computify.de"
+      },
+      "filter": ["/collections/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["facet-sort-by", {"class": "sort-by-facet"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["product-list", {"class": "product-list"}]],
+          ["find_all", ["product-card", {"class": "product-card"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["span", {"class": "product-card__title"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["span", {"class": "product-card__title"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find_yes", ["sold-out-badge", {"class": "badge--sold-out"}]],
+                ["invert"]
+              ],
+             "price": [
+                ["find", ["sale-price"]],
+                ["contents"],
+                ["list", [-1]],
+                ["split", [" ", -1]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["compare-at-price"]],
+                ["contents"],
+                ["list", [-1]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

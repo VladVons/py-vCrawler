@@ -1,0 +1,34 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-22 10:40",
+      "url": "https://preiswertepc.de",
+      "urls": {
+        "instock": "https://preiswertepc.de/pc/",
+        "outstock": "-https://preiswertepc.de/pc/",
+        "discount": "",
+        "root": "-https://preiswertepc.de"
+      },
+      "filter": ["/gaming/", "/phones_amp_tablets/", "/notebooks/", "/monitore/", "/zubehoer/"],
+      "comment": "",
+      "reader": "playwright"
+    },
+    "-pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["section", {"class": "es-articlelist"}]],
+          ["find_all", ["article", {"class": "es-articlelist-tile"}]],
+          ["list_map", [
+            ["as_dict", {
+            }]
+          ]]
+       ],
+       "-pager": [
+        ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -3,20 +3,83 @@
     "head": ["enable", "dir", "url", "type", "category", "note"],
     "data": [
       [
-        1,
+        0,
         "gekko-computer.de",
         "https://www.gekko-computer.de",
         ["product", "category"],
-        ["/c/Server", "/c/Workstations", "/c/Storage", "/c/Netzwerk"],
+        [
+          "/c/Server", 
+          "/c/Workstations", 
+          "/c/Storage", 
+          "/c/Netzwerk"
+        ],
         ""
       ],
       [
         0,
-        "frogtech.pl",
-        "https://frogtech.pl",
+        "computify.de",
+        "https://www.computify.de",
         ["product", "category"],
         [
-          "/kategoria-produktu/serwery/"
+          "/collections/laptops-dell",
+          "/collections/laptops-hp",
+          "/collections/laptops-lenovo",
+          "/collections/laptops-apple",
+          "/collections/laptops-microsoft",
+          "/collections/gebrauchte-tablets",
+          "/collections/gebrauchte-smartphones",
+          "/collections/macs-apple",
+          "/collections/pcs-dell",
+          "/collections/pcs-hp",
+          "/collections/pcs-lenovo"
+        ],
+        ""
+      ],
+      [
+        -1,
+        "preiswertepc.de",
+        "https://preiswertepc.de",
+        ["-product", "category"],
+        [],
+        ""
+      ],
+      [
+        0,
+        "notebookstore.de",
+        "https://www.notebookstore.de",
+        ["product", "category"],
+        ["/Refurbished-Notebooks/"],
+        ""
+      ],
+      [
+        0,
+        "gebrauchte-technik.de",
+        "https://gebrauchte-technik.de",
+        ["product", "category"],
+        [
+          "/Handys-Tablets/",
+          "/Notebooks/",
+          "/Computer/"
+        ],
+        ""
+      ],
+      [
+        0,
+        "luxnote-hannover.de",
+        "https://www.luxnote-hannover.de",
+        ["-product", "category"],
+        ["/notebooks.html"],
+        ""
+      ],
+      [
+        1,
+        "uli-ludwig.de",
+        "https://www.uli-ludwig.de",
+        ["product", "category"],
+        [
+          "/Workstations-CAD-Videoschnitt",
+          "/Notebooks-CAD-Videoschnitt",
+          "/Monitore"
         ],
         ""
       ]

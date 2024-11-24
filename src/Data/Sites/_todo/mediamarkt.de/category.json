@@ -1,0 +1,32 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 09:44",
+      "url": "https://www.mediamarkt.de",
+      "urls": {
+        "instock": "https://www.mediamarkt.de/de/promo-list/refurbished_computer",
+        "outstock": "",
+        "discount": "-https://www.mediamarkt.de/de/promo-list/refurbished_computer",
+        "root": "-https://www.mediamarkt.de"
+      },
+      "filter": [
+         "/refurbished_smartphones/",
+         "/refurbished_computer/",
+         "/refurbished_smartwatches/",
+         "/refurbished_haushaltsgroßgeräte/",
+         "/refurbished_computer/"
+      ],
+      "comment": "captcha",
+      "reader": "playwright"
+    },
+    "-pipe": [
+      ["as_dict", {
+        "-products": [
+       ],
+       "-pager": [
+       ]
+      }]
+    ]
+  }
+}

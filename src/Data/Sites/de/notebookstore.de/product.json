@@ -1,0 +1,43 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 16:14",
+      "url": "https://www.notebookstore.de",
+      "urls": {
+        "instock": "-https://www.notebookstore.de/Lenovo-Campus-ThinkPad-X1-2-in-1-Gen-9-21KE002KGE",
+        "outstock": "-https://www.notebookstore.de/Lenovo-Campus-ThinkPad-X12-Detachable-Gen-2-21LK001AGE",
+        "discount": "-https://www.notebookstore.de/Lenovo-ThinkPad-E14-Gen-6-AMD-21M3002SGE",
+        "category": "-https://www.notebookstore.de/Notebooks/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["span", {"class": "list-price-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["span", {"class": "delivery-status-indicator"}]],
+          ["get", ["class"]],
+          ["list_in", ["bg-success"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-detail-properties"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

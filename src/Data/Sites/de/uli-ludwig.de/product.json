@@ -1,0 +1,50 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 15:34",
+      "url": "https://www.uli-ludwig.de",
+      "urls": {
+        "instock": "https://www.uli-ludwig.de/Dell-Precision-5820-Workstation-Intel-Xeon-8-Core-W-2145-450-GHz-32-GB-RAM-1-TB-M2-NVMe-SSD-Quadro-RTX-A2000-6GB-NEU-WIN-10-Pro",
+        "outstock": "-https://www.uli-ludwig.de/HP-Z2-G5-Workstation-Intel-6-Core-Xeon-W-1250P-max-480Ghz-32GB-RAM-1TB-M2-SSD-Nvidia-Quadro-P2200-5GB-Intel-Wi-Fi-6-AX201-WIN-10-Pro",
+        "discount": "-https://www.uli-ludwig.de/Dell-Precision-7820-Workstation-2x10-Core-Intel-Xeon-Silver-4210R-max-320GHz-256GB-RAM-1TB-M2-SSD-Nvidia-Quadro-RTX-4000-8GB-WIN-10-Pro",
+        "category": "-https://www.uli-ludwig.de/Workstations-CAD-Videoschnitt"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "old-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "desc"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "brand": [
+          ["var_get", ["$features"]],
+          ["get", ["Hersteller"]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["as_dict", {
+         "category": [
+          ["find", ["ol", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], 0]]
+        ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 15:34",
+      "url": "https://www.uli-ludwig.de",
+      "urls": {
+        "instock": "https://www.uli-ludwig.de/Workstations-CAD-Videoschnitt",
+        "outstock": "-https://www.uli-ludwig.de/Workstations-CAD-Videoschnitt",
+        "discount": "-https://www.uli-ludwig.de/Workstations-CAD-Videoschnitt",
+        "root": "-https://www.uli-ludwig.de"
+      },
+      "filter": [
+        "/Workstations-CAD-Videoschnitt",
+        "/Notebooks-CAD-Videoschnitt",
+        "/Monitore"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"itemtype": "https://schema.org/ItemList"}]],
+          ["find_all", ["div", {"itemtype": "https://schema.org/Product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"class": "productbox-title"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"class": "productbox-title"}]],
+                ["find", ["span", {"itemprop": "name"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find", ["link", {"itemprop": "availability"}]],
+                ["get", ["href"]],
+                ["search_in", ["InStock"]]
+              ],
+              "price": [
+                ["find", ["span", {"itemtype": "https://schema.org/UnitPriceSpecification"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["div", {"class": "old-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

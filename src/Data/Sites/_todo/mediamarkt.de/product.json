@@ -1,0 +1,79 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 09:44",
+      "url": "https://www.mediamarkt.de",
+      "urls": {
+        "instock": "https://www.mediamarkt.de/de/product/_apple-ipad-wi-fi-128gb-space-grey-2018-tablet-128-gb-97-zoll-space-grey-134047624.html",
+        "outstock": "",
+        "discount": "https://www.mediamarkt.de/de/product/_apple-ipad-mini-wf-cl-64-slv-frd-tablet-64-gb-79-zoll-silber-134047455.html",
+        "category": "https://www.mediamarkt.de/de/list/notebooks-pc-tablets-black-friday"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"data-test": "mms-select-details-header"}]],
+      ["product_ldjson"] 
+    ],
+    "pipe_product": [
+      ["find_check", ["div", {"data-test": "mms-select-details-header"}]],
+      ["find", ["main", {"id": "main-content"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["div", {"data-test": "mms-select-details-header"}]],
+          ["find", ["h1"]], 
+          ["text_strip"]
+        ],
+        "brand": [
+          ["find", ["div", {"data-test": "mms-select-details-header"}]],
+          ["find_all", ["p"]],
+          ["list", [-1]],
+          ["text_strip"]
+        ],
+        "stock": [
+          ["find_yes", ["button", {"id": "pdp-add-to-cart-button"}]]
+        ],
+        "images": [
+          ["find", ["div", {"data-test": "mms-pdp-gallery"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "price": [
+          ["find", ["span", {"data-test": "branded-price-whole-value"}]],
+          ["find_parent", ["div"]],
+          ["next_sibling"],
+          ["text_strip"],
+          ["price"]
+        ],
+        "price_old": [
+          ["find_or", [
+            ["p", {"data-test": "mms-strike-price-type-lop"}],
+            ["p", {"data-test": "mms-strike-price-type-rrp"}]
+          ]],
+          ["find_all", ["span"]],
+          ["list", [-1]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"id": "description-content"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "features-content"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["nav", {"data-test": "mms-breadcrumb-v2-ul"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
+

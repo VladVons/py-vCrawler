@@ -1,0 +1,65 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 17:05",
+      "url": "https://www.luxnote-hannover.de",
+      "urls": {
+        "instock": "https://www.luxnote-hannover.de/notebooks.html",
+        "outstock": "",
+        "discount": "-https://www.luxnote-hannover.de/notebooks.html",
+        "root": "-https://www.luxnote-hannover.de"
+      },
+      "filter": [
+        "/notebooks.html"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ol", {"class": "products"}]],
+          ["find_all", ["li", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"class": "cate-title"}]],
+                ["find", ["a", {"class": "product-item-link"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"class": "cate-title"}]],
+                ["find", ["a", {"class": "product-item-link"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["button", {"class": "tocart"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["in den warenkorb"]]
+              ],
+              "price": [
+                ["find_or", [
+                  ["span", {"class": "special-price"}],
+                  ["span", {"class": "regular_price"}]
+                ]], 
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "old-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pages-items"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

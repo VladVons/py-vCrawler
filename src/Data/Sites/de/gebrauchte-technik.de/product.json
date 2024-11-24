@@ -1,0 +1,47 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-23 18:18",
+      "url": "https://gebrauchte-technik.de",
+      "urls": {
+        "instock": "https://gebrauchte-technik.de/Apple-MacBook-Pro-13-2018-15-2-A1989-i7-8559U-16GB-512GB-QWERTZ-DE-silver-sehr-gut/M014486",
+        "outstock": "",
+        "discount": "-https://gebrauchte-technik.de/Apple-iPhone-XR-128GB-black-Smartphone-ohne-Simlock-gut/M013222",
+        "category": ""
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["span", {"class": "list-price-price"}]],
+          ["text_strip"],
+          ["replace", ["*", ""]],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"class": "product-detail-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-detail-description"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+        "category": [
+          ["var_get", ["$features"]],
+          ["get", ["Geräteart"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

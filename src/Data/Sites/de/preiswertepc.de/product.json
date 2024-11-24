@@ -1,0 +1,44 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-22 10:40",
+      "url": "https://preiswertepc.de",
+      "urls": {
+        "instock": "https://preiswertepc.de/pc/lenovo-thinkcentre-m720q-intel-core-i5-8400t-8gb-ram-256gb-ssd-win11-pro-g-data.html?is_variant_main=yes",
+        "outstock": "-https://preiswertepc.de/eshop.php?eslink=1&action=article_detail&s_supplier_id=1002&s_supplier_aid=621981&is_variant_main=yes",
+        "discount": "",
+        "category": "-https://preiswertepc.de/pc/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"class": "es-article-detail-ref-inner-content-box"}]],
+          ["text_strip"]
+        ],
+        "features": [
+          ["find", ["table", {"class": "es-article-detail-features-table"}]],
+          ["table"],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["get", ["data-es-analytics"]],
+          ["text_to_json"],
+          ["gets", ["products"]],
+          ["list", [0]],
+          ["gets", ["category"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
