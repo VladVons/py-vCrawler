@@ -1,0 +1,43 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 14:46",
+      "url": "https://www.pollin.de",
+      "urls": {
+        "instock": "-https://www.pollin.de/p/fujitsu-notebook-lifebook-e449-intel-i3-8gb-ram-35-5-cm-14-256gb-ssd-win11p-gebraucht-751961",
+        "outstock": "https://www.pollin.de/p/hp-notebook-elitebook-830-g7-33-78cm-13-3-full-hd-intel-core-i5-10310u-16-gb-ddr4-sdram-752496",
+        "discount": "-https://www.pollin.de/p/fujitsu-notebook-lifebook-u727-31-75-cm-12-5-8gb-256gb-win10pro-gebraucht-752262",
+        "category": "-https://www.pollin.de/computer-telefon/notebook-tablet/notebooks/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["span", {"class": "list-price-price"}]],
+          ["text_strip"],
+          ["replace", ["*", ""]],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["text_strip"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-detail-properties"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

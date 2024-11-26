@@ -1,0 +1,66 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 12:43",
+      "url": "https://www.voelkner.de",
+      "urls": {
+        "instock": "https://www.voelkner.de/categories/13140_13195_17312/Computer-Buero/Notebook/Workstation-Laptops.html",
+        "outstock": "-https://www.voelkner.de/categories/13140_13195_17312/Computer-Buero/Notebook/Workstation-Laptops.html",
+        "discount": "-https://www.voelkner.de/categories/13150_13268/Freizeit-Hobby/Sale.html",
+        "root": "-https://www.voelkner.de"
+      },
+      "filter": [
+        "/categories/13140_101729_101730/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-PC-Monitore.html",
+        "/categories/13140_101729_101732/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Drucker.html",
+        "/categories/13140_101729_101733/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Tablets.html",
+        "/categories/13140_101729_101734/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Laptops.html",
+        "/categories/13140_101729_101735/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Netzwerk.html",
+        "/categories/13140_101729_101737/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Laptop-Dockingstations-Port.html",
+        "/categories/13140_101729_101743/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Server.html",
+        "/categories/13140_101729_101746/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Smartphones.html",
+        "/categories/13140_101729_101747/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-PCs.html",
+        "/categories/13140_101729_101771/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Werables.html"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "js_search_listing_results"}]],
+          ["find_all", ["div", {"class": "product_row"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product__title"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product__title"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find", ["link", {"itemprop": "availability"}]],
+                ["get", ["href"]],
+                ["search_start", ["http://schema.org/InStock"]]
+              ],
+              "price": [
+                ["find", ["span", {"itemprop": "price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"id": "js_search_pagination_bottom"}]],
+          ["find_all_get_url", ["button"], {"a_get": "data-next-page"}],
+          ["list_map", [
+            ["urlquery_filter", ["page"]]
+          ]]
+        ]
+      }]
+    ]
+  }
+}

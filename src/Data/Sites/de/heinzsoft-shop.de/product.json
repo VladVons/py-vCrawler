@@ -1,0 +1,61 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-22 19:09",
+      "url": "https://www.heinzsoft-shop.de",
+      "urls": {
+        "instock": "https://www.heinzsoft-shop.de/lenovo-10w-tablet-8snapdragon-7c-gen2-4-gb-ram-emmc-64-gb-refurbished.html",
+        "outstock": "",
+        "discount": "-https://www.heinzsoft-shop.de/lenovo-v15-g4-amn-39-6-cm-15-6-ry-213686.html",
+        "category": "-https://www.heinzsoft-shop.de/laptop-kaufen/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product-info"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-info"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["span", {"class": "productOldPrice"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-info-description"}]],
+          ["check_or", [
+            [
+              ["find_all", ["div", {"class": "feature_group"}]],
+              ["list_map", [
+                ["table_tag", ["div"]],
+                ["list", [0]]
+              ]],
+              ["keyval2dict"]
+            ],
+            [
+              ["find_all", ["li"]],
+              ["list_map", [
+                ["text_strip"],
+                ["split", [":"]]
+              ]],
+              ["list_filter_len", [2]],
+              ["keyval2dict"]
+            ]
+          ]]
+        ]
+    }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+        "category": [
+          ["find", ["div", {"id": "breadcrumb_navi"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}
+

@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 13:38",
+      "url": "https://it-mixx.de",
+      "urls": {
+        "instock": "https://it-mixx.de/HPE-ProLiant-Micro-Server-Gen10-AMD-X3216-8GB-8TB-TPS-F022",
+        "test2": "-https://it-mixx.de/Dell-Latitude-5310-Core-i5-1031U-16GB-256GB-M2-SSD-FHD-Multitouch-W11-Pro",
+        "outstock": "",
+        "discount": "https://it-mixx.de/Lenovo-IdeaPad-3-14ADA05-Amd-Athlon-Silver-3050U-23GHZ-8GB-256GB-141920-x1080-W11",
+        "category": "https://it-mixx.de/gebrauchte-notebooks"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"id": "product-offer"}]],
+      ["product_itemprop", [1]]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "price-note"}]],
+          ["find", ["div"]], 
+          ["text_strip"],
+          ["split", [":", -1]], 
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

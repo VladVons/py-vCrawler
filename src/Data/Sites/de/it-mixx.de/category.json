@@ -1,0 +1,72 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 13:38",
+      "url": "https://it-mixx.de",
+      "urls": {
+        "instock": "-https://it-mixx.de/gebrauchte-notebooks",
+        "outstock": "",
+        "discount": "",
+        "root": "https://it-mixx.de"
+      },
+      "filter": [
+        "/apple-macbooks-und-imac",
+        "/gebrauchte-computer-dell",
+        "/gebrauchte-hp-computer",
+        "/gebrauchte-notebooks",
+        "/gebrauchte-monitors",
+        "/samsung-handys"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "product-list"}]],
+          ["find_all", ["div", {"itemtype": "https://schema.org/Product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"itemprop": "name"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"itemprop": "name"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "signal_image"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["sofort verfügbar", "knapper lagerbestand"]]
+              ],
+              "price": [
+                ["find", ["div", {"class": "productbox-price"}]],
+                ["check_or", [
+                  [
+                    ["find", ["span", {"class": "first-range-price"}]],
+                    ["text_strip"],
+                    ["replace", ["-", ""]]
+                  ],
+                  [
+                    ["find", ["span"]],
+                    ["text_strip"],
+                    ["replace", ["*", ""]]
+                  ]
+                ]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

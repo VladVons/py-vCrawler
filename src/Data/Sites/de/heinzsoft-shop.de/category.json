@@ -1,0 +1,58 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-22 19:09",
+      "url": "https://www.heinzsoft-shop.de",
+      "urls": {
+        "instock": "https://www.heinzsoft-shop.de/laptop-kaufen/",
+        "outstock": "",
+        "discount": "-https://www.heinzsoft-shop.de/laptop-kaufen/",
+        "root": "https://www.heinzsoft-shop.de"
+      },    
+      "filter": ["/Guenstige-Gebrauchte/"],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "productlisting-filter-container"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "productlist"}]],
+          ["find_all", ["form", {"class": "product-tile"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"class": "title"}]],
+                ["find", ["a", {"class": "product-url"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"class": "title"}]],
+                ["find", ["a", {"class": "product-url"}]],
+                ["get", ["title"]]
+              ],
+              "-stock": [],
+              "price": [
+                ["find", ["span", {"class": "current-price-container"}]],
+                ["contents"],
+                ["list", [-1]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "productOldPrice"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

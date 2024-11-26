@@ -19,7 +19,7 @@
         0,
         "computify.de",
         "https://www.computify.de",
-        ["product", "category"],
+        ["product", "-category"],
         [
           "/collections/laptops-dell",
           "/collections/laptops-hp",
@@ -156,7 +156,7 @@
         ""
       ],
       [
-        1,
+        0,
         "notebook-pro.de",
         "https://notebook-pro.de",
         ["product", "category"],
@@ -166,6 +166,103 @@
           "/collections/hp-refurbished-elitebooks-probooks",
           "/collections/lenovo-thinkpads",
           "/collections/refurbished-asus-notebooks"
+        ],
+        ""
+      ],
+      [
+        0,
+        "pollin.de",
+        "https://www.pollin.de",
+        ["product", "category"],
+        ["/refurbished/"],
+        ""
+      ],
+      [
+        0,
+        "voelkner.de",
+        "https://www.voelkner.de",
+        ["product", "category"],
+        [
+          "/categories/13140_13195_17312/Computer-Buero/Notebook/Workstation-Laptops.html",
+          "/13140_13195_13545/Computer-Buero/Notebook/Refurbished-B-Ware-Laptops.html",
+          "/categories/13140_13195_13462/Computer-Buero/Notebook/Laptops-Ultrabooks.html",
+          "/categories/13140_101729_101730/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-PC-Monitore.html",
+          "/categories/13140_101729_101732/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Drucker.html",
+          "/categories/13140_101729_101733/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Tablets.html",
+          "/categories/13140_101729_101734/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Laptops.html",
+          "/categories/13140_101729_101735/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Netzwerk.html",
+          "/categories/13140_101729_101737/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Laptop-Dockingstations-Port.html",
+          "/categories/13140_101729_101743/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Server.html",
+          "/categories/13140_101729_101746/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Smartphones.html",
+          "/categories/13140_101729_101747/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-PCs.html",
+          "/categories/13140_101729_101771/Computer-Buero/Refurbished-B-Ware/Refurbished-B-Ware-Werables.html"
+        ],
+        ""
+      ],
+      [
+        0,
+        "computershopfrankfurt.de",
+        "https://computershopfrankfurt.de",
+        ["product", "category"],
+        ["/Notebooks", "/PC", "/Smartphones"],
+        ""
+      ],
+      [
+        0,
+        "heinzsoft-shop.de",
+        "https://www.heinzsoft-shop.de",
+        ["product", "category"],
+        ["/Guenstige-Gebrauchte/"],
+        ""
+      ],
+      [
+        0,
+        "itsco.de",
+        "https://www.itsco.de",
+        ["product", "category"],
+        [
+          "/notebooks",
+          "/computer",
+          "/tablets",
+          "/smartphones",
+          "/monitore",
+          "/workstation",
+          "/mini-pcs",
+          "/drucker"
+        ],
+        ""
+      ],
+      [
+        0,
+        "kmcomputer.de",
+        "https://www.kmcomputer.de",
+        ["-product", "category"],
+        [
+          "/computer-notebooks/refurbished-notebooks/"
+        ],
+        ""
+      ],
+      [
+        0,
+        "it-mixx.de",
+        "https://it-mixx.de",
+        ["product", "category"],
+        [
+          "/apple-macbooks-und-imac",
+          "/gebrauchte-computer-dell",
+          "/gebrauchte-hp-computer",
+          "/gebrauchte-notebooks",
+          "/gebrauchte-monitors",
+          "/samsung-handys"
+         ],
+        ""
+      ],
+      [
+        1,
+        "janado.de",
+        "https://www.janado.de",
+        ["product", "-category"],
+        [
         ],
         ""
       ]

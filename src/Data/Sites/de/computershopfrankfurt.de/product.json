@@ -1,0 +1,46 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 17:09",
+      "url": "https://computershopfrankfurt.de",
+      "urls": {
+        "instock": "https://computershopfrankfurt.de/Apple-Macbook-Pro-13-2019-Intel-Core-i58GB-Ram128GB-SSD",
+        "outstock": "-https://computershopfrankfurt.de/Dell-Latitude-5400Intel-Core-i5-8365U8GB-Ram256GB-SSDFHDW11Pro",
+        "discount": "-https://computershopfrankfurt.de/Dell-Latitude-5400Intel-Core-i5-8365U8GB-Ram256GB-SSDFHDW11Pro",
+        "category": "-https://computershopfrankfurt.de/Notebooks"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop", [1]]
+    ],
+    "pipe_product": [
+      ["find_check", ["h1", {"itemprop": "name"}]],
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "price-note"}]],
+          ["find", ["div"]],
+          ["text_strip"],
+          ["split", [": ", -1]],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-attributes"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["h1", {"itemprop": "name"}]],
+      ["as_dict", {
+        "description": [
+          ["find", ["meta", {"property": "og:description"}]],
+          ["get", ["content"]]
+        ]
+      }]
+    ]
+  }
+}

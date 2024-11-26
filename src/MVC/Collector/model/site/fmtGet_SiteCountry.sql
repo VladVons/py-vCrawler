@@ -13,8 +13,8 @@ with wt1 as (
     ref_site rs on
     rs.id = ru.site_id
   left join
-  	ref_product rp on
-  	rp.url_id = ru.id
+    ref_product rp on
+    rp.url_id = ru.id
   where
     rs.country_id = {{aCountryId}}
   group by
@@ -26,7 +26,8 @@ select
   regexp_replace(rs.url, 'https?://(www\.)?([^/]+).*', '\2') as host,
   wt1.products,
   wt1.onstock,
-  wt1.discount
+  wt1.discount,
+  (select count(*) from ref_site_category where site_id = rs.id) as categories
 from
   ref_site rs
 left join wt1 on

@@ -1,0 +1,72 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-26 13:56",
+      "url": "https://www.janado.de",
+      "urls": {
+        "instock": "https://www.janado.de/products/galaxy-book-2go-14-2023-flhd-snapdragon-7c-g-3-4-128gb-np345xna-ka1de-qwertz",
+        "outstock": "",
+        "discount": "-https://www.janado.de/products/12-5g-dual-sim",
+        "category": "-https://www.janado.de/collections/notebooks"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product"}]],
+      ["product_ldjson"]
+    ],
+    "-pipe_product": [
+      ["find", ["div", {"class": "product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["flickity-carousel", {"class": "product__media-list"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "stock": [
+          ["find", ["button", {"id": "AddToCart"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_in", ["in den warenkorb"]]
+         ],
+        "price": [
+          ["find", ["span", {"class": "price--large"}]],
+          ["contents"],
+          ["list", [-1]],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "price--compare"}]],
+          ["contents"],
+          ["list", [-1]],
+          ["price"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+        "features": [
+          ["find_all_text", ["button"], {"a_text": "Technische Daten"}],
+          ["list", [-1]],
+          ["find_parent", ["div", {"class": "product-tabs__tab-item-wrapper"}]],
+          ["find", ["div", {"class": "product-tabs__tab-item-content"}]],
+          ["select", ["strong:not(span strong):has(+ span), span.visible"]], 
+          ["list_map", [
+            ["text_strip"]
+          ]], 
+          ["list_group", [2, [0, 1]]],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["script", {"class": "analytics"}]],
+          ["text_strip"],
+          ["split", ["Viewed Product\",", -1]],
+          ["split", [");", 0]],
+          ["text_to_json"],
+          ["get", ["category"]]
+        ]
+      }]
+    ]
+  }
+}
+

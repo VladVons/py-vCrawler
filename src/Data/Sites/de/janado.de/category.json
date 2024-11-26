@@ -1,0 +1,65 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-26 13:56",
+      "url": "https://www.janado.de",
+      "urls": {
+        "instock": "https://www.janado.de/collections/notebooks",
+        "outstock": "",
+        "discount": "-https://www.janado.de/collections/notebooks",
+        "root": "-https://www.janado.de"
+      },
+      "filter": [
+        "/collections/smartphones",
+        "/collections/tablets",
+        "/collections/smartwatches",
+        "/collections/notebooks"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "product-facet__meta-bar"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["product-list", {"class": "product-list"}]],
+          ["find_all", ["product-item", {"class": "product-item"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product-item-meta__title"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product-item-meta__title"}]],
+                ["text_strip"]
+               ],
+              "-stock": [
+              ],
+              "price": [
+                ["find", ["div", {"class": "price-list"}]],
+                ["find_all", ["span", {"class": "price"}]],
+                ["list", [0]],
+                ["contents"],
+                ["list", [2]],
+                ["replace", ["Ab", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "price--compare"}]],
+                ["contents"],
+                ["list", [-1]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["nav", {"class": "pagination__nav"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

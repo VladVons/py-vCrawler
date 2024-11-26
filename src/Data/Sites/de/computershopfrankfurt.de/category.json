@@ -1,0 +1,63 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 17:09",
+      "url": "https://computershopfrankfurt.de",
+      "urls": {
+        "instock": "https://computershopfrankfurt.de/Notebooks",
+        "outstock": "-https://computershopfrankfurt.de/Notebooks",
+        "discount": "-https://computershopfrankfurt.de/Notebooks",
+        "root": "https://computershopfrankfurt.de"
+      },
+      "filter": ["/Notebooks", "/PC"],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "filter-type-FilterItemSort"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"itemtype": "https://schema.org/ItemList"}]],
+          ["find_all", ["div", {"itemtype": "https://schema.org/Product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"itemprop": "name"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"itemprop": "name"}]],
+                ["text_strip"]
+               ],
+              "stock": [
+                ["find", ["div", {"class": "ribbon"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["ausverkauft"]],
+                ["invert"]
+              ],
+              "price": [
+                ["find", ["div", {"class": "price"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["div", {"class": "old-price"}]],
+                ["find", ["del", {"class": "value"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 12:43",
+      "url": "https://www.voelkner.de",
+      "urls": {
+        "instock": "-https://www.voelkner.de/products/11024881/GEEKOM-Mini-PC-XT13-Pro-Intel-Core-i7-i7-13620H-32GB-RAM-1TB-SSD-Intel-UHD-Graphics-Win-11-Pro-XT13-Pro.html?offer=85800c4c9b983375e34c61f6dc546bdb",
+        "outstock": "https://www.voelkner.de/products/9518703/GEEKOM-Mini-PC-MiniAir-12-Intel-Processor-N100-Alder-Lake-N-16GB-RAM-512GB-SSD-Intel-UHD-Graphics-MiniAir-12.html?offer=77b8b0a54d3961b517cb57bd8881889c",
+        "discount": "-https://www.voelkner.de/products/10388865/Lenovo-Notebook-V15-G4-39.6cm-15.6-Zoll-Full-HD-AMD-Ryzen-5-7520U-8GB-RAM-512GB-SSD-AMD-Radeon-Graphics-610-Win-11-Home-Schwa.html?itm_source=shop&itm_medium=swiper__container--topseller_slider&itm_campaign=10388865",
+        "category": "-https://www.voelkner.de/categories/13140_13206_13278_14022/Computer-Buero/PC/Computer/PC-Systeme.html"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["find", ["div", {"class": "product_media"}]],
+          ["find_all_get_url", ["img"], {"a_get": "data-zoom"}]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "product__shipping__availability"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_in", ["auf lager", "solange vorrat reicht"]]
+        ],
+        "description": [
+          ["find_all_text", ["h2"], {"a_text": "Produktbeschreibung"}],
+          ["list", [0]],
+          ["find_parent", ["li"]],
+          ["find", ["div", {"class": "accordion__item__content"}]],
+          ["-replace_br"],
+          ["get_text", ["\n", true]],
+          ["-text_strip"]
+        ],
+        "features": [
+          ["find_all_text", ["h3"], {"a_text": "Überblick"}],
+          ["list", [0]],
+          ["find_next", ["p"]],
+          ["contents"],
+          ["list_map", [
+            ["split", [":"]]
+          ]],
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

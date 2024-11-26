@@ -1,0 +1,67 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 10:22",
+      "url": "https://www.itsco.de",
+      "urls": {
+        "instock": "https://www.itsco.de/computer",
+        "outstock": "",
+        "discount": "",
+        "root": "https://www.itsco.de"
+      },
+      "filter": [
+        "/notebooks",
+        "/computer",
+        "/tablets",
+        "/smartphones",
+        "/monitore",
+        "/workstation",
+        "/mini-pcs",
+        "/drucker"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"data-id": "Articles"}]],
+          ["find_all", ["div", {"class": "article-listitem"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"class": "title_small"}]],
+                ["find", ["a"]], 
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"class": "title_small"}]],
+                ["find", ["a"]], 
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find", ["link", {"itemprop": "availability"}]],
+                ["get", ["href"]],
+                ["search_start", ["http://schema.org/InStock"]]
+              ],
+              "price": [
+                ["find", ["span", {"itemprop": "price"}]],
+                ["find_parent", ["span", {"class": "price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get", ["li"], {"a_get": "data-page"}],
+          ["list_map", [
+            ["url_format", ["&Page={0}"]]
+          ]]
+       ]
+      }]
+    ]
+  }
+}

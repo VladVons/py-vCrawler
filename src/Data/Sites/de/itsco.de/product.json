@@ -1,0 +1,55 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 10:22",
+      "url": "https://www.itsco.de",
+      "urls": {
+        "instock": "https://www.itsco.de/thin-client-lenovo-thinkcentre-m625q-amd-7th-gen-e2-9000e-2x-1-5ghz-28581.html",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://www.itsco.de/computer"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["h1", {"itemprop": "name"}]],
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"itemprop": "name"}]],
+          ["text_strip"]
+        ],
+        "images": [
+          ["find", ["div", {"id": "carousel-article-details-images"}]],
+          ["find_all_get_url", ["a", {"data-id": "GalleryItem"}], {"a_get": "href"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["h1", {"itemprop": "name"}]],
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"id": "desc"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "desc"}]],
+          ["table_tag_pair", [["label", "span"]]],
+          ["keyval2dict"]
+        ],
+         "category": [
+          ["find", ["ul", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

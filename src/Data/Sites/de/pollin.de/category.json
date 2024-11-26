@@ -1,0 +1,62 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-24 14:46",
+      "url": "https://www.pollin.de",
+      "urls": {
+        "instock": "https://www.pollin.de/computer-telefon/notebook-tablet/",
+        "outstock": "-https://www.pollin.de/computer-telefon/notebook-tablet/notebooks/",
+        "discount": "-https://www.pollin.de/computer-telefon/notebook-tablet/notebooks/",
+        "root": "-https://www.pollin.de"
+      },
+      "filter": ["/refurbished/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "cms-listing-row"}]],
+          ["find_all", ["div", {"class": "product-box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["link", {"itemprop": "availability"}]],
+                ["get", ["href"]],
+                ["search_start", ["http://schema.org/InStock"]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "product-price"}]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "list-price-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get", ["input"], {"a_get": "value"}],
+          ["list_uniq"],
+          ["list_map", [
+            ["url_format", ["&p={0}"]]
+          ]]
+       ]
+      }]
+    ]
+  }
+}

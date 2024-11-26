@@ -1,0 +1,59 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 17:01",
+      "url": "https://www.kmcomputer.de",
+      "urls": {
+        "instock": "https://www.kmcomputer.de/computer-notebooks/refurbished-notebooks/",
+        "outstock": "-https://www.kmcomputer.de/computer-notebooks/refurbished-notebooks/",
+        "discount": "-https://www.kmcomputer.de/computer-notebooks/chromebook/",
+        "root": "-https://www.kmcomputer.de"
+      },
+      "filter": [
+        "/computer-notebooks/refurbished-notebooks/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "listing"}]],
+          ["find_all", ["div", {"class": "product--box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["link", {"itemprop": "availability"}]],
+                ["get", ["href"]],
+                ["search_start", ["http://schema.org/InStock"]]
+              ],
+              "price": [
+                ["find_or", [
+                  ["span", {"class": "liveshopping--price"}],
+                  ["span", {"class": "pricelayer"}]
+                ]], 
+                ["remove", ["sup"]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["-price", [0]]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "listing--paging"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}
