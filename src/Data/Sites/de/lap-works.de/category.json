@@ -1,0 +1,68 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-28 12:40",
+      "url": "https://lap-works.de",
+      "urls": {
+        "instock": "https://lap-works.de/Laptops/",
+        "outstock": "-https://lap-works.de/Laptops/",
+        "discount": "-https://lap-works.de/Laptops/",
+        "root": "-https://lap-works.de"
+      },
+      "filter": [
+        "/Laptops/",
+        "/PCs-Workstations/",
+        "/Monitore/"
+      ], 
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "cms-element-product-listing"}]],
+          ["find_all", ["div", {"class": "product-box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find_yes", ["button", {"class": "btn-buy"}]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "product-price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["replace", ["*", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "list-price-price"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["input", {"title": "pagination"}]],
+          ["list_map", [
+            ["get", ["value"]],
+            ["url_format", ["&p={0}"]]
+          ]],
+          ["list_uniq"]
+       ]
+
+      }]
+    ]
+  }
+}

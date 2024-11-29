@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-28 12:40",
+      "url": "https://lap-works.de",
+      "urls": {
+        "instock": "-https://lap-works.de/HP-EliteBook-830-G8-i5-1145G7-13-3-FHD-16GB-256GB-Win-11-Pro-Sehr-gut-refurbished/LW11942",
+        "outstock": "-https://lap-works.de/HP-EliteBook-645-G9-AMD-Ryzen-7-5875U-14-0-FHD-400-nits-Display-16GB-512GB-Win-11-Pro/LW11926",
+        "discount": "https://lap-works.de/HP-EliteBook-830-G7-i5-10310U-13-3-FHD-Touch-16GB-256GB-Win-11-Pro-akzeptabel/LW12014",
+        "category": "-https://lap-works.de/Laptops/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "stock": [
+          ["find_yes", ["button", {"class": "btn-buy"}]]
+        ],
+        "price_old": [
+          ["find", ["span", {"class": "list-price-price"}]],
+          ["text_strip"],
+          ["replace", ["*", ""]],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["table", {"class": "product-detail-properties-table"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

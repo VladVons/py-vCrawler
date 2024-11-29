@@ -1,0 +1,68 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 20:14",
+      "url": "https://www.xelent-store.de",
+      "urls": {
+        "instock": "https://www.xelent-store.de/gebrauchte-notebooks",
+        "outstock": "",
+        "discount": "-https://www.xelent-store.de/Sonderangebote",
+        "root": "-https://www.xelent-store.de"
+      },
+      "filter": [
+        "/gebrauchte-notebooks",
+        "/gebrauchte-computer-workstations",
+        "/workstations-gebraucht-kaufen",
+        "/Apple-iphone-ipad-gebraucht",
+        "/gebrauchte-monitore-refurbished-kaufen"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "filter-type-FilterItemSort"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "list"}]],
+          ["find_all", ["div", {"class": "p-w"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"class": "title"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"class": "title"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "delivery-status"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["sofort verfügbar"]]
+              ],
+              "price": [
+                ["find", ["strong", {"class": "price"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["div", {"class": "old-price"}]],
+                ["find", ["del", {"class": "value"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

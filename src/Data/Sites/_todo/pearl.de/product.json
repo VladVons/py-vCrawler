@@ -1,0 +1,55 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-28 16:05",
+      "url": "https://www.pearl.de",
+      "urls": {
+        "instock": "https://www.pearl.de/a-ZX4236-1140.shtml",
+        "outstock": "-https://www.pearl.de/a-ZX4067-1140.shtml",
+        "discount": "-https://www.pearl.de/a-ZX4236-1140.shtml",
+        "category": "-https://www.pearl.de/nc-1140-laptops-notebooks.shtml"
+      },
+      "comment": "marketplace"
+    },
+    "pipe_microdata": [
+      ["find_check", ["h1", {"itemprop": "name"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "MainBanner"}]],
+      ["as_dict", {
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "price_old": [
+          ["find", ["div", {"class": "ProdPrice"}]],
+          ["find", ["p"]], 
+          ["contents"],
+          ["list", [-1]],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"itemprop": "description"}]],  
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["text_strip"],
+            ["split", [":"]]
+          ]],
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["h1", {"itemprop": "name"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["div", {"class": "TopCategorieBanner"}]],
+          ["breadcrumb", [["a"], -1]]
+        ]
+      }]
+    ]
+  }
+}

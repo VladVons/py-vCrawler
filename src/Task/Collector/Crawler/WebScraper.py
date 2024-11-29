@@ -6,6 +6,7 @@
 import random
 import asyncio
 import json
+import zlib
 from urllib.parse import urljoin
 #
 from Inc.Scheme.Scheme import TScheme
@@ -71,6 +72,7 @@ class TWebScraper():
             self.Cnt += 1
             UrlCount = 0
             DataSize = 0
+            PipeCrc = 0
             SchemeName = None
             Pipe = None
 
@@ -112,6 +114,10 @@ class TWebScraper():
                                 SchemeName = xKey
                                 TotalProduct += 1
                                 EscForSQL(Pipe)
+
+                                PipeStr = json.dumps(Pipe, sort_keys=True)
+                                PipeCrc = zlib.crc32(PipeStr.encode()) & 0x7FFFFFFF
+
                                 break
                         case 'category':
                             Products = IifNone(Pipe.get('products'), [])
@@ -123,7 +129,11 @@ class TWebScraper():
                 AllowCategory = self.DblSite.Rec.category
                 if (AllowCategory):
                     if (SchemeName == 'category'):
-                        Products = [xProduct['href'] for xProduct in  Products if len(xProduct['href']) < 255]
+                        Products = [
+                            xProduct['href']
+                            for xProduct in  Products
+                            if ('href' in xProduct) and (len(xProduct['href']) < 255)
+                        ]
                         Categories = IifNone(Pipe.get('pager'), [])
                         Htrefs = set(Products + Categories)
                 else:
@@ -154,6 +164,7 @@ class TWebScraper():
                         'aUrlId': Rec.url_id,
                         'aStatusCode': Status,
                         'aParsedData': Iif(SchemeName == 'product', Pipe, None),
+                        'aCrc': PipeCrc,
                         'aUrlCount': UrlCount,
                         'aDataSize': DataSize,
                         'aUrlEn': SchemeName,

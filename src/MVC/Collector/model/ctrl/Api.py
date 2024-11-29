@@ -84,7 +84,7 @@ class TMain(TModelBase):
             }
         )
 
-    async def InsHistUrl(self, aUrlId: int, aStatusCode: int, aParsedData: dict = None, aUrlCount: int = 0, aDataSize: int = 0, aUserId: int = 1, aUrlEn: str = None) -> dict:
+    async def InsHistUrl(self, aUrlId: int, aStatusCode: int, aParsedData: dict = None, aCrc: int = 0, aUrlCount: int = 0, aDataSize: int = 0, aUserId: int = 1, aUrlEn: str = None) -> dict:
         await self.Exec(
             'site',
             {
@@ -105,6 +105,7 @@ class TMain(TModelBase):
                     'aUrlId': aUrlId,
                     'aStatusCode': aStatusCode,
                     'aParsedData': aParsedData,
+                    'aCrc': aCrc,
                     'aUrlCount': aUrlCount,
                     'aDataSize': aDataSize,
                     'aUserId': aUserId

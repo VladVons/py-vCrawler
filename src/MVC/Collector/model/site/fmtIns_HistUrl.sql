@@ -5,6 +5,7 @@ insert into hist_url(
     url_count,
     status_code,
     parsed_data,
+    crc,
     url_id,
     user_id
 )
@@ -13,6 +14,7 @@ values (
     {{aUrlCount}},
     {{aStatusCode}},
     {% if aParsedData %} '{{aParsedData}}' {% else %} null {% endif %},
+    {{aCrc}},
     {{aUrlId}},
     {{aUserId}}
 )

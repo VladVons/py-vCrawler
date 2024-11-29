@@ -1,0 +1,62 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-28 14:37",
+      "url": "https://it-klimt.de",
+      "urls": {
+        "instock": "https://it-klimt.de/usedit/",
+        "outstock": "https://it-klimt.de/usedit/",
+        "discount": "",
+        "root": "https://it-klimt.de"
+      },
+      "filter": [
+        "/usedit/"
+      ],
+      "comment": "ToDo. No product card"
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "entry-content"}]],
+          ["find_all", ["div", {"class": "one_half"}]],
+          ["list_map", [
+            ["as_dict", {
+              "-href": [
+              ],
+              "name": [
+                ["find", ["h4"]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find_all", ["h4"]],
+                ["list", [-1]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["aktuell ausverkauft!"]],
+                ["invert"]
+              ],
+              "price": [
+                ["find_all", ["h4"]],
+                ["list", [-1]],
+                ["remove", ["span"]],
+                ["contents"],
+                ["list", [0]],
+                ["text_strip"],
+                ["replace", ["Ab", ""]],
+                ["split", ["Variante ", -1]],
+                ["split", [" "]],
+                ["list_group", [3, [0, 1]]],
+                ["list", [0]],
+                ["list_join", [" "]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "-pager": [
+       ]
+      }]
+    ]
+  }
+}

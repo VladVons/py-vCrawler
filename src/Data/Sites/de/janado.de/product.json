@@ -5,9 +5,9 @@
       "date": "2024-11-26 13:56",
       "url": "https://www.janado.de",
       "urls": {
-        "instock": "https://www.janado.de/products/galaxy-book-2go-14-2023-flhd-snapdragon-7c-g-3-4-128gb-np345xna-ka1de-qwertz",
+        "instock": "-https://www.janado.de/products/galaxy-book-2go-14-2023-flhd-snapdragon-7c-g-3-4-128gb-np345xna-ka1de-qwertz",
         "outstock": "",
-        "discount": "-https://www.janado.de/products/12-5g-dual-sim",
+        "discount": "https://www.janado.de/products/12-5g-dual-sim",
         "category": "-https://www.janado.de/collections/notebooks"
       },
       "comment": ""
@@ -16,7 +16,7 @@
       ["find_check", ["div", {"class": "product"}]],
       ["product_ldjson"]
     ],
-    "-pipe_product": [
+    "pipe_product": [
       ["find", ["div", {"class": "product"}]],
       ["as_dict", {
         "images": [
@@ -28,7 +28,7 @@
           ["text_strip"],
           ["lower"],
           ["search_in", ["in den warenkorb"]]
-         ],
+        ],
         "price": [
           ["find", ["span", {"class": "price--large"}]],
           ["contents"],
@@ -43,7 +43,7 @@
         ]
       }]
     ],
-    "-pipe_root": [
+    "pipe_root": [
       ["as_dict", {
         "features": [
           ["find_all_text", ["button"], {"a_text": "Technische Daten"}],

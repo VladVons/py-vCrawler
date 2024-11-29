@@ -1,0 +1,66 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-27 15:32",
+      "url": "https://it-versand.com",
+      "urls": {
+        "instock": "-https://it-versand.com/gebrauchte-notebook-tablet",
+        "outstock": "",
+        "discount": "https://it-versand.com/gebrauchte-notebook-tablet",
+        "root": "-https://it-versand.com"
+      },
+      "filter": [
+        "/gebrauchte-computer-pcs",
+        "/gebrauchte-notebook-tablet",
+        "/apple-hardware-gebraucht-kaufen",
+        "/gebrauchte-monitore"
+      ], 
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "listing"}]],
+          ["find_all", ["div", {"class": "product--box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["link", {"itemprop": "availability"}]],
+                ["get", ["href"]],
+                ["search_start", ["http://schema.org/InStock"]]
+              ],
+              "price": [
+                ["find", ["div", {"class": "product--price"}]],
+                ["find", ["span", {"class": "price--default"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["div", {"class": "product--price"}]],
+                ["find", ["span", {"class": "price--discount"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "listing--paging"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

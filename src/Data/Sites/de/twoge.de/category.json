@@ -1,0 +1,70 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 14:58",
+      "url": "https://twoge.de",
+      "urls": {
+        "instock": "https://twoge.de/Notebook-Intel",
+        "outstock": "",
+        "discount": "",
+        "root": "https://twoge.de"
+      },
+      "filter": [
+        "/Computer-mit-Intel-Dual-Core-Prozessor",
+        "/Computer-mit-Intel-Core-i3-Prozessor",
+        "/Computer-mit-Intel-Core-i5-Prozessor",
+        "/gebrauchte-All-in-One-Computer",
+        "/Notebook-Intel",
+        "/Laptops-mit-Maengeln",
+        "/Barebone",
+        "/iMac",
+        "/Apple-Mac-Mini-Computer",
+        "/Unsere-Bastelecke",
+        "/TFT-LCD-Monitor-bis-19-Zoll",
+        "/20-Zoll",
+        "/24-Zoll"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "product-list"}]],
+          ["find_all", ["div", {"itemtype": "https://schema.org/Product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"class": "productbox-title"}]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"class": "productbox-title"}]],
+                ["find", ["a"]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["span", {"class": "status"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["sofort verfügbar", "knapper lagerbestand"]]
+              ],
+              "price": [
+                ["find", ["div", {"class": "price"}]],
+                ["find", ["span"]],
+                ["contents"],
+                ["list", [0]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["meta_nears"]
+       ]
+      }]
+    ]
+  }
+}

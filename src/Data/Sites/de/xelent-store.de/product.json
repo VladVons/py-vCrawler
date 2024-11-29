@@ -1,0 +1,49 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 20:14",
+      "url": "https://www.xelent-store.de",
+      "urls": {
+        "instock": "-https://www.xelent-store.de/Dell-Latitude-5300-Intel-Core-i5-8365U-8GB-RAM-256GB-SSD-Win11-Pro-133-Full-HD-Touch-gebraucht-refurbished-kaufen",
+        "outstock": "",
+        "discount": "https://www.xelent-store.de/Dell-Optiplex-5070-Desktop-Intel-Core-i3-8100-16GB-RAM-256GB-SSD-Win10-Pro-gebraucht-kaufen",
+        "category": "-https://www.xelent-store.de/gebrauchte-notebooks"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["h1", {"class": "product-title"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"id": "result-wrapper"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "old_price"}]],
+          ["find", ["del", {"class": "value"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["div", {"id": "tab-description"}]],
+          ["select", ["div.td-label, div.td-inhalt"]],
+          ["list_map", [
+            ["text_strip"]
+          ]],
+          ["list_group", [2, [0, 1]]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
+

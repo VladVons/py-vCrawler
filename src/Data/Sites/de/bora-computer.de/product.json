@@ -1,0 +1,42 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-27 14:56",
+      "url": "https://www.bora-computer.de",
+      "urls": {
+        "instock": "-https://www.bora-computer.de/193619-hp-elitebook-840-g8-14-i5-1145g7/16gb/256gbssd/neu-ovp?c=3420",
+        "outstock": "https://www.bora-computer.de/detail/index/sArticle/208910/sCategory/3420",
+        "discount": "",
+        "category": "-https://www.bora-computer.de/computer-notebooks/refurbished-notebooks/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "description": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["text_strip"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "tab-menu--product"}]],
+          ["select", ["div.ITSr0, div.ITSr1"]],
+          ["list_map", [
+            ["text_strip"],
+            ["split", ["\n"]]
+          ]], 
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
+

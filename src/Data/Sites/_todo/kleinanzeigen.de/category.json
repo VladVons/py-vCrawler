@@ -1,0 +1,61 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-27 16:53",
+      "url": "https://www.kleinanzeigen.de",
+      "urls": {
+        "instock": "https://www.kleinanzeigen.de/s-notebooks/c278",
+        "outstock": "",
+        "discount": "-https://www.kleinanzeigen.de/s-notebooks/c278",
+        "root": "-https://www.kleinanzeigen.de"
+      },
+      "filter": [
+        "/s-handy-telekom/c173",
+        "/s-notebooks/c278",
+        "/s-pcs/c228",
+        "/s-tablets-reader/c285"
+      ], 
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["ul", {"class": "ad-list"}]],
+          ["find_all", ["article", {"class": "aditem"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["h2", {"class": "text-module-begin"}]],
+                ["find", ["a", {"class": "ellipsis"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h2", {"class": "text-module-begin"}]],
+                ["text_strip"]
+              ],
+              "-stock": [
+              ],
+              "price": [
+                ["find", ["p", {"class": "aditem-main--middle--price-shipping--price"}]],
+                ["text_strip"],
+                ["replace", ["VB", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["p", {"class": "aditem-main--middle--price-shipping--old-price"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-27 11:09",
+      "url": "https://www.circulee.com",
+      "urls": {
+        "instock": "https://www.circulee.com/products/",
+        "outstock": "",
+        "discount": "",
+        "root": "-https://www.circulee.com"
+      },
+      "filter": [
+        "/gebrauchte-laptops/",
+        "/gebrauchte-handys/",
+        "/gebrauchte-tablets/",
+        "/gebrauchte-monitore/",
+        "/gebrauchte-pc-systeme/"
+      ], 
+      "reader": "playwright",
+      "comment": "todo. dynamic pagination"
+    },
+    "pipe": [
+      ["find_check", ["button", {"aria-haspopup": "listbox"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["main"]],
+          ["find", ["div", {"class": "grid"}]],
+          ["find_all", ["a", {"class": "block"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["h5"]],
+                ["text"]
+              ],
+              "-stock": [],
+              "price": [
+                ["find", ["h4"]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "-pager": []
+      }]
+    ]
+  }
+}

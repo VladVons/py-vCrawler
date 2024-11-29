@@ -1,0 +1,67 @@
+
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-28 16:05",
+      "url": "https://www.pearl.de",
+      "urls": {
+        "instock": "-https://www.pearl.de/nc-1140-laptops-notebooks.shtml",
+        "instock2": "https://www.pearl.de/nc-1120-monitore-bildschirme-zubehoer.shtml",
+        "outstock": "",
+        "discount": "-https://www.pearl.de/nc-1140-laptops-notebooks.shtml",
+        "root": "-https://www.pearl.de"
+      },
+      "filter": [
+        "/nc-1140-laptops-notebooks.shtml",
+        "/nc-1150-tower-desktop-pcs-komplett-pcs-all-in-one-computer-barebones.shtml",
+        "/nc-1019-diverse-smartphones.shtml",
+        "/nc-1009-diverse-tablet-pcs.shtml"
+      ], 
+      "comment": ""
+    },
+    "pipe": [
+      ["find_check", ["div", {"class": "TopCategorieBanner"}]],
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "Cart"}]],
+          ["select", ["div.productPrice, div.small-card-content__prod-header__text"]],
+          ["list_group_pair", [2]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["list", [1]],
+                ["find", ["a"]],
+                ["get", ["href"]],
+                ["url_pad"],
+                ["urlquery_filter"]
+              ],
+              "name": [
+                ["list", [1]],
+                ["find", ["a"]],
+                ["text_strip"]
+              ],
+              "price": [
+                ["list", [0]],
+                ["select", ["text.svg-base_small, meta[itemprop=\"priceCurrency\"]"]],
+                ["list_map", [
+                  ["check_or", [
+                    [["get", ["content"]]],
+                    [["text_strip"]]
+                  ]]
+                ]], 
+                ["list_join", [" "]],
+                ["replace", ["*", ""]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "pagingNavigation"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

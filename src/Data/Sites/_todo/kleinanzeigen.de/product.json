@@ -1,0 +1,68 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-27 16:53",
+      "url": "https://www.kleinanzeigen.de",
+      "urls": {
+        "instock": "https://www.kleinanzeigen.de/s-anzeige/laptop-hp-elitebook-840-mit-kali-linux/2928926253-278-6822",
+        "outstock": "",
+        "discount": "-https://www.kleinanzeigen.de/s-anzeige/macbook-pro-13-inch-2018-16gb-1-tb-ssd-neuer-preis/2933349021-278-5126",
+        "category": "-https://www.kleinanzeigen.de/s-notebooks/c278"
+      },
+      "comment": "marketplace. skip"
+    },
+    "pipe_microdata": [
+      ["find_check", ["section", {"itemtype": "http://data-vocabulary.org/Product"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["section", {"itemtype": "http://data-vocabulary.org/Product"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"itemprop": "name"}]],
+          ["text_strip"]
+        ],
+        "brand": [
+          ["var_get", ["$name"]],
+          ["replace", [["iPhone", "iPad", "Macbook", "iMac"], "Apple"]],
+          ["split", [" "]],
+          ["list_map", [
+            ["text_eqi", ["dell", "hp", "lenovo", "fujitsu", "toshiba", "microsoft", "samsung", "apple", "acer", "asus", "msi", "huawei", "panasonic", "sony", "xiaomi", "oneplus", "lg", "motorola", "nokia", "siemens"]]
+          ]],
+          ["list", [0]]
+        ],
+        "images": [
+          ["find", ["div", {"class": "galleryimage-large"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "-stock": [
+         ],
+        "price": [
+          ["find", ["h2", {"class": "boxedarticle--price"}]],
+          ["text_strip"],
+          ["replace", ["VB", ""]],
+          ["price"]
+        ],
+        "price_old": [
+          ["find", ["p", {"class": "boxedarticle--old-price"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "description": [
+          ["find", ["p", {"itemprop": "description"}]],
+          ["replace_br"],
+          ["text_strip"]
+        ],
+         "category": [
+          ["find", ["meta", {"itemprop": "category"}]],
+          ["get", ["content"]]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

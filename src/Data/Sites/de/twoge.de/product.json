@@ -1,0 +1,55 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 14:58",
+      "url": "https://twoge.de",
+      "urls": {
+        "instock": "https://twoge.de/Dell-Latitude-5480-140-Zoll-FHD-i7-6600U-2x-26-GHz-16-GB-RAM-256GB-M2-NVMe-SSD-W11P-GB-QWERTY-13762",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://twoge.de/Notebook-Intel"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["h1", {"class": "product-title"}]],
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find_check", ["h1", {"class": "product-title"}]],
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "images": [
+          ["var_get", ["$images"]],
+          ["list_map", [
+            ["replace", ["/md/", "/lg/"]]
+          ]]
+        ],
+        "description": [
+          ["find", ["div", {"class": "desc"}]],
+          ["text_strip"]
+         ],
+        "features": [
+          ["find", ["div", {"itemprop": "description"}]],
+          ["find_all", ["li"]],
+          ["list_map", [
+            ["text_strip"],
+            ["split", [" - "]]
+          ]],
+          ["list_filter_len", [2]],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["h1", {"class": "product-title"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["ol", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], -2]]
+        ]
+      }]
+    ]
+  }
+}

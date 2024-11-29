@@ -258,9 +258,137 @@
         ""
       ],
       [
-        1,
+        0,
         "janado.de",
         "https://www.janado.de",
+        ["product", "category"],
+        [
+          "/collections/smartphones",
+          "/collections/tablets",
+          "/collections/smartwatches",
+          "/collections/notebooks"
+         ],
+        ""
+      ],
+      [
+        0,
+        "twoge.de",
+        "https://twoge.de",
+        ["product", "category"],
+        [
+          "/Computer-mit-Intel-Dual-Core-Prozessor",
+          "/Computer-mit-Intel-Core-i3-Prozessor",
+          "/Computer-mit-Intel-Core-i5-Prozessor",
+          "/gebrauchte-All-in-One-Computer",
+          "/Notebook-Intel",
+          "/Laptops-mit-Maengeln",
+          "/Barebone",
+          "/iMac",
+          "/Apple-Mac-Mini-Computer",
+          "/Unsere-Bastelecke",
+          "/TFT-LCD-Monitor-bis-19-Zoll",
+          "/20-Zoll",
+          "/24-Zoll"
+        ],
+        ""
+      ],
+      [
+        0,
+        "it-versand.com",
+        "https://it-versand.com",
+        ["product", "category"],
+        [
+          "/gebrauchte-computer-pcs",
+          "/gebrauchte-notebook-tablet",
+          "/apple-hardware-gebraucht-kaufen",
+          "/gebrauchte-monitore"
+        ],
+        ""
+      ],
+      [
+        0,
+        "xelent-store.de",
+        "https://www.xelent-store.de",
+        ["product", "category"],
+        [
+          "/gebrauchte-notebooks",
+          "/gebrauchte-computer-workstations",
+          "/workstations-gebraucht-kaufen",
+          "/Apple-iphone-ipad-gebraucht",
+          "/gebrauchte-monitore-refurbished-kaufen"
+        ],
+        ""
+      ],
+      [
+        0,
+        "refurbishedstore.de",
+        "https://www.refurbishedstore.de",
+        ["-product", "category"],
+        [
+          "/iphone",
+          "/ipad",
+          "/macbook",
+          "/tablet",
+          "/laptops",
+          "/desktops",
+          "/samsung",
+          "/handys"
+        ],
+        ""
+      ],
+      [
+        0,
+        "hedcom-technik.de",
+        "https://www.hedcom-technik.de",
+        ["product", "category"],
+        [
+          "/notebooks/",
+          "/tablet-pcs/",
+          "/computer-pcs/"
+        ],
+        ""
+      ],
+      [
+        0,
+        "afbshop.de",
+        "https://www.afbshop.de",
+        ["product", "category"],
+        [
+          "/gebrauchte-notebooks/",
+          "/gebrauchte-pcs/",
+          "/gebrauchte-monitore/",
+          "/gebrauchte-smartphones/",
+          "/gebrauchte-tablets/",
+          "/gebrauchte-drucker/"
+        ],
+        ""
+      ],
+      [
+        0,
+        "bora-computer.de",
+        "https://www.bora-computer.de",
+        ["product", "category"],
+        [
+          "/computer-notebooks/refurbished-notebooks/"
+        ],
+        ""
+      ],
+      [
+        0,
+        "lap-works.de",
+        "https://lap-works.de",
+        ["product", "category"],
+        [
+          "/Laptops/",
+          "/PCs-Workstations/",
+          "/Monitore/"
+         ],
+        ""
+      ],
+      [
+        1,
+        "",
+        "",
         ["product", "-category"],
         [
         ],

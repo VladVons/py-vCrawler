@@ -67,7 +67,7 @@ class TMain(TDbModel):
             }
         )
 
-    async def InsHistUrl(self, aUrlId: int, aStatusCode: int, aParsedData: dict, aUrlCount: int, aDataSize: int, aUserId: int) -> dict:
+    async def InsHistUrl(self, aUrlId: int, aStatusCode: int, aParsedData: dict, aCrc: int, aUrlCount: int, aDataSize: int, aUserId: int) -> dict:
         if (aParsedData):
             ParsedData = json.dumps(aParsedData, indent=1, ensure_ascii=False)
         else:
@@ -79,6 +79,7 @@ class TMain(TDbModel):
                 'aUrlId': aUrlId,
                 'aStatusCode': aStatusCode,
                 'aParsedData': ParsedData,
+                'aCrc': aCrc,
                 'aUrlCount': aUrlCount,
                 'aDataSize': aDataSize,
                 'aUserId': aUserId

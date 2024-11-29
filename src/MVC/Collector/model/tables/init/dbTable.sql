@@ -140,6 +140,7 @@ create table if not exists hist_url (
     url_count           smallint default 0,
     status_code         smallint,
     parsed_data         json,
+    crc                 int,
     url_id              int not null references ref_url(id) on delete cascade,
     user_id             int not null references ref_user(id) on delete cascade
 );

@@ -1,0 +1,73 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-28 15:15",
+      "url": "https://www.afbshop.de",
+      "urls": {
+        "instock": "-https://www.afbshop.de/Lenovo-ThinkPad-E15-Gen-2-Intel-US-QWERTY/DE-37.793-B",
+        "outstock": "https://www.afbshop.de/Dell-XPS-13-9310/DE-32.238-A",
+        "discount": "-https://www.afbshop.de/Lenovo-ThinkCentre-M720q/DE-34.949-A",
+        "category": "-https://www.afbshop.de/gebrauchte-notebooks/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["find_check", ["div", {"class": "product-detail"}]],
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-detail"}]],
+      ["as_dict", {
+        "name": [
+          ["find", ["h1", {"class": "product-detail-name"}]],
+          ["text_strip"]
+         ],
+        "brand": [
+          ["find", ["div", {"class": "product-detail-manufacturer"}]],
+          ["find_all", ["div"]],
+          ["list", [1]],
+          ["text_strip"]
+         ],
+        "images": [
+          ["find", ["div", {"class": "gallery-slider-container"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "product-delivery-information"}]],
+          ["find_yes", ["link", {"href": "http://schema.org/InStock"}]]
+        ],
+        "price": [
+          ["find", ["p", {"class": "product-detail-price"}]],
+          ["text_strip"],
+          ["replace", ["*", ""]],
+          ["price"]
+         ],
+        "price_old": [
+          ["find", ["span", {"class": "list-price-price"}]],
+          ["text_strip"],
+          ["replace", ["*", ""]],
+          ["price"]
+         ],
+        "description": [
+          ["find", ["div", {"class": "product-detail-description-text"}]],
+          ["text_tag", ["p"]]
+        ],
+        "features": [
+          ["find", ["table", {"class": "product-detail-properties-table"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"class": "product-detail"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["ol", {"class": "breadcrumb"}]],
+          ["breadcrumb", [["a"], 1]]
+        ]
+      }]
+    ]
+  }
+}

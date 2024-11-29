@@ -1,0 +1,59 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-27 09:40",
+      "url": "https://www.hedcom-technik.de",
+      "urls": {
+        "instock": "https://www.hedcom-technik.de/notebooks/",
+        "outstock": "",
+        "discount": "-https://www.hedcom-technik.de/notebooks/",
+        "root": "-https://www.hedcom-technik.de"
+      },
+      "filter": [
+        "/notebooks/",
+        "/tablet-pcs/",
+        "/computer-pcs/"
+      ], 
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "listing"}]],
+          ["find_all", ["section", {"class": "product--box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["title"]]
+              ],
+              "-stock": [],
+              "price": [
+                ["find", ["span", {"class": "price--default"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "price--discount"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "listing--paging"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

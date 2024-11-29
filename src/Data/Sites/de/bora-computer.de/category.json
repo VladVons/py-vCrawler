@@ -1,0 +1,56 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-27 14:56",
+      "url": "https://www.bora-computer.de",
+      "urls": {
+        "instock": "https://www.bora-computer.de/computer-notebooks/refurbished-notebooks/",
+        "outstock": "-https://www.bora-computer.de/computer-notebooks/refurbished-notebooks/",
+        "discount": "",
+        "root": "-https://www.bora-computer.de"
+      },
+      "filter": [
+        "/computer-notebooks/refurbished-notebooks/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "listing"}]],
+          ["find_all", ["div", {"class": "product--box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product--title"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["link", {"itemprop": "availability"}]],
+                ["get", ["href"]],
+                ["search_start", ["http://schema.org/InStock"]]
+              ],
+              "price": [
+                ["find", ["div", {"class": "product--price-info"}]],
+                ["find", ["span", {"class": "pricelayer"}]],
+                ["remove", ["sup"]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "listing--paging"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

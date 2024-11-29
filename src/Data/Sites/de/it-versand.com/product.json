@@ -1,0 +1,41 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-27 15:32",
+      "url": "https://it-versand.com",
+      "urls": {
+        "instock": "https://it-versand.com/notebook-tablet/notebook-tablet-gebraucht/414160/lenovo-thinkpad-x1-yoga-gen-4-14-zoll-touch-display-intel-core-i5-256gb-ssd-16gb-windows-11-pro-lte",
+        "outstock": "",
+        "discount": "-https://it-versand.com/notebook-tablet/notebook-tablet-gebraucht/414160/lenovo-thinkpad-x1-yoga-gen-4-14-zoll-touch-display-intel-core-i5-256gb-ssd-16gb-windows-11-pro-lte",
+        "category": "-https://it-versand.com/gebrauchte-notebook-tablet"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["span", {"class": "content--discount"}]],
+          ["find", ["span", {"class": "price--line-through"}]],
+          ["text_strip"],
+          ["replace", ["*", ""]],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "content--description"}]],
+          ["find", ["table", {"class": "product--properties-table"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}

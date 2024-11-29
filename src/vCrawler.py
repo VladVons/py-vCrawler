@@ -3,5 +3,4 @@
 # License: GNU, see LICENSE for more details
 
 from Task import App
-
 App.Run()

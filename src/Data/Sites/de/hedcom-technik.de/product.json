@@ -1,0 +1,45 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-27 09:40",
+      "url": "https://www.hedcom-technik.de",
+      "urls": {
+        "instock": "-https://www.hedcom-technik.de/hp-z2-tower-g4-workstation-core-i7-8700k-kaufen-ht-704803.html",
+        "outstock": "",
+        "discount": "https://www.hedcom-technik.de/panasonic-toughbook-cf-mx4-i5-5300u-vpro-kaufen-ht-704693.html",
+        "category": "-https://www.hedcom-technik.de/notebooks/"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "product--price"}]],
+          ["find", ["span", {"class": "price--line-through"}]],  
+          ["text_strip"],
+          ["replace", ["*", ""]],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["table", {"summary": "Technische Daten"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"itemtype": "https://schema.org/Product"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["ul", {"itemtype": "https://schema.org/BreadcrumbList"}]],
+          ["breadcrumb", [["a"], 0]]
+        ]
+      }]
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-28 15:15",
+      "url": "https://www.afbshop.de",
+      "urls": {
+        "instock": "-https://www.afbshop.de/gebrauchte-notebooks/",
+        "outstock": "https://www.afbshop.de/gebrauchte-notebooks/?order=topseller&p=13",
+        "discount": "-https://www.afbshop.de/sale/",
+        "root": "-https://www.afbshop.de"
+      },
+      "filter": [
+        "/gebrauchte-notebooks",
+        "/gebrauchte-pcs/",
+        "/gebrauchte-monitore/",
+        "/gebrauchte-smartphones/",
+        "/gebrauchte-tablets/",
+        "/gebrauchte-drucker/",
+        "/einsatzbereiche/gaming/"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "js-listing-wrapper"}]],
+          ["find_all", ["div", {"class": "product-box"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["a", {"class": "product-name"}]],
+                ["get", ["title"]]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "product-delivery-information"}]],
+                ["find_yes", ["link", {"href": "http://schema.org/InStock"}]]
+              ],
+              "price": [
+                ["find", ["span", {"class": "product-price"}]],
+                ["contents"],
+                ["list", [0]],
+                ["replace", ["*", ""]],
+                ["price"]
+              ],
+              "price_old": [
+                ["find", ["span", {"class": "list-price-price"}]],
+                ["text_strip"],
+                ["replace", ["*", ""]],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all", ["input", {"title": "pagination"}]],
+          ["list_map", [
+            ["get", ["value"]],
+            ["url_format", ["&p={0}"]]
+          ]],
+          ["list_uniq"]
+       ]
+      }]
+    ]
+  }
+}

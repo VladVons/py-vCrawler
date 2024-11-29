@@ -1,0 +1,64 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 20:51",
+      "url": "https://www.refurbishedstore.de",
+      "urls": {
+        "instock": "-https://www.refurbishedstore.de/laptops",
+        "outstock": "https://www.refurbishedstore.de/handys",
+        "discount": "",
+        "root": "-https://www.refurbishedstore.de"
+      },
+      "filter": [
+        "/iphone",
+        "/ipad",
+        "/macbook",
+        "/tablet",
+        "/laptops",
+        "/desktops",
+        "/samsung",
+        "/handys",
+        "/audio"
+      ],
+      "comment": ""
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "product-grid-container"}]],
+          ["find_all", ["div", {"class": "product"}]],
+          ["list_map", [
+            ["as_dict", {
+              "href": [
+                ["find", ["div", {"class": "productTitle"}]],
+                ["find", ["a"]], 
+                ["get", ["href"]],
+                ["url_pad"]
+              ],
+              "name": [
+                ["find", ["div", {"class": "productTitle"}]],
+                ["text_strip"]
+              ],
+              "stock": [
+                ["find", ["div", {"class": "productStock"}]],
+                ["text_strip"],
+                ["lower"],
+                ["search_start", ["morgen verschickt"]]
+              ],
+              "price": [
+                ["find", ["div", {"class": "productPrice"}]],
+                ["text_strip"],
+                ["price"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["div", {"class": "tablenav-pages"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

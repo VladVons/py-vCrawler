@@ -1,0 +1,66 @@
+{
+  "product": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-25 20:51",
+      "url": "https://www.refurbishedstore.de",
+      "urls": {
+        "instock": "https://www.refurbishedstore.de/laptops/dell/dell-16-inch-size/dell-latitude-3500-156-inch-fhd-8-ge-i5-128gb-ssd-8gb-ram-qwerty-azerty-qwertz",
+        "outstock": "",
+        "discount": "",
+        "category": "-https://www.refurbishedstore.de/laptops"
+      },
+      "comment": ""
+    },
+    "pipe_microdata": [
+      ["product_itemprop"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+        "brand": [
+          ["var_get", ["$name"]],
+          ["replace", ["Refurbished", ""]],
+          ["replace", [["iPhone", "iPad", "Macbook", "iMac"], "Apple"]],
+          ["split", [" "]],
+          ["list", [0]],
+          ["text_eqi", ["dell", "hp", "lenovo", "fujitsu", "toshiba", "microsoft", "samsung", "apple", "huawei", "panasonic", "sony", "xiaomi", "oneplus"]]
+        ],
+        "images": [
+          ["find", ["div", {"id": "productImageContainer"}]],
+          ["find", ["div", {"class": "swiper-wrapper"}]],
+          ["find_all_get_url", ["img"], {"a_get": "src"}]
+        ],
+        "image": [
+          ["var_get", ["$images"]],
+          ["list", [0]]
+        ],
+        "stock": [
+          ["find", ["button", {"id": "shoppingcartBtn"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_start", ["in den warenkorb"]]
+        ],
+        "price": [
+          ["find", ["div", {"id": "currentProductPrice"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "features": [
+          ["find", ["div", {"class": "product-specification"}]],
+          ["table"],
+          ["keyval2dict"]
+        ]
+      }]
+    ],
+    "pipe_root": [
+      ["find_check", ["div", {"itemtype": "http://schema.org/Product"}]],
+      ["as_dict", {
+         "category": [
+          ["find", ["div", {"id": "breadcrumb"}]],
+          ["breadcrumb", [["a"], 1]]
+        ]
+      }]
+    ]
+  }
+}
