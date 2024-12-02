@@ -1,0 +1,166 @@
+AlphaPC (Core2Duo E7200 • DDR2 4Gb • 500Gb) R0-T001
+cpu : core2 duo e720
+ram : 4 gb
+disk : 500 gb
+
+Компьютер Dell T3400 (Core2Duo E8200/4 ram/500Gb) БУ
+cpu : core2 duo e820
+ram : 4
+disk : 500 gb
+
+БУ Комп ютер Fujitsu Celsius W370 E80+, Intel Core2 Quad Q8200 (2.33 ГГц), 6Gb DDR2, 160Gb HDD
+cpu : core2 quad q820
+ram : 6 gb
+disk : 160 gb hdd
+
+HP Compaq 8000 Elite SFF PC INTELCORE2 DUO-E8400 DDR3 4 7P 250 GB HDD Klasa A
+cpu : core2 duo e840
+ram : 4
+disk : 250 gb hdd
+
+Microsoft Surface Laptop 6 for Business - Intel Core Ultra 7 165H - Win 11 Pro - Intel Arc Graphics - 64 GB RAM - 1 TB S"
+cpu : ultra 7 165h
+ram : 64 gb
+disk : 1 tb
+os : win 11 pro
+
+Lenovo Notebook ThinkPad X13 33.8cm (13.3 Zoll) WUXGA Intel® Core™ Ultra 5 125U 16GB RAM 512GB SSD Intel HD Graphics Win 11 Pro
+cpu : ultra 5 125u
+ram : 16 gb
+disk : 512 gb ssd
+os : win 11 pro
+
+Б/В Ноутбук HP EliteBook 8460P TN Intel Core i5 0 Гб 320 Гб HDD ( Клас B)
+cpu : i5
+
+Dell Latitude 5320 13,3" i5-1145G7 8GB 1TB Win11Pro
+cpu : i5 1145g
+ram : 8 gb
+disk : 1 tb
+os : win 11 pro
+
+Lenovo ThinkPad T470s i5-6300U 12GB 512GB SSD FHD WLAN BT Webcam Win 11 Pro
+cpu : i5 6300u
+ram : 12 gb
+disk : 512 gb ssd
+os : win 11 pro
+
+Ноутбук ASUS A53S(K53SD)-Intel Core i5-2450M-2.50GHz-6Gb-DDR3-500Gb-HDD-W15.6-Web-DVD-RW)-(B-) Б/В
+cpu : i5 2450m
+ram : 6 gb
+disk : 2450 m-2
+
+Ультрабук Asus UX390U 12.5" FHD IPS i7-7500U/16 LPDDR3/256 SSD/HD 620
+cpu : i7 7500u
+disk : 256 ssd
+
+Ноутбук Acer ASPIRE E1-570-Intel Core-I3-3217U-1.8GHz-8Gb-DDR3-1Tb-HDD-W15.6-FHD-Web-DVD-RW-(C-)- Б/В
+cpu : i3 3217u
+ram : 8 gb
+disk : 1 tb hdd
+
+Системний блок Lenovo M90-SFF-Intel Core-i3-540-3,06GHz-4Gb-DDR3-HDD-250GB-DVD-R-(B)- Б/В
+cpu : i3 540
+ram : 4 gb
+disk : 250 gb
+
+бу системный блок HP ProDesk 600 G5 mini i3 9100t \ 8 Gb DDR4 \ 256 Gb SSD NVME
+cpu : i3 9100t
+ram : 8 gb
+disk : 256 gb ssd
+
+DELL OptiPlex 7070 MFF Core i5 9500T 8GB 256GB Windows 11 Professional Klasa A
+cpu : i5 9500t
+ram : 8 gb
+disk : 256 gb
+os : windows 11 pro
+
+Ноутбук Dell Latitude E5570-Intel Core-i7-6600U-2,60GHz-8Gb-DDR4-128Gb-SSD-W15.6-FHD-IPS-Touch-Web-AMD Radeon R7 M360-(B)-Б/В
+cpu : i7 6600u
+ram : 8 gb
+disk : 128 gb ssd
+
+Dell Latitude 5480 14,0 Zoll FHD intel i7  6600U 2x 2,6 GHz 16 GB RAM 256GB M.2 NVMe SSD
+cpu : i7 6600u
+ram : 16 gb
+disk : 256 gb m.2
+
+Ноутбук HP ZBook Fury i5 G7 Mobile Workstation
+cpu : i5 7
+
+Ноутбук HP ZBook Fury i5 Gen7 Mobile Workstation
+cpu : i5 7
+
+Ноутбук HP ZBook Fury i5 7Gen Mobile Workstation
+cpu : i5 7
+
+Komputer DELL Optiplex 7040 SFF i5 6 GEN 8GB 240SSD W10
+cpu : i5 6
+ram : 8 gb
+disk : 240 ssd
+os : w 10
+
+Laptop Dell Latitude 7390 i5-8gen 8GB 256GB NVMe SSD FHD KAM Windows 10 Professional grade B+ SN: B8S8PV2
+cpu : i5 8
+ram : 8 gb
+disk : 256 gb nvme
+os : windows 10 pro
+
+Ноутбук  ASUS X550CL Intel Pentium 2117U 8 RAM 120 GB SSD  Nvidia GeForce GT 710m 1 GB
+cpu : pentium 2117u
+ram : 8
+disk : 120 gb ssd
+
+Ноутбук Lenovo ThinkPad X260 (i5-6300U/16/256SSD) - Class B
+cpu : i5 6300u
+disk : 256 ssd
+
+Serwer Dell R730xd 12x3.5" z 2x  E5-2637 v3, 64GB RAM, H730, 2x960GB SSD SATA 2.5", 4x1GbE, 2xPSU, szyny, iDRAC 8 Enterprise
+ram : 64 gb
+disk : 960 gb ssd
+
+Системний блок HP Compaq DC7900 Intel Core 2 Duo E8400 4 GB RAM 500 GB - системний блок Б/В
+ram : 4 gb
+disk : 500 gb
+
+Компьютер Dell 780 (Core2Quad Q8200/4Gb/250Gb) desktop БУ
+cpu : core2 quad q820
+ram : 4 gb
+disk : 250 gb
+
+Dell Optiplex 3050 Tiny i5-7500T 8GB 256GB SSD WiFi WIN10
+cpu : i5 7500t
+ram : 8 gb
+disk : 256 gb ssd
+os : win 10
+
+Б/В Системний блок Dell OptiPlex 7050 Intel Core i5 8 Гб 256 Гб SSD SFF ( Клас A)
+cpu : i5
+
+DELL R730 2X12C E5-2690 V3 2.60 GHz 128GB 2X600GB 10k 6G 8X2,5" H730 MINI 2X750W IDRAC8ENT SZYNY
+ram : 28 gb
+disk : 128 gb
+
+Dell Latitude 5490 14,1" i5-8350U 32GB 2TB Win11Pro
+cpu : i5 8350u
+ram : 32 gb
+disk : 2 tb
+os : win 11 pro
+
+Б/В Ноутбук HP ProBook 6470b TN Intel Core i5 (i5-3320M) 4 Гб 120 Гб SSD (Вживаний - Клас A-)
+cpu : i5
+
+БУ Ноутбук 15.6  HP ProBook 4530 Core i5-2450M (2.5 ГГц), 8GB DDR3, Radeon HD7470M, 1 Гб, 750GB HDD
+cpu : i5 2450m
+ram : 8 gb
+disk : 750 gb hdd
+
+Ноутбук Dell Latitude 5580 15.6" (i7-7820HQ/DDR4 16GB) #Used
+cpu : i7 7820h
+ram : 16
+
+Lenovo L490 i5-8365U 32GB RAM 1TB SSD FHD
+cpu : i5 8365u
+ram : 32 gb
+disk : 1 tb ssd
+

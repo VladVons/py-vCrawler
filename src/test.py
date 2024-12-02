@@ -1,4 +1,4 @@
-from Inc.ParserSpec import TSpecCpu, TSpecRam, TSpecStorage, TSpecOs
+from Inc.ParserSpec import TSpecCpu, TSpecRam, TSpecStorage, TSpecOs, TSpecScreen
 
 
 def Test_01():
@@ -6,7 +6,8 @@ def Test_01():
         '-cpu': TSpecCpu(),
         '-ram': TSpecRam(),
         '-disk': TSpecStorage(),
-        'os': TSpecOs()
+        'screen': TSpecScreen(),
+        '-os': TSpecOs()
     }
 
     File = 'Inc/ParserSpec/test/Processor-intel.txt'
@@ -23,7 +24,7 @@ def Test_01():
             if (not xKey.startswith('-')):
                 R = xVal.Parse(xLine)
                 if (R):
-                    print(xKey, ' '.join(R))
+                    print(R)
         print()
 
 Test_01()
