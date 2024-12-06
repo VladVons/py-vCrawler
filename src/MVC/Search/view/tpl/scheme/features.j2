@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Features parser</title>
+
+  <script src="/assets/js/lib.js"></script>
+
+  <link rel="stylesheet" href="/assets/css/scheme.css">
+  <link rel="stylesheet" href="/assets/vendor/css/bootstrap.css">
+  <style>
+    .nav-tabs .nav-link.active {
+        background-color: gray;
+        color: white;
+    }
+  </style>
+</head>
+<body class="bg-dark">
+  <div class="mt-1">
+    <div class="row mt-2">
+      <div class="col-3">
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary flex-fill idBtnTest">test</button>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-6">
+        <textarea class="form-control idTaScript" rows="30" wrap="off" placeholder="script"></textarea>
+      </div>
+      <div class="col-6">
+        <textarea class="form-control idTaResult" rows="30" wrap="off" placeholder="result"></textarea>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <textarea class="form-control idTaLog" rows="10" placeholder="log"></textarea>
+    </div>
+  </div>
+
+  <script src="/assets/vendor/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/jsExt/features.js"></script>
+  <script type="text/javascript">
+    const Features = new TFeatures();
+  </script>
+
+</body>
+</html>

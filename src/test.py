@@ -1,9 +1,10 @@
 import time
-from Inc.ParserSpec.TestAll import TestAll
+from Inc.ParserSpec.TestAll import TSpecComp
 
 
 TimeAt = time.time()
 File = 'Temp/cpu-intel.txt'
 #File = 'Temp/usedpc-1000.txt'
-TestAll(File)
-print(round(time.time() - TimeAt, 2))
+SpecComp = TSpecComp()
+SpecComp.ParseFile(File)
+print(round(time.time() - TimeAt, 2), 'sec')

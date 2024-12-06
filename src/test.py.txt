@@ -1,0 +1,418 @@
+1/54: Ноутбук Lenovo ThinkPad X260 (i5-6300U/16/256SSD) - Class B
+category : laptop
+brand : lenovo
+model : thinkpad x260
+cpu_intel : ['i5', '6300u']
+ram : {'size': 16, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+
+2/54: Системний блок HP Compaq DC7900 Intel Core 2 Duo E8400 4 GB RAM 500 GB - системний блок Б/В
+category : desktop
+brand : hp
+model : compaq dc7900
+cpu_intel : ['core 2', 'e8400']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 500, 'unit': 'gb'}
+
+3/54: Компьютер Dell 780 (Core2Quad Q8200/4Gb/250Gb) desktop БУ
+category : desktop
+brand : dell
+model : 780
+case : desktop
+cpu_intel : ['core2', 'q8200']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 250, 'unit': 'gb'}
+
+4/54: Б/В Системний блок Dell OptiPlex 7050 Intel Core i5 8 Гб 256 Гб SSD SFF ( Клас A)
+category : desktop
+brand : dell
+model : optiplex 7050
+case : sff
+cpu_intel : ['i5']
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+
+5/54: Б/В Ноутбук HP ProBook 6470b TN Intel Core i5 (i5-3320M) 4 Гб 120 Гб SSD (Вживаний - Клас A-)
+category : laptop
+brand : hp
+model : probook 6470b
+cpu_intel : ['i5', '3320m']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 120, 'unit': 'gb'}
+
+6/54: Ноутбук Dell Latitude 5580 15.6" (i7-7820HQ/DDR4 16GB) #Used
+category : laptop
+brand : dell
+model : latitude 5580
+cpu_intel : ['i7', '7820hq']
+ram : {'size': 16, 'unit': 'gb'}
+size : {'size': ['15']}
+
+7/54: Dell Latitude 7490 14,1″ i7-8650U/256SSD/16GB/FHD
+category : laptop
+brand : dell
+model : latitude 7490
+cpu_intel : ['i7', '8650u']
+ram : {'size': 16, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+screen : {'resolution': 'fhd'}
+
+8/54: Tablet Apple iPAD 10.2" 8th Gen Space Gray 3GB 32GB A2270 grade A
+brand : apple
+model : ipad 10
+ram : {'size': 3, 'unit': 'gb'}
+size : {'size': ['10']}
+
+9/54: Ноутбук Lenovo ThinkPad P1 G3-Intel Core-i7-10850H-2.7GHz-32Gb-DDR4-512Gb-SSD-W15.6-Web-FHD-IPS-NVIDIA Quadro T2000-(4Gb)-(B)-Б
+category : laptop
+brand : lenovo
+model : thinkpad p1
+cpu_intel : ['i7', '10850h']
+ram : {'size': 32, 'unit': 'gb'}
+storage : {'size': 512, 'unit': 'gb'}
+screen : {'resolution': 'fhd'}
+
+10/54: DELL Latitude 5511 i7-10850H 15.6 FullHD 16 GB SSD W10/11 Pro
+category : laptop
+brand : dell
+model : latitude 5511
+cpu_intel : ['i7', '10850h']
+ram : {'size': 16, 'unit': 'gb'}
+os_win : windows 10
+
+11/54: Ноутбук Lenovo ThinkPad T61- Intel-Core 2 Duo-T7100-1.8GHz-2Gb-DDR2-100Gb-W15.4-(С-)- Б/В
+category : laptop
+brand : lenovo
+model : thinkpad t61-
+cpu_intel : ['core 2', 't7100']
+ram : {'size': 2, 'unit': 'gb'}
+storage : {'size': 100, 'unit': 'gb'}
+
+12/54: Fujitsu-Siemens LifeBook E736 Grade А 13.3 Intel Core i5 6200U 2300MHz 3MB (6nd)  8 Gb / SSD 480GB
+brand : fujitsu
+model : -siemens lifebook
+cpu_intel : ['i5', '6200u']
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 480, 'unit': 'gb'}
+
+13/54: Компьютер MT HP 8000 Elite (E7500/4Gb/160Gb) Tower БУ
+category : desktop
+brand : hp
+model : 8000 elite
+case : tower
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 160, 'unit': 'gb'}
+
+14/54: AlphaPC (i3-4130 • 8Gb • ssd 240Gb) R4-T106
+cpu_intel : ['i3', '4130']
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 240, 'unit': 'gb'}
+
+15/54: Ноутбук Acer eMachines E728 / 15.6&quot; (1366x768) TN / Intel Pentium T4500 (2 ядра по 2.3 GHz) / 4 GB DDR3 / 640 GB HDD / Inte
+category : laptop
+brand : acer
+model : emachines e728
+cpu_intel : ['pentium', 't4500']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 640, 'unit': 'gb'}
+screen : {'resolution': 'hd'}
+
+16/54: Ноутбук Asus ROG Strix GL503V Black (RAM 16GB DDR4 / SSD 256GB + HDD 1TB) Б/В (5461)
+category : laptop
+brand : asus
+model : rog strix
+ram : {'size': 16, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+
+17/54: Laptop Dell Latitude 7390 i5-8gen 16GB 128GB SSD FHD KAM Windows Professional Słaba Bateria grade A-
+category : laptop
+brand : dell
+model : latitude 7390
+cpu_intel : ['i5', '8']
+ram : {'size': 16, 'unit': 'gb'}
+storage : {'size': 128, 'unit': 'gb'}
+screen : {'resolution': 'fhd'}
+
+18/54: Ноутбук Dell Latitude 5310 (i7-10510U/16/256SSD) - Class B
+category : laptop
+brand : dell
+model : latitude 5310
+cpu_intel : ['i7', '10510u']
+ram : {'size': 16, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+
+19/54: Microsoft Surface Laptop 4 i5 1145G7 512GB Touch (Akku 80%, Füße fehlen) Kratzer
+category : laptop
+cpu_intel : ['i5', '1145g']
+ram : {'size': 12, 'unit': 'gb'}
+storage : {'size': 512, 'unit': 'gb'}
+
+20/54: Ноутбук Lenovo Thinkpad 13 Gen2 13,3''/i3-7100U/8Gb/256GbSSD/Intel HD Graphics 620 4Gb/1366×768/TN/7год 40хв(A)(A)
+category : laptop
+brand : lenovo
+model : thinkpad 13
+cpu_intel : ['i3', '7100u']
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+screen : {'resolution': 'hd'}
+
+21/54: Комп&#039;ютер HP Compaq 6305 Pro SFF (A4-5300B/6/500)
+brand : hp
+model : compaq 6305
+case : sff
+cpu_amd : ['a4', '5300b']
+ram : {'size': 6, 'unit': 'gb'}
+
+22/54: Lenovo ThinkPad E570 FHD i7-7500U/GTX950M/16GB/512SSD
+category : laptop
+brand : lenovo
+model : thinkpad e570
+cpu_intel : ['i7', '7500u']
+ram : {'size': 16, 'unit': 'gb'}
+storage : {'size': 512, 'unit': 'gb'}
+screen : {'resolution': 'fhd'}
+
+23/54: Компьютер HP dc7800 (Q9300/4Gb/ssd 120Gb) Tower БУ
+category : desktop
+brand : hp
+model : dc7800
+case : tower
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 120, 'unit': 'gb'}
+
+24/54: Ноутбук-трансформер Lenovo ThinkPad X1 Yoga (4th gen) / 14&quot; (1920x1080) IPS Touch / Intel Core i5-8250U (4 (8) ядра по 1.6
+category : laptop
+brand : lenovo
+model : thinkpad x1
+cpu_intel : ['i5', '8250u']
+screen : {'resolution': 'fhd'}
+
+25/54: HP Notebook EliteBook 1040 G10 35.6 cm (14 Zoll) WUXGA Intel® Core™ i5 i5-1335U 16 GB RAM 512 GB SSD Intel Iris Xe Win 11 Pro Si
+category : laptop
+brand : hp
+model : notebook elitebook
+cpu_intel : ['i5', '1335u']
+ram : {'size': 16, 'unit': 'gb'}
+storage : {'size': 512, 'unit': 'gb'}
+size : {'size': ['14']}
+os_win : windows 11
+
+26/54: Ноутбук Dell Latitude E5420 (b840/4/250) - Class A
+category : laptop
+brand : dell
+model : latitude e5420
+ram : {'size': 4, 'unit': 'gb'}
+
+27/54: Б/В Ноутбук Lenovo ThinkPad X1 Carbon Gen 1 Multitouch (TN) Intel Core i7 8 Гб 240 Гб SSD (Вживаний - Клас B)
+category : laptop
+brand : lenovo
+model : thinkpad x1
+cpu_intel : ['i7']
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 240, 'unit': 'gb'}
+
+28/54: Комп&#039;ютер Fujitsu Esprimo C5730 USFF (E8400/8/120SSD)
+brand : fujitsu
+model : esprimo c5730
+case : usff
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 120, 'unit': 'gb'}
+
+29/54: Комп'ютер системний блок HP 8200 i5 2500 ОЗУ 4ГБ 250ГБ ОПТ soket 1155
+category : desktop
+brand : hp
+model : 8200 i5
+cpu_intel : ['i5', '2500']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 250, 'unit': 'gb'}
+
+30/54: Б/В Ноутбук Dell Latitude 7350 Multitouch Intel Core M 8 Гб 256 Гб SSD ( Клас A)
+category : laptop
+brand : dell
+model : latitude 7350
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+
+31/54: Ноутбук Lenovo G570 (B815/4/120SSD) - Class B
+category : laptop
+brand : lenovo
+model : g570
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 120, 'unit': 'gb'}
+
+32/54: Komputer Dell 5070 Wyse/J5005/8/64GB/No OS
+category : desktop
+brand : dell
+model : 5070 wyse
+ram : {'size': 64, 'unit': 'gb'}
+
+33/54: Б/В Ноутбук HP ZBook 17 G3 IPS Intel Core i7 16 Гб 0 Гб - (Вживаний - Клас A)
+category : laptop
+brand : hp
+model : zbook 17
+cpu_intel : ['i7']
+ram : {'size': 16, 'unit': 'gb'}
+
+34/54: Комп'ютер HP Pro 3500 Micro tower PC s1155 БВ 8, HDD, 500
+category : desktop
+brand : hp
+model : pro 3500
+case : mini
+
+35/54: Lenovo ThinkPad X1 Carbon Gen 8 Intel i7 4 x 1.8 GHz 16GB 512GB SSD Win11 Pro WQHD 2560 B7S  |WIE NEU|inkl. 3 Jahre Garantie
+category : laptop
+brand : lenovo
+model : thinkpad x1
+cpu_intel : ['i7']
+ram : {'size': 16, 'unit': 'gb'}
+storage : {'size': 512, 'unit': 'gb'}
+os_win : windows 11
+
+36/54: Б/В Ноутбук Lenovo ThinkPad L430 TN Intel Core i3 4 Гб 500 Гб HDD ( Клас B)
+category : laptop
+brand : lenovo
+model : thinkpad l430
+cpu_intel : ['i3']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 500, 'unit': 'gb'}
+
+37/54: Моноблок Dell Optiplex 9020 AIO 23" IPS, FullHD, i7-4gen (210-AIO9020-5L) 8, 480
+brand : dell
+model : optiplex 9020
+case : aio
+cpu_intel : ['i7', '4']
+size : {'size': ['23']}
+
+38/54: Lenovo M92 (i5 3330 • 4Gb • 500Gb) dt
+brand : lenovo
+model : m92
+cpu_intel : ['i5', '3330']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 500, 'unit': 'gb'}
+
+39/54: Сенсорний ноутбук трансформер Fujitsu ✅Lifebook T902 / 13.3&quot; ✅ i5 -Intel Core i5-3320M
+category : laptop
+brand : fujitsu
+cpu_intel : ['i5', '3320m']
+
+40/54: Dell E5580/i5 7 GEN/8GB DDR4/256GB SSD/Win 10 Pro
+brand : dell
+model : e5580
+cpu_intel : ['i5', '7']
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+os_win : windows 10
+
+41/54: Комп'ютер Dell OptiPlex 7050 MFF (210-MF7050) miniPC LGA1151 БУ Intel Core i5-6500T 2.50GHz, 16, 256
+category : desktop
+brand : dell
+model : optiplex 7050
+case : mini
+cpu_intel : ['i5', '6500t']
+
+42/54: laptop Dell XPS 7390 2w1/ i7 10 GEN/8 GB/256 SSD/FHD dotyk/Win 11 pro
+category : laptop
+brand : dell
+model : xps 7390
+cpu_intel : ['i7', '10']
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+screen : {'resolution': 'fhd'}
+os_win : windows 11
+
+43/54: HP WorkStation Z240 SFF Intel® Core i3 6100 2300MHz 3MB (6 gen) 2 ядра 4 потоки /8 Gb DDR 4 / SSD 480 Gb / Slim Desktop Intel HD
+category : desktop
+brand : hp
+model : workstation z240
+case : desktop
+cpu_intel : ['i3', '6100']
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 480, 'unit': 'gb'}
+screen : {'resolution': 'hd'}
+
+44/54: Lenovo ThinkPad P16s Gen 2 | i7-1360P / 16GB / FHD+ / RTX A500
+category : laptop
+brand : lenovo
+model : thinkpad p16s
+cpu_intel : ['i7', '1360p']
+ram : {'size': 16, 'unit': 'gb'}
+screen : {'resolution': 'fhd'}
+
+45/54: HP ZBook 86B31EA - 16" Notebook - Core Ultra 9 40,64 cm - 1.000 GB - 32 GB
+category : laptop
+brand : hp
+model : zbook 86b31ea
+ram : {'size': 0, 'unit': 'gb'}
+storage : {'size': 0, 'unit': 'gb'}
+size : {'size': ['16']}
+
+46/54: Комп&#039;ютер HP Compaq DC 7800 SFF (E5300/2/160)
+brand : hp
+model : compaq dc
+case : sff
+ram : {'size': 2, 'unit': 'gb'}
+
+47/54: Ноутбук Acer Aspire E1-531 / 15.6&quot; (1366x768) TN / Intel Pentium B960 (2 ядра по 2.2 GHz) / 4 GB DDR3 / 500 Gb HDD / Intel
+category : laptop
+brand : acer
+model : aspire e1-531
+cpu_intel : ['pentium', 'b960']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 500, 'unit': 'gb'}
+screen : {'resolution': 'hd'}
+
+48/54: Б/В Системний блок Dell OptiPlex 9020 Intel Core i3 4 Гб 120 Гб SSD ( Клас A)
+category : desktop
+brand : dell
+model : optiplex 9020
+cpu_intel : ['i3']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 120, 'unit': 'gb'}
+
+49/54: DELL Latitude 3520 i5-1135G7 32GB RAM 2TB SSD FHD IPS GW12 Kl.A-
+category : laptop
+brand : dell
+model : latitude 3520
+cpu_intel : ['i5', '1135g']
+ram : {'size': 32, 'unit': 'gb'}
+storage : {'size': 2000, 'unit': 'gb'}
+screen : {'resolution': 'fhd'}
+
+50/54: Lenovo IdeaPad 5 2-in-1 14IRU9 83DT - Flip-Design - Intel Core 5 120U / 1.4 GHz - Win 11 Home - Intel Graphics - 16 GB R
+brand : lenovo
+model : ideapad 5
+ram : {'size': 16, 'unit': 'gb'}
+os_win : windows 11
+
+51/54: Б/В Ноутбук Dell Latitude 7350 Multitouch Intel Core M 8 Гб 256 Гб SSD ( Клас A)
+category : laptop
+brand : dell
+model : latitude 7350
+ram : {'size': 8, 'unit': 'gb'}
+storage : {'size': 256, 'unit': 'gb'}
+
+52/54: Ноутбук HP ProBook 640 G2-Intel-Core-i5-6200U-2,30GHz-4Gb-DDR3-500Gb-HDD-W14-HD-(B)-Б/В
+category : laptop
+brand : hp
+model : probook 640
+cpu_intel : ['i5', '6200u']
+ram : {'size': 4, 'unit': 'gb'}
+storage : {'size': 500, 'unit': 'gb'}
+screen : {'resolution': 'hd'}
+
+53/54: Купити Комп'ютер Fujitsu Esprimo E500 E85+ SFF s1155 (NoCPU/NoRAM/NoHDD) б/в
+category : desktop
+brand : fujitsu
+model : esprimo e500
+case : sff
+
+54/54: Laptop Dell Latitude 7490 Core i5 8GEN 16GB 1TB SSD Win11 A-
+category : laptop
+brand : dell
+model : latitude 7490
+cpu_intel : ['i5', '8']
+ram : {'size': 16, 'unit': 'gb'}
+storage : {'size': 1000, 'unit': 'gb'}
+os_win : windows 11
+
+0.06 sec
