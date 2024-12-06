@@ -4,6 +4,7 @@
 
 
 from Inc.Loader.Lang import TLoaderLangFs
+from Inc.Misc.Serialize import Encode
 from IncP.ApiBase import TApiBase
 from IncP.Plugins import TCtrls
 import IncP.LibModel as Lib
@@ -42,6 +43,7 @@ class TApiCtrl(TApiBase):
                         Res.update(ResExec)
             case 'api':
                 Res = await super().Exec(aRoute, aData)
+                #Res = Encode(Res)
             case _:
                 Res = {'err': f'unknown type {Type}'}
         return Res

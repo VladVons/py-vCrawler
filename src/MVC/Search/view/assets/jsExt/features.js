@@ -14,28 +14,72 @@ class TFeatures {
     document.querySelector('.idBtnTest').onclick = (event) => {
       this.ScriptTest();
     }
+    document.querySelector('.idBtnRnd').onclick = (event) => {
+      this.LoadRandom();
+    }
+    document.querySelector('.idBtnExcel').onclick = (event) => {
+      this.AsExcel();
+    }
   }
 
   ScriptTest() {
     const Script = this.ElScript.value.trim();
     this.ElResult.value = '';
 
-    this.Log('Sending request...')
-    // allow redraw
-    setTimeout(() => {
-      const res = new TSend().exec(
-        '/api/?route=scheme/features',
-        {
-          'method': 'ScriptTest',
-          'param': {
-            'aScript': Script
-          }
+    const res = new TSend().exec(
+      '/api/?route=scheme/features',
+      {
+        'method': 'ScriptTest',
+        'param': {
+          'aScript': Script
         }
-      )
+      }
+    )
 
-      this.ElResult.value = res['data'] || '';
-      this.Log(res['err']);
-    }, 0.1);
+    this.ElResult.value = res['data'];
+    this.Log(res['err']);
+  }
+
+  AsExcel() {
+    const Script = this.ElScript.value.trim();
+    this.ElResult.value = '';
+
+    const res = new TSend().exec(
+      '/api/?route=scheme/features',
+      {
+        'method': 'AsExcel',
+        'param': {
+          'aScript': Script
+        }
+      }
+    )
+
+    const FileData = atob(res['data']);
+    const data = new Blob([FileData], { type: 'application/vnd.ms-excel' });
+    const downloadUrl = URL.createObjectURL(data);
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.download = "findwares_p.xlsx";
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(downloadUrl);
+
+    this.Log(res['err']);
+  }
+
+  LoadRandom() {
+    const res = new TSend().exec(
+      '/api/?route=scheme/features',
+      {
+        'method': 'LoadRandom',
+        'param': {}
+      }
+    )
+
+    this.ElScript.value = res['data'];
+    this.Log(res['err']);
   }
 
   Log(Msg) {

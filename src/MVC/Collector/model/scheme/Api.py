@@ -42,3 +42,11 @@ class TMain(TDbModel):
               'aValues': Values
             }
         )
+
+    async def GetProductsRnd(self, aLimit: int = 100) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_ProductsRnd.sql',
+            {
+              'aLimit': aLimit
+            }
+        )
