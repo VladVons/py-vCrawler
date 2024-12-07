@@ -24,26 +24,29 @@ class TFeatures {
 
   ScriptTest() {
     const Script = this.ElScript.value.trim();
+
+    // redraw
     this.ElResult.value = '';
-
-    const res = new TSend().exec(
-      '/api/?route=scheme/features',
-      {
-        'method': 'ScriptTest',
-        'param': {
-          'aScript': Script
+    setTimeout(() => {
+      const res = new TSend().exec(
+        '/api/?route=scheme/features',
+        {
+          'method': 'ScriptTest',
+          'param': {
+            'aScript': Script
+          }
         }
-      }
-    )
+      )
 
-    this.ElResult.value = res['data'];
-    this.Log(res['err']);
+      this.ElResult.value = res['data'];
+      this.Log(res['err']);
+    }, 0.1);
   }
 
   AsExcel() {
     const Script = this.ElScript.value.trim();
-    this.ElResult.value = '';
 
+    this.ElResult.value = '';
     const res = new TSend().exec(
       '/api/?route=scheme/features',
       {
@@ -54,32 +57,28 @@ class TFeatures {
       }
     )
 
-    const FileData = atob(res['data']);
-    const data = new Blob([FileData], { type: 'application/vnd.ms-excel' });
-    const downloadUrl = URL.createObjectURL(data);
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = "findwares_p.xlsx";
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(downloadUrl);
+    const byteArray = Base64ToBin(res['data']);
+    const data = new Blob([byteArray], { type: 'application/vnd.ms-excel' });
+    ExecDownload("findwares_p.xlsx", data)
 
     this.Log(res['err']);
   }
 
   LoadRandom() {
-    const res = new TSend().exec(
-      '/api/?route=scheme/features',
-      {
-        'method': 'LoadRandom',
-        'param': {}
-      }
-    )
+    // redraw
+    this.ElScript.value = '';
+    setTimeout(() => {
+      const res = new TSend().exec(
+        '/api/?route=scheme/features',
+        {
+          'method': 'LoadRandom',
+          'param': {}
+        }
+      )
 
-    this.ElScript.value = res['data'];
-    this.Log(res['err']);
+      this.ElScript.value = res['data'];
+      this.Log(res['err']);
+    }, 0.1);
   }
 
   Log(Msg) {
@@ -89,4 +88,3 @@ class TFeatures {
     this.ElLog.scrollTop = this.ElLog.scrollHeight;
   }
 }
-
