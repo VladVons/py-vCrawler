@@ -4,6 +4,7 @@
 
 
 import re
+import json
 #
 from Inc.Sql.DbModel import TDbModel
 import IncP.LibModel as Lib
@@ -42,6 +43,19 @@ class TMain(TDbModel):
             'fmtGet_Products_Search2.sql',
             {
                 'aFilter': aFilter,
+                'aCountryId': aCountryId,
+                'aOrder': aOrder,
+                'aLimit': aLimit,
+                'aOffset': aOffset
+            }
+        )
+
+    async def GetProductsSearchAttr(self, aFilter: dict, aCountryId: int, aOrder: str, aLimit: int = 25, aOffset: int = 0) -> dict:
+        Filter = json.dumps(aFilter, ensure_ascii=False)
+        return await self.ExecQuery(
+            'fmtGet_Products_SearchAttr.sql',
+            {
+                'aFilter': Filter,
                 'aCountryId': aCountryId,
                 'aOrder': aOrder,
                 'aLimit': aLimit,

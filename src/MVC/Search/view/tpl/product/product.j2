@@ -54,7 +54,7 @@
         <h1>{{product.name}}</h1>
         <div class="pt-2 pb-2 product-attr-short">
           {% for xKey, xVal in product.attr.items() %}
-            <div>{{xKey}}: {{xVal}}</div>
+            <div>{{lang.get(xKey, xKey)}}: {{xVal}}</div>
           {% endfor %}
           <h2 class="pt-2">{{lang.available}}: {{product.stock}}</h2>
         </div>

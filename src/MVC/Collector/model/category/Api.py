@@ -16,3 +16,11 @@ class TMain(TDbModel):
             }
         )
 
+    async def GetCountryCategories(self, aCountryId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_CountryCategories.sql',
+            {
+                'aCountryId': aCountryId
+            }
+        )
+

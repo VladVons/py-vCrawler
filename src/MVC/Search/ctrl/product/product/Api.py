@@ -34,7 +34,8 @@ class TMain(TCtrlBase):
 
         Res = {}
         Product = DblProduct.Rec.product
-        Product['attr'] = DblProduct.Rec.attr
+        Attr = dict(sorted(DblProduct.Rec.attr.items()))
+        Product['attr'] = Attr
 
         if ('brand' not in Product):
             Product['brand'] = ''
@@ -54,24 +55,35 @@ class TMain(TCtrlBase):
         if ('stock' not in Product):
             Product['stock'] = False
 
+        AttrSchema = [
+            {
+                '@type': 'PropertyValue',
+                'name': xKey,
+                'value': xVal
+            }
+            for xKey, xVal in Product['attr'].items()
+        ]
+
         Schema = {
             '@context': 'https://schema.org',
             '@type': 'Product',
             'image': Product.get('images'),
             'name': Product.get('name'),
             'description': Product.get('description'),
-            'category': Product.get('category'),
-            'brand': Product.get('brand'),
+            'category': Attr.get('category'),
+            'model': Attr.get('model'),
+            'brand': Attr.get('brand'),
             'offers': {
                 '@type': 'Offer',
                 'availability': 'https://schema.org/' + Lib.Iif(Product.get('stock'), 'InStock', 'OutOfStock'),
                 'price': Product.get('price')[0],
                 'priceCurrency': Product.get('price')[1]
-            }
+            },
+            'additionalProperty': AttrSchema
         }
         Lib.DelValues(Schema, ['', [], {}, None])
 
-        Res['schema'] = json.dumps(Schema, ensure_ascii=False)
+        Res['schema'] = json.dumps(Schema, ensure_ascii=False, indent=1)
         Res['product'] = Product
         Res['info'] = {
             'url_id': DblProduct.Rec.url_id

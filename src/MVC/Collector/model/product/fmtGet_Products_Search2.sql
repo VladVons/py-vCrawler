@@ -15,6 +15,7 @@ with wt1 as(
         rs.id = ru.site_id
     where
         (rs.country_id = {{aCountryId}}) and
+        (rp.stock) and
         (rp.price > 0) and
         tsv_title @@ to_tsquery('simple', '{{aFilter}}')
     order by
