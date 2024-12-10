@@ -3,6 +3,7 @@
 # License: GNU, see LICENSE for more details
 
 from base64 import b64encode
+from Inc.Var.Dict import DictToPath
 from Inc.DbList import TDbList
 from Inc.DbList.DbConvert import DblToXlsx
 from Inc.ParserSpec.TestAll import TSpecComp
@@ -67,4 +68,58 @@ class TMain(TCtrlBase):
         return {
             'err': '',
             'data': '\n'.join(Products)
+        }
+
+    async def ProductsNoAttrRefresh(self) -> dict:
+        async def _ProductsNoAttrRefresh(aLimit: int) -> int:
+            Dbl = await self.ExecModelImport(
+                'scheme',
+                {
+                    'method': 'GetProductsNoAttr',
+                    'param': {
+                        'aLimit': aLimit
+                    }
+                }
+            )
+
+            Res = len(Dbl)
+            if (Res):
+                SpecComp = TSpecComp()
+                Values = []
+                for Rec in Dbl:
+                    Attrs = SpecComp.Parse(Rec.title)
+                    AttrPath = DictToPath(Attrs)
+                    for xKey in list(AttrPath.keys()):
+                        xVal = AttrPath[xKey]
+                        if (isinstance(xVal, str)):
+                            AttrPath[xKey] = xVal.lower()
+
+                        if (xKey in ['cpu/gen', 'ram/unit', 'storage/unit']):
+                            del AttrPath[xKey]
+
+                    Values.append((Rec.url_id, Rec.title, AttrPath))
+
+                Dbl = await self.ExecModelImport(
+                    'scheme',
+                    {
+                        'method': 'UpdProductsAttr',
+                        'param': {
+                            'aValues': Values
+                        }
+                    }
+                )
+            return Res
+
+        Cnt = 0
+        for i in range(10):
+            R = await _ProductsNoAttrRefresh(1000)
+            if (R == 0):
+                break
+
+            Cnt += R
+            print(i+1, 'updated attr ', Cnt)
+
+        return {
+            'err': f'updated products {Cnt}',
+            'data': ''
         }

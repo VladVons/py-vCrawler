@@ -34,6 +34,8 @@ class TMain(TCtrlBase):
 
         Res = {}
         Product = DblProduct.Rec.product
+        Product['attr'] = DblProduct.Rec.attr
+
         if ('brand' not in Product):
             Product['brand'] = ''
 

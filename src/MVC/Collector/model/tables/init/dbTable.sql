@@ -10,10 +10,16 @@ create type url_enum as enum (
     'contact'
 );
 
-
 create type guard_enum as enum (
     'unknown',
     'cloudflare'
+);
+
+create type val_enum as enum (
+    'int',
+    'text',
+    'float',
+    'json'
 );
 
 -- lang
@@ -159,9 +165,11 @@ create table if not exists ref_product (
     price               decimal(8, 2),
     price_old           decimal(8, 2),
     stock               boolean default true,
+    attr                jsonb,
+    title_crc           int,
     tsv_title           tsvector generated always as (to_tsvector('russian', regexp_replace(title, '[-/]', ' ', 'g'))) stored,
     url_id              int not null unique references ref_url(id) on delete cascade
 );
 alter table ref_product add column tsv_title tsvector generated always as (to_tsvector('simple', regexp_replace(title, '[-/]', ' ', 'g'))) stored;
 create index ref_product_tvs_idx on ref_product using gin (tsv_title);
-
+create index ref_product_attr_idx on ref_product using gin (attr);

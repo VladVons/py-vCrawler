@@ -3,6 +3,7 @@
 # License: GNU, see LICENSE for more details
 
 
+import json
 from Inc.Sql.DbModel import TDbModel
 
 
@@ -48,5 +49,27 @@ class TMain(TDbModel):
             'fmtGet_ProductsRnd.sql',
             {
               'aLimit': aLimit
+            }
+        )
+
+    async def GetProductsNoAttr(self, aLimit: int = 1000) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_ProductsNoAttr.sql',
+            {
+              'aLimit': aLimit
+            }
+        )
+
+    async def UpdProductsAttr(self, aValues: tuple) -> dict:
+        Values = []
+        for xUrlId, xTitle, xAttr in aValues:
+            Attr = json.dumps(xAttr, ensure_ascii=False).replace("'", '`')
+            Title = xTitle.replace("'", "''")
+            Values.append(f"({xUrlId}, '{Title}', '{Attr}'::jsonb)")
+
+        return await self.ExecQuery(
+            'fmtUpd_ProductsAttr.sql',
+            {
+              'aValues': ', '.join(Values)
             }
         )

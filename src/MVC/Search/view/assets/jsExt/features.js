@@ -20,6 +20,9 @@ class TFeatures {
     document.querySelector('.idBtnExcel').onclick = (event) => {
       this.AsExcel();
     }
+    document.querySelector('.idBtnDbRefresh').onclick = (event) => {
+      this.DbRefresh();
+    }
   }
 
   ScriptTest() {
@@ -77,6 +80,22 @@ class TFeatures {
       )
 
       this.ElScript.value = res['data'];
+      this.Log(res['err']);
+    }, 0.1);
+  }
+
+  DbRefresh() {
+    this.Log('wait ...');
+    // redraw
+    setTimeout(() => {
+      const res = new TSend().exec(
+        '/api/?route=scheme/features',
+        {
+          'method': 'ProductsNoAttrRefresh',
+          'param': {}
+        }
+      )
+
       this.Log(res['err']);
     }, 0.1);
   }
