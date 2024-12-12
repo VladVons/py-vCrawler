@@ -3,8 +3,26 @@
 # License: GNU, see LICENSE for more details
 
 
-from IncP.CtrlBase import TCtrlBase
+from IncP.CtrlBase import TCtrlBase, Lib
 
 class TMain(TCtrlBase):
     async def Main(self, **aData):
+        aCountryId, = Lib.GetDictDefs(
+            aData.get('query'),
+            ('country_id', ),
+            (1, )
+        )
+
+        DblCategory = await self.ExecModelImport(
+            'category',
+            {
+                'method': 'GetCountryCategories',
+                'param': {
+                    'aCountryId': aCountryId
+                },
+                'cache_age': 60*10
+            }
+        )
+
+
         return

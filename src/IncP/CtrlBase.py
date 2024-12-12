@@ -3,7 +3,6 @@
 # License: GNU, see LICENSE for more details
 
 
-from Inc.Misc.Cache import TCacheMem
 from Inc.Misc.Profiler import TTimerLog
 from Inc.Loader.Lang import TLoaderLang
 from Task.Search.SrvCtrl.Api import TApiCtrl
@@ -15,11 +14,12 @@ class TCtrlBase():
         self.ApiCtrl = aApiCtrl
         self.ApiModel = None
         self.ApiImg = None
-        self.Cache = TCacheMem(aMaxAge = 30)
+
 
     def _init_(self):
         self.ApiModel = self.ApiCtrl.Loader['model'].Get
         #self.ApiImg = self.ApiCtrl.Loader['img'].Get
+        pass
 
     @property
     def Common(self) -> TApiCtrl:

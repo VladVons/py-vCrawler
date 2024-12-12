@@ -17,3 +17,5 @@ group by
   attr->>'category'
 having
   count(*) >= 5
+order by
+  category

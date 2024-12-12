@@ -4,6 +4,7 @@
 
 
 from Inc.Loader.Api import TLoaderApiFs, TLoaderApiHttp
+from Inc.Misc.Cache import TCacheFileManager
 from Inc.Plugin import TPlugin
 from Inc.Var.Dict import DictToText
 from Inc.Util.ModHelp import GetHelp, GetMethod
@@ -20,6 +21,9 @@ class TApiBase():
         self.Name = None
         self.DefRoute = None
         self.Plugin: TPluginMVC = None
+
+        self.ExecCache = TCacheFileManager(f'/tmp/cache/{self.__class__.__name__}')
+        self.ExecCache.Clear()
 
     async def ExecOnce(self, aData: dict):
         pass
@@ -70,6 +74,18 @@ class TApiBase():
         return Res
 
     async def Exec(self, aRoute: str, aData: dict) -> dict:
+        async def _Exec() -> dict:
+            nonlocal Method, aData
+
+            Param = aData.get('param')
+            if (Param):
+                Res = await Method(**Param)
+            elif (Param == {}):
+                Res = await Method()
+            else:
+                Res = await Method(**aData)
+            return Res
+
         Log.Print(3, 'i', f'{self.__class__.__name__}.Exec(). route: {aRoute}; {DictToText(aData, ', ')}')
 
         if (self.ExecCnt == 0):
@@ -81,13 +97,12 @@ class TApiBase():
             Method = Res.get('method')
             #Args = Method.__code__.co_varnames[:Method.__code__.co_argcount]
             try:
-                Param = aData.get('param')
-                if (Param):
-                    Res = await Method(**Param)
-                elif (Param == {}):
-                    Res = await Method()
+                if ('cache_age' in aData):
+                    CacheAge = aData['cache_age']
+                    Init = self.ExecCache.Init(CacheAge, _Exec)
+                    Res = await self.ExecCache.Exec(Init, aRoute, aData)
                 else:
-                    Res = await Method(**aData)
+                    Res = await _Exec()
             except TypeError as E:
                 Log.Print(1, 'x', 'Exec()', aE = E)
                 Res = {'err': str(E)}

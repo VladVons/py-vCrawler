@@ -11,7 +11,7 @@ class TMain(TDbModel):
         return await self.ExecQuery(
             'fmtGet_AttrCountInCategory.sql',
             {
-                'aCountryId': aCountryId, 
+                'aCountryId': aCountryId,
                 'aCategory': aCategory
             }
         )
