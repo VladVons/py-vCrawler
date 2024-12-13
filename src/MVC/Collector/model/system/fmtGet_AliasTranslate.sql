@@ -1,0 +1,11 @@
+-- fmtGet_AliasTranslate.sql
+-- in: aLang, aValues
+
+select
+  jsonb_object_agg(wt1.key, coalesce(ral.title, wt1.key)) AS lang
+from (
+  values {{aValues}}
+) as wt1(key)
+join ref_lang rl on rl.alias = '{{aLang}}'
+left join ref_alias ra on ra.title = wt1.key
+left join ref_alias_lang ral on ral.alias_id = ra.id and ral.lang_id = rl.id

@@ -36,6 +36,18 @@ create table if not exists ref_lang_lang (
     lang_id         smallint not null references ref_lang(id)
 );
 
+create table if not exists ref_alias (
+    id              smallserial primary key,
+    title           varchar(32) not null unique
+);
+
+create table if not exists ref_alias_lang (
+    title           varchar(128) not null,
+    alias_id        smallint not null references ref_alias(id) on delete cascade,
+    lang_id         smallint not null references ref_lang(id),
+    unique(alias_id, lang_id)
+);
+
 -- continent --
 
 create table ref_continent (

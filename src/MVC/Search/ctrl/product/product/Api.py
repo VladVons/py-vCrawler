@@ -34,7 +34,9 @@ class TMain(TCtrlBase):
 
         Res = {}
         Product = DblProduct.Rec.product
-        Attr = dict(sorted(DblProduct.Rec.attr.items()))
+
+        Attr = DblProduct.Rec.GetField('attr', {})
+        Attr = dict(sorted(Attr.items()))
         Product['attr'] = Attr
 
         if ('brand' not in Product):

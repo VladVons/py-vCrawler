@@ -24,5 +24,8 @@ class TMain(TCtrlBase):
             }
         )
 
+        await self.Translate(DblCategory, 'ua', 'category')
 
-        return
+        return {
+            'dbl_category': DblCategory.Export()
+        }
