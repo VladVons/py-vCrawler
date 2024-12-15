@@ -45,20 +45,15 @@ class TCtrlBase():
             Res = Lib.TDbList().Import(Res)
         return Res
 
-    async def Translate(self, aDbl: Lib.TDbList, aLang: str, aField: str):
-        DblLang = await self.ExecModelImport(
+    async def Translate(self, aLang: str, aText: list[str]) -> dict:
+        Data = await self.ExecModel(
             'system',
             {
                 'method': 'GetAliasTranslate',
                 'param': {
                     'aLang': aLang,
-                    'aAlias': aDbl.ExportList(aField)
+                    'aText': aText
                 }
             }
         )
-
-        Dict = DblLang.Rec.lang
-        aDbl.AddFieldsFill([aField + '_t'], False)
-        for Rec in aDbl:
-            Val = Dict[Rec.GetField(aField)]
-            aDbl.RecMerge([Val])
+        return Data['data'][0][0]

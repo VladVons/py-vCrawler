@@ -9,3 +9,11 @@ from Inc.Misc.Pagination import TPagination
 from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, Filter, DelValues
 from Inc.Var.Obj import Iif, IsDigits
 from .Log import Log
+
+
+def DblTranslate(aDbl: TDbList, aField: str, aTrans: dict):
+    aDbl.AddFieldsFill([aField + '_t'], False)
+    for Rec in aDbl:
+        Find = Rec.GetField(aField)
+        Val = aTrans.get(Find, Find)
+        aDbl.RecMerge([Val])

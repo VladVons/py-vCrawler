@@ -7,8 +7,8 @@ from Inc.Sql.DbModel import TDbModel
 
 
 class TMain(TDbModel):
-   async def GetAliasTranslate(self, aLang: str, aAlias: list[str]) -> dict:
-        Arr = [f"('{xAlias}')" for xAlias in aAlias]
+    async def GetAliasTranslate(self, aLang: str, aText: list[str]) -> dict:
+        Arr = [f"('{xText}')" for xText in aText]
 
         return await self.ExecQuery(
             'fmtGet_AliasTranslate.sql',
