@@ -7,10 +7,10 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 class TMain(TCtrlBase):
     async def Main(self, **aData):
-        aCountryId, = Lib.GetDictDefs(
+        aCountryId, aLang = Lib.GetDictDefs(
             aData.get('query'),
-            ('country_id', ),
-            (1, )
+            ('country_id', 'lang'),
+            (1, 'ua')
         )
 
         DblCategory = await self.ExecModelImport(
@@ -25,7 +25,12 @@ class TMain(TCtrlBase):
         )
 
         Trans = await self.Translate('ua', DblCategory.ExportList('category'))
-        Lib.DblTranslate(DblCategory, 'category', Trans)
+        DblCategory.AddFieldsFill(['lang', 'href'], False)
+        for Rec in DblCategory:
+            Category = Rec.category
+            Lang = Trans.get(Category, Category)
+            Href = f'/?route=product/category&country_id={aCountryId}&category={Category}&lang={aLang}'
+            DblCategory.RecMerge([Lang, Href])
 
         return {
             'dbl_category': DblCategory.Export()

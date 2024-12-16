@@ -74,16 +74,14 @@ class TApiBase():
         return Res
 
     async def Exec(self, aRoute: str, aData: dict) -> dict:
-        async def _Exec() -> dict:
-            nonlocal Method, aData
-
+        async def _Exec(aMethod, aData) -> dict:
             Param = aData.get('param')
             if (Param):
-                Res = await Method(**Param)
+                Res = await aMethod(**Param)
             elif (Param == {}):
-                Res = await Method()
+                Res = await aMethod()
             else:
-                Res = await Method(**aData)
+                Res = await aMethod(**aData)
             return Res
 
         Log.Print(3, 'i', f'{self.__class__.__name__}.Exec(). route: {aRoute}; {DictToText(aData, ', ')}')
@@ -99,10 +97,10 @@ class TApiBase():
             try:
                 if ('cache_age' in aData):
                     CacheAge = aData['cache_age']
-                    Init = self.ExecCache.Init(CacheAge, _Exec)
-                    Res = await self.ExecCache.Exec(Init, aRoute, aData)
+                    Cache = self.ExecCache.Init(CacheAge)
+                    Res = await self.ExecCache.Exec(Cache, _Exec, [Method, aData], aRoute, aData)
                 else:
-                    Res = await _Exec()
+                    Res = await _Exec(Method, aData)
             except TypeError as E:
                 Log.Print(1, 'x', 'Exec()', aE = E)
                 Res = {'err': str(E)}

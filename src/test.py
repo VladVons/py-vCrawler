@@ -21,11 +21,6 @@ async def Test2():
     #Fs = TFsDisk('./')
     Fs = TFsMem()
 
-    File1 = f'vCrawler.log'
-    q1 = Fs.FileWrite(File1, '12345678901234567890'.encode())
-    async for xBlock, _xSize in Fs.FileReadChunk(File1, 5):
-        print(xBlock)
-
     Fs.FileDelete(File)
     Fs.DirCreate(Dir)
     q1 = Fs.FileWrite(File, '12345678901234567890'.encode())
@@ -41,14 +36,14 @@ async def Test3():
     url = "https://link.testfile.org/15MB"
     output_path = "15mb.dat"
 
-    url = 'https://d12.drivemusic.club/dl/4KGkN0NL-t2PVFVnh9lAfw/1734329489/download_music/2012/10/detskie-luch-solnca-zolotogo.mp3'
+    url = 'https://mp3uk.net/mp3/files/niletto-luch-solnca-zolotogo-mp3.mp3'
     output_path = 'luch-solnca-zolotogo.mp3'
 
     #await DownloadChunksToFile(url, output_path)
 
-    Fs = TFsDisk('./')
+    Fs = TFsDisk('./temp/123')
 
-    BlockSize = 65536
+    BlockSize = 655360
     async with aiohttp.ClientSession() as Session:
         async with Session.get(url) as Response:
             if (Response.status == 200):

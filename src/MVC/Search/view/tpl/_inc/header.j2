@@ -1,7 +1,7 @@
 <!-- header + -->
 <div class="logo-and-select">
   <div class="logo">
-    <a href="#"><img src="logo.png" alt="Logo" height="40"></a>
+    <a href="/"><img src="logo.png" alt="Logo" height="40"></a>
   </div>
   <select class="form-select ms-2 d-md-none">
     <option selected>ua</option>
@@ -29,9 +29,10 @@
 
     document.getElementById('viCountry').addEventListener('change', (event) => {
       const Search = elSearch.value.trim();
-      if (Search) {
-        elForm.submit();
+      if (Search == '') {
+        elForm.querySelector('input[name="route"]').remove();
       }
+      elForm.submit();
   });
 </script>
 <!-- header - -->

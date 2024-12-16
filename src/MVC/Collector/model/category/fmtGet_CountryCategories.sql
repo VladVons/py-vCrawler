@@ -11,7 +11,7 @@ join
 join
   ref_site rs on rs.id = ru.site_id and rs.country_id = {{aCountryId}}
 where
-  stock and
+  (stock is true) and
   (attr->>'category' is not null)
 group by
   attr->>'category'

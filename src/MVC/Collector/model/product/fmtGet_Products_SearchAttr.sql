@@ -2,10 +2,16 @@
 -- in: aCountryId, aLimit, aOffset, aFilter
 
 select
+  count(*) over() as total,
+  rp.url_id,
+  rp.update_date,
   rp.title,
   rp.attr,
   rp.stock,
-  rp.price
+  rp.price,
+  rp.price_old,
+  rp.image,
+  ru.url
 from
   ref_product rp
 join
@@ -13,8 +19,8 @@ join
 join
   ref_site rs on rs.id = ru.site_id and rs.country_id = {{aCountryId}}
 where
-  rp.stock and
-  rp.attr @> '{{aFilter}}'
+  (rp.stock is true) and
+  (rp.attr @> '{{aFilter}}')
 order by
   {{aOrder}}
 limit
