@@ -52,10 +52,10 @@
         </div>
 
         <h1>{{product.name}}</h1>
-        <div class="pt-2">{{lang.site}}: <a href="{{info.url}}" target="_blank" rel="nofollow">{{info.host}}</a></div>
+        <div class="pt-2">{{lang.site | capitalize}}: <a href="{{info.url}}" target="_blank" rel="nofollow">{{info.host}}</a></div>
         <div class="pt-2 pb-2 product-attr-short">
           {% for Rec in TDbList().Import(dbl_attr) %}
-            <div>{{lang.get(Rec.key, Rec.key)}}: <a href="{{Rec.href}}">{{Rec.val}}</a></div>
+            <div>{{lang.get(Rec.key, Rec.key) | capitalize}}: <a href="{{Rec.href}}">{{Rec.val}}</a></div>
           {% endfor %}
           <div class="pt-2">{{lang.available}}: {{product.stock}}</div>
         </div>
@@ -71,7 +71,7 @@
         {%- endif %}
 
         {% if product.stock %}
-          <button type="button" class="btn btn-primary mt-3 viAddToCart" data-product=''>
+          <button type="button" class="btn btn-primary mt-3 viAddToCart" id="viAddToCart2" data-product=''>
             <i class="fa fa-shopping-cart m-1"></i>{{lang.buy}}
           </button>
         {% else %}
@@ -125,6 +125,11 @@
         }
         currentImage.src = images[curIdx].src;
     }
+
+    document.getElementById("viAddToCart2").addEventListener('click', function () {
+      console.log('-h1');
+      window.location.href = '{{info.url}}';
+    });
   </script>
   <!-- product - -->
   {% endblock %}

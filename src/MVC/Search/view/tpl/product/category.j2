@@ -1,12 +1,12 @@
 {% extends '_inc/layout1.j2' %}
 
-{% set Fields = ['date', 'title', 'price', 'price-old', 'stock'] %}
+{% set Fields = ['date', 'title', 'price', 'price-old'] %}
 
 {% block head %}
 <style>
   .grid-container {
     display: grid;
-    grid-template-columns: 130px auto 90px 90px 50px;
+    grid-template-columns: 130px auto 90px 90px;
   }
 
   .gitem {
@@ -22,26 +22,38 @@
 {% endblock %}
 
 {% block content %}
+<div>
+  <h2>{{lang.category | capitalize}}: {{lang.get(info.category) | capitalize}}</h2>
+</div>
+
 <form id="formAttrFilter">
   <input type="hidden" name="route" value="product/category"/>
   <input type="hidden" name="country_id" value="{{info.country_id}}"/>
   <input type="hidden" name="lang_id" value="{{info.lang_id}}"/>
   <input type="hidden" name="f_category" value="{{info.category}}"/>
   {% for Rec in TDbList().Import(dbl_attr) %}
-  <label for="{{Rec.key}}">{{lang.get(Rec.key)}}</label>
-  <select id="{{Rec.key}}" name="f_{{Rec.key}}">
-    <option value="">---</option>
-    {% for xStat in Rec.stat %}
-      <option value="{{xStat.val}}" {{ Iif(Rec.active == xStat.val, 'selected', '') }}>{{xStat.val}} ({{xStat.cnt}})</option>
-    {% endfor %}
-  </select>
-  <br>
+  <div class="row">
+    <div class="col-2">
+      <label for="{{Rec.key}}">{{lang.get(Rec.key) | capitalize}}</label>
+    </div>
+    <div class="col-2">
+      <select class="form-select w-100" id="{{Rec.key}}" name="f_{{Rec.key}}">
+      <option value="">---</option>
+      {% for xStat in Rec.stat %}
+        <option value="{{xStat.val}}" {{ Iif(Rec.active == xStat.val, 'selected', '') }}>{{xStat.val}} ({{xStat.cnt}})</option>
+      {% endfor %}
+    </select>
+    </div>
+  </div>
   {% endfor %}
-  <button type="submit">Submit</button>
+  <button type="submit" class="btn btn-primary">{{lang.filter}}</button>
+  <button class="btn btn-primary" onclick="clearSelects()">{{lang.clear_it}}</button>
 </form>
 
 <script>
-  document.getElementById('formAttrFilter').addEventListener('submit', function(event) {
+  const formAttrFilter = document.getElementById('formAttrFilter')
+
+  formAttrFilter.addEventListener('submit', function(event) {
     event.preventDefault();
 
     const form = event.target;
@@ -52,6 +64,13 @@
     }
     form.submit();
   });
+
+  function clearSelects() {
+    event.preventDefault();
+    formAttrFilter.querySelectorAll('select').forEach(function(selectElement) {
+        selectElement.selectedIndex = 0;
+    });
+}
 </script>
 
 {% include '../_inc/pagination.j2' %}

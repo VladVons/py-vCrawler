@@ -107,3 +107,11 @@ class TMain(TDbModel):
             'fmtGet_Countries.sql',
             {}
         )
+
+    async def GetSiteCategories(self, aSiteId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_SiteCategories.sql',
+            {
+                'aSiteId': aSiteId
+            }
+        )

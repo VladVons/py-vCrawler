@@ -88,7 +88,6 @@ class TMain(TCtrlBase):
         Res['info'] = {
             'country_id': aCountryId,
             'lang_id': aLangId,
-            'category': Category,
-            'filter': Filter
+            'category': Category
         }
         return Res

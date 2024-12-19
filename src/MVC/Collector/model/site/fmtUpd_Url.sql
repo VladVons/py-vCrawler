@@ -3,8 +3,8 @@
 
 update ref_url
 set
-    update_date = now(),
-    url_en = {% if aUrlEn %} '{{aUrlEn}}' {% else %} null {% endif %},
-    status_code = {{aStatusCode}}
+  update_date = now(),
+  url_en = {% if aUrlEn %} '{{aUrlEn}}' {% else %} null {% endif %},
+  status_code = {{aStatusCode}}
 where
-    id = {{aUrlId}}
+  id = {{aUrlId}}

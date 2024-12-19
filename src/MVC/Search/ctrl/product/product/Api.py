@@ -95,6 +95,8 @@ class TMain(TCtrlBase):
 
         Res['schema'] = json.dumps(Schema, ensure_ascii=False, indent=1)
         Res['product'] = Product
+        Res['meta_title'] = Product['name']
+        Res['meta_image'] = Product['image']
         Res['info'] = {
             'url_id': DblProduct.Rec.url_id,
             'url': DblProduct.Rec.url,

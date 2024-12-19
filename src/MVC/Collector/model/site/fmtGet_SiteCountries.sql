@@ -21,8 +21,7 @@ select
 from
   wt1
 join
-  ref_country rc on
-  rc.id = wt1.country_id
+  ref_country rc on rc.id = wt1.country_id
 join
   ref_country_lang rcl on
   rcl.country_id = wt1.country_id and rcl.lang_id = {{aLangId}}

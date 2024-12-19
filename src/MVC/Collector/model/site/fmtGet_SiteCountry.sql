@@ -11,11 +11,9 @@ with wt1 as (
   from
     ref_url ru
   join
-    ref_site rs on
-    rs.id = ru.site_id
+    ref_site rs on rs.id = ru.site_id
   left join
-    ref_product rp on
-    rp.url_id = ru.id
+    ref_product rp on rp.url_id = ru.id
   where
     rs.country_id = {{aCountryId}}
   group by
@@ -32,8 +30,7 @@ select
   (select count(*) from ref_site_category where site_id = rs.id) as categories
 from
   ref_site rs
-left join wt1 on
-  wt1.site_id = rs.id
+left join wt1 on  wt1.site_id = rs.id
 where
   rs.country_id = {{aCountryId}}
 order by
