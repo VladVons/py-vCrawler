@@ -10,10 +10,10 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 class TMain(TCtrlBase):
     async def Main(self, **aData):
-        aCountryId, aCategory, aPage, aLimit = Lib.GetDictDefs(
+        aCountryId, aLangId, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
-            ('country_id', 'category', 'page', 'limit'),
-            (1, '', 1, 10)
+            ('country_id', 'lang_id', 'page', 'limit'),
+            (1, 1, 1, 10)
         )
 
         aOrder = 'price'
@@ -22,7 +22,36 @@ class TMain(TCtrlBase):
         if (not Lib.IsDigits([aPage, aLimit])):
             return {'status_code': 404}
 
-        Filter = {'category': aCategory}
+        Filter = {}
+        FiterPrefix = 'f_'
+        for xKey, xVal in aData.get('query').items():
+            if (xKey.startswith(FiterPrefix)):
+                Key = xKey.replace(FiterPrefix, '')
+                Filter[Key] = int(xVal) if ('size' in Key) else xVal
+
+        if (not Filter):
+            return {}
+
+        Res = {}
+        Category = Filter.get('category')
+        DblAttr = await self.ExecModelImport(
+            'category',
+            {
+                'method': 'GetAttrCountInCategory',
+                'param': {
+                    'aCountryId': aCountryId,
+                    'aCategory': Category
+                },
+                'cache_age': 60*10
+            }
+        )
+
+        DblAttr.AddFieldsFill(['active'], False)
+        for Rec in DblAttr:
+            Filtered = Filter.get(Rec.key)
+            DblAttr.RecMerge([str(Filtered)])
+        Res['dbl_attr'] = DblAttr.Export()
+
         DblProducts = await self.ExecModelImport(
             'product',
             {
@@ -37,7 +66,6 @@ class TMain(TCtrlBase):
             }
         )
 
-        Res = {}
         if (not DblProducts):
             Res['dbl_products'] = DblProducts.Export()
             return Res
@@ -46,7 +74,7 @@ class TMain(TCtrlBase):
         Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
         DblProducts.AddFieldsFill(['href_int', 'href_ext'], False)
         for Rec in DblProducts:
-            HrefInt = f'/?route=product/product&url_id={Rec.url_id}'
+            HrefInt = f'/?route=product/product&url_id={Rec.url_id}&lang_id={aLangId}'
             HrefExt = Rec.url + Lib.Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
             DblProducts.RecMerge([HrefInt, HrefExt])
 
@@ -57,4 +85,10 @@ class TMain(TCtrlBase):
 
         Res['dbl_products'] = DblProducts.Export()
         Res['dbl_pagenation'] = DblPagination.Export()
+        Res['info'] = {
+            'country_id': aCountryId,
+            'lang_id': aLangId,
+            'category': Category,
+            'filter': Filter
+        }
         return Res

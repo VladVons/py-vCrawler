@@ -7,13 +7,29 @@ from Inc.Sql.DbModel import TDbModel
 
 
 class TMain(TDbModel):
-    async def GetAliasTranslate(self, aLang: str, aText: list[str]) -> dict:
+    async def GetAliasLangByList(self, aLangId: int, aText: list[str]) -> dict:
         Arr = [f"('{xText}')" for xText in aText]
 
         return await self.ExecQuery(
-            'fmtGet_AliasTranslate.sql',
+            'fmtGet_AliasLangByList.sql',
             {
-              'aLang': aLang,
+              'aLangId': aLangId,
               'aValues': ', '.join(Arr)
+            }
+        )
+
+    async def GetAliasLang(self, aLangId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_AliasLang.sql',
+            {
+              'aLangId': aLangId
+            }
+        )
+
+    async def GetLang(self, aLangId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_Lang.sql',
+            {
+              'aLangId': aLangId
             }
         )

@@ -5,21 +5,21 @@
 
 import json
 #
+from Inc.Http.HttpUrl import UrlToDict
 from IncP.CtrlBase import TCtrlBase, Lib
 
 
 class TMain(TCtrlBase):
     async def Main(self, **aData):
-        aLang, aUrlId = Lib.GetDictDefs(
+        aLangId, aUrlId = Lib.GetDictDefs(
             aData.get('query'),
-            ('lang', 'url_id'),
-            ('ua', 0)
+            ('lang_id', 'url_id'),
+            (1, 0)
         )
 
         if (not Lib.IsDigits([aUrlId])):
             return {'status_code': 404}
 
-        aLangId = 1
         DblProduct = await self.ExecModelImport(
             'product',
             {
@@ -35,9 +35,17 @@ class TMain(TCtrlBase):
         Res = {}
         Product = DblProduct.Rec.product
 
+        CountryId = DblProduct.Rec.country_id
         Attr = DblProduct.Rec.GetField('attr', {})
-        Attr = dict(sorted(Attr.items()))
-        Product['attr'] = Attr
+        DblAttr = Lib.TDbList(['key', 'val', 'href'])
+        for xKey, xVal in sorted(Attr.items()):
+            Filter = f"f_category={Attr.get('category')}"
+            if (xKey != 'category'):
+                Filter += f'&f_{xKey}={xVal}'
+
+            Href = f'/?route=product/category&country_id={CountryId}&lang_id={aLangId}&{Filter}'
+            DblAttr.RecAdd([xKey, xVal, Href])
+        Res['dbl_attr'] = DblAttr.Export()
 
         if ('brand' not in Product):
             Product['brand'] = ''
@@ -63,7 +71,7 @@ class TMain(TCtrlBase):
                 'name': xKey,
                 'value': xVal
             }
-            for xKey, xVal in Product['attr'].items()
+            for xKey, xVal in Attr.items()
         ]
 
         Schema = {
@@ -88,6 +96,8 @@ class TMain(TCtrlBase):
         Res['schema'] = json.dumps(Schema, ensure_ascii=False, indent=1)
         Res['product'] = Product
         Res['info'] = {
-            'url_id': DblProduct.Rec.url_id
+            'url_id': DblProduct.Rec.url_id,
+            'url': DblProduct.Rec.url,
+            'host': UrlToDict(DblProduct.Rec.url)['host']
         }
         return Res

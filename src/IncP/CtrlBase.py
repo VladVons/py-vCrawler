@@ -45,13 +45,13 @@ class TCtrlBase():
             Res = Lib.TDbList().Import(Res)
         return Res
 
-    async def Translate(self, aLang: str, aText: list[str]) -> dict:
+    async def Translate(self, aLangId: int, aText: list[str]) -> dict:
         Data = await self.ExecModel(
             'system',
             {
-                'method': 'GetAliasTranslate',
+                'method': 'GetAliasLangByList',
                 'param': {
-                    'aLang': aLang,
+                    'aLangId': aLangId,
                     'aText': aText
                 }
             }

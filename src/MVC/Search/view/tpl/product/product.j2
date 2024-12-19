@@ -52,11 +52,12 @@
         </div>
 
         <h1>{{product.name}}</h1>
+        <div class="pt-2">{{lang.site}}: <a href="{{info.url}}" target="_blank" rel="nofollow">{{info.host}}</a></div>
         <div class="pt-2 pb-2 product-attr-short">
-          {% for xKey, xVal in product.attr.items() %}
-            <div>{{lang.get(xKey, xKey)}}: {{xVal}}</div>
+          {% for Rec in TDbList().Import(dbl_attr) %}
+            <div>{{lang.get(Rec.key, Rec.key)}}: <a href="{{Rec.href}}">{{Rec.val}}</a></div>
           {% endfor %}
-          <h2 class="pt-2">{{lang.available}}: {{product.stock}}</h2>
+          <div class="pt-2">{{lang.available}}: {{product.stock}}</div>
         </div>
 
         {%- if product.price_old -%}

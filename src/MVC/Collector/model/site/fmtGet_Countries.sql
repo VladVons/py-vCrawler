@@ -3,6 +3,7 @@
 select
   rc.id,
   rc.alias,
+  rc.lang_id,
   count(rs.enabled) as cnt_enabled
 from
   ref_site rs
