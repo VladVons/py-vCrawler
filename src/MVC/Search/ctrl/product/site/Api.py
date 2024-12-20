@@ -1,56 +1,62 @@
-# Created: 2024.04.05
+# Created: 2024.12.20
 # Author: Vladimir Vons <VladVons@gmail.com>
 # License: GNU, see LICENSE for more details
-
 
 from base64 import b64encode
 from urllib.parse import quote
 from IncP.CtrlBase import TCtrlBase, Lib
 
-
 class TMain(TCtrlBase):
     async def Main(self, **aData):
-        aLangId, aCountryId, aSearch, aSort, aOrder, aPage, aLimit = Lib.GetDictDefs(
+        aSiteId, aLangId, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
-            ('lang_id', 'country_id', 'q', 'sort', 'order', 'page', 'limit'),
-            (1, 1, '', ('sort_order, title', 'title', 'price', 'stock'), ('asc', 'desc'), 1, 10)
+            ('site_id', 'lang_id', 'page', 'limit'),
+            (1, 1, 1, 10)
         )
 
-        if (not Lib.IsDigits([aLangId, aCountryId, aPage, aLimit])):
+        if (not Lib.IsDigits([aSiteId, aLangId, aPage, aLimit])):
             return {'status_code': 404}
 
-        aLimit = min(aLimit, 25)
+        aOrder = 'price'
+        aLimit = min(aLimit, 20)
+
+        Filter = Lib.GetFilterFromQuery(aData.get('query'))
+        if (not Filter):
+            return {}
+
+        Res = {}
+        Category = Filter.get('category')
+        DblAttr = await self.ExecModelImport(
+            'category',
+            {
+                'method': 'GetAttrCountInCategorySite',
+                'param': {
+                    'aSiteId': aSiteId,
+                    'aCategory': Category
+                }
+            }
+        )
+
+        DblAttr.AddFieldsFill(['active'], False)
+        for Rec in DblAttr:
+            Filtered = Filter.get(Rec.key)
+            DblAttr.RecMerge([str(Filtered)])
+        Res['dbl_attr'] = DblAttr.Export()
 
         DblProducts = await self.ExecModelImport(
             'product',
             {
-                'method': 'Get_Products_Search2',
+                'method': 'GetProductsAttrSite',
                 'param': {
-                    'aFilter': aSearch,
-                    'aCountryId': aCountryId,
-                    'aOrder': f'{aSort} {aOrder}',
+                    'aSiteId': aSiteId,
+                    'aFilter': Filter,
+                    'aOrder': f'{aOrder}',
                     'aLimit': aLimit,
                     'aOffset': (aPage - 1) * aLimit
                 }
             }
         )
 
-        if (not DblProducts):
-            DblProducts = await self.ExecModelImport(
-                'product',
-                {
-                    'method': 'Get_Products_Search1',
-                    'param': {
-                        'aFilter': aSearch,
-                        'aCountryId': aCountryId,
-                        'aOrder': f'{aSort} {aOrder}',
-                        'aLimit': aLimit,
-                        'aOffset': (aPage - 1) * aLimit
-                    }
-                }
-            )
-
-        Res = {}
         if (not DblProducts):
             Res['dbl_products'] = DblProducts.Export()
             return Res
@@ -59,7 +65,7 @@ class TMain(TCtrlBase):
         Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
         DblProducts.AddFieldsFill(['href_int', 'href_ext'], False)
         for Rec in DblProducts:
-            HrefInt = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
+            HrefInt = f'/?route=product/product&url_id={Rec.url_id}&lang_id={aLangId}'
             HrefExt = Rec.url + Lib.Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
             DblProducts.RecMerge([HrefInt, HrefExt])
 
@@ -70,4 +76,9 @@ class TMain(TCtrlBase):
 
         Res['dbl_products'] = DblProducts.Export()
         Res['dbl_pagenation'] = DblPagination.Export()
+        Res['info'] = {
+            'site_id': aSiteId,
+            'lang_id': aLangId,
+            'category': Category
+        }
         return Res

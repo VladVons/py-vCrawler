@@ -1,0 +1,53 @@
+# Created: 2024.12.19
+# Author: Vladimir Vons <VladVons@gmail.com>
+# License: GNU, see LICENSE for more details
+
+
+from IncP.CtrlBase import TCtrlBase, Lib
+
+class TMain(TCtrlBase):
+    async def Main(self, **aData):
+        aSiteId, aLangId = Lib.GetDictDefs(
+            aData.get('query'),
+            ('site_id', 'lang_id'),
+            (1, 1)
+        )
+
+        if (not Lib.IsDigits([aSiteId, aLangId])):
+            return {'status_code': 404}
+
+        DblInfo = await self.ExecModelImport(
+            'site',
+            {
+                'method': 'GetSiteInfo',
+                'param': {
+                    'aSiteId': aSiteId,
+                    'aLangId': aLangId
+                }
+           }
+        )
+        if (not DblInfo):
+            return {'status_code': 404}
+
+        DblCategories = await self.ExecModelImport(
+            'site',
+            {
+                'method': 'GetSiteCategories',
+                'param': {
+                    'aSiteId': aSiteId
+                }
+           }
+        )
+
+        DblCategories.AddFieldsFill(['href'], False)
+        for Rec in DblCategories:
+            Href = f'/?route=product/site&lang_id={aLangId}&site_id={aSiteId}&f_category={Rec.category}'
+            DblCategories.RecMerge([Href])
+
+        Info = DblInfo.Rec.GetAsDict()
+        Info['host'] = Lib.UrlToDict(Info['url'])['host']
+
+        return {
+            'dbl_categories': DblCategories.Export(),
+            'info': Info
+        }

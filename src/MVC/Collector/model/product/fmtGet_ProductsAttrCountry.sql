@@ -1,4 +1,4 @@
--- fmtGet_Products_SearchAttr.sql
+-- fmtGet_ProductsAttrCountry.sql
 -- in: aCountryId, aLimit, aOffset, aFilter
 
 select

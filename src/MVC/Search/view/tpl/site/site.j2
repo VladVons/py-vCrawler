@@ -1,0 +1,14 @@
+{% extends '_inc/layout1.j2' %}
+
+{% block content %}
+<div class="container pb-2">
+  <div class="pb-2">
+    <h1><a href="{{info.url}}" rel="nofollow">{{info.host}}</a></h1>
+  </div>
+  {% for Rec in TDbList().Import(dbl_categories) %}
+  <div>
+    <a href="{{Rec.href}}">{{lang.get(Rec.category)}} ({{Rec.cnt}})</a>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

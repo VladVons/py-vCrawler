@@ -1,5 +1,5 @@
--- mtGet_AttrCountInCategory.sql
--- in: aCountryId, aCategory
+-- fmtGet_AttrCountInCategorySite.sql
+-- in: aSiteId, aCategory
 
 with
 wt1 as (
@@ -16,14 +16,12 @@ wt1 as (
   cross join lateral
       jsonb_each_text(rp.attr) as data(key, val)
   where
-    (rs.country_id = {{aCountryId}}) and
+    (rs.id = {{aSiteId}}) and
     (rp.stock is true) and
     (key not in ('category', 'model', 'brand')) and
     (rp.attr->>'category' = '{{aCategory}}')
   group by
       key, val
-  having
-      count(*) > 5
 )
 select
   key,

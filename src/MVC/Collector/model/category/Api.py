@@ -7,19 +7,41 @@ from Inc.Sql.DbModel import TDbModel
 
 
 class TMain(TDbModel):
-    async def GetAttrCountInCategory(self, aCountryId: int, aCategory: str) -> dict:
+    async def GetAttrCountInCategory(self, aCountryId: int, aCategory: str, aSiteId: int = None) -> dict:
+        WhereExt = ''
+        if (aSiteId):
+          WhereExt = f' and rs.id = {aSiteId}'
+
         return await self.ExecQuery(
             'fmtGet_AttrCountInCategory.sql',
             {
                 'aCountryId': aCountryId,
+                'aCategory': aCategory,
+                'WhereExt': WhereExt
+            }
+        )
+
+    async def GetAttrCountInCategorySite(self, aSiteId: int, aCategory: str) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_AttrCountInCategorySite.sql',
+            {
+                'aSiteId': aSiteId,
                 'aCategory': aCategory
             }
         )
 
-    async def GetCountryCategories(self, aCountryId: int) -> dict:
+    async def GetCategoriesCountry(self, aCountryId: int) -> dict:
         return await self.ExecQuery(
-            'fmtGet_CountryCategories.sql',
+            'fmtGet_CategoriesCountry.sql',
             {
                 'aCountryId': aCountryId
+            }
+        )
+
+    async def GetCategoriesSite(self, aSiteId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_CategoriesSite.sql',
+            {
+                'aSiteId': aSiteId
             }
         )

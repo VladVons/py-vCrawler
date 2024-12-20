@@ -7,10 +7,10 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 class TMain(TCtrlBase):
     async def Main(self, **aData) -> dict:
-        aSearch, aCountryId = Lib.GetDictDefs(
+        aLangId, aCountryId, aSearch = Lib.GetDictDefs(
             aData.get('query'),
-            ('q', 'country_id'),
-            ('', 1)
+            ('lang_id', 'country_id', 'q'),
+            (1, 1, '')
         )
 
         DblCountry = await self.ExecModelImport(
@@ -22,7 +22,7 @@ class TMain(TCtrlBase):
         )
 
         Href = {
-            'counties': '/?route=site/countries'
+            'counties': f'/?route=site/countries&lang_id={aLangId}'
         }
 
         return  {

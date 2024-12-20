@@ -8,13 +8,13 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 class TMain(TCtrlBase):
     async def Main(self, **aData):
-        aCountryId, aLimit = Lib.GetDictDefs(
+        aLangId, aCountryId, aLimit = Lib.GetDictDefs(
             aData.get('query'),
-            ('country_id', 'limit'),
-            (1, 100)
+            ('lang_id', 'country_id', 'limit'),
+            (1, 1, 100)
         )
 
-        DblData = await self.ExecModel(
+        Dbl = await self.ExecModelImport(
             'site',
             {
                 'method': 'GetSiteCountry',
@@ -24,7 +24,11 @@ class TMain(TCtrlBase):
             }
         )
 
-        Dbl = Lib.TDbList().Import(DblData)
+        Dbl.AddFieldsFill(['href'], False)
+        for Rec in Dbl:
+            Href = f'/?route=site/site&lang_id={aLangId}&site_id={Rec.id}'
+            Dbl.RecMerge([Href])
+
         cntParsed = cntProducts = cntOnStock = cntDiscount = cntErr = 0
         for Rec in Dbl:
             if (Rec.products):
@@ -35,7 +39,7 @@ class TMain(TCtrlBase):
                 cntErr += Rec.err
 
         return {
-            'dbl_sites': DblData,
+            'dbl_sites': Dbl.Export(),
             'cnt_parsed': cntParsed,
             'cnt_products': cntProducts,
             'cnt_onstock': cntOnStock,

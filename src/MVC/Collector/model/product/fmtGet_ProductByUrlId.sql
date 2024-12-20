@@ -7,6 +7,7 @@ select
   hu.create_date,
   rp.attr,
   ru.url,
+  rs.id as site_id,
   rs.country_id
 from
   hist_url hu

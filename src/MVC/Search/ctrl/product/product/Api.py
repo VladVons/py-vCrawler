@@ -98,6 +98,7 @@ class TMain(TCtrlBase):
         Res['meta_title'] = Product['name']
         Res['meta_image'] = Product['image']
         Res['info'] = {
+            'site_url': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}',
             'url_id': DblProduct.Rec.url_id,
             'url': DblProduct.Rec.url,
             'host': UrlToDict(DblProduct.Rec.url)['host']

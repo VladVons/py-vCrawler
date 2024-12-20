@@ -18,3 +18,5 @@ where
   (key = 'category')
 group by
   key, val
+order by
+  key

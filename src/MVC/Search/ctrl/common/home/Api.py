@@ -16,7 +16,7 @@ class TMain(TCtrlBase):
         DblCategory = await self.ExecModelImport(
             'category',
             {
-                'method': 'GetCountryCategories',
+                'method': 'GetCategoriesCountry',
                 'param': {
                     'aCountryId': aCountryId
                 },

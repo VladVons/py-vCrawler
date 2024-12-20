@@ -50,13 +50,26 @@ class TMain(TDbModel):
             }
         )
 
-    async def GetProductsSearchAttr(self, aFilter: dict, aCountryId: int, aOrder: str, aLimit: int = 25, aOffset: int = 0) -> dict:
+    async def GetProductsAttrCountry(self, aFilter: dict, aCountryId: int, aOrder: str, aLimit: int = 25, aOffset: int = 0) -> dict:
         Filter = json.dumps(aFilter, ensure_ascii=False)
         return await self.ExecQuery(
-            'fmtGet_Products_SearchAttr.sql',
+            'fmtGet_ProductsAttrCountry.sql',
             {
                 'aFilter': Filter,
                 'aCountryId': aCountryId,
+                'aOrder': aOrder,
+                'aLimit': aLimit,
+                'aOffset': aOffset
+            }
+        )
+
+    async def GetProductsAttrSite(self, aFilter: dict, aSiteId: int, aOrder: str, aLimit: int = 25, aOffset: int = 0) -> dict:
+        Filter = json.dumps(aFilter, ensure_ascii=False)
+        return await self.ExecQuery(
+            'fmtGet_ProductsAttrSite.sql',
+            {
+                'aFilter': Filter,
+                'aSiteId': aSiteId,
                 'aOrder': aOrder,
                 'aLimit': aLimit,
                 'aOffset': aOffset

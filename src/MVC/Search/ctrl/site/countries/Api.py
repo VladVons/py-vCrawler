@@ -8,7 +8,7 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 class TMain(TCtrlBase):
     async def Main(self, **aData):
-        aLangId = Lib.DeepGetByList(aData, ['query', 'lang'], 1)
+        aLangId = Lib.DeepGetByList(aData, ['query', 'lang_id'], 1)
 
         Dbl = await self.ExecModelImport(
             'site',
@@ -20,7 +20,7 @@ class TMain(TCtrlBase):
             }
         )
 
-        Hrefs = [f'/?route=site/country&country_id={Rec.country_id}' for Rec in Dbl]
+        Hrefs = [f'/?route=site/country&lang_id={aLangId}&country_id={Rec.country_id}' for Rec in Dbl]
         Dbl.AddFieldsFill(['href'], False)
         for Href, Rec in zip(Hrefs, Dbl):
             Dbl.RecMerge([Href])

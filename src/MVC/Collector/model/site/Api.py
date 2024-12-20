@@ -115,3 +115,12 @@ class TMain(TDbModel):
                 'aSiteId': aSiteId
             }
         )
+
+    async def GetSiteInfo(self, aLangId: int, aSiteId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_SiteInfo.sql',
+            {
+                'aSiteId': aSiteId,
+                'aLangId': aLangId
+            }
+        )
