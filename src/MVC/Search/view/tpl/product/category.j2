@@ -23,7 +23,7 @@
 
 {% block content %}
 <div>
-  <h2>{{lang.category | capitalize}}: {{lang.get(info.category) | capitalize}}</h2>
+  <h2>{{Translate(lang, 'category')}}: {{Translate(lang, info.category)}}</h2>
 </div>
 
 <form id="formAttrFilter">
@@ -34,7 +34,7 @@
   {% for Rec in TDbList().Import(dbl_attr) %}
   <div class="row">
     <div class="col-2">
-      <label for="{{Rec.key}}">{{lang.get(Rec.key) | capitalize}}</label>
+      <label for="{{Rec.key}}">{{Translate(lang, Rec.key)}}</label>
     </div>
     <div class="col-2">
       <select class="form-select w-100" id="{{Rec.key}}" name="f_{{Rec.key}}">
@@ -46,8 +46,8 @@
     </div>
   </div>
   {% endfor %}
-  <button type="submit" class="btn btn-primary">{{lang.filter}}</button>
-  <button class="btn btn-primary" onclick="clearSelects()">{{lang.clear_it}}</button>
+  <button type="submit" class="btn btn-primary">{{Translate(lang, 'filter')}}</button>
+  <button class="btn btn-primary" onclick="clearSelects()">{{Translate(lang, 'clear_it')}}</button>
 </form>
 
 <script>

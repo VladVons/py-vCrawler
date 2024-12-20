@@ -8,9 +8,9 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 class TMain(TCtrlBase):
     async def Main(self, **aData):
-        aSiteId, aLangId, aPage, aLimit = Lib.GetDictDefs(
+        aLangId, aSiteId, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
-            ('site_id', 'lang_id', 'page', 'limit'),
+            ('lang_id', 'site_id', 'page', 'limit'),
             (1, 1, 1, 10)
         )
 
@@ -19,6 +19,19 @@ class TMain(TCtrlBase):
 
         aOrder = 'price'
         aLimit = min(aLimit, 20)
+
+        DblInfo = await self.ExecModelImport(
+            'site',
+            {
+                'method': 'GetSiteInfo',
+                'param': {
+                    'aSiteId': aSiteId,
+                    'aLangId': aLangId
+                }
+           }
+        )
+        if (not DblInfo):
+            return {'status_code': 404}
 
         Filter = Lib.GetFilterFromQuery(aData.get('query'))
         if (not Filter):
@@ -74,11 +87,13 @@ class TMain(TCtrlBase):
         PData = Pagination.Get(DblProducts.Rec.total, aPage)
         DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
 
+        Info = DblInfo.Rec.GetAsDict()
+        Info['host'] = Lib.UrlToDict(Info['url'])['host']
+        Info['lang_id'] = aLangId
+        Info['category'] = Category
+        Res['info'] = Info
+
         Res['dbl_products'] = DblProducts.Export()
         Res['dbl_pagenation'] = DblPagination.Export()
-        Res['info'] = {
-            'site_id': aSiteId,
-            'lang_id': aLangId,
-            'category': Category
-        }
+
         return Res

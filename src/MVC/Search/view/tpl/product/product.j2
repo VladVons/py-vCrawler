@@ -45,19 +45,19 @@
       <div class="col-md-6 p-3 vBgSlave">
         <div class="d-flex justify-content-between p-2">
           <div>
-            <a class="btn" id="vTo_favorite" title="{{lang.to_favorite}}" data-key="favorite"><i class="fa fa-heart"></i></a>
-            <a class="btn" id="vTo_compare" title="{{lang.to_compare}}" data-key="compare"><i class="fa fa-balance-scale"></i></a>
+            <a class="btn" id="vTo_favorite" title="{{Translate(lang, 'to_favorite')}}" data-key="favorite"><i class="fa fa-heart"></i></a>
+            <a class="btn" id="vTo_compare" title="{{Translate(lang, 'to_compare')}}" data-key="compare"><i class="fa fa-balance-scale"></i></a>
           </div>
-          <span>{{lang.code}}: {{info.url_id}}</span>
+          <span>{{Translate(lang, 'code')}}: {{info.url_id}}</span>
         </div>
 
         <h1>{{product.name}}</h1>
-        <div class="pt-2">{{lang.site | capitalize}}: <a href="{{info.site_url}}">{{info.host}}</a></div>
+        <div class="pt-2">{{Translate(lang, 'site')}}: <a href="{{info.site_url}}">{{info.host}}</a></div>
         <div class="pt-2 pb-2 product-attr-short">
           {% for Rec in TDbList().Import(dbl_attr) %}
-            <div>{{lang.get(Rec.key, Rec.key) | capitalize}}: <a href="{{Rec.href}}">{{Rec.val}}</a></div>
+            <div>{{Translate(lang, Rec.key)}}: <a href="{{Rec.href}}">{{Rec.val}}</a></div>
           {% endfor %}
-          <div class="pt-2">{{lang.available}}: {{product.stock}}</div>
+          <div class="pt-2">{{Translate(lang, 'available')}}: {{product.stock}}</div>
         </div>
 
         {%- if product.price_old -%}
@@ -67,15 +67,15 @@
             {{ "%.1f" | format((product.price_old[0] / product.price[0] * 100) - 100) }}%
             </p>
         {%- else -%}
-          <p class="h4">{{lang.price}}: {{product.price[0]}} {{product.price[1]}}</p>
+          <p class="h4">{{Translate(lang, 'price')}}: {{product.price[0]}} {{product.price[1]}}</p>
         {%- endif %}
 
         {% if product.stock %}
           <button type="button" class="btn btn-primary mt-3 viAddToCart" id="viAddToCart2" data-product=''>
-            <i class="fa fa-shopping-cart m-1"></i>{{lang.buy}}
+            <i class="fa fa-shopping-cart m-1"></i>{{Translate(lang, 'buy')}}
           </button>
         {% else %}
-          <button type="button" class="btn buyButtonOff mt-3" disabled>{{lang.not_available}}</button>
+          <button type="button" class="btn buyButtonOff mt-3" disabled>{{Translate(lang, 'not_available')}}</button>
         {% endif%}
       </div>
     </div>
@@ -83,10 +83,10 @@
     <div class="row vBgMaster mt-1">
       <ul class="nav nav-tabs pt-3" id="productTabs" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="features-tab" data-bs-toggle="tab" href="#features" role="tab" aria-controls="features" aria-selected="true">{{lang.features}} ({{product.features | length}})</a>
+          <a class="nav-link active" id="features-tab" data-bs-toggle="tab" href="#features" role="tab" aria-controls="features" aria-selected="true">{{Translate(lang, 'features')}} ({{product.features | length}})</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">{{lang.description}} ({{Iif(product.description, '+', '-')}})</a>
+          <a class="nav-link" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">{{Translate(lang, 'description')}} ({{Iif(product.description, '+', '-')}})</a>
         </li>
       </ul>
 

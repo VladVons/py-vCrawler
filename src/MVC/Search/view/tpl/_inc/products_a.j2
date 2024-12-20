@@ -1,7 +1,7 @@
 <div class="container pb-2">
   <div class="grid-container">
     {% for xFields in Fields %}
-      <div class="grid-item fw-bold">{{lang.get(xFields) | capitalize}}</div>
+      <div class="grid-item fw-bold">{{Translate(lang, xFields)}}</div>
     {% endfor %}
 
     {% for Rec in TDbList().Import(dbl_products) %}
@@ -12,7 +12,7 @@
       </div>
       <div class="gitem m-2" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
         <div title="{{Rec.href_ext}}">
-          <a href="{{Rec.href_ext}}" target="_blank" rel="nofollow">{{Rec.href_ext |truncate(100, True, '...')}}</a>
+          <a href="{{Rec.href_ext}}" rel="nofollow" target="_blank">{{Rec.href_ext |truncate(100, True, '...')}}</a>
         </div>
       </div>
       <div class="gitem">{{"{:,}".format(Rec.price|int)}}</div>

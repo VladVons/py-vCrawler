@@ -2,7 +2,7 @@
 -- in: aLangId, aSiteId
 
 select
-  rs.id,
+  rs.id as site_id,
   rs.create_date,
   rs.url,
   rs.country_id,
