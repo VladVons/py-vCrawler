@@ -17,7 +17,7 @@ class TMain(TCtrlBase):
             (1, 0)
         )
 
-        if (not Lib.IsDigits([aUrlId])):
+        if (not Lib.IsDigits([aLangId, aUrlId])):
             return {'status_code': 404}
 
         DblProduct = await self.ExecModelImport(
@@ -43,7 +43,7 @@ class TMain(TCtrlBase):
             if (xKey != 'category'):
                 Filter += f'&f_{xKey}={xVal}'
 
-            Href = f'/?route=product/category&country_id={CountryId}&lang_id={aLangId}&{Filter}'
+            Href = f'/?route=product/category&lang_id={aLangId}&country_id={CountryId}&{Filter}'
             DblAttr.RecAdd([xKey, xVal, Href])
         Res['dbl_attr'] = DblAttr.Export()
 

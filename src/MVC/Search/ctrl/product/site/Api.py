@@ -78,7 +78,7 @@ class TMain(TCtrlBase):
         Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
         DblProducts.AddFieldsFill(['href_int', 'href_ext'], False)
         for Rec in DblProducts:
-            HrefInt = f'/?route=product/product&url_id={Rec.url_id}&lang_id={aLangId}'
+            HrefInt = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
             HrefExt = Rec.url + Lib.Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
             DblProducts.RecMerge([HrefInt, HrefExt])
 

@@ -2,6 +2,8 @@
 
 {% block content %}
 <!-- home + -->
+<h1>{{Translate(lang, 'used_computers')}} - {{country | capitalize}}</h1>
+
 {% for Rec in TDbList().Import(dbl_category) %}
   <div title="{{Rec.href}}">
     <a href="{{Rec.href}}">{{Rec.lang | capitalize}} ({{Rec.count}})</a>

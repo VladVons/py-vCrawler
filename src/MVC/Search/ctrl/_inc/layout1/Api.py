@@ -17,9 +17,13 @@ class TMain(TCtrlBase):
             'site',
             {
                 'method': 'GetCountries',
-                'param': {}
+                'param': {
+                    'aLangId': aLangId
+                }
             }
         )
+        RecNo = DblCountry.FindField('id', aCountryId)
+        Country = '' if (RecNo == -1) else DblCountry.RecGo(RecNo).title
 
         Href = {
             'counties': f'/?route=site/countries&lang_id={aLangId}'
@@ -29,5 +33,6 @@ class TMain(TCtrlBase):
             'href': Href,
             'search': aSearch,
             'country_id': aCountryId,
+            'country': Country,
             'dbl_country': DblCountry.Export()
         }

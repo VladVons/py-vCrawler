@@ -102,10 +102,12 @@ class TMain(TDbModel):
             }
         )
 
-    async def GetCountries(self) -> dict:
+    async def GetCountries(self, aLangId: int) -> dict:
         return await self.ExecQuery(
             'fmtGet_Countries.sql',
-            {}
+            {
+                'aLangId': aLangId
+            }
         )
 
     async def GetSiteCategories(self, aSiteId: int) -> dict:

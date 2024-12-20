@@ -74,6 +74,7 @@ class TApiCtrl(TApiBase):
                 LangId = ToInt(LangId, 1)
                 Res['lang'] = await self.GetLang(LangId, Routes)
 
+                aData['res'] = Res
                 for xRoute in Routes:
                     ResExec = await super().Exec(xRoute, aData)
                     if (isinstance(ResExec, dict)):

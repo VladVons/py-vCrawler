@@ -26,3 +26,6 @@ def GetFilterFromQuery(aQuery: dict, aPrefix: str = 'f_'):
             Key = xKey.replace(aPrefix, '')
             Res[Key] = int(xVal) if ('size' in Key) else xVal
     return Res
+
+def ResGetItem(aData: dict, aName: str) -> str:
+    return aData['res'].get(aName, '')

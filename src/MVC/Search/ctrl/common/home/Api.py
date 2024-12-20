@@ -7,11 +7,14 @@ from IncP.CtrlBase import TCtrlBase, Lib
 
 class TMain(TCtrlBase):
     async def Main(self, **aData):
-        aCountryId, aLangId = Lib.GetDictDefs(
+        aLangId, aCountryId = Lib.GetDictDefs(
             aData.get('query'),
-            ('country_id', 'lang_id'),
+            ('lang_id', 'country_id'),
             (1, 1)
         )
+
+        if (not Lib.IsDigits([aLangId, aCountryId])):
+            return {'status_code': 404}
 
         DblCategory = await self.ExecModelImport(
             'category',
@@ -29,7 +32,7 @@ class TMain(TCtrlBase):
         for Rec in DblCategory:
             Category = Rec.category
             Lang = Trans.get(Category, Category)
-            Href = f'/?route=product/category&country_id={aCountryId}&lang_id={aLangId}&f_category={Category}'
+            Href = f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
             DblCategory.RecMerge([Lang, Href])
 
         return {
