@@ -33,12 +33,19 @@ class TMain(TCtrlBase):
         if (not DblInfo):
             return {'status_code': 404}
 
-        Filter = Lib.GetFilterFromQuery(aData.get('query'))
-        if (not Filter):
-            return {}
-
         Res = {}
+        Filter = Lib.GetFilterFromQuery(aData.get('query'))
         Category = Filter.get('category')
+
+        Info = DblInfo.Rec.GetAsDict()
+        Info['host'] = Lib.UrlToDict(Info['url'])['host']
+        Info['lang_id'] = aLangId
+        Info['category'] = Category
+        Res['info'] = Info
+
+        if (not Filter):
+            return Res
+
         DblAttr = await self.ExecModelImport(
             'category',
             {
@@ -86,12 +93,6 @@ class TMain(TCtrlBase):
         Pagination.Visible = 7
         PData = Pagination.Get(DblProducts.Rec.total, aPage)
         DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
-
-        Info = DblInfo.Rec.GetAsDict()
-        Info['host'] = Lib.UrlToDict(Info['url'])['host']
-        Info['lang_id'] = aLangId
-        Info['category'] = Category
-        Res['info'] = Info
 
         Res['dbl_products'] = DblProducts.Export()
         Res['dbl_pagenation'] = DblPagination.Export()

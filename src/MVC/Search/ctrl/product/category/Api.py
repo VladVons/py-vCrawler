@@ -38,6 +38,12 @@ class TMain(TCtrlBase):
             }
         )
 
+        Res['info'] = {
+            'country_id': aCountryId,
+            'lang_id': aLangId,
+            'category': Category
+        }
+
         DblAttr.AddFieldsFill(['active'], False)
         for Rec in DblAttr:
             Filtered = Filter.get(Rec.key)

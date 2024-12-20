@@ -31,8 +31,8 @@
 
 <form id="formAttrFilter">
   <input type="hidden" name="route" value="product/site"/>
-  <input type="hidden" name="site_id" value="{{info.site_id}}"/>
   <input type="hidden" name="lang_id" value="{{info.lang_id}}"/>
+  <input type="hidden" name="site_id" value="{{info.site_id}}"/>
   <input type="hidden" name="f_category" value="{{info.category}}"/>
   {% for Rec in TDbList().Import(dbl_attr) %}
   <div class="row">
