@@ -3,15 +3,15 @@ select
     rs.enabled,
     rs.url as site,
     (
-        select count(*) 
+        select count(*)
         from ref_url ru
-        join ref_product rp on rp.url_id = ru.id  
+        join ref_product rp on rp.url_id = ru.id
         where ru.site_id = rs.id and stock
     ) as stock,
     (
-        select count(*) 
+        select count(*)
         from ref_url ru
-        join ref_product rp on rp.url_id = ru.id  
+        join ref_product rp on rp.url_id = ru.id
         where ru.site_id = rs.id
     ) as product,
     (
@@ -20,9 +20,9 @@ select
         where site_id = rs.id
     ) as url,
     (
-        select count(*) 
+        select count(*)
         from ref_url ru
-        join hist_url hu on hu.url_id = ru.id  
+        join hist_url hu on hu.url_id = ru.id
         where ru.site_id = rs.id
     ) as history,
     (
@@ -39,5 +39,3 @@ from
     ref_site rs
 order by
     product
-
-    

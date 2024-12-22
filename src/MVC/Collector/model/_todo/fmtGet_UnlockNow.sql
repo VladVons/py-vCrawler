@@ -7,8 +7,7 @@ select
 from
   ref_url ru
 join
-  ref_site rs on
-  (rs.id = ru.site_id)
+  ref_site rs on (rs.id = ru.site_id)
 where
   (ru.unlock_date >= now())
 order by

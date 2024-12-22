@@ -3,9 +3,9 @@
 select
   url_id,
   title
-from 
+from
   ref_product
-where 
+where
   (title_crc is null) or (title_crc != hashtext(title))
 order by
   random()

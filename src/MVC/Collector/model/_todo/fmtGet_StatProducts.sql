@@ -5,7 +5,7 @@ with wt1 as (
         count(*) as products
     from
         ref_url
-    where 
+    where
       url_en = 'product'
     group by
         site_id, url_en
@@ -17,8 +17,7 @@ select
   wt1.products
 from
     ref_site rs
-left join 
-  wt1 on
-  wt1.site_id = rs.id
-where 
+left join
+  wt1 on wt1.site_id = rs.id
+where
   rs.country_id = 2

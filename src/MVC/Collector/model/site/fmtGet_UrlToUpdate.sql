@@ -11,7 +11,7 @@ from
 left join
   ref_url ru on (ru.site_id = rs.id)
 where
-  (rs.enabled) and
+  (rs.enabled is true) and
   (rs.id = {{aSiteId}}) and
   ((ru.unlock_date is null) or (ru.unlock_date < now())) and
   ((ru.update_date is null) or (ru.update_date < (now() - (rs.update_hours || ' hours')::interval)))

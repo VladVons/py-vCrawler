@@ -38,7 +38,7 @@ class TMain(TCtrlBase):
                 cntDiscount += Rec.discount
                 cntErr += Rec.err
 
-        return {
+        Res = {
             'dbl_sites': Dbl.Export(),
             'cnt_parsed': cntParsed,
             'cnt_products': cntProducts,
@@ -47,3 +47,4 @@ class TMain(TCtrlBase):
             'cnt_err': cntErr,
             'cnt_all': len(Dbl)
         }
+        return Res

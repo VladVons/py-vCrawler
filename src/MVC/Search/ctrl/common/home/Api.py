@@ -13,9 +13,6 @@ class TMain(TCtrlBase):
             (1, 1)
         )
 
-        if (not Lib.IsDigits([aLangId, aCountryId])):
-            return {'status_code': 404}
-
         DblCategory = await self.ExecModelImport(
             'category',
             {

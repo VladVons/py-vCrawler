@@ -1,4 +1,4 @@
--- fmtGet_SchemeModerate.sql 
+-- fmtGet_SchemeModerate.sql
 
 select
   rsp.site_id,
@@ -6,7 +6,7 @@ select
   rsp.scheme::text
 from
   ref_site_parser rsp
-where 
+where
     (not moderated) and
   rsp.site_id = (
     select

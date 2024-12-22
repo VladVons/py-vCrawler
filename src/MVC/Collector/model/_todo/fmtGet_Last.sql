@@ -21,8 +21,7 @@ left join
     hist_url hu on
     (hu.url_id = ru.id)
 left join
-    wt1 on
-    (wt1.url_id = ru.id)
+    wt1 on (wt1.url_id = ru.id)
 where
     (ru.site_id != 1) and
     --(url_id = 62043) and

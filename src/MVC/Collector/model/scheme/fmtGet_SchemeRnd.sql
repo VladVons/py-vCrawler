@@ -10,7 +10,7 @@ where
   site_id = (
     select id
     from ref_site
-    where enabled
+    where (enabled is true)
     order by random()
     limit 1
   )

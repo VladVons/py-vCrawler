@@ -26,4 +26,5 @@ wt1 as (
   from ref_site_category rsc
   join ref_site rs on rs.id = rsc.site_id
 )
-select * from wt1;
+select *
+from wt1;

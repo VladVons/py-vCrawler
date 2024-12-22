@@ -48,11 +48,11 @@
             <a class="btn" id="vTo_favorite" title="{{Translate(lang, 'to_favorite')}}" data-key="favorite"><i class="fa fa-heart"></i></a>
             <a class="btn" id="vTo_compare" title="{{Translate(lang, 'to_compare')}}" data-key="compare"><i class="fa fa-balance-scale"></i></a>
           </div>
-          <span>{{Translate(lang, 'code')}}: {{info.url_id}}</span>
+          <span>{{Translate(lang, 'code')}}: {{url_id}}</span>
         </div>
 
         <h1>{{product.name}}</h1>
-        <div class="pt-2">{{Translate(lang, 'site')}}: <a href="{{info.site_url}}">{{info.host}}</a></div>
+        <div class="pt-2">{{Translate(lang, 'site')}}: <a href="{{site_url}}">{{host}}</a></div>
         <div class="pt-2 pb-2 product-attr-short">
           {% for Rec in TDbList().Import(dbl_attr) %}
             <div>{{Translate(lang, Rec.key)}}: <a href="{{Rec.href}}">{{Rec.val}}</a></div>
@@ -127,8 +127,7 @@
     }
 
     document.getElementById("viAddToCart2").addEventListener('click', function () {
-      console.log('-h1');
-      window.location.href = '{{info.url}}';
+      window.location.href = '{{url}}';
     });
   </script>
   <!-- product - -->

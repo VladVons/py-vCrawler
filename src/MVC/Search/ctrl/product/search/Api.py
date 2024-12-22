@@ -16,9 +16,6 @@ class TMain(TCtrlBase):
             (1, 1, '', ('sort_order, title', 'title', 'price', 'stock'), ('asc', 'desc'), 1, 10)
         )
 
-        if (not Lib.IsDigits([aLangId, aCountryId, aPage, aLimit])):
-            return {'status_code': 404}
-
         aLimit = min(aLimit, 25)
 
         DblProducts = await self.ExecModelImport(

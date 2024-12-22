@@ -10,7 +10,7 @@ from
 left join
   ref_url ru on (ru.site_id = rs.id)
 where
-  (rs.enabled) and
+  (rs.enabled is true) and
   (rs.id = {{aSiteId}}) and
   (ru.url_en = 'product') and
   ((ru.unlock_date is null) or (ru.unlock_date < now())) and

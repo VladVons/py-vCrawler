@@ -7,7 +7,7 @@ set
   attr = src.attr,
   title_crc = hashtext(src.title)
 from (
-  values {{aValues}} 
+  values {{aValues}}
 ) as src(url_id, title, attr)
-where 
+where
   rp.url_id = src.url_id

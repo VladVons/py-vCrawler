@@ -14,9 +14,6 @@ class TMain(TCtrlBase):
             (1, 1, 1, 10)
         )
 
-        if (not Lib.IsDigits([aSiteId, aLangId, aPage, aLimit])):
-            return {'status_code': 404}
-
         aOrder = 'price'
         aLimit = min(aLimit, 20)
 

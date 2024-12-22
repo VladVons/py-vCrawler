@@ -10,11 +10,9 @@ select
 from
     ref_site rs
 join
-    ref_url ru on
-    (ru.site_id = rs.id)
+    ref_url ru on (ru.site_id = rs.id)
 join
-    hist_url hu on
-    (hu.url_id = ru.id)
+    hist_url hu on (hu.url_id = ru.id)
 where
     (rs.enabled)
 group by

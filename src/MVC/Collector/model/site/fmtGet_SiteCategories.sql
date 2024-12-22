@@ -13,8 +13,8 @@ join
 cross join lateral
   jsonb_each_text(rp.attr) as data(key, val)
 where
-  (rs.id = {{aSiteId}}) and
   (rp.stock is true) and
+  (rs.id = {{aSiteId}}) and
   (key = 'category')
 group by
   key, val

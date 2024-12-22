@@ -12,13 +12,13 @@ select
 from
   hist_url hu
 join
-  ref_product rp on rp.url_id = hu.url_id
+  ref_product rp on (rp.url_id = hu.url_id)
 join
-  ref_url ru on ru.id = hu.url_id
+  ref_url ru on (ru.id = hu.url_id)
 join
-  ref_site rs on rs.id = ru.site_id
+  ref_site rs on (rs.id = ru.site_id)
 where
-  hu.url_id = {{aUrlId}}
+  (hu.url_id = {{aUrlId}})
 order by
   hu.id desc
 limit

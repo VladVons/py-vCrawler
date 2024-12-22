@@ -17,9 +17,6 @@ class TMain(TCtrlBase):
             (1, 0)
         )
 
-        if (not Lib.IsDigits([aLangId, aUrlId])):
-            return {'status_code': 404}
-
         DblProduct = await self.ExecModelImport(
             'product',
             {
@@ -45,7 +42,6 @@ class TMain(TCtrlBase):
 
             Href = f'/?route=product/category&lang_id={aLangId}&country_id={CountryId}&{Filter}'
             DblAttr.RecAdd([xKey, xVal, Href])
-        Res['dbl_attr'] = DblAttr.Export()
 
         if ('brand' not in Product):
             Product['brand'] = ''
@@ -93,11 +89,12 @@ class TMain(TCtrlBase):
         }
         Lib.DelValues(Schema, ['', [], {}, None])
 
-        Res['schema'] = json.dumps(Schema, ensure_ascii=False, indent=1)
-        Res['product'] = Product
-        Res['meta_title'] = Product['name']
-        Res['meta_image'] = Product['image']
-        Res['info'] = {
+        Res = {
+            'dbl_attr': DblAttr.Export(),
+            'product': Product,
+            'schema': json.dumps(Schema, ensure_ascii=False, indent=1),
+            'meta_title': Product['name'],
+            'meta_image': Product['image'],
             'site_url': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}',
             'url_id': DblProduct.Rec.url_id,
             'url': DblProduct.Rec.url,

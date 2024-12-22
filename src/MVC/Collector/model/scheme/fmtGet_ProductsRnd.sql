@@ -2,12 +2,12 @@
 -- in: aLimit
 
 select
-  title 
-from 
+  title
+from
   ref_product rp
 where
-  stock
-order 
+  (stock is true)
+order
   by random()
-limit 
+limit
   {{aLimit}}

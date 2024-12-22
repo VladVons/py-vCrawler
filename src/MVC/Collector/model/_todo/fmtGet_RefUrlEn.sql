@@ -1,12 +1,12 @@
 with wt1 as (
-    select 
-        site_id, 
-        url_en, 
+    select
+        site_id,
+        url_en,
         count(*) as url_count,
         (100.0 * count(*) / sum(count(*)) over (partition by site_id))::int  as percent
-    from 
+    from
         ref_url
-    group by 
+    group by
         site_id, url_en
 )
 select *

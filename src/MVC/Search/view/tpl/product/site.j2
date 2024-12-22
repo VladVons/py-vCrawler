@@ -23,17 +23,17 @@
 
 {% block content %}
 <div class="pb-2">
-  <h2><a href="{{info.url}}" rel="nofollow" target="_blank">{{info.host}}</a></h2>
+  <h2><a href="{{url}}" rel="nofollow" target="_blank">{{host}}</a></h2>
 </div>
 <div>
-  <h2>{{Translate(lang, 'category')}}: {{Translate(lang, info.category)}}</h2>
+  <h2>{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
 </div>
 
 <form id="formAttrFilter">
   <input type="hidden" name="route" value="product/site"/>
-  <input type="hidden" name="lang_id" value="{{info.lang_id}}"/>
-  <input type="hidden" name="site_id" value="{{info.site_id}}"/>
-  <input type="hidden" name="f_category" value="{{info.category}}"/>
+  <input type="hidden" name="lang_id" value="{{lang_id}}"/>
+  <input type="hidden" name="site_id" value="{{site_id}}"/>
+  <input type="hidden" name="f_category" value="{{category}}"/>
   {% for Rec in TDbList().Import(dbl_attr) %}
   <div class="row">
     <div class="col-2">

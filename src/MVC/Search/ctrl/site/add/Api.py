@@ -1,4 +1,4 @@
-# Created: 2024.12.19
+# Created: 2024.12.22
 # Author: Vladimir Vons <VladVons@gmail.com>
 # License: GNU, see LICENSE for more details
 
@@ -45,6 +45,6 @@ class TMain(TCtrlBase):
             DblCategories.RecMerge([Href])
 
         Res = DblInfo.Rec.GetAsDict()
-        Res['host'] = Lib.UrlToDict(Res['url'])['host']
         Res['dbl_categories'] = DblCategories.Export()
+        Res['host'] =  Lib.UrlToDict(Res['url'])['host']
         return Res

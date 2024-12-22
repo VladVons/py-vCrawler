@@ -2,11 +2,11 @@
 -- in: aSchema
 
 select
-    table_schema,
-    table_name
+  table_schema,
+  table_name
 from
-    information_schema.tables
+  information_schema.tables
 where
-    table_schema = '{{aSchema}}'
+  table_schema = '{{aSchema}}'
 order by
-    table_name
+  table_name

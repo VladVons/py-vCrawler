@@ -26,12 +26,14 @@ class TMain(TCtrlBase):
         Country = '' if (RecNo == -1) else DblCountry.RecGo(RecNo).title
 
         Href = {
-            'counties': f'/?route=site/countries&lang_id={aLangId}'
+            'counties': f'/?route=site/countries&lang_id={aLangId}',
+            'root': f'/?lang_id={aLangId}'
         }
 
         return  {
             'href': Href,
             'search': aSearch,
+            'lang_id': aLangId,
             'country_id': aCountryId,
             'country': Country,
             'dbl_country': DblCountry.Export()

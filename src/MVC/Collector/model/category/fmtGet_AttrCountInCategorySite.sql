@@ -10,9 +10,9 @@ wt1 as (
   from
       ref_product rp
   join
-      ref_url ru on ru.id = rp.url_id
+      ref_url ru on (ru.id = rp.url_id)
   join
-    ref_site rs on rs.id = ru.site_id
+    ref_site rs on (rs.id = ru.site_id)
   cross join lateral
       jsonb_each_text(rp.attr) as data(key, val)
   where
@@ -30,5 +30,5 @@ from
   wt1
 group by
   key
-order by 
+order by
   key

@@ -22,8 +22,7 @@ select
 from
   wt2
 join
-  ref_user ru on
-  wt2.user_id = ru.id
+  ref_user ru on wt2.user_id = ru.id
 order by
   cnt;
 

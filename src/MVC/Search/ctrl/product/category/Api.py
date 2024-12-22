@@ -14,9 +14,6 @@ class TMain(TCtrlBase):
             (1, 1, 1, 10)
         )
 
-        if (not Lib.IsDigits([aLangId, aCountryId, aPage, aLimit])):
-            return {'status_code': 404}
-
         aOrder = 'price'
         aLimit = min(aLimit, 25)
 
@@ -83,9 +80,5 @@ class TMain(TCtrlBase):
 
         Res['dbl_products'] = DblProducts.Export()
         Res['dbl_pagenation'] = DblPagination.Export()
-        Res['info'] = {
-            'country_id': aCountryId,
-            'lang_id': aLangId,
-            'category': Category
-        }
+        Res['category'] = Category
         return Res

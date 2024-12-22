@@ -7,9 +7,9 @@ select
 from
   ref_product rp
 join
-  ref_url ru on ru.id = rp.url_id
+  ref_url ru on (ru.id = rp.url_id)
 join
-  ref_site rs on rs.id = ru.site_id and rs.country_id = {{aCountryId}}
+  ref_site rs on (rs.id = ru.site_id) and (rs.country_id = {{aCountryId}})
 where
   (stock is true) and
   (attr->>'category' is not null)

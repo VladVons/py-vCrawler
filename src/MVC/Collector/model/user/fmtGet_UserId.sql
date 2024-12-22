@@ -2,10 +2,10 @@
 -- in: aLogin, aPassw
 
 select
-    id
+  id
 from
-    ref_user
+  ref_user
 where
-    (enabled) and
-    (login = '{{aLogin}}') and
-    (passw = '{{aPassw}}')
+  (enabled is true) and
+  (login = '{{aLogin}}') and
+  (passw = '{{aPassw}}')

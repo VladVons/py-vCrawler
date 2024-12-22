@@ -26,7 +26,7 @@ join
 join
   ref_site_parser rsp on (rsp.site_id = rs.id) and (rsp.moderated) and (rsp.url_en = 'product')
 where
-  (rs.enabled) and
+  (rs.enabled is true) and
   ((rs.unlock_date is null) or (rs.unlock_date < now())) and
   ((ru.unlock_date is null) or (ru.unlock_date < now())) and
   ((ru.update_date is null) or (ru.update_date < (now() - (rs.update_hours || ' hours')::interval)))

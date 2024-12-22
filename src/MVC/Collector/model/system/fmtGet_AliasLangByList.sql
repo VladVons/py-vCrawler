@@ -6,7 +6,7 @@ select
 from (
   values {{aValues}}
 ) as wt1(key)
-left join ref_alias ra on 
-  ra.title = wt1.key
-left join ref_alias_lang ral on 
-  ral.alias_id = ra.id and ral.lang_id = {{aLangId}}
+left join
+  ref_alias ra on (ra.title = wt1.key)
+left join
+  ref_alias_lang ral on (ral.alias_id = ra.id) and (ral.lang_id = {{aLangId}})

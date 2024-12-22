@@ -1,7 +1,7 @@
 <!-- header + -->
 <div class="logo-and-select">
   <div class="logo">
-    <a href="/"><img src="logo.png" alt="Logo" height="40"></a>
+    <a href="{{href.root}}"><img src="logo.png" alt="Logo" height="40"></a>
   </div>
   <select class="form-select ms-2 d-md-none">
     <option selected>ua</option>
@@ -24,15 +24,28 @@
 </form>
 
 <script type="text/javascript">
+    LocalDb = new TLocalStorage();
+
     const elForm = document.getElementById('viSearchForm');
     const elSearch = document.getElementById('viSearchInput');
 
     document.getElementById('viCountry').addEventListener('change', (event) => {
+      const langId = event.target.value;
+
+      const curUrl = window.location.href;
+      const urlObj = new URL(curUrl, window.location.origin);
+      urlObj.searchParams.set('lang_id', langId);
+      newUrl = urlObj.toString();
+      //console.log(event.target.value, newUrl);
+
+      LocalDb.addItemToListUniq({'lang_id': langId});
+      LocalDb.save();
+
       const Search = elSearch.value.trim();
       if (Search == '') {
         elForm.querySelector('input[name="route"]').remove();
       }
-      elForm.submit();
+      //elForm.submit();
   });
 </script>
 <!-- header - -->
