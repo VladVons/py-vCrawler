@@ -18,7 +18,7 @@ wt1 as (
   where
     (rs.id = {{aSiteId}}) and
     (rp.stock is true) and
-    (key not in ('category', 'model', 'brand')) and
+    (key not in ('category', 'model')) and
     (rp.attr->>'category' = '{{aCategory}}')
   group by
       key, val
