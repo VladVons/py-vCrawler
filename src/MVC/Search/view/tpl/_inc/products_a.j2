@@ -1,22 +1,19 @@
 <div class="container pb-2">
-  <div class="grid-container">
-    {% for xFields in Fields %}
-      <div class="grid-item fw-bold">{{Translate(lang, xFields)}}</div>
-    {% endfor %}
-
     {% for Rec in TDbList().Import(dbl_products) %}
-      <div class="gitem text-center">
+    <div class="row">
+      <div class="col-2">
         <a href="{{Rec.href_int}}" rel="nofollow" title="{{Rec.update_date.strftime('%Y-%m-%d')}}">
           <img src="{{Rec.image}}" alt="{{Rec.title |truncate(32, True, '...')}}" class="thumb">
         </a>
       </div>
-      <div class="gitem m-2" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
+      <div class="col-6" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
         <div title="{{Rec.href_ext}}">
-          <a href="{{Rec.href_ext}}" rel="nofollow" target="_blank">{{Rec.href_ext |truncate(100, True, '...')}}</a>
+          <a href="{{Rec.href_ext}}" rel="nofollow" target="_blank">{{Rec.href_ext |truncate(50, True, '...')}}</a>
         </div>
       </div>
-      <div class="gitem">{{"{:,}".format(Rec.price|int)}}</div>
-      <div class="gitem">{% if Rec.price_old and Rec.price_old != Rec.price %} {{"{:,}".format(Rec.price_old|int) }} {%endif %}</div>
+      <div class="col-3">
+        {{"{:,}".format(Rec.price|int)}}
+      </div>
+    </div>
     {% endfor %}
-  </div>
 </div>
