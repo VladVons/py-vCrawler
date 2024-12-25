@@ -26,10 +26,9 @@ class TMain(TCtrlBase):
 
     async def AsExcel(self, aScript: str) -> dict:
         SpecComp = TSpecComp()
-        Fields = list(SpecComp.Parsers.keys())
-        Fields.insert(0, 'product')
-        Pos = Fields.index('brand')
-        Fields.insert(Pos + 1, 'model')
+        Fields = ['product']
+        for xParser in SpecComp.Parsers.values():
+            Fields += xParser.GetFields()
         Dbl = TDbList(Fields)
 
         Lines = SpecComp.GetLines(aScript)
