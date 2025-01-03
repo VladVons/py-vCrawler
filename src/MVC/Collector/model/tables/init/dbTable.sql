@@ -3,6 +3,8 @@
 -- License: GNU, see LICENSE for more details
 
 
+# create database crawler_used;
+
 create type url_enum as enum (
     'none',
     'product',

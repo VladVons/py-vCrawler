@@ -44,11 +44,13 @@ async def Test3():
 
     Fs = TFsDisk('./temp/123')
 
-    BlockSize = 655360
+    BlockSize = 65536
     async with aiohttp.ClientSession() as Session:
         async with Session.get(url) as Response:
             if (Response.status == 200):
-                await Fs.FileWriteChunk(output_path, Response.content, BlockSize)
+                #await Fs.FileWriteChunk(output_path, Response.content, BlockSize)
+                await Fs.FileWriteChunkPos(output_path, Response.content, BlockSize, 0, Response.content_length)
+
     print('done')
 
 async def Main():
