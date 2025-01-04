@@ -15,7 +15,7 @@
      from hist_url
      group by url_id
      having count(*) > 1
-     limit 10000
+     limit 100000
  )
  delete 
  from hist_url hu
