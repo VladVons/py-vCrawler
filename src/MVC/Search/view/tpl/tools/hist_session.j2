@@ -1,0 +1,57 @@
+{% extends '_inc/layout1.j2' %}
+
+{% set Fields = ['create_date', 'id', 'url', 'ip', 'location'] %}
+
+{% block head %}
+<meta name="robots" content="noindex, nofollow">
+
+<style>
+  .grid-container {
+    display: grid;
+    --grid-template-columns: repeat({{ Fields | length }}, 1fr);
+    grid-template-columns: 170px 100px auto 120px 230px;
+  }
+
+  .gitem {
+    border: 1px solid black;
+    padding: 0px;
+    text-align: left;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- hist_session + -->
+<div class="container pb-2">
+  <h1>Human</h1>
+  <div class="grid-container">
+    {% for xFields in Fields %}
+      <div class="grid-item fw-bold">{{xFields}}</div>
+    {% endfor %}
+
+    {% set ns = namespace(Prev=None) %}
+    {% for Rec in TDbList().Import(dbl_main) %}
+      {% if ns.Prev != Rec.create_day %}
+        {% set ns.Prev = Rec.create_day %}
+        {% set Inf = day_inf.get(Rec.create_day, {}) %}
+        {{ '<div>&nbsp;</div>' * (Fields | length) }}
+        <div>{{Inf.count}}</div>
+        <div>{{Inf.count_id}}</div>
+        <div>{{Inf.count_url}}</div>
+        <div>{{Inf.count_ip}}</div>
+        <div>{{Inf.count_location}}</div>
+      {% endif %}
+      <div class="gitem">{{Rec.create_date.strftime('%Y-%m-%d %H:%M:%S') }}</div>
+      <div class="gitem">{{Rec.id}}</div>
+      <div class="gitem"><a href="{{Rec.url}}" target="_blank">{{Rec.url.split('&') }}</a></div>
+      <div class="gitem">{{Rec.ip }}</div>
+      <div class="gitem">{{Rec.location }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="m-3">
+    {% include '../_inc/pagination.j2' %}
+  </div>
+</div>
+<!-- hist_session - -->
+{% endblock %}
