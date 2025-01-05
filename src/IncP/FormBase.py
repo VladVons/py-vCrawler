@@ -12,6 +12,7 @@ from Inc.Misc.Jinja import TTemplate
 from Inc.Var.Dict import DeepGetByList
 from Inc.Var.DictDef import TDictDef
 from IncP import GetAppVer
+from .Session import TSession
 
 
 class TFormBase(Form):
@@ -25,8 +26,8 @@ class TFormBase(Form):
         self.Parent = aParent
         self.Ctrl: TLoaderApi = aParent.Loader['ctrl']
         self.Request = aRequest
+        self.Session = TSession(aRequest)
         self.Tpl: TTemplate = aParent.Tpl
-
         self.out = TDictDef(
             '',
             {
@@ -68,11 +69,15 @@ class TFormBase(Form):
             'post': self.out.data,
             'query': dict(self.Request.query) | self.out.query,
             'path_qs': self.Request.path_qs,
-            'extends': self._GetTplExtends(aRoute)
+            'extends': self._GetTplExtends(aRoute),
+            'session': self.Session.GetAsDict()
         }
 
         # debug view
         return await self.Ctrl.Get(aRoute, aData | Data)
+
+    async def ExecCtrlApi(self, aRoute: str, aData: dict = None) -> dict:
+        return await self.Ctrl.Get(aRoute, aData | {'type': 'api'})
 
     async def PostToData(self) -> bool:
         if (self.Request.method.upper() == 'POST'):
@@ -88,6 +93,10 @@ class TFormBase(Form):
                 return bool(Post)
 
     async def Render(self) -> str:
+        await self.Session.Init()
+        if (not self.Session.GetId()):
+            await self.Session.UpdateDb(self.ExecCtrlApi)
+
         await self.PostToData()
         Res = await self._DoRender()
         if (not Res):

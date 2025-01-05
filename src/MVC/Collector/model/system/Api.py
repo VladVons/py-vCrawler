@@ -33,3 +33,20 @@ class TMain(TDbModel):
               'aLangId': aLangId
             }
         )
+
+    async def RegSession(self, aIp: str, aUAgent: str, aLocation: str) -> dict:
+        Query = f'''
+            insert into hist_session
+                (ip, uagent, location)
+            values
+                ('{aIp}', '{aUAgent[:256]}', '{aLocation}')
+            returning (id)
+        '''
+        return await self.ExecQueryText(Query)
+
+    async def Ins_HistPageView(self, aSessionId: int, aUrl: str) -> dict:
+        Query = f'''
+            insert into hist_page_view (session_id, url)
+            values ({aSessionId}, '{aUrl[:128]}')
+        '''
+        return await self.ExecQueryText(Query)

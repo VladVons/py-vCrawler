@@ -66,6 +66,8 @@ class TApiCtrl(TApiBase):
         Type = aData.get('type')
         match Type:
             case 'form':
+                await super().Exec('system', aData | {'method': 'OnExec'})
+
                 Res = {}
                 Routes = aData.get('extends', [])
                 Routes.append(aRoute)
