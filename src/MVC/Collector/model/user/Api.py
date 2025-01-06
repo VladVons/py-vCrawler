@@ -3,10 +3,10 @@
 # License: GNU, see LICENSE for more details
 
 
-from Inc.Sql.DbModel import TDbModel
+import IncP.LibModel as Lib
 
 
-class TMain(TDbModel):
+class TMain(Lib.TDbModel):
     async def GetUserExt(self, aUserId: int) -> dict:
         return await self.ExecQuery(
             'fmtGet_UserExt.sql',

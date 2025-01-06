@@ -1,19 +1,21 @@
 <div class="container pb-2">
-    {% for Rec in TDbList().Import(dbl_products) %}
-    <div class="row">
-      <div class="col-2">
-        <a href="{{Rec.href_int}}" rel="nofollow" title="{{Rec.update_date.strftime('%Y-%m-%d')}}">
-          <img src="{{Rec.image}}" alt="{{Rec.title |truncate(32, True, '...')}}" class="thumb">
-        </a>
-      </div>
-      <div class="col-6" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
-        <div title="{{Rec.href_ext}}">
-          <a href="{{Rec.href_ext}}" rel="nofollow" target="_blank">{{Rec.href_ext |truncate(50, True, '...')}}</a>
+    {% set DblProducts = TDbList().Import(dbl_products) %}
+    {% if DblProducts %}
+      {% for Rec in DblProducts %}
+      <div class="row">
+        <div class="col-2">
+          <a href="{{Rec.href}}" rel="nofollow" title="{{Rec.update_date.strftime('%Y-%m-%d')}}">
+            <img src="{{Rec.image}}" alt="{{Rec.title |truncate(32, True, '...')}}" class="thumb">
+          </a>
+        </div>
+        <div class="col-6" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
+        </div>
+        <div class="col-3">
+          {{"{:,}".format(Rec.price|int)}}
         </div>
       </div>
-      <div class="col-3">
-        {{"{:,}".format(Rec.price|int)}}
-      </div>
-    </div>
-    {% endfor %}
+      {% endfor %}
+    {% else %}
+      <div>{{Translate(lang, 'not found')}}</div>
+    {% endif %}
 </div>

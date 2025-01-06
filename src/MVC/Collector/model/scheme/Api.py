@@ -4,10 +4,10 @@
 
 
 import json
-from Inc.Sql.DbModel import TDbModel
+import IncP.LibModel as Lib
 
 
-class TMain(TDbModel):
+class TMain(Lib.TDbModel):
     async def GetSchemeRnd(self) -> dict:
         return await self.ExecQuery(
             'fmtGet_SchemeRnd.sql',

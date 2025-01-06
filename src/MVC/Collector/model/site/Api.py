@@ -6,13 +6,12 @@
 import asyncio
 import json
 #
-from Inc.Sql.DbModel import TDbModel
 import IncP.LibModel as Lib
 
 Lock = asyncio.Lock()
 
 
-class TMain(TDbModel):
+class TMain(Lib.TDbModel):
     async def GetSiteToUpdate(self) -> dict:
         return await self.ExecQuery(
             'fmtGet_SiteToUpdate.sql'

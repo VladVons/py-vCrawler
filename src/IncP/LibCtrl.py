@@ -9,6 +9,7 @@ from Inc.Http.HttpUrl import UrlToDict
 from Inc.Misc.Pagination import TPagination
 from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, Filter, DelValues
 from Inc.Var.Obj import Iif, IsDigits
+from IncP.CtrlBase import TCtrlBase
 from .Log import Log
 
 
@@ -24,8 +25,34 @@ def GetFilterFromQuery(aQuery: dict, aPrefix: str = 'f_'):
     for xKey, xVal in aQuery.items():
         if (xKey.startswith(aPrefix)):
             Key = xKey.replace(aPrefix, '')
-            Res[Key] = int(xVal) if ('size' in Key) else xVal
+            Res[Key] = int(xVal) if ('size' in Key and xVal) else xVal
     return Res
 
 def ResGetItem(aData: dict, aName: str) -> str:
     return aData['res'].get(aName, '')
+
+async def SeoEncodeList(self, aPaths: list[str]) -> list[str]:
+    if (aPaths):
+        return await self.ApiCtrl.Exec(
+            'seo',
+            {
+                'type': 'api',
+                'method': 'Encode',
+                'param': {
+                    'aPath': aPaths
+                }
+            }
+        )
+
+async def SeoEncodeDbl(self, aDbl: TDbList, aField: str):
+    Hrefs = aDbl.ExportList(aField)
+    Hrefs = await SeoEncodeList(self, Hrefs)
+    aDbl.ImportList(Hrefs, aField)
+
+async def SeoEncodeDict(self, aHref: dict) -> dict:
+    Res = await SeoEncodeList(self, aHref.values())
+    return dict(zip(aHref.keys(), Res))
+
+async def SeoEncodeStr(self, aHref: str) -> str:
+    Res = await SeoEncodeList(self, [aHref])
+    return Res[0]

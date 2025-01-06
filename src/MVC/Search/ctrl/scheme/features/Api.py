@@ -4,13 +4,12 @@
 
 from base64 import b64encode
 from Inc.Var.Dict import DictToPath
-from Inc.DbList import TDbList
 from Inc.DbList.DbConvert import DblToXlsx
 from Inc.ParserSpec.TestAll import TSpecComp
-from IncP.CtrlBase import TCtrlBase
+import IncP.LibCtrl as Lib
 
 
-class TMain(TCtrlBase):
+class TMain(Lib.TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
         pass
 
@@ -29,7 +28,7 @@ class TMain(TCtrlBase):
         Fields = ['product']
         for xParser in SpecComp.Parsers.values():
             Fields += xParser.GetFields()
-        Dbl = TDbList(Fields)
+        Dbl = Lib.TDbList(Fields)
 
         Lines = SpecComp.GetLines(aScript)
         for xLine in Lines:

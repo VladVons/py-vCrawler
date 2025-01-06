@@ -129,7 +129,6 @@ class TApiView(TApiBase):
                 Log.Print(1, 'i', f'ResponseApi(). {E}')
 
         Ctrl = self.Loader['ctrl']
-
         R = await Ctrl.Get(Query.get('route'), Data)
 
         Context = Query.get('context', 'json')
@@ -139,5 +138,15 @@ class TApiView(TApiBase):
             Res = web.Response(text = R)
         return Res
 
+    async def GetSeoUrl(self, aMethod: str, aUrl: str) -> str:
+        Data = {
+            'type': 'api',
+            'method': aMethod,
+            'param': {
+                'aPath': aUrl
+            }
+        }
+        Ctrl = self.Loader['ctrl']
+        return await Ctrl.Get('seo', Data)
 
 ApiView = TApiView()

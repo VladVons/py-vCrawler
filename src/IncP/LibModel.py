@@ -5,9 +5,13 @@
 
 # pylint: skip-file
 from Inc.DbList import TDbList
+from Inc.Sql.DbModel import TDbModel
+from Inc.Sql import DTransaction, TDbExecCursor, ListToComma, ListIntToComma, DictToComma, TDbSql
 from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs
 from Inc.Var.DictEx import DeepGetsRe
 from Inc.Var.Obj import Iif
-
-from Inc.Sql import DTransaction, TDbExecCursor, ListToComma, ListIntToComma, DictToComma, TDbSql
 from .Log import Log
+
+
+def Escape(aVal: str) -> str:
+    return aVal.replace("'", "''")

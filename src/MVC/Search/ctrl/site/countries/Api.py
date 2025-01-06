@@ -3,14 +3,14 @@
 # License: GNU, see LICENSE for more details
 
 
-from IncP.CtrlBase import TCtrlBase, Lib
+import IncP.LibCtrl as Lib
 
 
-class TMain(TCtrlBase):
+class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
         aLangId = Lib.DeepGetByList(aData, ['query', 'lang_id'], 1)
 
-        Dbl = await self.ExecModelImport(
+        DblCountries = await self.ExecModelImport(
             'site',
             {
                 'method': 'GetSiteCountries',
@@ -20,11 +20,15 @@ class TMain(TCtrlBase):
             }
         )
 
-        Hrefs = [f'/?route=site/country&lang_id={aLangId}&country_id={Rec.country_id}' for Rec in Dbl]
-        Dbl.AddFieldsFill(['href'], False)
-        for Href, Rec in zip(Hrefs, Dbl):
-            Dbl.RecMerge([Href])
+        DblCountries.AddFieldsFill(['href'], False)
+        for Rec in DblCountries:
+            Href = f'/?route=site/country&lang_id={aLangId}&country_id={Rec.country_id}'
+            DblCountries.RecMerge([Href])
 
-        return {
-            'dbl_countries': Dbl.Export()
+        if (self.ApiCtrl.ConfDb.get('seo_url')):
+            await Lib.SeoEncodeDbl(self, DblCountries, 'href')
+
+        Res = {
+            'dbl_countries': DblCountries.Export()
         }
+        return Res

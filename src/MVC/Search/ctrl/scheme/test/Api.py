@@ -8,15 +8,14 @@ import json
 from datetime import datetime
 #
 from Inc.DbList.DbUtil import TJsonEncoder
-from Inc.DbList import TDbList
 from Inc.Misc.Template import TDictRepl
 from Inc.Scheme.Scheme import TScheme, TSchemeApi
 from Inc.Scheme.Utils import FindLineInScheme
-from IncP.CtrlBase import TCtrlBase
+import IncP.LibCtrl as Lib
 from . import Util
 
 
-class TMain(TCtrlBase):
+class TMain(Lib.TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
         pass
 
@@ -38,7 +37,7 @@ class TMain(TCtrlBase):
                 DictRepl = TDictRepl(Format)
                 CurDir = __package__.replace('.', '/')
 
-                DblRes = TDbList(['site_id', 'url_en', 'scheme'])
+                DblRes = Lib.TDbList(['site_id', 'url_en', 'scheme'])
                 for xName in ['product', 'category']:
                     DblRes.RecAdd([
                         Dbl.Rec.site_id,

@@ -22,10 +22,6 @@ class TCtrlBase():
         pass
 
     @property
-    def Common(self) -> TApiCtrl:
-        return self.ApiCtrl.ApiCommon.Ctrls.ApiCtrl
-
-    @property
     def Lang(self) -> TLoaderLang:
         return self.ApiCtrl.Lang
 

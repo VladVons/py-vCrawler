@@ -3,10 +3,10 @@
 # License: GNU, see LICENSE for more details
 
 
-from IncP.CtrlBase import TCtrlBase, Lib
+import IncP.LibCtrl as Lib
 
 
-class TMain(TCtrlBase):
+class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
         aLangId, aCountryId, aLimit = Lib.GetDictDefs(
             aData.get('query'),
@@ -14,7 +14,7 @@ class TMain(TCtrlBase):
             (1, 1, 100)
         )
 
-        Dbl = await self.ExecModelImport(
+        DblSites = await self.ExecModelImport(
             'site',
             {
                 'method': 'GetSiteCountry',
@@ -24,13 +24,13 @@ class TMain(TCtrlBase):
             }
         )
 
-        Dbl.AddFieldsFill(['href'], False)
-        for Rec in Dbl:
+        DblSites.AddFieldsFill(['href'], False)
+        for Rec in DblSites:
             Href = f'/?route=site/site&lang_id={aLangId}&site_id={Rec.id}'
-            Dbl.RecMerge([Href])
+            DblSites.RecMerge([Href])
 
         cntParsed = cntProducts = cntOnStock = cntDiscount = cntErr = 0
-        for Rec in Dbl:
+        for Rec in DblSites:
             if (Rec.products):
                 cntParsed += 1
                 cntProducts += Rec.products
@@ -38,13 +38,16 @@ class TMain(TCtrlBase):
                 cntDiscount += Rec.discount
                 cntErr += Rec.err
 
+        if (self.ApiCtrl.ConfDb.get('seo_url')):
+            await Lib.SeoEncodeDbl(self, DblSites, 'href')
+
         Res = {
-            'dbl_sites': Dbl.Export(),
+            'dbl_sites': DblSites.Export(),
             'cnt_parsed': cntParsed,
             'cnt_products': cntProducts,
             'cnt_onstock': cntOnStock,
             'cnt_discount': cntDiscount,
             'cnt_err': cntErr,
-            'cnt_all': len(Dbl)
+            'cnt_all': len(DblSites)
         }
         return Res

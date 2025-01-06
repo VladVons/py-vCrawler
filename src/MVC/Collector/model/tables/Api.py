@@ -3,9 +3,9 @@
 # License: GNU, see LICENSE for more details
 
 
-from Inc.Sql.DbModel import TDbModel
+import IncP.LibModel as Lib
 
-class TMain(TDbModel):
+class TMain(Lib.TDbModel):
     async def GetTables(self, aSchema: str) -> dict:
         return await self.ExecQuery(
             'fmtGet_Tables.sql',

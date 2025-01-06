@@ -22,6 +22,8 @@ class TApiCtrl(TApiBase):
         self.InitLoader(Conf['loader'])
         self.ApiModel = self.Loader['model'].Get
 
+        self.ConfDb = {}
+
         self.Langs = {}
         Section = Conf['lang']
         if (Section['type'] == 'fs'):
@@ -29,6 +31,20 @@ class TApiCtrl(TApiBase):
             self.Lang = TLoaderLangFs(*Def)
         else:
             raise ValueError()
+
+    async def GetConfDb(self) -> dict:
+        Data = await self.ApiModel(
+            'system',
+            {
+                'method': 'GetConf',
+                'param': {
+                    'aAttr': None
+                },
+                'cache_age': 60*10
+            }
+        )
+        Dbl = Lib.TDbList().Import(Data)
+        return Dbl.Rec.val
 
     async def GetLang(self, aLangId: int, aRoutes: list) -> dict:
         if (not self.Langs):
@@ -63,6 +79,8 @@ class TApiCtrl(TApiBase):
         return Res
 
     async def Exec(self, aRoute: str, aData: dict) -> dict:
+        self.ConfDb = await self.GetConfDb()
+
         Type = aData.get('type')
         match Type:
             case 'form':

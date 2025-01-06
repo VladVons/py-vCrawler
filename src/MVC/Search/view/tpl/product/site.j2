@@ -22,60 +22,8 @@
 {% endblock %}
 
 {% block content %}
-<div class="pb-2">
-  <h2><a href="{{url}}" rel="nofollow" target="_blank">{{host}}</a></h2>
-</div>
-<div>
-  <h2>{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
-</div>
-
-<form id="formAttrFilter">
-  <input type="hidden" name="route" value="product/site"/>
-  <input type="hidden" name="lang_id" value="{{lang_id}}"/>
-  <input type="hidden" name="site_id" value="{{site_id}}"/>
-  <input type="hidden" name="f_category" value="{{category}}"/>
-  {% for Rec in TDbList().Import(dbl_attr) %}
-  <div class="row">
-    <div class="col-2">
-      <label for="{{Rec.key}}">{{Translate(lang, Rec.key)}}</label>
-    </div>
-    <div class="col-2">
-      <select class="form-select w-100" id="{{Rec.key}}" name="f_{{Rec.key}}">
-      <option value="">---</option>
-      {% for xStat in Rec.stat %}
-        <option value="{{xStat.val}}" {{ Iif(Rec.active == xStat.val, 'selected', '') }}>{{xStat.val}} ({{xStat.cnt}})</option>
-      {% endfor %}
-    </select>
-    </div>
-  </div>
-  {% endfor %}
-  <button type="submit" class="btn btn-primary">{{Translate(lang, 'filter')}}</button>
-  <button class="btn btn-primary" onclick="clearSelects()">{{Translate(lang, 'clear_it')}}</button>
-</form>
-
-<script>
-  const formAttrFilter = document.getElementById('formAttrFilter')
-
-  formAttrFilter.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const form = event.target;
-    for (const element of form.elements) {
-        if (element.name && !element.value) {
-            element.disabled = true;
-        }
-    }
-    form.submit();
-  });
-
-  function clearSelects() {
-    event.preventDefault();
-    formAttrFilter.querySelectorAll('select').forEach(function(selectElement) {
-        selectElement.selectedIndex = 0;
-    });
-}
-</script>
-
+<h2>{{Translate(lang, 'site')}} - {{host}}</h2>
+{% include '../_inc/category.j2' %}
 {% include '../_inc/pagination.j2' %}
 {% include '../_inc/products_a.j2' %}
 {% include '../_inc/pagination.j2' %}

@@ -6,10 +6,10 @@
 import json
 #
 from Inc.Http.HttpUrl import UrlToDict
-from IncP.CtrlBase import TCtrlBase, Lib
+import IncP.LibCtrl as Lib
 
 
-class TMain(TCtrlBase):
+class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
         aLangId, aUrlId = Lib.GetDictDefs(
             aData.get('query'),
@@ -89,13 +89,18 @@ class TMain(TCtrlBase):
         }
         Lib.DelValues(Schema, ['', [], {}, None])
 
+        SiteUr = f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}'
+        if (self.ApiCtrl.ConfDb.get('seo_url')):
+            SiteUr = await Lib.SeoEncodeStr(self, SiteUr)
+            await Lib.SeoEncodeDbl(self, DblAttr, 'href')
+
         Res = {
             'dbl_attr': DblAttr.Export(),
             'product': Product,
             'schema': json.dumps(Schema, ensure_ascii=False, indent=1),
             'meta_title': Product['name'],
             'meta_image': Product['image'],
-            'site_url': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}',
+            'site_url': SiteUr,
             'url_id': DblProduct.Rec.url_id,
             'url': DblProduct.Rec.url,
             'host': UrlToDict(DblProduct.Rec.url)['host']

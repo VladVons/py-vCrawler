@@ -3,13 +3,12 @@
 # License: GNU, see LICENSE for more details
 
 
-from Inc.Sql.DbModel import TDbModel
+import IncP.LibModel as Lib
 
 
-class TMain(TDbModel):
+class TMain(Lib.TDbModel):
     async def GetAliasLangByList(self, aLangId: int, aText: list[str]) -> dict:
         Arr = [f"('{xText}')" for xText in aText]
-
         return await self.ExecQuery(
             'fmtGet_AliasLangByList.sql',
             {
@@ -33,6 +32,20 @@ class TMain(TDbModel):
               'aLangId': aLangId
             }
         )
+
+    async def GetConf(self, aAttr: list[str] = None) -> dict:
+        if (aAttr):
+            WhereExt = f'attr in ({Lib.ListToComma(aAttr)})'
+        else:
+            WhereExt = True
+
+        Res = await self.ExecQuery(
+            'fmtGet_Conf.sql',
+            {
+              'WhereExt': WhereExt
+            }
+        )
+        return Res
 
     async def RegSession(self, aIp: str, aUAgent: str, aLocation: str) -> dict:
         Query = f'''

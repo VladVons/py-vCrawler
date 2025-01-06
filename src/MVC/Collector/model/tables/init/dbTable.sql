@@ -18,10 +18,47 @@ create type guard_enum as enum (
 );
 
 create type val_enum as enum (
+    'bool',
     'int',
-    'text',
     'float',
+    'text',
     'json'
+);
+
+-- conf --
+
+create table if not exists ref_conf (
+    attr                varchar(32) not null unique,
+    val                 text,
+    val_en              val_enum not null
+);
+
+-- SEO --
+
+create table if not exists ref_seo_url (
+    attr                varchar(32) not null,
+    val                 varchar(32) not null,
+    keyword             varchar(128) not null unique,
+    sort_order          smallint default 0,
+    primary key (attr, val)
+);
+COMMENT ON TABLE public.ref_seo_url IS 'key+value urls into SEO';
+
+-- session ---
+
+create table if not exists hist_session (
+    id                  serial primary key,
+    create_date         timestamp default current_timestamp,
+    ip                  varchar(45),
+    uagent              varchar(256),
+    location            varchar(64)
+);
+
+create table if not exists hist_page_view (
+    id                  serial primary key,
+    create_date         timestamp default current_timestamp,
+    url                 varchar(128),
+    session_id          integer not null references hist_session(id) on delete cascade
 );
 
 -- lang
@@ -104,6 +141,7 @@ create table if not exists ref_user_ext (
 
 
 -- site --
+
 create table if not exists ref_site (
     id                  serial primary key,
     create_date         timestamp default current_timestamp,

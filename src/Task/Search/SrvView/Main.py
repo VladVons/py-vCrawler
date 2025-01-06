@@ -9,6 +9,7 @@ from aiohttp import web
 #
 from Inc.DataClass import DDataClass
 from Inc.SrvWeb import TSrvBase, TSrvConf
+from Inc.SrvWeb.Common import UrlDecode
 from IncP.Log import Log
 from .Api import ApiView, TApiView
 
@@ -53,13 +54,17 @@ class TSrvView(TSrvBase):
         return web.Response(text = Data, content_type = 'text/html', status = 500)
 
     async def _rIndex(self, aRequest: web.Request) -> web.Response:
-        if (aRequest.path == '/'):
-            Query = dict(aRequest.query)
-            if ('route' not in aRequest.query):
+        Name = aRequest.match_info.get('name')
+        Pos = Name.rfind('.')
+        if (Pos != -1) and (2 <= len(Name) - Pos <= 5):
+            Res = await self._LoadFile(aRequest, ApiView)
+        else:
+            Url = await ApiView.GetSeoUrl('Decode', Name)
+            Query = UrlDecode(Url)
+            Query.update(aRequest.query)
+            if ('route' not in Query):
                 Query['route'] = ApiView.Conf.form_home
             Res = await ApiView.ResponseForm(aRequest, Query)
-        else:
-            Res = await self._LoadFile(aRequest, ApiView)
         return Res
 
     async def _rApi(self, aRequest: web.Request) -> web.Response:

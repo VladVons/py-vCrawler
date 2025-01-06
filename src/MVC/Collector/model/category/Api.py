@@ -3,14 +3,14 @@
 # License: GNU, see LICENSE for more details
 
 
-from Inc.Sql.DbModel import TDbModel
+import IncP.LibModel as Lib
 
 
-class TMain(TDbModel):
+class TMain(Lib.TDbModel):
     async def GetAttrCountInCategory(self, aCountryId: int, aCategory: str, aSiteId: int = None) -> dict:
         WhereExt = ''
         if (aSiteId):
-          WhereExt = f' and rs.id = {aSiteId}'
+            WhereExt = f' and rs.id = {aSiteId}'
 
         return await self.ExecQuery(
             'fmtGet_AttrCountInCategory.sql',

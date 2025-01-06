@@ -3,10 +3,10 @@
 # License: GNU, see LICENSE for more details
 
 
-from IncP.CtrlBase import TCtrlBase, Lib
+import IncP.LibCtrl as Lib
 
 
-class TMain(TCtrlBase):
+class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
         aPage, aLimit, aHaving = Lib.GetDictDefs(
             aData.get('query'),

@@ -3,10 +3,10 @@
 # License: GNU, see LICENSE for more details
 
 
-from Inc.Sql.DbModel import TDbModel
+import IncP.LibModel as Lib
 
 
-class TMain(TDbModel):
+class TMain(Lib.TDbModel):
     async def Get_HistSession(self, aLimit: int, aOffset: int, aHaving: int = 1) -> dict:
         return await self.ExecQuery(
             'fmtGet_HistSession2.sql',

@@ -3,9 +3,9 @@
 # License: GNU, see LICENSE for more details
 
 
-from IncP.CtrlBase import TCtrlBase, Lib
+import IncP.LibCtrl as Lib
 
-class TMain(TCtrlBase):
+class TMain(Lib.TCtrlBase):
     async def Main(self, **aData) -> dict:
         aLangId, aCountryId, aSearch = Lib.GetDictDefs(
             aData.get('query'),
@@ -29,6 +29,9 @@ class TMain(TCtrlBase):
             'counties': f'/?route=site/countries&lang_id={aLangId}',
             'root': f'/?lang_id={aLangId}'
         }
+
+        if (self.ApiCtrl.ConfDb.get('seo_url')):
+            Href = await Lib.SeoEncodeDict(self, Href)
 
         return  {
             'href': Href,

@@ -6,11 +6,10 @@
 import re
 import json
 #
-from Inc.Sql.DbModel import TDbModel
 import IncP.LibModel as Lib
 
 
-class TMain(TDbModel):
+class TMain(Lib.TDbModel):
     async def GetProductInfoBySku(self, aSiteId: int, aSkus: list[str]) -> dict:
         Skus = Lib.ListToComma(aSkus)
         return await self.ExecQuery(

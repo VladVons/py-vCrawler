@@ -6,7 +6,7 @@
 
     {% for Rec in TDbList().Import(dbl_products) %}
       <div class="gitem text-center">
-        <a href="{{Rec.href_int}}" rel="nofollow" title="{{Rec.update_date.strftime('%Y-%m-%d')}}">
+        <a href="{{Rec.href}}" rel="nofollow" title="{{Rec.update_date.strftime('%Y-%m-%d')}}">
           <img src="{{Rec.image}}" alt="{{Rec.title |truncate(32, True, '...')}}" class="thumb">
         </a>
       </div>

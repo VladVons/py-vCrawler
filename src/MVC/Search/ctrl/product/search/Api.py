@@ -5,10 +5,10 @@
 
 from base64 import b64encode
 from urllib.parse import quote
-from IncP.CtrlBase import TCtrlBase, Lib
+import IncP.LibCtrl as Lib
 
 
-class TMain(TCtrlBase):
+class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
         aLangId, aCountryId, aSearch, aSort, aOrder, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
@@ -54,16 +54,19 @@ class TMain(TCtrlBase):
 
         Marker = 'findwares.com'
         Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
-        DblProducts.AddFieldsFill(['href_int', 'href_ext'], False)
+        DblProducts.AddFieldsFill(['href', 'href_ext'], False)
         for Rec in DblProducts:
-            HrefInt = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
+            Href = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
             HrefExt = Rec.url + Lib.Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
-            DblProducts.RecMerge([HrefInt, HrefExt])
+            DblProducts.RecMerge([Href, HrefExt])
 
         Pagination = Lib.TPagination(aLimit, aData['path_qs'])
-        Pagination.Visible = 7
+        Pagination.Visible = self.ApiCtrl.ConfDb.get('pagination', 7)
         PData = Pagination.Get(DblProducts.Rec.total, aPage)
         DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
+
+        if (self.ApiCtrl.ConfDb.get('seo_url')):
+            await Lib.SeoEncodeDbl(self, DblProducts, 'href')
 
         Res['dbl_products'] = DblProducts.Export()
         Res['dbl_pagenation'] = DblPagination.Export()

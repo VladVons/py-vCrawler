@@ -1,0 +1,45 @@
+  <div>
+    <h2>{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
+  </div>
+
+  <form id="formAttrFilter" method="GET">
+    <div value="{{href_base}}" id="href_base"></div>
+    <input type="hidden" name="f_category" value="{{category}}"/>
+    {% for Rec in TDbList().Import(dbl_attr) %}
+    <div class="row">
+      <div class="col-2">
+        <label for="{{Rec.key}}">{{Translate(lang, Rec.key)}}</label>
+      </div>
+      <div class="col-2">
+        <select class="form-select w-100" id="{{Rec.key}}" name="f_{{Rec.key}}">
+        <option value="">---</option>
+        {% for xStat in Rec.stat %}
+          <option value="{{xStat.val}}" {{ Iif(Rec.active == xStat.val, 'selected', '') }}>{{xStat.val}} ({{xStat.cnt}})</option>
+        {% endfor %}
+      </select>
+      </div>
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">{{Translate(lang, 'filter')}}</button>
+    <button class="btn btn-primary" onclick="clearSelects(this)">{{Translate(lang, 'clear_it')}}</button>
+  </form>
+
+  <script>
+    const formAttrFilter = document.getElementById('formAttrFilter')
+
+    formAttrFilter.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const urlParams = FilterFormParams(event.target);
+      const href_base = document.getElementById("href_base").getAttribute("value");
+      const Params = urlParams.toString().replace(/%2F/g, "/")
+      window.location.href = `${href_base}${href_base.includes('?') ? '&' : '/?'}${Params}`;
+    });
+
+    function clearSelects(element) {
+      event.preventDefault();
+      formAttrFilter.querySelectorAll('select').forEach(function(selectElement) {
+          selectElement.selectedIndex = 0;
+      });
+    }
+  </script>

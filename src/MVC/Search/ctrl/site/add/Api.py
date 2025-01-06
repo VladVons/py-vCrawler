@@ -3,9 +3,9 @@
 # License: GNU, see LICENSE for more details
 
 
-from IncP.CtrlBase import TCtrlBase, Lib
+import IncP.LibCtrl as Lib
 
-class TMain(TCtrlBase):
+class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
         aSiteId, aLangId = Lib.GetDictDefs(
             aData.get('query'),
@@ -43,6 +43,9 @@ class TMain(TCtrlBase):
         for Rec in DblCategories:
             Href = f'/?route=product/site&lang_id={aLangId}&site_id={aSiteId}&f_category={Rec.category}'
             DblCategories.RecMerge([Href])
+
+        if (self.ApiCtrl.ConfDb.get('seo_url')):
+            await Lib.SeoEncodeDbl(self, DblCategories, 'href')
 
         Res = DblInfo.Rec.GetAsDict()
         Res['dbl_categories'] = DblCategories.Export()
