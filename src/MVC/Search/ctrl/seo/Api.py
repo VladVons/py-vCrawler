@@ -11,7 +11,7 @@ class TMain(Lib.TCtrlBase):
     async def Decode(self, aPath: str) -> dict:
         #aPath = '/ua/ukraine/product&url_id=2'
 
-        if (not self.ApiCtrl.ConfDb.get('seo_url')) or (not aPath):
+        if (not self.GetConf('seo_url')) or (not aPath):
             return aPath
 
         Values = re.split(r'[/&]', aPath)
@@ -29,7 +29,7 @@ class TMain(Lib.TCtrlBase):
         return '&'.join(Arr)
 
     async def Encode(self, aPath: list[str]) -> dict:
-        if (not self.ApiCtrl.ConfDb.get('seo_url')) or (not aPath):
+        if (not self.GetConf('seo_url')) or (not aPath):
             return aPath
 
         # aPath = [

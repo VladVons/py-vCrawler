@@ -4,14 +4,16 @@
       {% for Rec in DblProducts %}
       <div class="row">
         <div class="col-2">
-          <a href="{{Rec.href}}" rel="nofollow" title="{{Rec.update_date.strftime('%Y-%m-%d')}}">
+          <a href="{{Rec.href}}" title="{{Rec.update_date.strftime('%Y-%m-%d')}} {{Rec.href_ext}}">
             <img src="{{Rec.image}}" alt="{{Rec.title |truncate(32, True, '...')}}" class="thumb">
           </a>
         </div>
-        <div class="col-6" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}
+        <div class="col-7" >
+          <a href="{{Rec.href}}" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}</a>
         </div>
         <div class="col-3">
-          {{"{:,}".format(Rec.price|int)}}
+          <div>{{"{:,}".format(Rec.price|int)}}</div>
+          <div class="text-decoration-line-through">{{Iif(Rec.price_old, "{:,}".format(Rec.price_old|int), '')}}</div>
         </div>
       </div>
       {% endfor %}

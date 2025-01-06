@@ -30,7 +30,7 @@ class TMain(Lib.TCtrlBase):
             'root': f'/?lang_id={aLangId}'
         }
 
-        if (self.ApiCtrl.ConfDb.get('seo_url')):
+        if (self.GetConf('seo_url')):
             Href = await Lib.SeoEncodeDict(self, Href)
 
         return  {

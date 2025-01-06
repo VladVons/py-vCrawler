@@ -29,6 +29,9 @@ class TCtrlBase():
     def Name(self) -> str:
         return self.ApiCtrl.Name
 
+    def GetConf(self, aKey: str, aDef = None) -> object:
+        return self.ApiCtrl.ConfDb.get(aKey, aDef)
+
     async def ExecModel(self, aMethod: str, aData: dict) -> dict:
         #Res = await self.ApiCtrl.CacheModel.ProxyA(aMethod, aData, self.ApiModel, [aMethod, aData])
         with TTimerLog('ApiModel', False, aFile = 'Timer'):

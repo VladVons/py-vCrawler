@@ -44,7 +44,7 @@ class TMain(Lib.TCtrlBase):
             Href = f'/?route=product/site&lang_id={aLangId}&site_id={aSiteId}&f_category={Rec.category}'
             DblCategories.RecMerge([Href])
 
-        if (self.ApiCtrl.ConfDb.get('seo_url')):
+        if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCategories, 'href')
 
         Res = DblInfo.Rec.GetAsDict()

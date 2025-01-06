@@ -38,7 +38,7 @@ class TMain(Lib.TCtrlBase):
                 cntDiscount += Rec.discount
                 cntErr += Rec.err
 
-        if (self.ApiCtrl.ConfDb.get('seo_url')):
+        if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblSites, 'href')
 
         Res = {

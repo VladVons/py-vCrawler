@@ -25,7 +25,7 @@ class TMain(Lib.TCtrlBase):
             Href = f'/?route=site/country&lang_id={aLangId}&country_id={Rec.country_id}'
             DblCountries.RecMerge([Href])
 
-        if (self.ApiCtrl.ConfDb.get('seo_url')):
+        if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCountries, 'href')
 
         Res = {

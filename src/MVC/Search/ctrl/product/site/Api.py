@@ -11,11 +11,11 @@ class TMain(Lib.TCtrlBase):
         aLangId, aSiteId, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
             ('lang_id', 'site_id', 'page', 'limit'),
-            (1, 1, 1, 10)
+            (1, 1, 1, self.GetConf('products_per_page', 10))
         )
 
         aOrder = 'price'
-        aLimit = min(aLimit, 20)
+        aLimit = min(aLimit, self.GetConf('products_per_page_max', 100))
 
         DblInfo = await self.ExecModelImport(
             'site',
@@ -81,15 +81,19 @@ class TMain(Lib.TCtrlBase):
                 HrefExt = Rec.url + Lib.Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
                 DblProducts.RecMerge([Href, HrefExt])
 
-            if (self.ApiCtrl.ConfDb.get('seo_url')):
-                await Lib.SeoEncodeDbl(self, DblProducts, 'href')
-
             Pagination = Lib.TPagination(aLimit, aData['path_qs'])
-            Pagination.Visible = self.ApiCtrl.ConfDb.get('pagination', 7)
+            Pagination.Visible = self.GetConf('pagination_cnt', 5)
             PData = Pagination.Get(DblProducts.Rec.total, aPage)
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
             Res['dbl_pagenation'] = DblPagination.Export()
 
+        HrefBase = f'/?lang_id={aLangId}&route=product/site'
+        if (DblProducts):
+            HrefBase = await Lib.SeoEncodeStr(self, HrefBase)
+            if (DblProducts):
+                await Lib.SeoEncodeDbl(self, DblProducts, 'href')
+
         Res['dbl_products'] = DblProducts.Export()
         Res['category'] = Category
+        Res['href_base'] = HrefBase
         return Res
