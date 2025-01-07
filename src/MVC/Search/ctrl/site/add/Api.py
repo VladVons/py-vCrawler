@@ -3,51 +3,67 @@
 # License: GNU, see LICENSE for more details
 
 
+import json
+#
+from Inc.Misc.Mail import TMail, TMailSend, TMailSmtp
 import IncP.LibCtrl as Lib
+
 
 class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
-        aSiteId, aLangId = Lib.GetDictDefs(
+        aLangId, CountryId = Lib.GetDictDefs(
             aData.get('query'),
-            ('site_id', 'lang_id'),
+            ('lang_id', 'country_id'),
             (1, 1)
         )
 
-        if (not Lib.IsDigits([aSiteId, aLangId])):
-            return {'status_code': 404}
+        Post = aData.get('post')
+        if (not Post):
+            return
 
-        DblInfo = await self.ExecModelImport(
-            'site',
+        Body = {
+            'country_id': CountryId,
+            'site': Post['site'],
+            'phone': Post['phone'],
+            'category': Post['category']
+        }
+
+        Subject = 'add site to catalog'
+        Dbl = await self.ExecModelImport(
+            'inbox',
             {
-                'method': 'GetSiteInfo',
+                'method': 'InsMail',
                 'param': {
-                    'aSiteId': aSiteId,
-                    'aLangId': aLangId
+                    'aMail': Post['email'],
+                    'aSubject': Subject,
+                    'aBody': json.dumps(Body, indent=2, ensure_ascii=False),
+                    'aIp': Lib.DeepGetByList(aData, ['session', 'ip']),
+                    'aInboxEn': 'in'
                 }
-           }
-        )
-        if (not DblInfo):
-            return {'status_code': 404}
-
-        DblCategories = await self.ExecModelImport(
-            'site',
-            {
-                'method': 'GetSiteCategories',
-                'param': {
-                    'aSiteId': aSiteId
-                }
-           }
+            }
         )
 
-        DblCategories.AddFieldsFill(['href'], False)
-        for Rec in DblCategories:
-            Href = f'/?route=product/site&lang_id={aLangId}&site_id={aSiteId}&f_category={Rec.category}'
-            DblCategories.RecMerge([Href])
+        Arr = Lib.ResLang(aData, 'body', ['no value'])
+        Body['message'] = '\n'.join(Arr)
 
-        if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblCategories, 'href')
+        ConfSmtp = self.GetConf('mail_smtp')
+        Smtp = TMailSmtp(**ConfSmtp)
+        Data = TMailSend(
+            mail_from = ConfSmtp['username'],
+            mail_to = [Post['email']] + self.GetConf('mail_admin'),
+            mail_subject = f'{Subject} findwares.com',
+            mail_body = json.dumps(Body, indent=2, ensure_ascii=False)
+        )
 
-        Res = DblInfo.Rec.GetAsDict()
-        Res['dbl_categories'] = DblCategories.Export()
-        Res['host'] =  Lib.UrlToDict(Res['url'])['host']
+        try:
+            await TMail(Smtp).Send(Data)
+            Msg = 'your request is sent'
+        except Exception as E:
+            Msg = 'error'
+            Lib.Log.Print(1, 'x', 'TMail error', aE=E)
+
+        Res = {
+            'id': Dbl.Rec.id,
+            'msg': Msg
+        }
         return Res

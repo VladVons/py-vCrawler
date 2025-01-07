@@ -14,6 +14,8 @@ from IncP.ApiBase import TApiBase
 from IncP.FormBase import TFormBase
 from IncP.Log import Log
 from IncP.Plugins import TViewes
+from IncP.Session import TSession
+
 
 
 class TFormRender(TFormBase):
@@ -108,15 +110,17 @@ class TApiView(TApiBase):
         return Res
 
     async def ResponseApi(self, aRequest: web.Request) -> web.Response:
+        Session = TSession(aRequest)
+        await Session.Init()
+
         Query = dict(aRequest.query)
         Post = await aRequest.post()
-        Session = await get_session(aRequest)
         Data = {
             'type': 'api',
             'method': Query.get('method', 'Main'),
             'post': dict(Post),
             'query': dict(aRequest.query),
-            'session': Session,
+            'session': Session.Export(),
             'path_qs': aRequest.path_qs
         }
 

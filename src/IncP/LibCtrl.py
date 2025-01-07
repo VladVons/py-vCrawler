@@ -31,6 +31,12 @@ def GetFilterFromQuery(aQuery: dict, aPrefix: str = 'f_'):
 def ResGetItem(aData: dict, aName: str) -> str:
     return aData['res'].get(aName, '')
 
+def ResLang(aData: dict, aName: str, aDef = None) -> str:
+    Res = DeepGetByList(aData, ['res', 'lang', aName])
+    if (Res is None):
+        Res = Iif(aDef is None, aName, aDef)
+    return Res
+
 async def SeoEncodeList(self, aPaths: list[str]) -> list[str]:
     if (aPaths):
         return await self.ApiCtrl.Exec(

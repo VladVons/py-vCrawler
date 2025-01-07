@@ -34,8 +34,7 @@ class TMain(Lib.TCtrlBase):
 
         # aPath = [
         #     '/?route=product0/tenant&tenant_id=1',
-        #     'page=2&order=2&route=product0/category&category_id=2',
-        #     'route=product0/category&page=1&category_id=1'
+        #     'route=product0/category&category_id=2&page=2&order=2',
         # ]
 
         Data = []

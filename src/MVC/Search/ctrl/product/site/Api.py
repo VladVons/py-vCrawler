@@ -87,13 +87,13 @@ class TMain(Lib.TCtrlBase):
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
             Res['dbl_pagenation'] = DblPagination.Export()
 
-        HrefBase = f'/?lang_id={aLangId}&route=product/site'
+        HrefBtn = f'/?route=product/site&lang_id={aLangId}&f_category={Category}'
         if (DblProducts):
-            HrefBase = await Lib.SeoEncodeStr(self, HrefBase)
+            HrefBtn = await Lib.SeoEncodeStr(self, HrefBtn)
             if (DblProducts):
                 await Lib.SeoEncodeDbl(self, DblProducts, 'href')
 
         Res['dbl_products'] = DblProducts.Export()
         Res['category'] = Category
-        Res['href_base'] = HrefBase
+        Res['href_btn'] = HrefBtn
         return Res

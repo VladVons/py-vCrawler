@@ -2,26 +2,28 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="mb-4">{{Translate(lang, 'add site')}}</h2>
-    <form>
-      <div class="mb-3">
-        <label for="siteUrl" class="form-label">{{Translate(lang, 'url')}}</label>
-        <input type="text" class="form-control" id="siteUrl" required>
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">{{Translate(lang, 'email')}}</label>
-        <input type="email" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label for="phone" class="form-label">{{Translate(lang, 'phone')}}</label>
-        <input type="tel" class="form-control" required>
-      </div>
-      <div class="mb-3">
-        <label for="categoryUrls" class="form-label">{{Translate(lang, 'category')}}</label>
-        <textarea class="form-control" rows="6" placeholder="YourSite.com/laptops" required></textarea>
-      </div>
+  <h2 class="mb-4">{{Translate(lang, 'add site')}}</h2>
+  <h2 class="mb-4">{{Translate(lang, msg)}} {{id}}</h2>
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">{{Translate(lang, 'url')}}</label>
+      <input type="text" class="form-control" name="site" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">{{Translate(lang, 'email')}}</label>
+      <input type="email" class="form-control" name="email" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">{{Translate(lang, 'phone')}}</label>
+      <input type="tel" class="form-control" name="phone" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">{{Translate(lang, 'category')}}</label>
+      <textarea class="form-control" name="category" rows="6" placeholder="yoursite.com/used_laptops etc" required></textarea>
+    </div>
 
-      <button type="submit" class="btn btn-primary">{{Translate(lang, 'send')}}</button>
-    </form>
-  </div>
+    <button type="submit" class="btn btn-primary">{{Translate(lang, 'send')}}</button>
+  </form>
+</div>
+
 {% endblock %}

@@ -9,6 +9,7 @@ select
             when val_en = 'float' then to_jsonb(val::float)
             when val_en = 'text'  then to_jsonb(val)
             when val_en = 'json'  then val::jsonb
+            when val_en = 'array' then to_jsonb(string_to_array(val, ','))
         end
     ) as val
 from

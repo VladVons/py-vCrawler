@@ -7,6 +7,7 @@ from base64 import b64encode
 from urllib.parse import quote
 import IncP.LibCtrl as Lib
 
+
 class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
         aLangId, aCountryId, aPage, aLimit = Lib.GetDictDefs(
@@ -77,13 +78,13 @@ class TMain(Lib.TCtrlBase):
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
             Res['dbl_pagenation'] = DblPagination.Export()
 
-        HrefBase = f'/?lang_id={aLangId}&country_id={aCountryId}&route=product/category'
+        HrefBtn = f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
         if (self.GetConf('seo_url')):
-            HrefBase = await Lib.SeoEncodeStr(self, HrefBase)
+            HrefBtn = await Lib.SeoEncodeStr(self, HrefBtn)
             if (DblProducts):
                 await Lib.SeoEncodeDbl(self, DblProducts, 'href')
 
         Res['dbl_products'] = DblProducts.Export()
         Res['category'] = Category
-        Res['href_base'] = HrefBase
+        Res['href_btn'] = HrefBtn
         return Res

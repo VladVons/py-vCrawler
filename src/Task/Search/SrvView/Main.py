@@ -28,6 +28,7 @@ class TSrvView(TSrvBase):
     def _GetDefRoutes(self) -> list:
         return [
             web.get('/{name:.*}', self._rIndex),
+            web.post('/{name:.*}', self._rIndex),
             web.post('/api/{name:.*}', self._rApi),
         ]
 
@@ -59,9 +60,13 @@ class TSrvView(TSrvBase):
         if (Pos != -1) and (2 <= len(Name) - Pos <= 5):
             Res = await self._LoadFile(aRequest, ApiView)
         else:
-            Url = await ApiView.GetSeoUrl('Decode', Name)
-            Query = UrlDecode(Url)
-            Query.update(aRequest.query)
+            if (Name):
+                Url = await ApiView.GetSeoUrl('Decode', Name)
+                Query = UrlDecode(Url)
+                Query.update(aRequest.query)
+            else:
+                Query = dict(aRequest.query)
+
             if ('route' not in Query):
                 Query['route'] = ApiView.Conf.form_home
             Res = await ApiView.ResponseForm(aRequest, Query)

@@ -70,7 +70,7 @@ class TFormBase(Form):
             'query': dict(self.Request.query) | self.out.query,
             'path_qs': self.Request.path_qs,
             'extends': self._GetTplExtends(aRoute),
-            'session': self.Session.GetAsDict()
+            'session': self.Session.Export()
         }
 
         # debug view
@@ -80,7 +80,7 @@ class TFormBase(Form):
         return await self.Ctrl.Get(aRoute, aData | {'type': 'api'})
 
     async def PostToData(self) -> bool:
-        if (self.Request.method.upper() == 'POST'):
+        if (self.Request.method.lower() == 'post'):
             Post = await self.Request.post()
             self.process(Post)
             if (Post):

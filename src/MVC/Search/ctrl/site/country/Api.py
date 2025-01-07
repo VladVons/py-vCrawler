@@ -8,10 +8,10 @@ import IncP.LibCtrl as Lib
 
 class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
-        aLangId, aCountryId, aLimit = Lib.GetDictDefs(
+        aLangId, aCountryId = Lib.GetDictDefs(
             aData.get('query'),
             ('lang_id', 'country_id', 'limit'),
-            (1, 1, 100)
+            (1, 1)
         )
 
         DblSites = await self.ExecModelImport(
@@ -38,7 +38,9 @@ class TMain(Lib.TCtrlBase):
                 cntDiscount += Rec.discount
                 cntErr += Rec.err
 
+        HrefBtn = f'/?route=site/add&lang_id={aLangId}&country_id={aCountryId}'
         if (self.GetConf('seo_url')):
+            HrefBtn = await Lib.SeoEncodeStr(self, HrefBtn)
             await Lib.SeoEncodeDbl(self, DblSites, 'href')
 
         Res = {
@@ -48,6 +50,7 @@ class TMain(Lib.TCtrlBase):
             'cnt_onstock': cntOnStock,
             'cnt_discount': cntDiscount,
             'cnt_err': cntErr,
-            'cnt_all': len(DblSites)
+            'cnt_all': len(DblSites),
+            'href_btn': HrefBtn
         }
         return Res

@@ -15,7 +15,6 @@ class TCtrlBase():
         self.ApiModel = None
         self.ApiImg = None
 
-
     def _init_(self):
         self.ApiModel = self.ApiCtrl.Loader['model'].Get
         #self.ApiImg = self.ApiCtrl.Loader['img'].Get

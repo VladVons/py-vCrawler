@@ -24,15 +24,12 @@
 <div class="container pb-2">
   <div class="pb-2">
     <form method="get">
-      <input type="hidden" name="route" value="site/add"/>
-      <input type="hidden" name="country_id" value="{{country_id}}">
-      <input type="hidden" name="lang_id" value="{{lang_id}}">
-      <button type="submit" class="btn btn-primary">{{Translate(lang, 'add site')}}</button>
+      <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href_btn}}')">{{Translate(lang, 'add site')}}</button>
     </form>
   </div>
   <div class="grid-container">
-    {% for xFields in Fields %}
-      <div class="grid-item fw-bold">{{Translate(lang, xFields)}}</div>
+    {% for xField in Fields %}
+      <div class="grid-item fw-bold">{{Translate(lang, xField)}}</div>
     {% endfor %}
 
     <div class="gitem">{{cnt_all}}</div>
@@ -41,11 +38,9 @@
 
     {% for Rec in TDbList().Import(dbl_sites) %}
       <div class="gitem">{{loop.index}}</div>
-      <div class="gitem">
-        <a href="{{Rec.href}}" rel="nofollow">{{Rec.host}}</a>
-      </div>
+      <div class="gitem"><a href="{{Rec.href}}" rel="nofollow">{{Rec.host}}</a></div>
       <div class="gitem">{{Iif(Rec.products, '+', '')}}</div>
-      {% endfor %}
+    {% endfor %}
   </div>
 </div>
 {% endblock %}

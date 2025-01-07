@@ -20,7 +20,7 @@ class TMain(Lib.TCtrlBase):
         )
 
     async def OnExec(self, **aData: dict) -> dict:
-        SessionId = Lib.DeepGetByList(aData, ['session', 'session_id'])
+        SessionId = Lib.DeepGetByList(aData, ['session', 'keys', 'session_id'])
         if (SessionId):
             await self.ExecModel(
                 'system',

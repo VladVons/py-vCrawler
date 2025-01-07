@@ -1,4 +1,3 @@
--- Created: 2024.04.03
 -- Author: Vladimir Vons <VladVons@gmail.com>
 -- License: GNU, see LICENSE for more details
 
@@ -22,8 +21,15 @@ create type val_enum as enum (
     'int',
     'float',
     'text',
+    'array',
     'json'
 );
+
+create type inbox_enum as enum (
+    'in',
+    'out'
+);
+
 
 -- conf --
 
@@ -49,7 +55,7 @@ COMMENT ON TABLE public.ref_seo_url IS 'key+value urls into SEO';
 create table if not exists hist_session (
     id                  serial primary key,
     create_date         timestamp default current_timestamp,
-    ip                  varchar(45),
+    ip                  varchar(40),
     uagent              varchar(256),
     location            varchar(64)
 );
@@ -60,6 +66,20 @@ create table if not exists hist_page_view (
     url                 varchar(128),
     session_id          integer not null references hist_session(id) on delete cascade
 );
+
+-- inbox ---
+
+create table if not exists doc_inbox (
+    id                  serial primary key,
+    parent_id           integer references doc_inbox(id) on delete cascade,
+    create_date         timestamp default current_timestamp,
+    mail                varchar(32) not null,
+    subject             varchar(128) not null,
+    body                text,
+    ip                  varchar(40),
+    inbox_en            inbox_enum not null
+);
+
 
 -- lang
 
