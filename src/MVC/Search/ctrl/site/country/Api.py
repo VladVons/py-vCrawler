@@ -10,7 +10,7 @@ class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
         aLangId, aCountryId = Lib.GetDictDefs(
             aData.get('query'),
-            ('lang_id', 'country_id', 'limit'),
+            ('lang_id', 'country_id'),
             (1, 1)
         )
 
