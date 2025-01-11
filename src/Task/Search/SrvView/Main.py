@@ -8,6 +8,7 @@ import re
 from aiohttp import web
 #
 from Inc.DataClass import DDataClass
+from Inc.Misc.Crypt import GetCRC
 from Inc.SrvWeb import TSrvBase, TSrvConf
 from Inc.SrvWeb.Common import UrlDecode
 from IncP.Log import Log
@@ -26,10 +27,12 @@ class TSrvView(TSrvBase):
         self._SrvConf = aSrvConf
 
     def _GetDefRoutes(self) -> list:
+        # Order is important. First exact names
         return [
-            web.get('/{name:.*}', self._rIndex),
-            web.post('/{name:.*}', self._rIndex),
             web.post('/api/{name:.*}', self._rApi),
+
+            web.get('/{name:.*}', self._rIndex),
+            web.post('/{name:.*}', self._rIndex)
         ]
 
     async def _LoadFile(self, aRequest: web.Request, aApiView: TApiView) -> web.Response:
@@ -56,8 +59,8 @@ class TSrvView(TSrvBase):
 
     async def _rIndex(self, aRequest: web.Request) -> web.Response:
         Name = aRequest.match_info.get('name')
-        Pos = Name.rfind('.')
-        if (Pos != -1) and (2 <= len(Name) - Pos <= 5):
+        Ext = Name.rsplit('.', maxsplit=1)
+        if (len(Ext) == 2) and (2 <= len(Ext[1]) <= 5):
             Res = await self._LoadFile(aRequest, ApiView)
         else:
             if (Name):
@@ -69,6 +72,11 @@ class TSrvView(TSrvBase):
 
             if ('route' not in Query):
                 Query['route'] = ApiView.Conf.form_home
+            elif (Query['route'] == 'redirect'):
+                Href = Query.get('href', '')
+                if (str(GetCRC(Href)) == Query.get('chk')):
+                    raise web.HTTPFound(Href)
+                return await self._Err_404(aRequest)
             Res = await ApiView.ResponseForm(aRequest, Query)
         return Res
 

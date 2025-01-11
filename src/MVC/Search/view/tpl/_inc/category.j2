@@ -3,6 +3,7 @@
   </div>
 
   <form method="get" id="formAttrFilter">
+    <input type="hidden" name="site_id" value="{{site_id}}">
     {% for Rec in TDbList().Import(dbl_attr) %}
     <div class="row">
       <div class="col-2">

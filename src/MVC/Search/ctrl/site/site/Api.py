@@ -3,13 +3,14 @@
 # License: GNU, see LICENSE for more details
 
 
+from Inc.Misc.Crypt import GetCRC
 import IncP.LibCtrl as Lib
 
 class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
-        aSiteId, aLangId = Lib.GetDictDefs(
+        aLangId, aSiteId = Lib.GetDictDefs(
             aData.get('query'),
-            ('site_id', 'lang_id'),
+            ('lang_id', 'site_id'),
             (1, 1)
         )
 
@@ -21,8 +22,8 @@ class TMain(Lib.TCtrlBase):
             {
                 'method': 'GetSiteInfo',
                 'param': {
-                    'aSiteId': aSiteId,
-                    'aLangId': aLangId
+                    'aLangId': aLangId,
+                    'aSiteId': aSiteId
                 }
            }
         )
@@ -44,10 +45,13 @@ class TMain(Lib.TCtrlBase):
             Href = f'/?route=product/site&lang_id={aLangId}&site_id={aSiteId}&f_category={Rec.category}'
             DblCategories.RecMerge([Href])
 
+        Res = DblInfo.Rec.GetAsDict()
+        HrefHost = f'/?route=redirect&{Lib.GetRedirectHref(Res['url'])}'
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCategories, 'href')
+            HrefHost = await Lib.SeoEncodeStr(self, HrefHost)
 
-        Res = DblInfo.Rec.GetAsDict()
+        Res['href_host'] = HrefHost
         Res['host'] = Lib.UrlToDict(Res['url'])['host']
         Res['dbl_categories'] = DblCategories.Export()
         return Res

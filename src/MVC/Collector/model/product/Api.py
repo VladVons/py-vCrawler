@@ -82,3 +82,12 @@ class TMain(Lib.TDbModel):
                 'aUrlId': aUrlId
             }
         )
+
+    async def GetProductByUrlIds(self, aUrlIds: list[int]) -> dict:
+        UrlIds = Lib.ListIntToComma(aUrlIds)
+        return await self.ExecQuery(
+            'fmtGet_ProductByUrlIds.sql',
+            {
+                'aUrlIds': UrlIds
+            }
+        )

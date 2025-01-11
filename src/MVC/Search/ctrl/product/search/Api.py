@@ -63,7 +63,7 @@ class TMain(Lib.TCtrlBase):
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
             Res['dbl_pagenation'] = DblPagination.Export()
 
-            if (self.ApiCtrl('seo_url')):
+            if (self.GetConf('seo_url')):
                 await Lib.SeoEncodeDbl(self, DblProducts, 'href')
 
         Res['dbl_products'] = DblProducts.Export()

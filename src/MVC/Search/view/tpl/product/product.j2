@@ -45,8 +45,8 @@
       <div class="col-md-6 p-3 vBgSlave">
         <div class="d-flex justify-content-between p-2">
           <div>
-            <a class="btn" id="vTo_favorite" title="{{Translate(lang, 'to_favorite')}}" data-key="favorite"><i class="fa fa-heart"></i></a>
-            <a class="btn" id="vTo_compare" title="{{Translate(lang, 'to_compare')}}" data-key="compare"><i class="fa fa-balance-scale"></i></a>
+            <a class="btn" id="vTo_favorite" title="{{Translate(lang, 'favorite')}}" data-key="favorite"><i class="fa fa-heart"></i></a>
+            <a class="btn" id="vTo_compare" title="{{Translate(lang, 'compare')}}" data-key="compare"><i class="fa fa-balance-scale"></i></a>
           </div>
           <span>{{Translate(lang, 'code')}}: {{url_id}}</span>
         </div>
@@ -81,6 +81,7 @@
     </div>
 
     <div class="row vBgMaster mt-1">
+      <!-- tab_header + -->
       <ul class="nav nav-tabs pt-3" id="productTabs" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="features-tab" data-bs-toggle="tab" href="#features" role="tab" aria-controls="features" aria-selected="true">{{Translate(lang, 'features')}} ({{product.features | length}})</a>
@@ -89,9 +90,10 @@
           <a class="nav-link" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">{{Translate(lang, 'description')}} ({{Iif(product.description, '+', '-')}})</a>
         </li>
       </ul>
+      <!-- tab_header - -->
 
       <div class="tab-content mt-1">
-        <!--  tab_features + -->
+        <!-- tab_features + -->
         <div class="tab-pane fade show active m-3" id="features" role="tabpanel" aria-labelledby="features-tab">
           <div class="accordion">
           {%- for xKey, xVal in product.features.items() %}
@@ -99,19 +101,30 @@
           {%- endfor %}
           </div>
         </div>
-        <!--  tab_features - -->
+        <!-- tab_features - -->
 
-        <!--  tab_descr + -->
+        <!-- tab_descr + -->
         <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
           {{Text2Html(product.description)}}
         </div>
-        <!--  tab_descr - -->
+        <!-- tab_descr - -->
 
       </div>
     </div>
   </div>
 
   <script>
+    for (const key of ['compare', 'favorite']) {
+      const Element = document.getElementById('vTo_' + key);
+      Element.addEventListener('click', function (event) {
+        LStorage = new TLocalStorage('products_' + key)
+        LStorage.addItemToListUniq("{{url_id}}")
+        LStorage.save()
+        //document.getElementById('viCount_' + key).innerHTML = LStorage.items.length
+        showTooltip("{{Translate(lang, 'added')}}")
+      })
+    }
+
     let curIdx = 0;
     const currentImage = document.getElementById("viMainImg");
     const images = document.getElementsByClassName("img-thumbnail")

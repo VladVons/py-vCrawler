@@ -7,6 +7,7 @@
 from Inc.DbList import TDbList
 from Inc.Http.HttpUrl import UrlToDict
 from Inc.Misc.Pagination import TPagination
+from Inc.Misc.Crypt import GetCRC
 from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, Filter, DelValues
 from Inc.Var.Obj import Iif, IsDigits
 from IncP.CtrlBase import TCtrlBase
@@ -62,3 +63,6 @@ async def SeoEncodeDict(self, aHref: dict) -> dict:
 async def SeoEncodeStr(self, aHref: str) -> str:
     Res = await SeoEncodeList(self, [aHref])
     return Res[0]
+
+def GetRedirectHref(aUrl: str) -> str:
+    return f'href={aUrl}&chk={GetCRC(aUrl)}'

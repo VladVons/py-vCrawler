@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container pb-2">
   <div class="pb-2">
-    <h1><a href="{{url}}" rel="nofollow" target="_blank">{{host}}</a></h1>
+    <h1><a href="{{href_host}}" rel="nofollow" target="_blank">{{host}}</a></h1>
   </div>
   {% for Rec in TDbList().Import(dbl_categories) %}
   <div>

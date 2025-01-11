@@ -95,5 +95,6 @@ class TMain(Lib.TCtrlBase):
 
         Res['dbl_products'] = DblProducts.Export()
         Res['category'] = Category
+        Res['site_id'] = aSiteId
         Res['href_btn'] = HrefBtn
         return Res

@@ -26,10 +26,10 @@ class TMain(Lib.TCtrlBase):
         Country = '' if (RecNo == -1) else DblCountry.RecGo(RecNo).title
 
         Href = {
+            'compare': '/?route=product/compare',
             'counties': f'/?route=site/countries&lang_id={aLangId}',
             'root': f'/?lang_id={aLangId}'
         }
-
         if (self.GetConf('seo_url')):
             Href = await Lib.SeoEncodeDict(self, Href)
 
