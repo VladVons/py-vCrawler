@@ -38,9 +38,7 @@ class TMain(Lib.TCtrlBase):
                 cntDiscount += Rec.discount
                 cntErr += Rec.err
 
-        HrefBtn = f'/?route=site/add&lang_id={aLangId}&country_id={aCountryId}'
         if (self.GetConf('seo_url')):
-            HrefBtn = await Lib.SeoEncodeStr(self, HrefBtn)
             await Lib.SeoEncodeDbl(self, DblSites, 'href')
 
         Res = {
@@ -51,6 +49,8 @@ class TMain(Lib.TCtrlBase):
             'cnt_discount': cntDiscount,
             'cnt_err': cntErr,
             'cnt_all': len(DblSites),
-            'href_btn': HrefBtn
+            'href': {
+                'btn': f'/?route=site/add&lang_id={aLangId}&country_id={aCountryId}'
+            }
         }
         return Res

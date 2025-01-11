@@ -89,9 +89,7 @@ class TMain(Lib.TCtrlBase):
         }
         Lib.DelValues(Schema, ['', [], {}, None])
 
-        SiteUr = f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}'
         if (self.GetConf('seo_url')):
-            SiteUr = await Lib.SeoEncodeStr(self, SiteUr)
             await Lib.SeoEncodeDbl(self, DblAttr, 'href')
 
         Res = {
@@ -100,7 +98,9 @@ class TMain(Lib.TCtrlBase):
             'schema': json.dumps(Schema, ensure_ascii=False, indent=1),
             'meta_title': Product['name'],
             'meta_image': Product['image'],
-            'site_url': SiteUr,
+            'href': {
+                'site': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}'
+            },
             'url_id': DblProduct.Rec.url_id,
             'url': DblProduct.Rec.url,
             'host': UrlToDict(DblProduct.Rec.url)['host']

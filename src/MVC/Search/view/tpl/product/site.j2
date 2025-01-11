@@ -1,18 +1,7 @@
 {% extends '_inc/layout1.j2' %}
 
-{% set Fields = ['date', 'title', 'price', 'price-old'] %}
-
 {% block head %}
 <style>
-  .grid-container {
-    display: grid;
-    grid-template-columns: 130px auto 90px 90px;
-  }
-
-  .gitem {
-    padding: 0px;
-    text-align: left;
-  }
   .thumb {
     height: 98px;
     max-width: 128px;
@@ -22,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<h2>{{Translate(lang, 'site')}} - {{host}}</h2>
+<h2>{{Translate(lang, 'site')}} - <a href="{{href.site}}">{{host}}</a></h2>
 {% include '../_inc/category.j2' %}
 {% include '../_inc/pagination.j2' %}
 {% include '../_inc/products_a.j2' %}

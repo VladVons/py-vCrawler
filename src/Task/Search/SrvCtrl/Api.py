@@ -78,6 +78,33 @@ class TApiCtrl(TApiBase):
         Res.update(self.Lang.Join())
         return Res
 
+    async def SeoEncodeList(self, aPaths: list[str]) -> list[str]:
+        if (aPaths):
+            return await self.ApiModel(
+                'seo',
+                {
+                    'type': 'api',
+                    'method': 'Encode',
+                    'param': {
+                        'aPath': aPaths
+                    }
+                }
+            )
+
+    async def SeoUrl(self, aRes: dict):
+        if ('href' in aRes) and (self.ConfDb.get('seo_url')):
+            Href = aRes['href']
+            Seo = await super().Exec(
+                'seo',
+                {
+                    'method': 'Encode',
+                    'param': {
+                        'aPath': Href.values()
+                    }
+                }
+            )
+            aRes['href'] = dict(zip(Href.keys(), Seo))
+
     async def Exec(self, aRoute: str, aData: dict) -> dict:
         self.ConfDb = await self.GetConfDb()
 
@@ -96,9 +123,9 @@ class TApiCtrl(TApiBase):
 
                 aData['res'] = Res
                 for xRoute in Routes:
-                    ResExec = await super().Exec(xRoute, aData)
-                    if (isinstance(ResExec, dict)):
-                        Res.update(ResExec)
+                    R = await super().Exec(xRoute, aData)
+                    Lib.DictUpdate(Res, R)
+                await self.SeoUrl(Res)
             case 'api':
                 Res = await super().Exec(aRoute, aData)
                 #Res = Encode(Res)

@@ -52,17 +52,10 @@ async def SeoEncodeList(self, aPaths: list[str]) -> list[str]:
         )
 
 async def SeoEncodeDbl(self, aDbl: TDbList, aField: str):
-    Hrefs = aDbl.ExportList(aField)
-    Hrefs = await SeoEncodeList(self, Hrefs)
-    aDbl.ImportList(Hrefs, aField)
-
-async def SeoEncodeDict(self, aHref: dict) -> dict:
-    Res = await SeoEncodeList(self, aHref.values())
-    return dict(zip(aHref.keys(), Res))
-
-async def SeoEncodeStr(self, aHref: str) -> str:
-    Res = await SeoEncodeList(self, [aHref])
-    return Res[0]
+    if (aDbl):
+        Hrefs = aDbl.ExportList(aField)
+        Hrefs = await SeoEncodeList(self, Hrefs)
+        aDbl.ImportList(Hrefs, aField)
 
 def GetRedirectHref(aUrl: str) -> str:
     return f'href={aUrl}&chk={GetCRC(aUrl)}'

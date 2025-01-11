@@ -7,7 +7,7 @@
 from Inc.DbList import TDbList
 from Inc.Sql.DbModel import TDbModel
 from Inc.Sql import DTransaction, TDbExecCursor, ListToComma, ListIntToComma, DictToComma, TDbSql
-from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs
+from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, DictUpdate
 from Inc.Var.DictEx import DeepGetsRe
 from Inc.Var.Obj import Iif
 from .Log import Log

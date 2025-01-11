@@ -46,12 +46,12 @@ class TMain(Lib.TCtrlBase):
             DblCategories.RecMerge([Href])
 
         Res = DblInfo.Rec.GetAsDict()
-        HrefHost = f'/?route=redirect&{Lib.GetRedirectHref(Res['url'])}'
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCategories, 'href')
-            HrefHost = await Lib.SeoEncodeStr(self, HrefHost)
 
-        Res['href_host'] = HrefHost
         Res['host'] = Lib.UrlToDict(Res['url'])['host']
         Res['dbl_categories'] = DblCategories.Export()
+        Res['href'] = {
+            'host': f'/?route=redirect&{Lib.GetRedirectHref(Res['url'])}'
+        }
         return Res
