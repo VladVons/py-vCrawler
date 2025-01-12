@@ -52,7 +52,7 @@
         </div>
 
         <h1>{{product.name}}</h1>
-        <div class="pt-2">{{Translate(lang, 'site')}}: <a href="{{site_url}}">{{host}}</a></div>
+        <div class="pt-2">{{Translate(lang, 'site')}}: <a href="{{href.site}}">{{host}}</a></div>
         <div class="pt-2 pb-2 product-attr-short">
           {% for Rec in TDbList().Import(dbl_attr) %}
             <div>{{Translate(lang, Rec.key)}}: <a href="{{Rec.href}}">{{Rec.val}}</a></div>
