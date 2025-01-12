@@ -98,11 +98,11 @@ class TMain(Lib.TCtrlBase):
             'schema': json.dumps(Schema, ensure_ascii=False, indent=1),
             'meta_title': Product['name'],
             'meta_image': Product['image'],
+            'url_id': aUrlId,
+            'url_ext': DblProduct.Rec.url,
+            'host': UrlToDict(DblProduct.Rec.url)['host'],
             'href': {
                 'site': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}'
-            },
-            'url_id': DblProduct.Rec.url_id,
-            'url': DblProduct.Rec.url,
-            'host': UrlToDict(DblProduct.Rec.url)['host']
+            }
         }
         return Res

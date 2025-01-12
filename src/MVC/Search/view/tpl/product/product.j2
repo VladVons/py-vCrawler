@@ -117,11 +117,11 @@
     for (const key of ['compare', 'favorite']) {
       const Element = document.getElementById('vTo_' + key);
       Element.addEventListener('click', function (event) {
-        LStorage = new TLocalStorage('products_' + key)
-        LStorage.addItemToListUniq("{{url_id}}")
-        LStorage.save()
-        //document.getElementById('viCount_' + key).innerHTML = LStorage.items.length
-        showTooltip("{{Translate(lang, 'added')}}")
+        LStorage = new TLocalStorage('products_' + key);
+        LStorage.addItemToListUniq("{{url_id}}");
+        LStorage.save();
+        document.getElementById('viCount_' + key).innerHTML = LStorage.items.length;
+        showTooltip("{{Translate(lang, 'added')}}");
       })
     }
 
@@ -140,7 +140,7 @@
     }
 
     document.getElementById("viAddToCart2").addEventListener('click', function () {
-      window.location.href = '{{url}}';
+      window.location.href = '{{url_ext}}';
     });
   </script>
   <!-- product - -->
