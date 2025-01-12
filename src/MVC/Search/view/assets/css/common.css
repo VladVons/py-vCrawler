@@ -275,3 +275,10 @@ div.breadcrumbs a{
 .buyButton:hover{
      background-color: #FBEA8E;
 }
+
+/*Misc*/
+.thumb {
+    height: 98px;
+    max-width: 128px;
+    width: auto;
+}

@@ -4,14 +4,10 @@
 {% endblock %}
 
 {% block content %}
-{% set products_a_title = title %}
 <!-- compare + -->
 {% set Dbl = TDbList().Import(dbl_compare) %}
 <div class="container pb-2 vBgMaster">
-    <div class="text-center m-3">
-        <h1>{{title}}</h1>
-    </div>
-
+    <h2 class="text-center">{{ Translate(lang, 'compare') }}</h2>
     <div id="viForm_compare">
         {% for xRow in rows %}
         <div class="row p-2 vItemOdd">

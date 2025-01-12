@@ -88,7 +88,7 @@ class TMain(Lib.TCtrlBase):
             Res['dbl_pagenation'] = DblPagination.Export()
 
         if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblProducts, 'href')
+            await Lib.SeoEncodeDbl(self, DblProducts, ['href'])
 
         Res['dbl_products'] = DblProducts.Export()
         Res['category'] = Category

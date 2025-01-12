@@ -3,13 +3,15 @@
 # License: GNU, see LICENSE for more details
 
 
+from base64 import b64encode
+from urllib.parse import quote
+#
 import IncP.LibCtrl as Lib
-from ..._inc.products_a import Main as products_a
 
 
 class TMain(Lib.TCtrlBase):
     async def Main(self, **aData: dict) -> dict:
-        aLangId, aUrlIds, = Lib.GetDictDefs(
+        aLangId, aUrlIds = Lib.GetDictDefs(
             aData.get('query'),
             ('lang_id', 'url_ids'),
             (1, '1,2,3')
@@ -19,19 +21,30 @@ class TMain(Lib.TCtrlBase):
         if (not Lib.IsDigits(UrlIds)):
             return {'status_code': 404}
 
-        Dbl = await self.ExecModelImport(
+        UrlIds = list(map(int, UrlIds))
+        DblProducts = await self.ExecModelImport(
             'product',
             {
-                'method': 'GetProductByUrlIds',
+                'method': 'GetProductsAttrId',
                 'param': {
                     'aUrlIds': UrlIds
                 }
             }
         )
-        if (not Dbl):
+        if (not DblProducts):
             return {'status_code': 404}
 
-        DblProducts = await products_a(self, Dbl)
+        Marker = 'findwares.com'
+        Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
+        DblProducts.AddFieldsFill(['href', 'href_ext'], False)
+        for Rec in DblProducts:
+            Href = f'/?route=product/product&url_id={Rec.url_id}'
+            HrefExt = Rec.url + Lib.Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
+            DblProducts.RecMerge([Href, HrefExt])
+
+        if (self.GetConf('seo_url')):
+            await Lib.SeoEncodeDbl(self, DblProducts, ['href'])
+
         return {
-            'dbl_products_a': DblProducts.Export()
+            'dbl_products': DblProducts.Export()
         }

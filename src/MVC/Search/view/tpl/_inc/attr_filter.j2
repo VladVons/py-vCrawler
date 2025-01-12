@@ -1,5 +1,10 @@
-  <div>
-    <h2>{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
+  <div class="row">
+    <div class="col-3">
+      <h2>{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
+    </div>
+    <div class="col-2">
+      img
+    </div>
   </div>
 
   <form method="get" id="formAttrFilter">
@@ -19,7 +24,7 @@
       </div>
     </div>
     {% endfor %}
-    <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{btn}}')">{{Translate(lang, 'filter')}}</button>
+    <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn}}')">{{Translate(lang, 'filter')}}</button>
     <button class="btn btn-primary" onclick="clearSelects(event)">{{Translate(lang, 'clear_it')}}</button>
   </form>
 

@@ -26,7 +26,7 @@ class TMain(Lib.TCtrlBase):
             DblCountries.RecMerge([Href])
 
         if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblCountries, 'href')
+            await Lib.SeoEncodeDbl(self, DblCountries, ['href'])
 
         Res = {
             'dbl_countries': DblCountries.Export()

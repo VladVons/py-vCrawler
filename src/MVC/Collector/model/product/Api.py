@@ -75,6 +75,17 @@ class TMain(Lib.TDbModel):
             }
         )
 
+    async def GetProductsAttrId(self, aUrlIds: list[int], aLimit: int = 25, aOffset: int = 0) -> dict:
+        UrlIds = Lib.ListIntToComma(aUrlIds)
+        return await self.ExecQuery(
+            'fmtGet_ProductsAttrId.sql',
+            {
+                'aUrlIds': UrlIds,
+                'aLimit': aLimit,
+                'aOffset': aOffset
+            }
+        )
+
     async def GetProductByUrlId(self, aUrlId: int) -> dict:
         return await self.ExecQuery(
             'fmtGet_ProductByUrlId.sql',

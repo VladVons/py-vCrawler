@@ -39,7 +39,7 @@ class TMain(Lib.TCtrlBase):
                 cntErr += Rec.err
 
         if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblSites, 'href')
+            await Lib.SeoEncodeDbl(self, DblSites, ['href'])
 
         Res = {
             'dbl_sites': DblSites.Export(),

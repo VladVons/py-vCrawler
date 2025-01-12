@@ -33,7 +33,7 @@ class TMain(Lib.TCtrlBase):
             DblCategory.RecMerge([Lang, Href])
 
         if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblCategory, 'href')
+            await Lib.SeoEncodeDbl(self, DblCategory, ['href'])
 
         return {
             'dbl_category': DblCategory.Export()

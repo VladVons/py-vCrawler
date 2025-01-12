@@ -59,6 +59,11 @@
       //elForm.submit();
   });
 
+  const Hrefs = {
+    'compare': '{{href.compare}}',
+    'favorite': '{{href.favorite}}'
+  }
+
   for (const key of ['compare', 'favorite']) {
     const LStorage = new TLocalStorage('products_' + key)
     if (LStorage.items) {
@@ -69,7 +74,8 @@
       const value = (event.target.value ? event.target.value : event.target.parentElement.value)
       const LStorage = new TLocalStorage('products_' + value)
       if (LStorage.items && LStorage.items.length > 0) {
-        window.location.href = '/?route=product/' + value + '&url_ids=' + LStorage.items.join(',')
+        const Url = `${Hrefs[value]}${Hrefs[value].includes('?') ? '&' : '/?'}url_ids=${LStorage.items.join(',')}`;
+        window.location.href = Url
       }else{
         showTooltip("{{Translate(lang, 'no_data')}}")
       }

@@ -1,22 +1,22 @@
 {% extends '_inc/layout1.j2' %}
 
 {% block content %}
-{% set products_a_title = title %}
 <!-- favorite + -->
 <div class="container pb-2">
   <div id="viForm_favorite">
+    <h2 class="text-center">{{ Translate(lang, 'favorite') }}</h2>
     {% include '../_inc/products_a.j2' %}
   </div>
   <button type="button" class="btn btn-primary mt-3" id="viBtn_Clear">
-    <i class="fa fa-trash m-1"></i>{{lang.clear_all}}
+    <i class="fa fa-trash m-1"></i>{{Translate(lang, 'clear_it')}}
   </button>
 </div>
 
 <script>
   document.getElementById('viBtn_Clear').addEventListener('click', function (event) {
       const key = 'favorite'
-      ls = new TLocalStorage('products_' + key)
-      ls.remove()
+      LStorage = new TLocalStorage('products_' + key)
+      LStorage.remove()
       document.getElementById('viCount_' + key).innerHTML = null
       document.getElementById('viForm_' + key).innerHTML = null
   })

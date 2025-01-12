@@ -19,10 +19,11 @@ class TMain(Lib.TCtrlBase):
         if (not Lib.IsDigits(UrlIds)):
             return {'status_code': 404}
 
+        UrlIds = list(map(int, UrlIds))
         Dbl = await self.ExecModelImport(
             'product',
             {
-                'method': 'GetProductByUrlIds',
+                'method': 'GetProductsAttrId',
                 'param': {
                     'aUrlIds': UrlIds
                 }
@@ -35,25 +36,20 @@ class TMain(Lib.TCtrlBase):
         for Rec in Dbl:
             if (Rec.attr):
                 AttrKeys += Rec.attr.keys()
-        ProductKeys = ['image', 'name', 'price']
+        ProductKeys = ['url_id', 'image', 'title', 'price']
         Fields = ProductKeys + sorted(set(AttrKeys))
 
-        DblCompare = Lib.TDbList(['url_id', 'href'] + Fields)
+        DblCompare = Lib.TDbList(['href'] + Fields)
         for Rec in Dbl:
             RecNew = DblCompare.RecAdd()
-            RecNew.SetField('url_id', Rec.url_id)
+            RecNew.SetAsRec(Rec, ProductKeys)
+            RecNew.SetAsDict(Rec.attr)
+
             Href = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
             RecNew.SetField('href', Href)
 
-            FastProduct = Rec.product
-            for xKey in ProductKeys:
-                RecNew.SetField(xKey, FastProduct.get(xKey))
-
-            for xKey, xVal in Rec.attr.items():
-                RecNew.SetField(xKey, xVal)
-
         if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblCompare, 'href')
+            await Lib.SeoEncodeDbl(self, DblCompare, ['href'])
 
         Res = {
             'dbl_compare': DblCompare.Export(),

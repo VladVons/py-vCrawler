@@ -3,6 +3,8 @@
 # License: GNU, see LICENSE for more details
 
 
+from datetime import datetime
+#
 import IncP.LibCtrl as Lib
 
 class TMain(Lib.TCtrlBase):
@@ -19,7 +21,8 @@ class TMain(Lib.TCtrlBase):
                 'method': 'GetCountries',
                 'param': {
                     'aLangId': aLangId
-                }
+                },
+                'cache_age': 60*10
             }
         )
         RecNo = DblCountry.FindField('id', aCountryId)
@@ -27,13 +30,15 @@ class TMain(Lib.TCtrlBase):
 
         return  {
             'href': {
-               'compare': '/?route=product/compare',
                 'counties': f'/?route=site/countries&lang_id={aLangId}',
+                'compare':  f'/?route=product/compare&lang_id={aLangId}',
+                'favorite': f'/?route=product/favorite&lang_id={aLangId}',
                 'root': f'/?lang_id={aLangId}'
             },
             'search': aSearch,
             'lang_id': aLangId,
             'country_id': aCountryId,
             'country': Country,
-            'dbl_country': DblCountry.Export()
+            'dbl_country': DblCountry.Export(),
+            'now_year': datetime.now().year
         }

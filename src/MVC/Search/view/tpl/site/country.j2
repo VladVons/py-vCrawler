@@ -13,10 +13,6 @@
     padding: 1px;
     text-align: left;
   }
-  .thumb {
-    height: 16px;
-    width: auto;
-  }
 </style>
 {% endblock %}
 
@@ -24,7 +20,7 @@
 <div class="container pb-2">
   <div class="pb-2">
     <form method="get">
-      <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href_btn}}')">{{Translate(lang, 'add site')}}</button>
+      <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn}}')">{{Translate(lang, 'add site')}}</button>
     </form>
   </div>
   <div class="grid-container">

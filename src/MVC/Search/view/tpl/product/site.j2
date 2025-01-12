@@ -1,18 +1,8 @@
 {% extends '_inc/layout1.j2' %}
 
-{% block head %}
-<style>
-  .thumb {
-    height: 98px;
-    max-width: 128px;
-    width: auto;
-  }
-</style>
-{% endblock %}
-
 {% block content %}
 <h2>{{Translate(lang, 'site')}} - <a href="{{href.site}}">{{host}}</a></h2>
-{% include '../_inc/category.j2' %}
+{% include '../_inc/attr_filter.j2' %}
 {% include '../_inc/pagination.j2' %}
 {% include '../_inc/products_a.j2' %}
 {% include '../_inc/pagination.j2' %}

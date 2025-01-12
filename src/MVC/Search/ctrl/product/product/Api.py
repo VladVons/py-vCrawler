@@ -90,7 +90,7 @@ class TMain(Lib.TCtrlBase):
         Lib.DelValues(Schema, ['', [], {}, None])
 
         if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblAttr, 'href')
+            await Lib.SeoEncodeDbl(self, DblAttr, ['href'])
 
         Res = {
             'dbl_attr': DblAttr.Export(),

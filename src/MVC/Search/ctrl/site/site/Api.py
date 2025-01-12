@@ -47,7 +47,7 @@ class TMain(Lib.TCtrlBase):
 
         Res = DblInfo.Rec.GetAsDict()
         if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblCategories, 'href')
+            await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
 
         Res['host'] = Lib.UrlToDict(Res['url'])['host']
         Res['dbl_categories'] = DblCategories.Export()
