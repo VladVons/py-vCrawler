@@ -61,11 +61,11 @@
         </div>
 
         {%- if product.price_old -%}
-        <p class="h3 text-danger price-old">{{product.price_old[0]}} {{product.price_old[1]}}</p>
-          <p>
-            <span class="h3 text-decoration-line-through">{{product.price[0]}} {{product.price[1]}}</span>
-            {{ "%.1f" | format((product.price_old[0] / product.price[0] * 100) - 100) }}%
-            </p>
+        <p>
+          <span class="h3 text-danger">{{product.price[0]}} {{product.price[1]}}</span>
+          {{ "%.1f" | format((product.price_old[0] / product.price[0] * 100) - 100) }}%
+        </p>
+        <p class="h3 text-decoration-line-through price-old">{{product.price_old[0]}} {{product.price_old[1]}}</p>
         {%- else -%}
           <p class="h4">{{Translate(lang, 'price')}}: {{product.price[0]}} {{product.price[1]}}</p>
         {%- endif %}
@@ -122,6 +122,7 @@
         LStorage.save();
         document.getElementById('viCount_' + key).innerHTML = LStorage.items.length;
         showTooltip("{{Translate(lang, 'added')}}");
+        window.location.href = UrlConcat(Hrefs[key], 'url_ids=' + LStorage.items.join(','));
       })
     }
 

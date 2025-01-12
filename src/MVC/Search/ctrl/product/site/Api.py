@@ -94,6 +94,7 @@ class TMain(Lib.TCtrlBase):
         Res['category'] = Category
         Res['site_id'] = aSiteId
         Res['href'] = {
-            'site': f'/?route=site/site&lang_id={aLangId}&site_id={aSiteId}'
+            'site': f'/?route=site/site&lang_id={aLangId}&site_id={aSiteId}',
+            'btn_attr': f'/?route=product/site&lang_id={aLangId}&f_category={Category}'
         }
         return Res

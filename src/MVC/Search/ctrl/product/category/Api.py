@@ -84,6 +84,6 @@ class TMain(Lib.TCtrlBase):
         Res['dbl_products'] = DblProducts.Export()
         Res['category'] = Category
         Res['href'] = {
-            'btn': f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
+            'btn_attr': f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
         }
         return Res
