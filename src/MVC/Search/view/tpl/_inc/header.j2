@@ -35,28 +35,37 @@
 </div>
 
 <script type="text/javascript">
-    LocalDb = new TLocalStorage();
-
     const elForm = document.getElementById('viSearchForm');
     const elSearch = document.getElementById('viSearchInput');
 
     document.getElementById('viCountry').addEventListener('change', (event) => {
-      const langId = event.target.value;
+      const CountryId = event.target.value;
 
-      const curUrl = window.location.href;
-      const urlObj = new URL(curUrl, window.location.origin);
-      urlObj.searchParams.set('lang_id', langId);
-      newUrl = urlObj.toString();
-      //console.log(event.target.value, newUrl);
+      const LStorage = new TLocalStorage();
+      LStorage.addItemToListUniq({'country_id': CountryId});
+      LStorage.save();
 
-      LocalDb.addItemToListUniq({'lang_id': langId});
-      LocalDb.save();
-
-      const Search = elSearch.value.trim();
-      if (Search == '') {
-        elForm.querySelector('input[name="route"]').remove();
+      let Path = window.location.pathname;
+      let Query = {'country_id': CountryId};
+      const Search = elForm.elements['q'].value;
+      if (Search) {
+        Query = {'route': 'product/search', 'q': Search, 'country_id': CountryId};
+      }else{
+        Path += window.location.search;
       }
-      //elForm.submit();
+
+      console.log('-x2', Path, Query);
+      const res = new TSend().exec(
+        '/api/?route=seo',
+        {
+          'method': 'Update',
+          'param': {
+            'aPath': Path,
+            'aQuery': Query
+          }
+        }
+      )
+      window.location.href = res;
   });
 
   const Hrefs = {

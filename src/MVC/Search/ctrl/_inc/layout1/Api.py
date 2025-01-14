@@ -28,12 +28,12 @@ class TMain(Lib.TCtrlBase):
         RecNo = DblCountry.FindField('id', aCountryId)
         Country = '' if (RecNo == -1) else DblCountry.RecGo(RecNo).title
 
-        return  {
+        Res = {
             'href': {
-                'counties': f'/?route=site/countries&lang_id={aLangId}',
+                'countries': f'/?route=site/countries&lang_id={aLangId}',
                 'compare':  f'/?route=product/compare&lang_id={aLangId}',
                 'favorite': f'/?route=product/favorite&lang_id={aLangId}',
-                'root': f'/?lang_id={aLangId}'
+                'root': f'/?lang_id={aLangId}&country_id={aCountryId}'
             },
             'search': aSearch,
             'lang_id': aLangId,
@@ -42,3 +42,4 @@ class TMain(Lib.TCtrlBase):
             'dbl_country': DblCountry.Export(),
             'now_year': datetime.now().year
         }
+        return Res

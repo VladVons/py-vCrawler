@@ -15,7 +15,7 @@ class TMain(Lib.TDbModel):
         )
 
     async def Get_SeoFromDict(self, aData: list) -> dict:
-        Data = [f"('{Key}', '{Lib.Escape(Val)}', {Idx})" for Key, Val, Idx in aData]
+        Data = [f"({Idx}, '{Key}', '{Lib.Escape(Val)}')" for Idx, Key, Val in aData]
         return await self.ExecQuery(
             'fmtGet_SeoFromDict.sql',
             {'Data': ', '.join(Data)}

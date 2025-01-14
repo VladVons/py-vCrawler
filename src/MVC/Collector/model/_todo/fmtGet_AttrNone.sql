@@ -2,7 +2,7 @@ select
   category,
   lower(title),
   attr
-from 
+from
   ref_product
 where (
     select count(*)
@@ -10,6 +10,6 @@ where (
 ) < 1
 order by
   title
-limit 
+limit
   100
 
