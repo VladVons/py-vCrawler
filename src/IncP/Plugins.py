@@ -21,6 +21,15 @@ class TPluginMVC(TPlugin):
             if (os.path.exists(f'{Path}{x}')):
                 return True
 
+class TCrawlers(TPluginMVC):
+    def __init__(self, aDir: str, aApi):
+        super().__init__(aDir)
+        self.Name = 'crawler'
+        self.ApiCrawler = aApi
+
+    def _Create(self, aModule: object, _aPath: str) -> object:
+        return aModule.TMain(self.ApiCrawler)
+
 class TModels(TPluginMVC):
     def __init__(self, aDir: str, aApi):
         super().__init__(aDir)
@@ -30,14 +39,14 @@ class TModels(TPluginMVC):
     def _Create(self, aModule: object, aPath: str) -> object:
         return aModule.TMain(self.ApiModel, self.Dir + '/' + aPath)
 
-class TCrawlers(TPluginMVC):
+class TImgs(TPluginMVC):
     def __init__(self, aDir: str, aApi):
         super().__init__(aDir)
-        self.Name = 'crawler'
-        self.ApiCrawler = aApi
+        self.Name = 'img'
+        self.ApiImg = aApi
 
     def _Create(self, aModule: object, _aPath: str) -> object:
-        return aModule.TMain(self.ApiCrawler)
+        return aModule.TMain(self.ApiImg)
 
 class TCtrls(TPluginMVC):
     def __init__(self, aDir: str, aApi):

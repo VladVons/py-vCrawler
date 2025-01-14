@@ -1,32 +1,31 @@
+  <h2>{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
   <div class="row">
-    <div class="col-3">
-      <h2>{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
+    <div class="col-6">
+      <form method="get" id="formAttrFilter">
+        <input type="hidden" name="site_id" value="{{site_id}}">
+        {% for Rec in TDbList().Import(dbl_attr) %}
+        <div class="row">
+          <div class="col-2">
+            <label for="{{Rec.key}}">{{Translate(lang, Rec.key)}}</label>
+          </div>
+          <div class="col-2">
+            <select class="form-select w-100" id="{{Rec.key}}" name="f_{{Rec.key}}">
+              <option value="">---</option>
+              {% for xStat in Rec.stat %}
+              <option value="{{xStat.val}}" {{ Iif(Rec.active == xStat.val, 'selected', '') }}>{{xStat.val}} ({{xStat.cnt}})</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn_attr}}')">{{Translate(lang, 'filter')}}</button>
+        <button class="btn btn-primary" onclick="clearSelects(event)">{{Translate(lang, 'clear_it')}}</button>
+      </form>
     </div>
-    <div class="col-2">
-      img
+    <div class="col-6">
+      <img src="{{image}}" class="card-img-top vGrayscale" alt="{{category}}" style="width: 250px;">
     </div>
   </div>
-
-  <form method="get" id="formAttrFilter">
-    <input type="hidden" name="site_id" value="{{site_id}}">
-    {% for Rec in TDbList().Import(dbl_attr) %}
-    <div class="row">
-      <div class="col-2">
-        <label for="{{Rec.key}}">{{Translate(lang, Rec.key)}}</label>
-      </div>
-      <div class="col-2">
-        <select class="form-select w-100" id="{{Rec.key}}" name="f_{{Rec.key}}">
-        <option value="">---</option>
-        {% for xStat in Rec.stat %}
-          <option value="{{xStat.val}}" {{ Iif(Rec.active == xStat.val, 'selected', '') }}>{{xStat.val}} ({{xStat.cnt}})</option>
-        {% endfor %}
-      </select>
-      </div>
-    </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn_attr}}')">{{Translate(lang, 'filter')}}</button>
-    <button class="btn btn-primary" onclick="clearSelects(event)">{{Translate(lang, 'clear_it')}}</button>
-  </form>
 
   <script>
     const formAttrFilter = document.getElementById('formAttrFilter')

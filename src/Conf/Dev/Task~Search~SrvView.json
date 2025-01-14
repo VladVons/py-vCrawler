@@ -1,5 +1,5 @@
 {
-    "srv_conf": {
-        "port": 8180
-    }
+  "srv_conf": {
+    "port": 8180
+  }
 }

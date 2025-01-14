@@ -79,7 +79,8 @@ class TMain(Lib.TCtrlBase):
             PathQuery = await self.Decode(UrlDict.get('path'))
             Query = Lib.QueryToDict(PathQuery) | Query
             Data = [(0, xKey, xVal) for xKey, xVal in Query.items()]
-            Res = (await self.EncodeTuple(Data))[0]
+            R = await self.EncodeTuple(Data)
+            Res = R[0]
         else:
             UrlDict['query'] = Query
             Res = Lib.UrlToStr(UrlDict, ['path', 'query'])

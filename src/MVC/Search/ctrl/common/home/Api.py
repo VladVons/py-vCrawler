@@ -24,11 +24,11 @@ class TMain(Lib.TCtrlBase):
             }
         )
 
-        Trans = await self.Translate(aLangId, DblCategory.ExportList('category'))
+        Translate = await self.Translate(aLangId, DblCategory.ExportList('category'))
         DblCategory.AddFieldsFill(['lang', 'href'], False)
         for Rec in DblCategory:
             Category = Rec.category
-            Lang = Trans.get(Category, Category)
+            Lang = Translate.get(Category, Category)
             Href = f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
             DblCategory.RecMerge([Lang, Href])
 

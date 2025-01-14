@@ -4,11 +4,20 @@
 <!-- home + -->
 <h1>{{Translate(lang, 'used_computers')}} - {{country | capitalize}}</h1>
 
+<div class="row">
 {% for Rec in TDbList().Import(dbl_category) %}
-  <div title="{{Rec.href}}">
-    <a href="{{Rec.href}}">{{Rec.lang | capitalize}} ({{Rec.count}})</a>
+  <div class="col">
+    <a href="{{Rec.href}}">
+      <div class="card text-center">
+        <img src="{{FileDef('assets/img/category/' + Rec.category + '.jpg', 'assets/img/no-image.png')}}" class="card-img-top vGrayscale" alt="{{Rec.lang}}" style="width: 150px;">
+        <div class="card-body">
+          <div class="card-title">{{Rec.lang | capitalize}} ({{Rec.count}})</div>
+        </div>
+      </div>
+    </a>
   </div>
 {% endfor %}
+</div>
 <!-- home - -->
 {% endblock %}
 

@@ -1,11 +1,11 @@
 {
-    "dir_route": "MVC/Collector/crawler",
-    "loader": {
-        "model": {
-            "type": "fs",
-            "module": "Task.Collector.SrvModel.Api",
-            "class": "ApiModel"
-        }
-    },
-    "db_auth" : "{% file_ini ~/.config/vCrawler/App.ini:db_auth %}"
+  "dir_route": "MVC/Collector/crawler",
+  "loader": {
+    "model": {
+      "type": "fs",
+      "module": "Task.Collector.SrvModel.Api",
+      "class": "ApiModel"
+    }
+  },
+  "db_auth" : "{% file_ini ~/.config/vCrawler/App.ini:db_auth %}"
 }

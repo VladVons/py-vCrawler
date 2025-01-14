@@ -6,7 +6,6 @@
 import os
 import json
 from aiohttp import web
-from aiohttp_session import get_session
 #
 from Inc.DataClass import DDataClass
 from Inc.Misc.Jinja import TTemplate

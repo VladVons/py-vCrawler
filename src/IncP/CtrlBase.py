@@ -17,8 +17,7 @@ class TCtrlBase():
 
     def _init_(self):
         self.ApiModel = self.ApiCtrl.Loader['model'].Get
-        #self.ApiImg = self.ApiCtrl.Loader['img'].Get
-        pass
+        self.ApiImg = self.ApiCtrl.Loader['img'].Get
 
     @property
     def Lang(self) -> TLoaderLang:
