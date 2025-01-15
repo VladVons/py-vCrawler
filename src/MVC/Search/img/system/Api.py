@@ -14,7 +14,9 @@ class TMain(Lib.TImgBase):
         self.Fs = TFsDisk(self.Conf.dir_root)
 
     async def GetFiles(self, aFiles: list[str]) -> dict:
-        Exists = self.Fs.ExistsList(aFiles)
+        Calls = ['Exists'] + [[xFile] for xFile in aFiles]
+        Exists = self.Fs.MassCall(Calls)
+
         Res = [
             self.Conf.url + '/' + Lib.Iif(xExists, xFile, self.Conf.no_image)
             for xExists, xFile in zip(Exists, aFiles)
