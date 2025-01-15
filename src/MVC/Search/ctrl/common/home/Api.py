@@ -13,24 +13,16 @@ class TMain(Lib.TCtrlBase):
             (1, 1)
         )
 
-        DblCategory = await self.ExecModelImport(
-            'category',
-            {
-                'method': 'GetCategoriesCountry',
-                'param': {
-                    'aCountryId': aCountryId
-                },
-                'cache_age': 60*10
-            }
-        )
-
-        Translate = await self.Translate(aLangId, DblCategory.ExportList('category'))
-        DblCategory.AddFieldsFill(['lang', 'href'], False)
-        for Rec in DblCategory:
+        DblCategory = await Lib.Model_GetCategoriesCountry(self, aCountryId)
+        Categories = DblCategory.ExportList('category')
+        ImageUrls = await Lib.Img_GetCategory(self, Categories)
+        Translate = await self.Translate(aLangId, Categories)
+        DblCategory.AddFieldsFill(['lang', 'href', 'image'], False)
+        for xImage, Rec in zip(ImageUrls, DblCategory):
             Category = Rec.category
             Lang = Translate.get(Category, Category)
             Href = f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
-            DblCategory.RecMerge([Lang, Href])
+            DblCategory.RecMerge([Lang, Href, xImage])
 
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCategory, ['href'])

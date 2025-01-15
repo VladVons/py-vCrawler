@@ -8,7 +8,7 @@
     },
     "img": {
       "type": "url",
-      "url": "http://localhost:8083/api",
+      "url": "http://localhost:8183/api",
       "user": "user01",
       "password": "passw01"
     }

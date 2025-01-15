@@ -67,3 +67,27 @@ async def SeoEncodeDbl(self, aDbl: TDbList, aFields: list[str]):
 
 def GetRedirectHref(aUrl: str) -> str:
     return f'href={aUrl}&chk={GetCRC(aUrl)}'
+
+async def Img_GetCategory(self, aNames: list[str]) -> list[str]:
+    Files = [f'category/{xName}.jpg' for xName in aNames]
+    return await self.ExecImg(
+        'system',
+        {
+            'method': 'GetFiles',
+            'param': {
+                'aFiles': Files
+            }
+        }
+    )
+
+async def Model_GetCategoriesCountry(self, aCountryId: int) -> dict:
+    return await self.ExecModelImport(
+        'category',
+        {
+            'method': 'GetCategoriesCountry',
+            'param': {
+                'aCountryId': aCountryId
+            },
+            'cache_age': 60*10
+        }
+    )

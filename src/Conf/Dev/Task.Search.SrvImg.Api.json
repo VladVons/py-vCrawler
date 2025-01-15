@@ -1,9 +1,9 @@
 {
-  "dir_route": "MVC/catalog/img",
+  "dir_route": "MVC/Search/img",
   "dir_root": "Data/img",
   "dir_thumb": "thumb",
   "size_thumb": 200,
   "size_product": 1024,
   "url": "http://localhost:8183/img",
-  "no_image": "product/no_image.png"
+  "no_image": "no-product.png"
 }

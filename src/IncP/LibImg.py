@@ -9,5 +9,6 @@ from Inc.Misc.Request import TDownload
 from Inc.Misc.RequestImage import TDownloadImage
 from Inc.Misc.Image import TImage
 from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs
+from Inc.Var.Obj import Iif
 from IncP.ImgBase import TImgBase
 from .Log import Log

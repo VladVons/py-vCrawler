@@ -37,10 +37,17 @@ class TMain(Lib.TCtrlBase):
             }
         )
 
+        DblCategories = await Lib.Model_GetCategoriesCountry(self, aCountryId)
+        Rec = DblCategories.FindFieldGo('category', Category)
+        CategoryItemsCnt = Lib.Iif(Rec, Rec.count, 0)
+
+        ImageUrl = await Lib.Img_GetCategory(self, [Category])
         Res = {
             'country_id': aCountryId,
             'lang_id': aLangId,
-            'category': Category
+            'category': Category,
+            'category_cnt': CategoryItemsCnt,
+            'image': ImageUrl[0]
         }
 
         DblAttr.AddFieldsFill(['active'], False)

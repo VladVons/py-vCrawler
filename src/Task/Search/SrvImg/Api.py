@@ -6,7 +6,6 @@
 from Inc.DataClass import DDataClass
 from IncP.ApiBase import TApiBase
 from IncP.Plugins import TImgs
-from IncP.Log import Log
 
 
 @DDataClass
@@ -17,11 +16,11 @@ class TExec():
 
 @DDataClass
 class TApiImgConf():
-    url: str = 'http://localhost:8083/img'
+    url: str = 'http://localhost:8183/img'
     dir_route: str = 'MVC/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      /img'
     dir_root: str = 'Data/img'
     dir_thumb: str = 'thumb'
-    no_image: str= 'product/no_image.png'
+    no_image: str= 'no-product.png'
     size_thumb: int = 200
     size_product: int = 1024
 
@@ -31,22 +30,7 @@ class TApiImg(TApiBase):
 
         Conf = self.GetConf()
         self.Conf = TApiImgConf(**Conf)
-        self.Imgs = TImgs(self.Conf.dir_route, self)
 
-    async def Exec(self, aRoute: str, aData: dict) -> dict:
-        self.ExecCnt += 1
-
-        Data = self.GetMethod(self.Imgs, aRoute, aData)
-        if ('err' in Data):
-            Log.Print(1, 'e', f"TApiImg.Exec() {Data['err']}")
-            return Data
-
-        Param = aData.get('param', {})
-        Method, Module = (Data['method'], Data['module'])
-        Res = await Method(Module, **Param)
-        if (Res is None):
-            Res = {}
-        return Res
-
+        self.Plugin = TImgs(Conf['dir_route'], self)
 
 ApiImg = TApiImg()

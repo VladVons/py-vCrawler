@@ -3,13 +3,13 @@
 # License: GNU, see LICENSE for more details
 
 
-from Task.SrvImg.Api import TApiImg, TApiImgConf
+from Task.Search.SrvImg.Api import TApiImg
 
 
 class TImgBase():
     def __init__(self, aApiImg: TApiImg):
         self.ApiImg = aApiImg
-        self.Conf: TApiImgConf
 
-    def _init_(self):
-        self.Conf = self.ApiImg.Conf
+    @property
+    def Conf(self):
+        return self.ApiImg.Conf
