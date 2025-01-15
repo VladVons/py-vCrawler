@@ -30,14 +30,19 @@ class TMain(Lib.TCtrlBase):
         if (not DblInfo):
             return {'status_code': 404}
 
-        Res = {}
         Filter = Lib.GetFilterFromQuery(aData.get('query'))
         Category = Filter.get('category')
 
-        Res['info'] = DblInfo.Rec.GetAsDict()
-        Res['host'] = Lib.UrlToDict(Res['info']['url'])['host']
-        Res['lang_id'] = aLangId
-        Res['category'] = Category
+        ImageUrl = await Lib.Img_GetCategory(self, [Category])
+        Info = DblInfo.Rec.GetAsDict()
+        Res = {
+            'info': Info,
+            'host': Lib.UrlToDict(Info['url'])['host'],
+            'lang_id': aLangId,
+            'category': Category,
+            'image': ImageUrl[0]
+        }
+
         if (not Filter):
             return Res
 
