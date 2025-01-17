@@ -8,19 +8,6 @@
 <script type="application/ld+json">
   {{schema}}
 </script>
-
-<style>
-  .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 2px;
-    cursor: pointer;
-  }
-</style>
 {% endblock %}
 
 {% block content %}
@@ -113,36 +100,12 @@
     </div>
   </div>
 
+  <script src="/assets/jsExt/product.js"></script>
   <script>
-    for (const key of ['compare', 'favorite']) {
-      const Element = document.getElementById('vTo_' + key);
-      Element.addEventListener('click', function (event) {
-        LStorage = new TLocalStorage('products_' + key);
-        LStorage.addItemToListUniq("{{url_id}}");
-        LStorage.save();
-        document.getElementById('viCount_' + key).innerHTML = LStorage.items.length;
-        showTooltip("{{Translate(lang, 'added')}}");
-        window.location.href = UrlConcat(Hrefs[key], 'url_ids=' + LStorage.items.join(','));
-      })
-    }
-
-    let curIdx = 0;
-    const currentImage = document.getElementById("viMainImg");
-    const images = document.getElementsByClassName("img-thumbnail")
-
-    function slideImage(aStep) {
-      curIdx += aStep;
-        if (curIdx < 0) {
-          curIdx = images.length - 1;
-        } else if (curIdx >= images.length) {
-          curIdx = 0;
-        }
-        currentImage.src = images[curIdx].src;
-    }
-
-    document.getElementById("viAddToCart2").addEventListener('click', function () {
-      window.location.href = '{{url_ext}}';
-    });
+    // document.cookie = 'key2=val2;';
+    AddVisited('{{url_id}}');
+    OnCompareFavorite('{{url_id}}');
+    OnAddToCart('{{url_ext}}')
   </script>
   <!-- product - -->
-  {% endblock %}
+{% endblock %}

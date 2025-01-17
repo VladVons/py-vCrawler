@@ -41,9 +41,7 @@
     document.getElementById('viCountry').addEventListener('change', (event) => {
       const CountryId = event.target.value;
 
-      const LStorage = new TLocalStorage();
-      LStorage.addItemToListUniq({'country_id': CountryId});
-      LStorage.save();
+      localStorage.setItem('country_id', CountryId);
 
       let Path = window.location.pathname;
       let Query = {'country_id': CountryId};

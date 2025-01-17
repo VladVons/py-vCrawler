@@ -52,11 +52,13 @@ class TSession():
             self.Set('start', int(time.time()))
 
     def Export(self) -> dict:
-        return {
+        Res = {
             'keys': self.GetAsDict(),
             'ip': self.Remote,
-            'location': self.Location
+            'location': self.Location,
+            'cookies': dict(self.Request.cookies)
         }
+        return Res
 
     def Get(self, aKey: str) -> object:
         return self.Session.get(aKey)
