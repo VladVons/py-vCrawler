@@ -12,8 +12,30 @@ class TMain(Lib.TCtrlBase):
         aLangId, aCountryId, aSearch = Lib.GetDictDefs(
             aData.get('query'),
             ('lang_id', 'country_id', 'q'),
-            (1, 1, '')
+            (-1, -1, '')
         )
+
+        if (aCountryId == -1) and (aLangId == -1):
+            Country = Lib.DeepGetByList(aData, ['session', 'location', 'country'])
+            #Country = 'poland'
+            if (Country):
+                Data = await self.ApiModel(
+                    'site',
+                    {
+                        'method': 'GetCountryLangByName',
+                        'param': {
+                            'aCountry': Country.strip()
+                        }
+                    }
+                )
+                Dbl = Lib.TDbList().Import(Data)
+                if (Dbl):
+                    aLangId = Dbl.Rec.lang_id
+                    aCountryId = Dbl.Rec.country_id
+            else:
+                aCountryId = aLangId  = 1
+            aData['query']['country_id'] = aCountryId
+        aData['query']['lang_id'] = aLangId
 
         DblCountry = await self.ExecModelImport(
             'site',

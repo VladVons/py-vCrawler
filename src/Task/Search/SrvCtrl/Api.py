@@ -45,35 +45,7 @@ class TApiCtrl(TApiBase):
         Dbl = Lib.TDbList().Import(Data)
         return Dbl.Rec.val
 
-    async def GetLang(self, aRoutes: list, aData: dict) -> dict:
-        aLangId, aCountryId = Lib.GetDictDefs(
-            aData.get('query'),
-            ('lang_id', 'country_id'),
-            (-1, -1)
-        )
-
-        if (aCountryId == -1) and (aLangId == -1):
-            Country = Lib.DeepGetByList(aData, ['session', 'location', 'country'])
-            #Country = 'poland'
-            if (Country):
-                Data = await self.ApiModel(
-                    'site',
-                    {
-                        'method': 'GetCountryLangByName',
-                        'param': {
-                            'aCountry': Country.strip()
-                        }
-                    }
-                )
-                Dbl = Lib.TDbList().Import(Data)
-                if (Dbl):
-                    aLangId = Dbl.Rec.lang_id
-                    aCountryId = Dbl.Rec.country_id
-            else:
-                aCountryId = aLangId  = 1
-            aData['query']['country_id'] = aCountryId
-        aData['query']['lang_id'] = aLangId
-
+    async def GetLang(self, aRoutes: list, aLangId: int) -> dict:
         if (not self.Langs):
             Data = await self.ApiModel(
                 'system',
@@ -144,12 +116,14 @@ class TApiCtrl(TApiBase):
                 Routes = aData.get('extends', [])
                 Routes.append(aRoute)
 
-                Res['lang'] = await self.GetLang(Routes, aData)
-
                 aData['res'] = Res
                 for xRoute in Routes:
                     R = await super().Exec(xRoute, aData)
                     Lib.DictUpdate(Res, R)
+
+                LangId = Lib.DeepGetByList(aData, ['query', 'lang_id'], 1)
+                Res['lang'] = await self.GetLang(Routes, LangId)
+
                 await self.SeoUrl(Res)
             case 'api':
                 Res = await super().Exec(aRoute, aData)

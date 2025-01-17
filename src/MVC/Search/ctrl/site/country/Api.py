@@ -8,22 +8,11 @@ import IncP.LibCtrl as Lib
 
 class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
-        _aLangId, aCountryId = Lib.GetDictDefs(
+        aLangId, aCountryId = Lib.GetDictDefs(
             aData.get('query'),
             ('lang_id', 'country_id'),
             (1, 1)
         )
-
-        DblCountry = await self.ExecModelImport(
-            'site',
-            {
-                'method': 'GetCountryLangById',
-                'param': {
-                    'aCountryId': aCountryId
-                }
-            }
-        )
-        aLangId = DblCountry.Rec.GetField('lang_id', 1)
 
         DblSites = await self.ExecModelImport(
             'site',
