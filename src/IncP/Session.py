@@ -15,7 +15,8 @@ def GetIpLocation(aRequest: web.Request) -> dict:
     Remote = aRequest.remote
     if (Remote == '127.0.0.1'):
         # try to get remote ip from nginx proxy (proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;)
-        Remote = aRequest.headers.get('X-FORWARDED-FOR', '127.0.0.1')
+        MyHomeIp = '5.58.222.201'
+        Remote = aRequest.headers.get('X-FORWARDED-FOR', MyHomeIp)
     Location = TGeoIp().GetCity(Remote)
     return {'ip': Remote, 'location': Location}
 

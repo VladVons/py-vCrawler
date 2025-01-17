@@ -1,4 +1,4 @@
--- fmtGet_CountryLang.sql
+-- fmtGet_CountryLangByName.sql
 -- in: aCountry
 
 select

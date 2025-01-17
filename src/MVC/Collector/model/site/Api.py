@@ -101,11 +101,19 @@ class TMain(Lib.TDbModel):
             }
         )
 
-    async def GetCountryLang(self, aCountry: str) -> dict:
+    async def GetCountryLangByName(self, aCountry: str) -> dict:
         return await self.ExecQuery(
-            'fmtGet_CountryLang.sql',
+            'fmtGet_CountryLangByName.sql',
             {
                 'aCountry': aCountry
+            }
+        )
+
+    async def GetCountryLangById(self, aCountryId: int) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_CountryLangById.sql',
+            {
+                'aCountryId': aCountryId
             }
         )
 

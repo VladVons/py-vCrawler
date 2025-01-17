@@ -5,7 +5,6 @@
 
 from Inc.Loader.Lang import TLoaderLangFs
 from Inc.Misc.Serialize import Encode
-from Inc.Var.Str import ToInt
 from IncP.ApiBase import TApiBase
 from IncP.Plugins import TCtrls
 import IncP.LibModel as Lib
@@ -60,7 +59,7 @@ class TApiCtrl(TApiBase):
                 Data = await self.ApiModel(
                     'site',
                     {
-                        'method': 'GetCountryLang',
+                        'method': 'GetCountryLangByName',
                         'param': {
                             'aCountry': Country.strip()
                         }
