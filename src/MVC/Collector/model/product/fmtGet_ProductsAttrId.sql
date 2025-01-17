@@ -18,7 +18,9 @@ join
   ref_url ru on (ru.id = rp.url_id)
 where
   (rp.stock is true) and
-  (rp.url_id in ({{aUrlIds}}))
+  (rp.url_id = any (array[{{aUrlIds}}]))
+order by
+    array_position(array[{{aUrlIds}}], rp.url_id)
 limit
   {{aLimit}}
 offset

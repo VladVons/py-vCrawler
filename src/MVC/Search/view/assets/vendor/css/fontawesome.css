@@ -67,6 +67,9 @@ readers do not read off random characters that represent icons */
 .fa-heart:before {
   content: "\f004"; }
 
+.fa-history:before {
+  content: "\f1da"; }
+
 .fa-home:before {
   content: "\f015"; }
 

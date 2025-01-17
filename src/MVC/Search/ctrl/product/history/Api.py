@@ -1,4 +1,4 @@
-# Created: 2025.01.10
+# Created: 2025.01.18
 # Author: Vladimir Vons <VladVons@gmail.com>
 # License: GNU, see LICENSE for more details
 
@@ -14,5 +14,5 @@ class TMain(Lib.TCtrlBase):
             (1, '1,2,3')
         )
 
-        Res = await List(self, aLangId, aUrlIds)
+        Res = await List(self, aLangId, aUrlIds, True)
         return Res

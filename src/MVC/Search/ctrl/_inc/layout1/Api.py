@@ -32,9 +32,12 @@ class TMain(Lib.TCtrlBase):
                 if (Dbl):
                     aLangId = Dbl.Rec.lang_id
                     aCountryId = Dbl.Rec.country_id
-            else:
-                aCountryId = aLangId  = 1
-            aData['query']['country_id'] = aCountryId
+
+        # ToDo
+        aCountryId = Lib.Iif(aCountryId == -1, 1, aCountryId)
+        aLangId = Lib.Iif(aLangId == -1, 1, aLangId)
+
+        aData['query']['country_id'] = aCountryId
         aData['query']['lang_id'] = aLangId
 
         DblCountry = await self.ExecModelImport(
@@ -55,6 +58,7 @@ class TMain(Lib.TCtrlBase):
             'href': {
                 'countries': f'/?route=site/countries&lang_id={aLangId}',
                 'compare':  f'/?route=product/compare&lang_id={aLangId}',
+                'history':  f'/?route=product/history&lang_id={aLangId}',
                 'favorite': f'/?route=product/favorite&lang_id={aLangId}',
                 'root': f'/?lang_id={aLangId}&country_id={aCountryId}'
             },

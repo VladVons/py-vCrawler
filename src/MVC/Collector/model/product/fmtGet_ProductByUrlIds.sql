@@ -23,10 +23,10 @@ where
          max(id)
        from
          hist_url
-       where 
-         url_id = any (array[{{aUrlIds}}]) 
+       where
+         url_id = any (array[{{aUrlIds}}])
        group by
          url_id
     )
-order by 
+order by
     array_position(array[{{aUrlIds}}], hu.url_id)

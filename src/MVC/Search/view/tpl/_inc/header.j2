@@ -19,6 +19,10 @@
 </form>
 
 <div class="d-flex col-10 col-sm-1 col-md-1 order-2 justify-content-end">
+  <button type="button" class="btn btn-success" id="viBtnOn_history" value="history" title="{{Translate(lang, 'history')}}">
+    <i class="fa fa-history"></i>
+    <span class="badge vBgBtn" id="viCount_history"></span>
+  </button>
   <button type="button" class="btn btn-success" id="viBtnOn_favorite" value="favorite" title="{{Translate(lang, 'favorite')}}">
     <i class="fa fa-heart"></i>
     <span class="badge vBgBtn" id="viCount_favorite"></span>
@@ -66,12 +70,13 @@
   }
 
   const Hrefs = {
+    'history': '{{href.history}}',
     'compare': '{{href.compare}}',
     'favorite': '{{href.favorite}}'
   }
 
   function OnHeadCompareFavorite() {
-    for (const key of ['compare', 'favorite']) {
+    for (const key of ['history', 'compare', 'favorite']) {
       const LStorage = new TLocalStorage('products_' + key)
       if (LStorage.items) {
         document.getElementById('viCount_' + key).innerHTML = LStorage.items.length

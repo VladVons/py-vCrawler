@@ -1,8 +1,9 @@
-function AddVisited(aUrlId) {
-  sessionStorage.setItem('myKey', 1971);
-  const LStorage = new TLocalStorage('products_visited');
-  LStorage.addItemToListCycle(aUrlId, 10);
+function AddHistory(aUrlId) {
+  const key = 'history';
+  const LStorage = new TLocalStorage('products_' + key);
+  LStorage.addItemToListCycle(aUrlId, 15);
   LStorage.save();
+  document.getElementById('viCount_' + key).innerHTML = LStorage.items.length;
 }
 
 function OnCompareFavorite(aUrlId) {
