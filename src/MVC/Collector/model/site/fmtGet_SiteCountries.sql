@@ -16,6 +16,7 @@ select
   wt1.country_id,
   wt1.cnt_all,
   wt1.cnt_enabled,
+  rc.lang_id,
   rcl.title as country,
   rcl2.title as continent
 from

@@ -22,7 +22,7 @@ class TMain(Lib.TCtrlBase):
 
         DblCountries.AddFieldsFill(['href'], False)
         for Rec in DblCountries:
-            Href = f'/?route=site/country&lang_id={aLangId}&country_id={Rec.country_id}'
+            Href = f'/?route=site/country&lang_id={Rec.lang_id}&country_id={Rec.country_id}'
             DblCountries.RecMerge([Href])
 
         if (self.GetConf('seo_url')):
