@@ -50,12 +50,12 @@ class TApiCtrl(TApiBase):
         aLangId, aCountryId = Lib.GetDictDefs(
             aData.get('query'),
             ('lang_id', 'country_id'),
-            (1, -1)
+            (-1, -1)
         )
 
-        if (aCountryId == -1):
+        if (aCountryId == -1) and (aLangId == -1):
             Country = Lib.DeepGetByList(aData, ['session', 'location', 'country'])
-            #Country = 'Ukraine'
+            #Country = 'poland'
             if (Country):
                 Data = await self.ApiModel(
                     'site',
@@ -68,8 +68,12 @@ class TApiCtrl(TApiBase):
                 )
                 Dbl = Lib.TDbList().Import(Data)
                 if (Dbl):
-                    aLangId = aData['query']['lang_id'] = Dbl.Rec.lang_id
-                    aData['query']['country_id'] = Dbl.Rec.country_id
+                    aLangId = Dbl.Rec.lang_id
+                    aCountryId = Dbl.Rec.country_id
+            else:
+                aCountryId = aLangId  = 1
+            aData['query']['country_id'] = aCountryId
+        aData['query']['lang_id'] = aLangId
 
         if (not self.Langs):
             Data = await self.ApiModel(
