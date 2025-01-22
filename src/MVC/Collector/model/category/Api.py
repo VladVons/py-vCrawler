@@ -3,21 +3,27 @@
 # License: GNU, see LICENSE for more details
 
 
+import json
 import IncP.LibModel as Lib
 
 
 class TMain(Lib.TDbModel):
-    async def GetAttrCountInCategory(self, aCountryId: int, aCategory: str, aSiteId: int = None) -> dict:
-        WhereExt = ''
-        if (aSiteId):
-            WhereExt = f' and rs.id = {aSiteId}'
-
+    async def GetAttrCountInCategory(self, aCountryId: int, aCategory: str) -> dict:
         return await self.ExecQuery(
             'fmtGet_AttrCountInCategory.sql',
             {
                 'aCountryId': aCountryId,
-                'aCategory': aCategory,
-                'WhereExt': WhereExt
+                'aCategory': aCategory
+            }
+        )
+
+    async def GetAttrCountFilter(self, aCountryId: int, aFilter: dict) -> dict:
+        Filter = json.dumps(aFilter)
+        return await self.ExecQuery(
+            'fmtGet_AttrCountFilter.sql',
+            {
+                'aCountryId': aCountryId,
+                'aFilter': Filter
             }
         )
 

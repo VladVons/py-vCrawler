@@ -1,4 +1,4 @@
-<div class="container pb-2">
+<div>
     {% set DblProducts = TDbList().Import(dbl_products) %}
     {% if DblProducts %}
       {% for Rec in DblProducts %}
@@ -8,10 +8,10 @@
             <img src="{{Rec.image}}" alt="{{Rec.title |truncate(32, True, '...')}}" class="thumb">
           </a>
         </div>
-        <div class="col-7" >
+        <div class="col-5" >
           <a href="{{Rec.href}}" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}</a>
         </div>
-        <div class="col-3">
+        <div class="col-2">
           <div>{{"{:,}".format(Rec.price|int)}}</div>
           <div class="text-decoration-line-through">{{Iif(Rec.price_old, "{:,}".format(Rec.price_old|int), '')}}</div>
         </div>

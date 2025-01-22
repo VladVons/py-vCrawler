@@ -35,5 +35,17 @@
     "[j2]": {
         "editor.tabSize": 2,
         "editor.insertSpaces": true
-    }
+    },
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "10.10.1.1",
+            "port": 5433,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "crawler_used",
+            "database": "crawler_used",
+            "username": "crawler_used_user1"
+        }
+    ]
 }

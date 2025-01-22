@@ -39,7 +39,7 @@ class TCtrlBase():
             Res = await self.ApiModel(aMethod, aData)
         return Res
 
-    async def ExecModelImport(self, aMethod: str, aData: dict) -> dict:
+    async def ExecModelImport(self, aMethod: str, aData: dict) -> Lib.TDbList:
         Res = await self.ApiModel(aMethod, aData)
         if (isinstance(Res, dict) and ('tag' in Res) and ('head' in Res)):
             Res = Lib.TDbList().Import(Res)

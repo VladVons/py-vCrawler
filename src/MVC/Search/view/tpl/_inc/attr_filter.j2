@@ -1,25 +1,26 @@
-  <h2>{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
+  <h2 id="idCategory" data-value="{{category}}">{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
   <div class="row">
     <div class="col-6">
       <form method="get" id="formAttrFilter">
+        <input type="hidden" name="country_id" value="{{country_id}}">
         <input type="hidden" name="site_id" value="{{site_id}}">
         {% for Rec in TDbList().Import(dbl_attr) %}
         <div class="row">
           <div class="col-2">
             <label for="{{Rec.key}}">{{Translate(lang, Rec.key)}}</label>
           </div>
-          <div class="col-2">
+          <div class="col-3">
             <select class="form-select w-100" id="{{Rec.key}}" name="f_{{Rec.key}}">
-              <option value="">---</option>
-              {% for xStat in Rec.stat %}
-              <option value="{{xStat.val}}" {{ Iif(Rec.active == xStat.val, 'selected', '') }}>{{xStat.val}} ({{xStat.cnt}})</option>
+              <option value="">--- ({{Rec.total}})</option>
+              {% for xKey, xVal in Rec.stat.items() %}
+              <option value="{{xKey}}" {{ Iif(Rec.active == xKey, 'selected', '') }}>{{xKey}} ({{xVal}})</option>
               {% endfor %}
             </select>
           </div>
         </div>
         {% endfor %}
         <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn_attr}}')">{{Translate(lang, 'filter')}}</button>
-        <button class="btn btn-primary" onclick="clearSelects(event)">{{Translate(lang, 'clear_it')}}</button>
+        <button class="btn btn-primary" id="btnFilterClear">{{Translate(lang, 'clear_it')}}</button>
       </form>
     </div>
     <div class="col-6">
@@ -28,13 +29,9 @@
     </div>
   </div>
 
+  <script src="/assets/js/TDbList.js"></script>
+  <script src="/assets/jsExt/attr_filter.js"></script>
   <script>
-    const formAttrFilter = document.getElementById('formAttrFilter')
-
-    function clearSelects(event) {
-      event.preventDefault();
-      formAttrFilter.querySelectorAll('select').forEach(function(selectElement) {
-          selectElement.selectedIndex = 0;
-      });
-    }
+    const AttrSelect = new TAttrSelect(document.getElementById('formAttrFilter'));
+    AttrSelect.OnBtnClear('btnFilterClear')
   </script>

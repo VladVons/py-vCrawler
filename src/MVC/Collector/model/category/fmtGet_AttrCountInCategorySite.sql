@@ -25,6 +25,7 @@ wt1 as (
 )
 select
   key,
+  sum(cnt)::int as total,
   jsonb_agg(jsonb_build_object('val', val, 'cnt', cnt)) as stat
 from
   wt1

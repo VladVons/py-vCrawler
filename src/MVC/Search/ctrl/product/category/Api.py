@@ -2,30 +2,15 @@
 # Author: Vladimir Vons <VladVons@gmail.com>
 # License: GNU, see LICENSE for more details
 
-
 from base64 import b64encode
 from urllib.parse import quote
 import IncP.LibCtrl as Lib
 
 
 class TMain(Lib.TCtrlBase):
-    async def Main(self, **aData):
-        aLangId, aCountryId, aPage, aLimit = Lib.GetDictDefs(
-            aData.get('query'),
-            ('lang_id', 'country_id', 'page', 'limit'),
-            (1, 1, 1, self.GetConf('products_per_page', 10))
-        )
-
-        aOrder = 'price'
-        aLimit = min(aLimit, self.GetConf('products_per_page_max', 100))
-        Res = {}
-
-        Filter = Lib.GetFilterFromQuery(aData.get('query'))
-        if (not Filter):
-            return Res
-
-        Category = Filter.get('category')
-        DblAttr = await self.ExecModelImport(
+    async def _GetAttrCountFilter(self, aCountryId: int, aFilter: dict) -> dict:
+        Category = aFilter.get('category')
+        DblAttrAll = await self.ExecModelImport(
             'category',
             {
                 'method': 'GetAttrCountInCategory',
@@ -37,6 +22,55 @@ class TMain(Lib.TCtrlBase):
             }
         )
 
+        # not only category attr
+        if (len(aFilter) > 1):
+            DblAttr = await self.ExecModelImport(
+                'category',
+                {
+                    'method': 'GetAttrCountFilter',
+                    'param': {
+                        'aCountryId': aCountryId,
+                        'aFilter': aFilter
+                    }
+                }
+            )
+
+            Pairs = DblAttr.ExportPairs('key', ['total', 'stat'], True)
+            DblAttrAll.ToList()
+            for xRec in DblAttrAll:
+                Total = 0
+                Stat = {xKey: 0 for xKey in xRec.stat}
+                Data = Pairs.get(xRec.key)
+                if (Data):
+                    Total = Data['total']
+                    Stat |= Data['stat']
+                xRec.total = Total
+                xRec.stat = Stat
+        return DblAttrAll
+
+    async def Api_GetAttrCountFilter(self, aCountryId: int, aFilter: dict) -> dict:
+        for xKey, xVal in aFilter.items():
+            if ('size' in xKey) and (xVal):
+                aFilter[xKey] = int(xVal)
+
+        Dbl = await self._GetAttrCountFilter(aCountryId, aFilter)
+        return Dbl.Export()
+
+    async def Main(self, **aData) -> dict:
+        aLangId, aCountryId, aPage, aLimit = Lib.GetDictDefs(
+            aData.get('query'),
+            ('lang_id', 'country_id', 'page', 'limit'),
+            (1, 1, 1, self.GetConf('products_per_page', 10))
+        )
+
+        aOrder = 'price'
+        aLimit = min(aLimit, self.GetConf('products_per_page_max', 100))
+        Res = {}
+        Filter = Lib.GetFilterFromQuery(aData.get('query'))
+        if (not Filter):
+            return Res
+
+        Category = Filter.get('category')
         DblCategories = await Lib.Model_GetCategoriesCountry(self, aCountryId)
         Rec = DblCategories.FindFieldGo('category', Category)
         CategoryItemsCnt = Lib.Iif(Rec, Rec.count, 0)
@@ -50,6 +84,7 @@ class TMain(Lib.TCtrlBase):
             'image': ImageUrl[0]
         }
 
+        DblAttr = await self._GetAttrCountFilter(aCountryId, Filter)
         DblAttr.AddFieldsFill(['active'], False)
         for Rec in DblAttr:
             Filtered = Filter.get(Rec.key)

@@ -5,7 +5,7 @@
 from base64 import b64encode
 from Inc.Var.Dict import DictToPath
 from Inc.DbList.DbConvert import DblToXlsx
-from Inc.ParserSpec.TestAll import TSpecComp
+from Inc.ParserSpec.LibsComp import TLibsComp
 import IncP.LibCtrl as Lib
 
 
@@ -14,9 +14,9 @@ class TMain(Lib.TCtrlBase):
         pass
 
     async def ScriptTest(self, aScript: str) -> dict:
-        SpecComp = TSpecComp()
-        Lines = SpecComp.GetLines(aScript)
-        Arr = SpecComp.ParseLines(Lines)
+        LibsComp = TLibsComp()
+        Lines = LibsComp.GetLines(aScript)
+        Arr = LibsComp.ParseLines(Lines)
 
         return {
             'err': '',
@@ -24,7 +24,7 @@ class TMain(Lib.TCtrlBase):
         }
 
     async def AsExcel(self, aScript: str) -> dict:
-        SpecComp = TSpecComp()
+        SpecComp = TLibsComp()
         Fields = ['product']
         for xParser in SpecComp.Parsers.values():
             Fields += xParser.GetFields()
@@ -82,7 +82,7 @@ class TMain(Lib.TCtrlBase):
 
             Res = len(Dbl)
             if (Res):
-                SpecComp = TSpecComp()
+                SpecComp = TLibsComp()
                 Values = []
                 for Rec in Dbl:
                     Attrs = SpecComp.Parse(Rec.title)

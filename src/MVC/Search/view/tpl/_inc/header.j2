@@ -9,7 +9,7 @@
   <input type="hidden" name="route" value="product/search"/>
   <input type="text" class="form-control search-input" name="q" value="{{search}}" id="viSearchInput" placeholder="{{Translate(lang, 'search')}}">
   <button type="submit" class="search-icon ms-2" aria-label="Search">
-    <i class="bi bi-search"></i>
+    <i class="fa fa-search"></i>
   </button>
   <select class="form-select ms-2 d-none d-md-inline" name="country_id" id="viCountry">
     {% for Rec in TDbList().Import(dbl_country) %}
@@ -91,7 +91,7 @@
         }else{
           showTooltip("{{Translate(lang, 'no_data')}}")
         }
-      })
+      });
     }
   }
 

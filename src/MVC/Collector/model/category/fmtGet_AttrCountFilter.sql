@@ -1,5 +1,5 @@
--- mtGet_AttrCountInCategory.sql
--- in: aCountryId, aCategory
+-- mtGet_AttrCountInCategoryFilter.sql
+-- in: aCountryId, aFilter
 
 with
 wt1 as (
@@ -19,7 +19,7 @@ wt1 as (
     (rs.country_id = {{aCountryId}}) and
     (rp.stock is true) and
     (key not in ('category', 'model')) and
-    (rp.attr->>'category' = '{{aCategory}}')
+    (rp.attr @> '{{aFilter}}')
   group by
       key, val
   having

@@ -1,18 +1,23 @@
 import time
 import asyncio
 import aiohttp
-from Inc.ParserSpec.TestAll import TSpecComp
+from Inc.ParserSpec.LibsComp import TLibsComp
 from Inc.VFS.Disk import TFsDisk
 from Inc.VFS.Mem import TFsMem
 from Inc.Misc.aiohttpClient import DownloadChunksToFile
 
 
+def Stair(aWord: str, aCountFrom: int, aCountTo: int):
+    for i in range(aCountFrom, aCountTo):
+        Count = abs(i)
+        print(Count, aWord * Count)
+
 def Test1():
     TimeAt = time.time()
     File = 'Temp/cpu-intel.txt'
     #File = 'Temp/usedpc-1000.txt'
-    SpecComp = TSpecComp()
-    SpecComp.ParseFile(File)
+    LibsComp = TLibsComp()
+    LibsComp.ParseFile(File)
     print(round(time.time() - TimeAt, 2), 'sec')
 
 async def Test2():
@@ -54,9 +59,11 @@ async def Test3():
     print('done')
 
 async def Main():
+    Stair('*', -5, 6)
     #Test1()
     #await Test2()
-    await Test3()
+    #await Test3()
+    pass
 
 asyncio.run(Main())
 
