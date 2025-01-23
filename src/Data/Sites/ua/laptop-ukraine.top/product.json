@@ -13,6 +13,7 @@
     "-pipe_product": [
     ],
     "pipe_root": [
+      ["find_all", ["script"]],
       ["script_var", ["var product"]],
       ["as_dict", {
         "images": [

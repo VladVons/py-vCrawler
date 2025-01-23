@@ -3,7 +3,6 @@ import sys
 import json
 import time
 import asyncio
-import httpx
 from bs4 import BeautifulSoup
 #
 from Inc.Misc.PlayWrite import UrlGetData as UrlGetData_PW
@@ -18,8 +17,8 @@ DirRoot = 'sites/used/ua'
 
 
 #https://googlechromelabs.github.io/chrome-for-testing/#stable
-from pyppeteer import launch, executablePath
-q1 = executablePath()
+#from pyppeteer import launch, executablePath
+#q1 = executablePath()
 async def UrlGetData_pyppeteer(aUrl):
     #browser = await launch(headless=True, executablePath='./chromedriver')
     browser = await launch(headless=True)
@@ -240,8 +239,9 @@ async def Main():
     #Url = 'https://1x1.com.ua/product/dell_optiplex_3020_mt_i5-4590_4gb_500gb_hdd_t1'
     #q1 = await UrlGetData_PW(Url)
 
-    await TSchemer('server-shop.ua').Test('product')
-    #await TSchemer('setka.ua').Test('category')
+    #await TSchemer('olx.ua').Test('product')
+    #await TSchemer('olx_user.ua').Test('category')
+    await TSchemer('olx_shop.ua').Test('category')
     #
     print("done")
 

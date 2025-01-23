@@ -23,6 +23,7 @@
     "pipe": [
       ["as_dict", {
         "products": [
+          ["-find_all", ["script"]],
           ["-script_var", ["window.boostSDFallback"]],
           ["find", ["div", {"class": "boost-sd__fallback-product-list"}]],
           ["find_all", ["div", {"class": "boost-sd__fallback-product-item"}]],

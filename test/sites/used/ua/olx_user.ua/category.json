@@ -1,0 +1,67 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2025.01.23 09:00:00",
+      "url": [
+        "https://www.olx.ua/uk/list/user/YHM5/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_all", ["script", {"id": "olx-init-config"}]],
+          ["script_var", ["window.__PRERENDERED_STATE__"]],
+          ["gets", ["userListing.userListing"]],
+          ["var_set", ["$JsData"]],
+          ["get", ["ads"]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["get", ["url"]]
+               ],
+               "name": [ 
+                 ["get", ["title"]]
+               ],
+               "images": [ 
+                 ["get", ["photos"]],
+                 ["list_map", [
+                   ["split", [";", 0]]
+                 ]]
+               ],
+               "image": [ 
+                 ["var_get", ["$images"]],
+                 ["list", [0]]
+               ],
+               "price": [ 
+                 ["gets", ["price.regularPrice"]],
+                 ["as_list", [
+                   [["get", ["value"]]],
+                   [["get", ["currencyCode"]]]
+                 ]]
+               ],
+               "stock": [ 
+                 ["get", ["isActive"]]
+               ],
+               "description": [ 
+                 ["get", ["description"]]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["var_get", ["$JsData"]],
+          ["ranger", [1, 
+              ["exec", [
+                ["get", ["totalPages"]], 
+                ["int_add", [1]]
+              ]]
+          ]],
+          ["list_map", [
+            ["url_format", ["&page={0}"]]
+          ]]
+       ]
+      }]
+    ]
+  }
+}

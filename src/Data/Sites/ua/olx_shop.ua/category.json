@@ -1,0 +1,66 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2025.01.23 09:00:00",
+      "url": [
+        "https://bovi.olx.ua/uk/home/elektronika/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find_all", ["script", {"id": "olx-init-config"}]],
+          ["script_var", ["window.__PRERENDERED_STATE__"]],
+          ["gets", ["shop.adsOffers.data"]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["get", ["url"]]
+               ],
+               "name": [ 
+                 ["get", ["title"]]
+               ],
+               "images": [ 
+                 ["get", ["photos"]],
+                 ["list_map", [
+                   ["get", ["link"]],
+                   ["split", [";", 0]]
+                 ]]
+               ],
+               "image": [ 
+                 ["var_get", ["$images"]],
+                 ["list", [0]]
+               ],
+               "price": [ 
+                 ["get", ["params"]],
+                 ["list", [0]],
+                 ["get", ["value"]],
+                 ["as_list", [
+                   [["get", ["value"]]],
+                   [["get", ["currency"]]]
+                 ]]
+               ],
+               "stock": [ 
+                 ["get", ["status"]],
+                 ["search_eq", ["active"]]
+               ],
+               "description": [ 
+                 ["get", ["description"]]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find_all", ["li", {"data-testid": "pagination-list-item"}]],
+          ["list_map", [
+            ["find", ["a"]],
+            ["get", ["href"]],
+            ["url_pad"]
+          ]],
+          ["list_uniq"]
+        ]
+      }]
+    ]
+  }
+}
