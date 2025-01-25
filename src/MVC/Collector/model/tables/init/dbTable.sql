@@ -8,6 +8,7 @@ create type url_enum as enum (
     'none',
     'product',
     'category',
+    'prodcat',
     'contact'
 );
 

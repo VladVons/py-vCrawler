@@ -34,7 +34,7 @@ class TApiCrawler(TApiBase):
         self.InitLoader(Conf['loader'])
         self.ApiModel = self.Loader['model'].Get
 
-    async def ExecModel(self, aMethod: str, aData: dict) -> dict:
+    async def ExecModel(self, aMethod: str, aData: dict) -> Lib.TDbList:
         Res = await self.ApiModel(aMethod, aData)
         if (isinstance(Res, dict) and ('tag' in Res)):
             Res = Lib.TDbList().Import(Res)

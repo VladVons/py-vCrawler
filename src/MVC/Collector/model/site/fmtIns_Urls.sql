@@ -11,4 +11,12 @@ when matched then
   do nothing
 when not matched then
   insert (url, site_id)
-  values (src.url, src.site_id)
+  values (src.url, src.site_id);
+
+-- result
+select
+  id, url
+from
+  ref_url
+where
+  (site_id, url) in ({{aValues}});

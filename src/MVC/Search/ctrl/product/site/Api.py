@@ -7,6 +7,54 @@ from urllib.parse import quote
 import IncP.LibCtrl as Lib
 
 class TMain(Lib.TCtrlBase):
+    async def _GetAttrCountFilter(self, aCountryId: int, aFilter: dict) -> dict:
+        Category = aFilter.get('category')
+        DblAttrAll = await self.ExecModelImport(
+            'category',
+            {
+                'method': 'GetAttrCountInCategorySite',
+                'param': {
+                    'aCountryId': aCountryId,
+                    'aCategory': Category
+                },
+                'cache_age': 60*10
+            }
+        )
+
+        # not only category attr
+        if (len(aFilter) > 1):
+            DblAttr = await self.ExecModelImport(
+                'category',
+                {
+                    'method': 'GetAttrCountFilter',
+                    'param': {
+                        'aCountryId': aCountryId,
+                        'aFilter': aFilter
+                    }
+                }
+            )
+
+            Pairs = DblAttr.ExportPairs('key', ['total', 'stat'], True)
+            DblAttrAll.ToList()
+            for xRec in DblAttrAll:
+                Total = 0
+                Stat = {xKey: 0 for xKey in xRec.stat}
+                Data = Pairs.get(xRec.key)
+                if (Data):
+                    Total = Data['total']
+                    Stat |= Data['stat']
+                xRec.total = Total
+                xRec.stat = Stat
+        return DblAttrAll
+
+    async def Api_GetAttrCountFilter(self, aCountryId: int, aFilter: dict) -> dict:
+        for xKey, xVal in aFilter.items():
+            if ('size' in xKey) and (xVal):
+                aFilter[xKey] = int(xVal)
+
+        Dbl = await self._GetAttrCountFilter(aCountryId, aFilter)
+        return Dbl.Export()
+
     async def Main(self, **aData):
         aLangId, aSiteId, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),
@@ -57,6 +105,7 @@ class TMain(Lib.TCtrlBase):
             }
         )
 
+        DblAttr = await self._GetAttrCountFilter(aSiteId, Filter)
         DblAttr.AddFieldsFill(['active'], False)
         for Rec in DblAttr:
             Filtered = Filter.get(Rec.key)

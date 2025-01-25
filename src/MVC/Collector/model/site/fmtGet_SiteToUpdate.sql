@@ -10,8 +10,15 @@ select
   rs.headers,
   rs.emulator,
   (
-    select jsonb_agg(rsp.scheme::text)
+    select jsonb_agg(
+      case
+        when rsp.scheme::jsonb ? 'site_id'
+          then master.scheme::text
+          else rsp.scheme::text
+      end
+    )
     from ref_site_parser rsp
+    left join ref_site_parser master on (rsp.scheme->>'site_id')::int = master.site_id
     where (rsp.moderated and rsp.site_id = rs.id)
   ) as scheme,
   (
@@ -24,7 +31,7 @@ from
 join
   ref_url ru on (ru.site_id = rs.id)
 join
-  ref_site_parser rsp on (rsp.site_id = rs.id) and (rsp.moderated) and (rsp.url_en = 'product')
+  ref_site_parser rsp on (rsp.site_id = rs.id) and (rsp.moderated) and (rsp.url_en = 'product' or rsp.url_en = 'prodcat')
 where
   (rs.enabled is true) and
   ((rs.unlock_date is null) or (rs.unlock_date < now())) and

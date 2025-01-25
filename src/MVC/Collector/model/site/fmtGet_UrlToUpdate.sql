@@ -5,6 +5,7 @@ select
   rs.id as site_id,
   ru.id as url_id,
   ru.url,
+  ru.url_en,
   ru.update_date
 from
   ref_site rs

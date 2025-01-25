@@ -62,7 +62,7 @@ class TMain(TModelBase):
             return Res
 
     async def InsUrls(self, aSiteId: int, aUrls: list[str]) -> dict:
-        await self.Exec(
+        Res = await self.Exec(
             'site',
             {
                 'method': 'InsUrls',
@@ -73,18 +73,19 @@ class TMain(TModelBase):
             }
         )
 
-        return await self.Exec(
-            'site',
-            {
-                'method': 'GetUrlToUpdate_FromList',
-                'param': {
-                    'aSiteId': aSiteId,
-                    'aUrls': aUrls
-                }
-            }
-        )
+        # Res = await self.Exec(
+        #     'site',
+        #     {
+        #         'method': 'GetUrlToUpdate_FromList',
+        #         'param': {
+        #             'aSiteId': aSiteId,
+        #             'aUrls': aUrls
+        #         }
+        #     }
+        # )
+        return Res
 
-    async def InsHistUrl(self, aUrlId: int, aStatusCode: int, aParsedData: dict = None, aCrc: int = 0, aUrlCount: int = 0, aDataSize: int = 0, aUserId: int = 1, aUrlEn: str = None) -> dict:
+    async def UpdUrl(self, aUrlId: int, aStatusCode: int, aUrlEn: str = None) -> dict:
         await self.Exec(
             'site',
             {
@@ -97,6 +98,7 @@ class TMain(TModelBase):
             }
         )
 
+    async def InsHistUrl(self, aUrlId: int, aStatusCode: int, aParsedData: dict = None, aCrc: int = 0, aUrlCount: int = 0, aDataSize: int = 0, aUserId: int = 1) -> dict:
         await self.Exec(
             'site',
             {
