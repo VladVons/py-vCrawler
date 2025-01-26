@@ -44,7 +44,8 @@
                  ["get", ["isActive"]]
                ],
                "description": [ 
-                 ["get", ["description"]]
+                 ["get", ["description"]],
+                 ["replace", ["<br />", ""]]
                ]
             }]
           ]]
