@@ -89,6 +89,12 @@ class TMain(Lib.TCtrlBase):
         }
         Lib.DelValues(Schema, ['', [], {}, None])
 
+        Tabs = {
+            'features': bool(Product.get('features')),
+            'details': bool(Product.get('description'))
+        }
+        TabActive = Lib.DictFindVal(Tabs, True, 'features')
+
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblAttr, ['href'])
 
@@ -101,6 +107,7 @@ class TMain(Lib.TCtrlBase):
             'url_id': aUrlId,
             'url_ext': DblProduct.Rec.url,
             'host': UrlToDict(DblProduct.Rec.url)['host'],
+            'tab_active': TabActive,
             'href': {
                 'site': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}'
             }
