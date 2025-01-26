@@ -24,9 +24,26 @@ class TMain(Lib.TCtrlBase):
             Href = f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
             DblCategory.RecMerge([Lang, Href, xImage])
 
+        DblLast = await self.ExecModelImport(
+            'product',
+            {
+                'method': 'GetProductsLastAdded',
+                'param': {
+                    'aCountryId': aCountryId,
+                    'aLimit': 5
+                }
+            }
+        )
+        DblLast.AddFieldsFill(['href', 'href_ext'], False)
+        for Rec in DblLast:
+            Href = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
+            DblLast.RecMerge([Href, None])
+
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCategory, ['href'])
+            await Lib.SeoEncodeDbl(self, DblLast, ['href'])
 
         return {
-            'dbl_category': DblCategory.Export()
+            'dbl_category': DblCategory.Export(),
+            'dbl_products': DblLast.Export()
         }

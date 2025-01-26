@@ -102,3 +102,12 @@ class TMain(Lib.TDbModel):
                 'aUrlIds': UrlIds
             }
         )
+
+    async def GetProductsLastAdded(self, aCountryId: int, aLimit: int = 25) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_ProductsLastAdded.sql',
+            {
+                'aCountryId': aCountryId,
+                'aLimit': aLimit
+            }
+        )
