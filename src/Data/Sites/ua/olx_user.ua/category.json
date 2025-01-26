@@ -44,7 +44,8 @@
                  ["get", ["isActive"]]
                ],
                "description": [ 
-                 ["get", ["description"]]
+                 ["get", ["description"]],
+                 ["replace", ["<br />", ""]]
                ]
             }]
           ]]
@@ -54,7 +55,7 @@
           ["ranger", [1, 
               ["exec", [
                 ["get", ["totalPages"]], 
-                ["add", [1]]
+                ["int_add", [1]]
               ]]
           ]],
           ["list_map", [
