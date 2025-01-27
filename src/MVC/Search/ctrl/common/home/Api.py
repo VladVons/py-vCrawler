@@ -31,7 +31,8 @@ class TMain(Lib.TCtrlBase):
                 'param': {
                     'aCountryId': aCountryId,
                     'aLimit': 5
-                }
+                },
+                'cache_age': 60*10
             }
         )
         DblLast.AddFieldsFill(['href', 'href_ext'], False)
