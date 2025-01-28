@@ -39,7 +39,7 @@ class TApiCtrl(TApiBase):
                 'param': {
                     'aAttr': None
                 },
-                'cache_age': 60*1
+                'cache_age': -1
             }
         )
         Dbl = Lib.TDbList().Import(Data)
@@ -66,7 +66,7 @@ class TApiCtrl(TApiBase):
                 'param': {
                     'aLangId': aLangId
                 },
-                'cache_age': 60*10
+                'cache_age': -1
             }
         )
         Res = Data['data'][0][0]

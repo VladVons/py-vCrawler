@@ -49,13 +49,7 @@ class TMain(Lib.TCtrlBase):
 
         Res = {}
         if (DblProducts):
-            Marker = 'findwares.com'
-            Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
-            DblProducts.AddFieldsFill(['href', 'href_ext'], False)
-            for Rec in DblProducts:
-                Href = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
-                HrefExt = Rec.url + Lib.Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
-                DblProducts.RecMerge([Href, HrefExt])
+            Lib.DblProducts_Adjust(DblProducts, aLangId)
 
             Pagination = Lib.TPagination(aLimit, aData['path_qs'])
             Pagination.Visible = self.GetConf('pagination_cnt', 5)

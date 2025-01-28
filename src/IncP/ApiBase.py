@@ -97,7 +97,7 @@ class TApiBase():
             #Args = Method.__code__.co_varnames[:Method.__code__.co_argcount]
             try:
                 if ('cache_age' in aData):
-                    CacheAge = Iif(aData['cache_age'] == -1, 60*10, aData['cache_age'])
+                    CacheAge = Iif(aData['cache_age'] == -1, 10*60, aData['cache_age'])
                     Cache = self.ExecCache.Init(CacheAge)
                     Res = await self.ExecCache.Exec(Cache, _Exec, [Method, aData], aRoute, aData)
                 else:

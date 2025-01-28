@@ -5,6 +5,7 @@
 
 import asyncio
 #
+from Inc.ParserSpec.LibsComp import TLibsComp
 from IncP.ModelBase import TModelBase, Lib
 
 Lock = asyncio.Lock()
@@ -98,7 +99,26 @@ class TMain(TModelBase):
             }
         )
 
-    async def InsHistUrl(self, aUrlId: int, aStatusCode: int, aParsedData: dict = None, aCrc: int = 0, aUrlCount: int = 0, aDataSize: int = 0, aUserId: int = 1) -> dict:
+    async def InsUrlData(self, aUrlId: int, aStatusCode: int, aParsedData: dict, aCrc: int, aUrlCount: int = 0, aDataSize: int = 0, aUserId: int = 1, aUrlEn: str = None) -> dict:
+        if (aUrlEn == 'product'):
+            Title = aParsedData.get('name')
+            LibsComp = TLibsComp()
+            Attr = LibsComp.Parse(Title)
+            AttrPath = Lib.DictToPath(Attr)
+
+            await self.Exec(
+                'site',
+                {
+                    'method': 'InsProduct',
+                    'param': {
+                        'aUrlId': aUrlId,
+                        'aParsedData': aParsedData,
+                        'aAttr': AttrPath,
+                        'aCrc': aCrc
+                    }
+                }
+            )
+
         await self.Exec(
             'site',
             {

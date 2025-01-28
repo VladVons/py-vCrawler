@@ -72,11 +72,35 @@ begin
     return new;
 end $$ language plpgsql;
 
-create or replace trigger hist_url_tai
-    after insert on hist_url
-    for each row
-    when (new.parsed_data is not null)
-    execute function hist_url_fai();
+create or replace function hist_url_fai() returns trigger
+as $$
+begin
+    insert into ref_product
+        (update_date, url_id, parsed_data, title, stock, price)
+    values (
+        now(),
+        new.url_id,
+        new.parsed_data,
+        left(new.parsed_data->>'name', 128),
+        coalesce((new.parsed_data->>'stock')::bool, false),
+        (new.parsed_data->'price'->>0)::decimal
+    )
+    on conflict (url_id) do update
+    set
+        update_date = now(),
+        parsed_data = excluded.parsed_data,
+        title = excluded.title,
+        stock = (excluded.stock = true),
+        price = excluded.price;
+    return new;
+end $$ language plpgsql;
+
+
+--create or replace trigger hist_url_tai
+--    after insert on hist_url
+--    for each row
+--    when (new.parsed_data is not null)
+--    execute function hist_url_fai();
 
 ---
 

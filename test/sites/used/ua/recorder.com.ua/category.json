@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.09.30 10:00:00",
+      "url": [
+        "https://recorder.com.ua/noutbuki-5143/noutbuky_by"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products-block row"}]],
+          ["find_all", ["div", {"class": "product-layout"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["a", {"class": "product-thumb__name"}]],
+                 ["get", ["href"]]
+               ],
+               "name": [
+                 ["find", ["a", {"class": "product-thumb__name"}]],
+                 ["text"]
+               ],
+               "price": [
+                 ["find_or", [
+                  ["span", {"class": "price-new"}],
+                  ["div", {"class": "price"}]
+                ]],
+                ["text_strip"],
+                ["price"]
+              ],
+              "stock": [
+                 ["var_get", ["$price"]],
+                 ["list", [0]],
+                 ["val2bool"]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

@@ -47,7 +47,7 @@ class TMain(Lib.TCtrlBase):
                 'param': {
                     'aLangId': aLangId
                 },
-                'cache_age': 60*10
+                'cache_age': -1
             }
         )
 

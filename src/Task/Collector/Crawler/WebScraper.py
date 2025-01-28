@@ -6,11 +6,10 @@
 import random
 import asyncio
 import json
-import zlib
 from urllib.parse import urljoin
 #
 from Inc.Scheme.Scheme import TScheme
-from Inc.Var.Dict import DeepSetByList
+from Inc.Var.Dict import DeepSetByList, ToHash
 from Inc.Var.Str import StartsWith
 from Inc.Var.Obj import Iif, IifNone
 from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
@@ -47,18 +46,22 @@ class TRefUrl():
         return self.Parent.Robots
 
 
+    def CheckAdd(self, aUrl: str) -> bool:
+        return (isinstance(aUrl, str)) and (5 < len(aUrl.strip()) <= 256) and (aUrl not in self.Data)
+
     def Add(self, aUrl: str):
-        self.Data[aUrl] = 0
+        if (self.CheckAdd(aUrl)):
+            self.Data[aUrl] = [0, 0]
 
     def AddList(self, aUrl: list[str]):
         for xUrl in aUrl:
             self.Add(xUrl)
 
     def AddSafe(self, aUrl: str):
-        aUrl = aUrl.strip()
-        if (not aUrl) or (len(aUrl) >= 255):
+        if (not self.CheckAdd(aUrl)):
             return
 
+        aUrl = aUrl.strip()
         if (StartsWith(aUrl, ['#', 'javascript:', 'tel:', 'mailto:', 'viber:', 'tg:', 'sms:'])) or \
             ((aUrl.startswith('http')) and (not aUrl.startswith(self.UrlRoot))) or \
             (IsMimeApp(aUrl)) or \
@@ -67,6 +70,7 @@ class TRefUrl():
 
         aUrl = aUrl.rsplit('#', maxsplit=1)[0]
         aUrl = urljoin(self.UrlRoot, aUrl)
+        self.Data[aUrl] = [0, 0]
 
     def GetId(self, aUrl: str) -> int:
         return self.Data.get(aUrl, 0)
@@ -83,11 +87,11 @@ class TRefUrl():
             }
         )
 
-        Pairs = Dbl.ExportPair('url', 'id')
+        Pairs = Dbl.ExportPairs('url', ['id', 'crc'])
         self.Data.update(Pairs)
 
     async def Update(self):
-        Urls = [xKey for xKey, xVal in self.Data.items() if xVal == 0]
+        Urls = [xKey for xKey, xVal in self.Data.items() if xVal[0] == 0]
         if (Urls):
             await self._Update(Urls)
 
@@ -111,14 +115,11 @@ class TWebScraper():
         return Res
 
     @staticmethod
-    def AdjustProduct(aData: dict, aUrl: str) -> int:
+    def AdjustProduct(aData: dict, aUrl: str):
         aData['url'] = aUrl
         if (not aData.get('image')) and (aData.get('images')):
             aData['image'] = aData['images'][0]
         EscForSQL(aData)
-
-        Str = json.dumps(aData, sort_keys=True)
-        return zlib.crc32(Str.encode()) & 0x7FFFFFFF
 
     @staticmethod
     def IsProduct(aData: dict) -> bool:
@@ -141,7 +142,6 @@ class TWebScraper():
         for Rec in self.DblUrl:
             self.Cnt += 1
             DataSize = 0
-            PipeCrc = 0
             SchemeName = None
             Pipe = None
 
@@ -178,7 +178,7 @@ class TWebScraper():
                     match xKey:
                         case 'product':
                             if (self.IsProduct(Pipe)):
-                                PipeCrc = self.AdjustProduct(Pipe, Url)
+                                self.AdjustProduct(Pipe, Url)
                                 SchemeName = xKey
                                 TotalProduct += 1
                                 break
@@ -188,30 +188,34 @@ class TWebScraper():
                                 SchemeName = xKey
                                 break
 
-                await self.Api.ExecModel(
-                    'ctrl',
-                    {
-                        'method': 'InsHistUrl',
-                        'param': {
-                            'aUrlId': Rec.url_id,
-                            'aStatusCode': Status,
-                            'aParsedData': Iif(SchemeName == 'product', Pipe, None),
-                            'aCrc': PipeCrc,
-                            'aUrlCount': len(RefUrl.Data),
-                            'aDataSize': DataSize,
-                            'aUserId': self.Api.DbConf.user_id
+                ParsedData = Iif(SchemeName == 'product', Pipe, None)
+                Crc = ToHash(ParsedData)
+                if (Crc != Rec.crc):
+                    await self.Api.ExecModel(
+                        'ctrl',
+                        {
+                            'method': 'InsUrlData',
+                            'param': {
+                                'aUrlId': Rec.url_id,
+                                'aStatusCode': Status,
+                                'aParsedData': ParsedData,
+                                'aCrc': Crc,
+                                'aUrlCount': len(RefUrl.Data),
+                                'aDataSize': DataSize,
+                                'aUserId': self.Api.DbConf.user_id,
+                                'aUrlEn': SchemeName
+                            }
                         }
-                    }
-                )
+                    )
 
                 if (self.DblSite.Rec.category):
                     if (SchemeName in ('category', 'prodcat')):
-                        Products = [xProduct['href'] for xProduct in Products if ('href' in xProduct)]
-                        RefUrl.AddList(Products)
+                        HrefProducts = [xProduct['href'] for xProduct in Products if ('href' in xProduct)]
+                        RefUrl.AddList(HrefProducts)
 
-                        Categories = Pipe.get('pager')
-                        if (Categories):
-                            RefUrl.AddList(Categories)
+                        HrefCategories = Pipe.get('pager')
+                        if (HrefCategories):
+                            RefUrl.AddList(HrefCategories)
                 else:
                     for xUrl in Soup.find_all('a'):
                         RefUrl.AddSafe(xUrl)
@@ -223,7 +227,7 @@ class TWebScraper():
                         for xProduct in Products:
                             Href = xProduct.get('href')
                             if (Href) and (UrlId := RefUrl.GetId(Href)) and (self.IsProduct(xProduct)):
-                                Crc = self.AdjustProduct(xProduct, Href)
+                                UrlEn = 'product'
                                 await self.Api.ExecModel(
                                     'ctrl',
                                     {
@@ -231,15 +235,17 @@ class TWebScraper():
                                         'param': {
                                             'aUrlId': UrlId,
                                             'aStatusCode': 200,
-                                            'aUrlEn': 'product'
+                                            'aUrlEn': UrlEn
                                         }
                                     }
                                 )
 
+                                self.AdjustProduct(xProduct, Href)
+                                Crc = ToHash(xProduct)
                                 await self.Api.ExecModel(
                                     'ctrl',
                                     {
-                                        'method': 'InsHistUrl',
+                                        'method': 'InsUrlData',
                                         'param': {
                                             'aUrlId': UrlId,
                                             'aStatusCode': 200,
@@ -247,7 +253,8 @@ class TWebScraper():
                                             'aCrc': Crc,
                                             'aUrlCount': 0,
                                             'aDataSize': 0,
-                                            'aUserId': self.Api.DbConf.user_id
+                                            'aUserId': self.Api.DbConf.user_id,
+                                            'aUrlEn': UrlEn
                                         }
                                     }
                                 )

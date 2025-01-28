@@ -3,6 +3,9 @@
 # License: GNU, see LICENSE for more details
 
 
+from base64 import b64encode
+from urllib.parse import quote
+
 # pylint: skip-file
 from Inc.DbList import TDbList
 from Inc.Http.HttpUrl import UrlToDict, UrlToStr, QueryToDict
@@ -88,6 +91,16 @@ async def Model_GetCategoriesCountry(self, aCountryId: int) -> dict:
             'param': {
                 'aCountryId': aCountryId
             },
-            'cache_age': 60*10
+            'cache_age': -1
         }
     )
+
+def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
+    Marker = 'findwares.com'
+    Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
+    aDbl.AddFieldsFill(['href', 'href_ext', 'site'], False)
+    for Rec in aDbl:
+        Href = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
+        HrefExt = Rec.url + Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
+        Site = UrlToDict(Rec.url)['host']
+        aDbl.RecMerge([Href, HrefExt, Site])

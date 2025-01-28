@@ -240,7 +240,8 @@ async def Main():
     #q1 = await UrlGetData_PW(Url)
 
     #await TSchemer('olx_user.ua').Test('category')
-    await TSchemer('olx_shop.ua').Test('category')
+    #await TSchemer('olx_shop.ua').Test('category')
+    await TSchemer('recorder.com.ua').Test('product')
     #
     print("done")
 

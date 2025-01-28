@@ -240,7 +240,7 @@ create table if not exists ref_product (
     price_old           decimal(8, 2),
     stock               boolean default true,
     attr                jsonb,
-    title_crc           int,
+    crc                 int,
     tsv_title           tsvector generated always as (to_tsvector('russian', regexp_replace(title, '[-/]', ' ', 'g'))) stored,
     url_id              int not null unique references ref_url(id) on delete cascade
 );

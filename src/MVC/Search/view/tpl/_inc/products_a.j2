@@ -2,8 +2,9 @@
     {% set DblProducts = TDbList().Import(dbl_products) %}
     {% if DblProducts %}
       {% for Rec in DblProducts %}
-      <div class="row">
+      <div class="row mt-2">
         <div class="col-2">
+          <div>{{Rec.site}}</div>
           <a href="{{Rec.href}}" title="{{Rec.update_date.strftime('%Y-%m-%d')}} {{Rec.href_ext}}">
             <img src="{{Rec.image}}" alt="{{Rec.title |truncate(32, True, '...')}}" class="thumb">
           </a>

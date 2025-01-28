@@ -85,6 +85,24 @@ class TMain(Lib.TDbModel):
             }
         )
 
+    async def InsProduct(self, aUrlId: int, aParsedData: dict, aAttr: dict, aCrc: int) -> dict:
+        ParsedData = json.dumps(aParsedData, indent=1, ensure_ascii=False)
+        Attr = json.dumps(aAttr, indent=1, ensure_ascii=False)
+        Title = aParsedData.get('name')[:128].replace("'", "''")
+
+        return await self.ExecQuery(
+            'fmtIns_Product.sql',
+            {
+                'aUrlId': aUrlId,
+                'aTitle': Title,
+                'aStock': aParsedData.get('stock', False),
+                'aPrice': aParsedData.get('price')[0],
+                'aParsedData': ParsedData,
+                'aAttr': Attr,
+                'aCrc': aCrc
+            }
+        )
+
     async def GetSiteCountry(self, aCountryId: int) -> dict:
         return await self.ExecQuery(
             'fmtGet_SiteCountry.sql',

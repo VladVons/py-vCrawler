@@ -6,11 +6,14 @@ select
   ru.id as url_id,
   ru.url,
   ru.url_en,
-  ru.update_date
+  ru.update_date,
+  rp.crc
 from
   ref_site rs
-left join
+join
   ref_url ru on (ru.site_id = rs.id)
+join
+  ref_product rp on (rp.url_id = ru.id)
 where
   (rs.enabled is true) and
   (rs.id = {{aSiteId}}) and

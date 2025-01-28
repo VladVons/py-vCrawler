@@ -8,7 +8,8 @@ select
   rp.attr,
   ru.url,
   rs.id as site_id,
-  rs.country_id
+  rs.country_id,
+  rs.url as site_url
 from
   hist_url hu
 join

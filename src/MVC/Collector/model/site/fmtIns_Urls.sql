@@ -15,8 +15,12 @@ when not matched then
 
 -- result
 select
-  id, url
+  ru.id,
+  ru.url,
+  rp.crc
 from
-  ref_url
+  ref_url ru
+left join ref_product rp
+  on rp.url_id = ru.id
 where
   (site_id, url) in ({{aValues}});

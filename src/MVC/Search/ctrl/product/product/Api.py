@@ -5,7 +5,6 @@
 
 import json
 #
-from Inc.Http.HttpUrl import UrlToDict
 import IncP.LibCtrl as Lib
 
 
@@ -106,7 +105,7 @@ class TMain(Lib.TCtrlBase):
             'meta_image': Product['image'],
             'url_id': aUrlId,
             'url_ext': DblProduct.Rec.url,
-            'host': UrlToDict(DblProduct.Rec.url)['host'],
+            'host': Lib.UrlToDict(DblProduct.Rec.site_url)['host'],
             'tab_active': TabActive,
             'href': {
                 'site': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}'

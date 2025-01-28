@@ -54,7 +54,7 @@
           ["var_get", ["$JsData"]],
           ["ranger", [1, 
               ["exec", [
-                ["get", ["totalPages"]], 
+                ["get", ["totalPages"]],
                 ["int_add", [1]]
               ]]
           ]],

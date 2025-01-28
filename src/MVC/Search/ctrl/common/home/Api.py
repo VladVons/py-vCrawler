@@ -32,13 +32,11 @@ class TMain(Lib.TCtrlBase):
                     'aCountryId': aCountryId,
                     'aLimit': 5
                 },
-                'cache_age': 60*10
+                'cache_age': -1
             }
         )
-        DblLast.AddFieldsFill(['href', 'href_ext'], False)
-        for Rec in DblLast:
-            Href = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
-            DblLast.RecMerge([Href, None])
+        Lib.DblProducts_Adjust(DblLast, aLangId)
+
 
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCategory, ['href'])
