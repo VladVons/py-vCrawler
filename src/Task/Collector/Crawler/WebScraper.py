@@ -72,8 +72,8 @@ class TRefUrl():
         aUrl = urljoin(self.UrlRoot, aUrl)
         self.Data[aUrl] = [0, 0]
 
-    def GetId(self, aUrl: str) -> int:
-        return self.Data.get(aUrl, 0)
+    def Get(self, aUrl: str) -> list:
+        return self.Data.get(aUrl, [0, 0])
 
     async def _Update(self, aUrls: list[str]):
         Dbl = await self.Api.ExecModel(
@@ -226,7 +226,7 @@ class TWebScraper():
                     if (Products):
                         for xProduct in Products:
                             Href = xProduct.get('href')
-                            if (Href) and (UrlId := RefUrl.GetId(Href)) and (self.IsProduct(xProduct)):
+                            if (Href) and (UrlId := RefUrl.Get(Href)[0]) and (self.IsProduct(xProduct)):
                                 UrlEn = 'product'
                                 await self.Api.ExecModel(
                                     'ctrl',
@@ -242,23 +242,24 @@ class TWebScraper():
 
                                 self.AdjustProduct(xProduct, Href)
                                 Crc = ToHash(xProduct)
-                                await self.Api.ExecModel(
-                                    'ctrl',
-                                    {
-                                        'method': 'InsUrlData',
-                                        'param': {
-                                            'aUrlId': UrlId,
-                                            'aStatusCode': 200,
-                                            'aParsedData': xProduct,
-                                            'aCrc': Crc,
-                                            'aUrlCount': 0,
-                                            'aDataSize': 0,
-                                            'aUserId': self.Api.DbConf.user_id,
-                                            'aUrlEn': UrlEn
+                                if (Crc != RefUrl.Get(Href)[1]):
+                                    await self.Api.ExecModel(
+                                        'ctrl',
+                                        {
+                                            'method': 'InsUrlData',
+                                            'param': {
+                                                'aUrlId': UrlId,
+                                                'aStatusCode': 200,
+                                                'aParsedData': xProduct,
+                                                'aCrc': Crc,
+                                                'aUrlCount': 0,
+                                                'aDataSize': 0,
+                                                'aUserId': self.Api.DbConf.user_id,
+                                                'aUrlEn': UrlEn
+                                            }
                                         }
-                                    }
-                                )
-                                await asyncio.sleep(1)
+                                    )
+                                    await asyncio.sleep(1)
             await self.Api.ExecModel(
                 'ctrl',
                 {

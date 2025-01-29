@@ -25,7 +25,8 @@ from (
     (ru.url_en = 'product') and
     (ru.status_code = 200) and
     (rp.stock is true) and
-    (rp.price > 1000)
+    (rp.price > 1000) and
+    (rp.attr is not null and rp.attr <> '{}'::jsonb)
   order by
     ru.id desc
   limit

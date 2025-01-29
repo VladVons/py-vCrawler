@@ -6,6 +6,7 @@
 import asyncio
 #
 from Inc.ParserSpec.LibsComp import TLibsComp
+from IncP.Common import AdjustAttr
 from IncP.ModelBase import TModelBase, Lib
 
 Lock = asyncio.Lock()
@@ -104,7 +105,7 @@ class TMain(TModelBase):
             Title = aParsedData.get('name')
             LibsComp = TLibsComp()
             Attr = LibsComp.Parse(Title)
-            AttrPath = Lib.DictToPath(Attr)
+            AttrPath = AdjustAttr(Attr)
 
             await self.Exec(
                 'site',

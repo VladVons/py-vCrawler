@@ -3,9 +3,9 @@
 # License: GNU, see LICENSE for more details
 
 from base64 import b64encode
-from Inc.Var.Dict import DictToPath
 from Inc.DbList.DbConvert import DblToXlsx
 from Inc.ParserSpec.LibsComp import TLibsComp
+from IncP.Common import AdjustAttr
 import IncP.LibCtrl as Lib
 
 
@@ -85,16 +85,8 @@ class TMain(Lib.TCtrlBase):
                 SpecComp = TLibsComp()
                 Values = []
                 for Rec in Dbl:
-                    Attrs = SpecComp.Parse(Rec.title)
-                    AttrPath = DictToPath(Attrs)
-                    for xKey in list(AttrPath.keys()):
-                        xVal = AttrPath[xKey]
-                        if (isinstance(xVal, str)):
-                            AttrPath[xKey] = xVal.lower()
-
-                        if (xKey in ['cpu/gen', 'ram/unit', 'storage/unit']):
-                            del AttrPath[xKey]
-
+                    Attr = SpecComp.Parse(Rec.title)
+                    AttrPath = AdjustAttr(Attr)
                     Values.append((Rec.url_id, Rec.title, AttrPath))
 
                 Dbl = await self.ExecModelImport(

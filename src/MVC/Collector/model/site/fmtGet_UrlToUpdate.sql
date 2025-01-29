@@ -12,7 +12,7 @@ from
   ref_site rs
 join
   ref_url ru on (ru.site_id = rs.id)
-join
+left join
   ref_product rp on (rp.url_id = ru.id)
 where
   (rs.enabled is true) and
