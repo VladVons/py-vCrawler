@@ -41,3 +41,14 @@ set attr = (
 where attr ? 'old_key1' or attr ? 'old_key2';
 
 
+-- update empty image from json field
+update 
+  ref_product
+set 
+  image = left(rp.parsed_data->>'image', 256)
+from
+  ref_product as rp
+where 
+  (ref_product.url_id = rp.url_id) and
+  (ref_product.image is null) and 
+  (rp.parsed_data::jsonb ? 'image')
