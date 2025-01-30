@@ -139,10 +139,9 @@ class TWebScraper():
 
         Proxy = self.DblSite.Rec.proxy
         if (Proxy) and (not Proxy.get('required')):
-            # Rnd = random.randint(1, Proxy['total'] * 2)
-            # if (Rnd >= Proxy['total']):
-            #     Proxy = None
-            pass
+            Rnd = random.randint(1, Proxy['total'] * 2)
+            if (Rnd >= Proxy['total']):
+                Proxy = None
 
         TotalProduct = 0
         TotalDataSize = 0

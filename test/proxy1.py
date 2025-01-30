@@ -2,8 +2,10 @@ import aiohttp
 import asyncio
 
 # Your Ukrainian proxy URL (replace with actual proxy)
-PROXY = "http://91.228.13.79:50100"
-PROXY = "http://195.178.134.35:50100"
+PROXY = "http://193.36.223.66:50100"
+#PROXY = "http://185.239.188.15:50100"
+#PROXY = "http://91.228.13.79:50100"
+#PROXY = "http://195.178.134.35:50100"
 PROXY_USER = "vladvons"
 PROXY_PASS = "Mc6bVJCgvo"
 auth = aiohttp.BasicAuth(PROXY_USER, PROXY_PASS)
@@ -31,6 +33,7 @@ if __name__ == "__main__":
     urls1 = [
         "-https://it.findwares.com",
         "-https://pc.com.ua/ua/acer-b223w-b",
-        "https://laptop-planet.com.ua/lenovo-thinkpad-e14-14-fullhd-i5-10210u-16gb-ram-256gb-nvme/"
+        "-https://laptop-planet.com.ua/lenovo-thinkpad-e14-14-fullhd-i5-10210u-16gb-ram-256gb-nvme/",
+        "https://www.olx.ua/uk/list/user/1tPPZ/?categoryId=37&page=3"
     ]
     asyncio.run(crawl(urls1))
