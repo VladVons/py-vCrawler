@@ -56,13 +56,16 @@ class TMain(Lib.TDbModel):
             }
         )
 
-    async def UpdUrl(self, aUrlId: int, aUrlEn: str, aStatusCode: int) -> dict:
+    async def UpdUrl(self, aUrlId: int, aUrlEn: str, aStatusCode: int, aProxyId: int = None) -> dict:
+        aProxyId = Lib.Iif(aProxyId, aProxyId, 'null')
+
         return await self.ExecQuery(
             'fmtUpd_Url.sql',
             {
                 'aUrlId': aUrlId,
                 'aUrlEn': aUrlEn,
-                'aStatusCode': aStatusCode
+                'aStatusCode': aStatusCode,
+                'aProxyId': aProxyId
             }
         )
 

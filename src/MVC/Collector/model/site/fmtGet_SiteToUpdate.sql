@@ -25,7 +25,23 @@ select
     select array_agg(rsc.path)
     from ref_site_category rsc
     where (rsc.enabled and rsc.site_id = rs.id)
-  ) as category
+  ) as category,
+  (
+    select jsonb_build_object(
+      'id', rp.id,
+      'scheme', rp.scheme_en,
+      'host', rp.host,
+      'port', rp.port,
+      'login', rp.login,
+      'passw', rp.passw,
+      'total',  count(*) over(),
+      'required', rs.proxy
+    )
+    from ref_proxy rp
+    where (rp.country_id = rs.country_id) and (rp.enabled is true) and (rp.valid_date >= now())
+    order by random()
+    limit 1
+  ) as proxy
 from
   ref_site rs
 join

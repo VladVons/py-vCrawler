@@ -9,7 +9,7 @@ import json
 from urllib.parse import urljoin
 #
 from Inc.Scheme.Scheme import TScheme
-from Inc.Var.Dict import DeepSetByList, ToHash
+from Inc.Var.Dict import DeepSetByList, ToHash, GetNotNone
 from Inc.Var.Str import StartsWith
 from Inc.Var.Obj import Iif, IifNone
 from Inc.Misc.PlayWrite import UrlGetData as PW_UrlGetData
@@ -137,6 +137,13 @@ class TWebScraper():
         CustomRobots = self.DblSite.Rec.robots
         self.Robots = await InitRobots(self.UrlRoot, CustomRobots)
 
+        Proxy = self.DblSite.Rec.proxy
+        if (Proxy) and (not Proxy.get('required')):
+            # Rnd = random.randint(1, Proxy['total'] * 2)
+            # if (Rnd >= Proxy['total']):
+            #     Proxy = None
+            pass
+
         TotalProduct = 0
         TotalDataSize = 0
         for Rec in self.DblUrl:
@@ -154,7 +161,7 @@ class TWebScraper():
             if (self.DblSite.Rec.emulator):
                 Data = await PW_UrlGetData(Url, aStatusOnly=StatusOnly)
             else:
-                Data = await UrlGetData(Url, self.DblSite.Rec.headers, aStatusOnly=StatusOnly)
+                Data = await UrlGetData(Url, self.DblSite.Rec.headers, aStatusOnly=StatusOnly, aProxy=Proxy)
             #WriteFileDebug(f'{Url}_{self.Cnt}', Data['data'])
 
             Status = Data['status']
@@ -260,6 +267,7 @@ class TWebScraper():
                                         }
                                     )
                                     await asyncio.sleep(1)
+            ProxyId = GetNotNone(Proxy, 'id', None)
             await self.Api.ExecModel(
                 'ctrl',
                 {
@@ -267,7 +275,8 @@ class TWebScraper():
                     'param': {
                         'aUrlId': Rec.url_id,
                         'aStatusCode': Status,
-                        'aUrlEn': SchemeName
+                        'aUrlEn': SchemeName,
+                        'aProxyId': ProxyId
                     }
                 }
             )

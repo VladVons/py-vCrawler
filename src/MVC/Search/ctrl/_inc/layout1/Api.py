@@ -55,6 +55,7 @@ class TMain(Lib.TCtrlBase):
         Country = '' if (RecNo == -1) else DblCountry.RecGo(RecNo).title
 
         Res = {
+            'href_search_ajax': '/api/?route=product/search',
             'href': {
                 'countries': f'/?route=site/countries&lang_id={aLangId}',
                 'compare':  f'/?route=product/compare&lang_id={aLangId}',

@@ -32,6 +32,12 @@ create type inbox_enum as enum (
 );
 
 
+create type scheme_enum as enum (
+    'http',
+    'https',
+    'socks5'
+);
+
 -- conf --
 
 create table if not exists ref_conf (
@@ -141,6 +147,22 @@ create table ref_country_lang (
     unique(country_id, lang_id)
 );
 
+--
+
+create table if not exists ref_proxy (
+    id                  serial primary key,
+    create_date         timestamp default current_timestamp,
+    valid_date          date,
+    enabled             boolean,
+    scheme_en           scheme_enum not null default 'http',
+    host                inet not null unique,
+    port                smallint not null,
+    login               varchar(16),
+    passw               varchar(16),
+    country_id          smallint references ref_country(id) on delete cascade,
+    provider            varchar(32)
+);
+
 -- user --
 
 create table if not exists ref_user (
@@ -210,6 +232,7 @@ create table if not exists ref_url (
     url_en              url_enum,
     status_code         smallint,
     site_id             int not null references ref_site(id) on delete cascade,
+    proxy_id            int references ref_proxy(id),
     unique (url, site_id)
 );
 
@@ -247,3 +270,7 @@ create table if not exists ref_product (
 alter table ref_product add column tsv_title tsvector generated always as (to_tsvector('simple', regexp_replace(title, '[-/]', ' ', 'g'))) stored;
 create index ref_product_tvs_idx on ref_product using gin (tsv_title);
 create index ref_product_attr_idx on ref_product using gin (attr);
+
+
+--
+

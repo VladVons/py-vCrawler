@@ -8,6 +8,9 @@
 <form method="get" class="search-group ms-3" autocomplete="off" id="viSearchForm">
   <input type="hidden" name="route" value="product/search"/>
   <input type="text" class="form-control search-input" name="q" value="{{search}}" id="viSearchInput" placeholder="{{Translate(lang, 'search')}}">
+  <div class="autocomplete-items" id="viSearchSuggest">
+    <!-- JS -->
+  </div>
   <button type="submit" class="search-icon ms-2" aria-label="Search">
     <i class="fa fa-search"></i>
   </button>
@@ -97,5 +100,9 @@
 
   OnCountry();
   OnHeadCompareFavorite();
+
+  const search_ajax = '{{href_search_ajax}}';
+  const search_query = {'method': 'ajax', 'lang_id': '{{lang_id}}', 'country_id': '{{country_id}}'}
+  //searchNavbar(search_ajax, search_query);
 </script>
 <!-- header - -->

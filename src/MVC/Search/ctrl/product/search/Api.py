@@ -3,12 +3,35 @@
 # License: GNU, see LICENSE for more details
 
 
-from base64 import b64encode
-from urllib.parse import quote
 import IncP.LibCtrl as Lib
 
 
 class TMain(Lib.TCtrlBase):
+    async def ajax(self, **aData: dict) -> dict:
+        aLangId, aCountryId, aSearch  = Lib.GetDictDefs(
+            aData,
+            ('lang_id', 'country_id', 'q'),
+            (1, 1, '')
+        )
+
+        Dbl = await self.ExecModelImport(
+            'product',
+            {
+                'method': 'Get_Products_Search2',
+                'param': {
+                    'aFilter': aSearch.replace('_', ' '),
+                    'aCountryId': aCountryId,
+                    'aOrder': 'price asc',
+                    'aLimit': 10,
+                    'aOffset': 0
+                }
+            }
+        )
+
+        if (Dbl):
+            Res = Dbl.ExportList('title')
+            return Res
+
     async def Main(self, **aData):
         aLangId, aCountryId, aSearch, aSort, aOrder, aPage, aLimit = Lib.GetDictDefs(
             aData.get('query'),

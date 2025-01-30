@@ -87,7 +87,7 @@ class TMain(TModelBase):
         # )
         return Res
 
-    async def UpdUrl(self, aUrlId: int, aStatusCode: int, aUrlEn: str = None) -> dict:
+    async def UpdUrl(self, aUrlId: int, aStatusCode: int, aUrlEn: str = None, aProxyId: int = None) -> dict:
         await self.Exec(
             'site',
             {
@@ -95,7 +95,8 @@ class TMain(TModelBase):
                 'param': {
                     'aUrlId': aUrlId,
                     'aUrlEn': aUrlEn,
-                    'aStatusCode': aStatusCode
+                    'aStatusCode': aStatusCode,
+                    'aProxyId': aProxyId
                 }
             }
         )
