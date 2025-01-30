@@ -107,7 +107,11 @@ end $$ language plpgsql;
 create or replace function ref_url_fau() returns trigger 
 as $$
 begin
-  delete from ref_product
+  --delete from ref_product
+  --where url_id = new.id;
+
+  update ref_product
+  set stock = false
   where url_id = new.id;
 
   return new;
