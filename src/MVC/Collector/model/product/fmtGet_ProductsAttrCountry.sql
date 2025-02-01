@@ -11,7 +11,8 @@ select
   rp.price,
   (rp.parsed_data->'price_old'->>0)::decimal as price_old,
   (rp.parsed_data->>'image') as image,
-  ru.url
+  ru.url,
+  ru.create_date
 from
   ref_product rp
 join

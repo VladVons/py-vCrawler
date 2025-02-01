@@ -55,13 +55,12 @@ class TMain(Lib.TCtrlBase):
         return Dbl.Export()
 
     async def Main(self, **aData) -> dict:
-        aLangId, aCountryId, aPage, aLimit = Lib.GetDictDefs(
+        aLangId, aCountryId, aPage, aLimit, aSort, aOrder = Lib.GetDictDefs(
             aData.get('query'),
-            ('lang_id', 'country_id', 'page', 'limit'),
-            (1, 1, 1, self.GetConf('products_per_page', 10))
+            ('lang_id', 'country_id', 'page', 'limit', 'sort', 'order'),
+            (1, 1, 1, self.GetConf('products_per_page', 10), ('create_date', 'price'), ('asc', 'desc'))
         )
 
-        aOrder = 'price'
         aLimit = min(aLimit, self.GetConf('products_per_page_max', 100))
         Res = {}
         Filter = Lib.GetFilterFromQuery(aData.get('query'))
@@ -96,7 +95,7 @@ class TMain(Lib.TCtrlBase):
                 'param': {
                     'aCountryId': aCountryId,
                     'aFilter': Filter,
-                    'aOrder': f'{aOrder}',
+                    'aOrder': f'{aSort} {aOrder}',
                     'aLimit': aLimit,
                     'aOffset': (aPage - 1) * aLimit
                 }
@@ -111,6 +110,9 @@ class TMain(Lib.TCtrlBase):
             PData = Pagination.Get(DblProducts.Rec.total, aPage)
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
             Res['dbl_pagenation'] = DblPagination.Export()
+
+            DblProductsSort = Lib.GetProductsSort(Pagination.Href, f'&sort={aSort}&order={aOrder}')
+            Res['dbl_products_sort'] = DblProductsSort.Export()
 
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblProducts, ['href'])

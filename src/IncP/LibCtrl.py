@@ -8,7 +8,7 @@ from urllib.parse import quote
 
 # pylint: skip-file
 from Inc.DbList import TDbList
-from Inc.Http.HttpUrl import UrlToDict, UrlToStr, QueryToDict
+from Inc.Http.HttpUrl import UrlToDict, UrlToStr, QueryToDict, QueryToStr
 from Inc.Misc.Pagination import TPagination
 from Inc.Misc.Crypt import GetCRC
 from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, DictUpdateDef, Filter, DictFindVal, DelValues, GetNotNone
@@ -104,3 +104,25 @@ def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
         HrefExt = Rec.url + Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
         Site = UrlToDict(Rec.url)['host']
         aDbl.RecMerge([Href, HrefExt, Site])
+
+def GetProductsSort(aHref: str, aCur: str) -> TDbList:
+    def UrlUdate(aUrlDict: dict, aQuery: dict) -> str:
+        QueryStr = QueryToStr(aQuery)
+        return UrlToStr(aUrlDict | {'query': QueryStr})
+
+    UrlDict = UrlToDict(aHref)
+    UrlQuery = QueryToDict(UrlDict.get('query'))
+    Dbl = TDbList().Import({
+        'head': ['href', 'title', 'selected'],
+        'data': [
+            [f'{aHref}', 'default', ''],
+            [UrlUdate(UrlDict, UrlQuery | {'sort': 'create_date', 'order': 'desc'}), 'creation date',  ''],
+            [UrlUdate(UrlDict, UrlQuery | {'sort': 'price', 'order': 'asc'}), 'price', ''],
+        ]
+    })
+
+    for Rec in Dbl:
+        if (aCur in Rec.href):
+            Rec.SetField('selected', 'selected')
+    return Dbl
+
