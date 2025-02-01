@@ -1,0 +1,49 @@
+{
+  "category": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.10.14 10:00:00",
+      "url": [
+        "https://trium.com.ua/computers/"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"id": "product-category"}]],
+          ["find_all", ["div", {"class": "product-layout"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [ 
+                 ["find", ["div", {"class": "caption"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "caption"}]],
+                 ["find", ["a"]],
+                 ["text_strip"]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+              ],
+              "stock": [
+                 ["find", ["div", {"class": "stock_status"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_eq", ["готово до відправки", "є в наявності"]]
+              ]
+            }]
+          ]]
+       ],
+       "pager": [
+         ["find", ["ul", {"class": "pagination"}]],
+         ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

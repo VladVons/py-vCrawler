@@ -4,8 +4,8 @@
       "author": "vladvons",
       "date": "2025.01.23 09:00:00",
       "url": [
-        "-https://bovi.olx.ua/uk/home/elektronika/",
-        "https://igoodlutsk.olx.ua/uk/home/elektronika/"
+        "https://bovi.olx.ua/uk/home/elektronika/",
+        "-https://igoodlutsk.olx.ua/uk/home/elektronika/"
       ]
     },
     "pipe": [
@@ -50,6 +50,16 @@
                "description": [ 
                  ["get", ["description"]],
                  ["replace", ["<br />", ""]]
+               ],
+               "features": [
+                 ["var_get", ["$description"]],
+                 ["split", ["\n"]],
+                 ["list_map", [
+                   ["split", [": "]]
+                 ]],
+                 ["list_filter_len", [2]],
+                 ["keyval2dict"],
+                 ["dict_keydel_re", ["граф[іи]к|більше|адрес|телефон|звони|рейтинг|[іи]нстаграм|телеграм|точка|магазин"]]
                ]
             }]
           ]]

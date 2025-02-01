@@ -7,7 +7,8 @@ with wt1 as (
     count(case when ru.url_en = 'product' then 1 end) as products,
     count(case when ru.status_code != 200 then 1 end) as err,
     count(case when rp.stock then 1 end) as onstock,
-    count(case when rp.price_old > 0 then 1 end) as discount
+    --slow! count(case when (rp.parsed_data->'price_old'->>0)::decimal > 0 then 1 end) as discount
+    0 as discount
   from
     ref_url ru
   join

@@ -254,13 +254,7 @@ create index if not exists hist_url_idx_id on hist_url (url_id);
 create table if not exists ref_product (
     update_date         timestamp,
     title               varchar(128),
-    category            varchar(80),
-    image               varchar(256),
-    sku                 varchar(24),
-    mpn                 varchar(24),
-    brand               varchar(24),
     price               decimal(8, 2),
-    price_old           decimal(8, 2),
     stock               boolean default true,
     attr                jsonb,
     crc                 int,
@@ -270,7 +264,6 @@ create table if not exists ref_product (
 alter table ref_product add column tsv_title tsvector generated always as (to_tsvector('simple', regexp_replace(title, '[-/]', ' ', 'g'))) stored;
 create index ref_product_tvs_idx on ref_product using gin (tsv_title);
 create index ref_product_attr_idx on ref_product using gin (attr);
-
 
 --
 

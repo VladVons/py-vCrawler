@@ -9,15 +9,15 @@ select
   rp.attr,
   rp.stock,
   rp.price,
-  rp.price_old,
-  rp.image,
+  (rp.parsed_data->'price_old'->>0)::decimal as price_old,
+  (rp.parsed_data->>'image') as image,
   ru.url
 from
   ref_product rp
 join
   ref_url ru on (ru.id = rp.url_id)
 join
-  ref_site rs on (rs.id = ru.site_id) and (rs.country_id = {{aCountryId}})
+  ref_site rs on (rs.id = ru.site_id) and (rs.country_id = {{aCountryId}}) and (rs.enabled is true)
 where
   (rp.stock is true) and
   (rp.attr @> '{{aFilter}}')

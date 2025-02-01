@@ -2,9 +2,9 @@
 -- in: aCountryId
 
 select
-  rc.id as country_id, 
+  rc.id as country_id,
   rc.lang_id
 from
   ref_country rc
-where 
+where
   rc.id = {{aCountryId}}

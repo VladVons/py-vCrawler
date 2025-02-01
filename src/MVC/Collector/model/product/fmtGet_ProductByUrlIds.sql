@@ -16,7 +16,7 @@ join
 join
   ref_url ru on (ru.id = hu.url_id)
 join
-  ref_site rs on (rs.id = ru.site_id)
+  ref_site rs on (rs.id = ru.site_id) and (rs.enabled is true)
 where
   hu.id in (
        select

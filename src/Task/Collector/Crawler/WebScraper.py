@@ -139,8 +139,11 @@ class TWebScraper():
 
         Proxy = self.DblSite.Rec.proxy
         if (Proxy) and (not Proxy.get('required')):
-            Rnd = random.randint(1, Proxy['total'] * 2)
-            if (Rnd >= Proxy['total']):
+            if (Proxy.get('required') is None):
+                Rnd = random.randint(1, Proxy['total'] * 2)
+                if (Rnd >= Proxy['total']):
+                    Proxy = None
+            else:
                 Proxy = None
 
         TotalProduct = 0
@@ -213,6 +216,8 @@ class TWebScraper():
                             }
                         }
                     )
+                else:
+                    print('CRC ok')
 
                 if (self.DblSite.Rec.category):
                     if (SchemeName in ('category', 'prodcat')):

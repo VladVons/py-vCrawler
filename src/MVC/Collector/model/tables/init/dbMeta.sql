@@ -43,32 +43,20 @@ create or replace function hist_url_fai() returns trigger
 as $$
 begin
     insert into ref_product
-        (update_date, url_id, sku, mpn, brand, title, category, image, stock, price, price_old)
+        (update_date, url_id, title, stock, price)
     values (
         now(),
         new.url_id,
-        new.parsed_data->>'sku',
-        left(new.parsed_data->>'mpn', 24),
-        left(new.parsed_data->>'brand', 24),
         left(new.parsed_data->>'name', 128),
-        left(new.parsed_data->>'category', 80),
-        left(new.parsed_data->>'image', 256),
         coalesce((new.parsed_data->>'stock')::bool, false),
-        (new.parsed_data->'price'->>0)::decimal,
-        (new.parsed_data->'price_old'->>0)::decimal
+        (new.parsed_data->'price'->>0)::decimal
     )
     on conflict (url_id) do update
     set
         update_date = now(),
-        sku = excluded.sku,
-        mpn = excluded.mpn,
-        brand = excluded.brand,
         title = excluded.title,
-        category = excluded.category,
-        image = excluded.image,
         stock = (excluded.stock = true),
-        price = excluded.price,
-        price_old = excluded.price_old;
+        price = excluded.price
     return new;
 end $$ language plpgsql;
 

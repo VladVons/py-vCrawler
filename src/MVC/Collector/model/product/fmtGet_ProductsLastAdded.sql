@@ -10,9 +10,9 @@ from (
     ru.url,
     rp.update_date,
     rp.title,
-    rp.image,
     rp.price,
-    rp.price_old
+    (rp.parsed_data->'price_old'->>0)::decimal as price_old,
+    (rp.parsed_data->>'image') as image
   from
     ref_url ru
   join
@@ -22,11 +22,11 @@ from (
   where
     (rs.enabled is true) and
     (rs.country_id = {{aCountryId}}) and
-    (ru.url_en = 'product') and
     (ru.status_code = 200) and
     (rp.stock is true) and
     (rp.price > 1000) and
-    (rp.attr is not null and rp.attr <> '{}'::jsonb)
+    (rp.attr is not null and rp.attr <> '{}'::jsonb) and
+    (rp.parsed_data::jsonb ? 'image')
   order by
     ru.id desc
   limit
