@@ -33,10 +33,10 @@ class TMain(Lib.TCtrlBase):
             return Res
 
     async def Main(self, **aData):
-        aLangId, aCountryId, aSearch, aSort, aOrder, aPage, aLimit = Lib.GetDictDefs(
+        aLangId, aCountryId, aSearch, aPage, aLimit, aSort, aOrder = Lib.GetDictDefs(
             aData.get('query'),
-            ('lang_id', 'country_id', 'q', 'sort', 'order', 'page', 'limit'),
-            (1, 1, '', ('sort_order, title', 'title', 'price', 'stock'), ('asc', 'desc'), 1, self.GetConf('products_per_page', 10))
+            ('lang_id', 'country_id', 'q', 'page', 'limit', 'sort', 'order'),
+            (1, 1, 'dell', 1, self.GetConf('products_per_page', 10), ('create_date', 'price'), ('asc', 'desc'))
         )
 
         aLimit = min(aLimit, self.GetConf('products_per_page_max', 100))
@@ -79,6 +79,9 @@ class TMain(Lib.TCtrlBase):
             PData = Pagination.Get(DblProducts.Rec.total, aPage)
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
             Res['dbl_pagenation'] = DblPagination.Export()
+
+            DblProductsSort = Lib.GetProductsSort(Pagination.Href, f'&sort={aSort}&order={aOrder}')
+            Res['dbl_products_sort'] = DblProductsSort.Export()
 
             if (self.GetConf('seo_url')):
                 await Lib.SeoEncodeDbl(self, DblProducts, ['href'])

@@ -11,7 +11,8 @@ with wt1 as(
     rp.stock,
     rp.price,
     (rp.parsed_data->'price_old'->>0)::decimal as price_old,
-    (rp.parsed_data->>'image') as image
+    (rp.parsed_data->>'image') as image,
+    ru.create_date
   from
     ref_product rp
   join
@@ -24,8 +25,7 @@ with wt1 as(
     (rp.price > 0) and
     (rp.title ilike all (values {{FilterRe}}))
   order by
-    rp.stock desc,
-    rp.price
+    {{aOrder}}
   limit
     {{aLimit}}
   offset
