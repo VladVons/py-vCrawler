@@ -2,25 +2,19 @@
 -- in: aUrlId
 
 select
-  hu.url_id,
-  hu.parsed_data as product,
-  hu.create_date,
+  rp.url_id,
+  rp.parsed_data,
+  rp.update_date,
   rp.attr,
   ru.url,
   rs.id as site_id,
   rs.country_id,
   rs.url as site_url
 from
-  hist_url hu
+  ref_product rp
 join
-  ref_product rp on (rp.url_id = hu.url_id)
-join
-  ref_url ru on (ru.id = hu.url_id)
+  ref_url ru on (ru.id = rp.url_id)
 join
   ref_site rs on (rs.id = ru.site_id) and (rs.enabled is true)
 where
-  (hu.url_id = {{aUrlId}})
-order by
-  hu.id desc
-limit
-  1
+  (rp.url_id = {{aUrlId}})

@@ -29,7 +29,7 @@ class TMain(Lib.TCtrlBase):
             return {'status_code': 404}
 
         Res = {}
-        Product = DblProduct.Rec.product
+        Product = DblProduct.Rec.parsed_data
 
         CountryId = DblProduct.Rec.country_id
         Attr = DblProduct.Rec.GetField('attr', {})

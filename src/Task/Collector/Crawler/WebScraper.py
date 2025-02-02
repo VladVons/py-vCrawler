@@ -159,7 +159,9 @@ class TWebScraper():
             StatusOnly = bool((Rec.url_en) and (Rec.url_en not in Schemes))
 
             Url = Rec.url
-            #Url = 'https://www.lapstore.com.ua/product/dell-precision-7540-core-i7-9850h-ram-32-gb-ssd-512-gb-15-6-4k-quadro-t2000-4-gb/'
+            # Url = 'https://www.olx.ua/d/uk/obyavlenie/noutbuk-dlya-raboty-i-ucheby-dell-latitude-5500-core-i5-8365u-podarok-IDX2lc4.html'
+            # StatusOnly = False
+
             if (self.DblSite.Rec.emulator):
                 Data = await PW_UrlGetData(Url, aStatusOnly=StatusOnly)
             else:

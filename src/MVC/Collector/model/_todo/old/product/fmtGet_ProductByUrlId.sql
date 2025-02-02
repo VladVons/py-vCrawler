@@ -1,14 +1,15 @@
--- fmtGet_ProductByUrlId.sql
--- in: aUrlIds
+-- fmtGet_ProductByUrlId.sq
+-- in: aUrlId
 
- select
+select
   hu.url_id,
   hu.parsed_data as product,
   hu.create_date,
   rp.attr,
   ru.url,
   rs.id as site_id,
-  rs.country_id
+  rs.country_id,
+  rs.url as site_url
 from
   hist_url hu
 join
@@ -18,15 +19,8 @@ join
 join
   ref_site rs on (rs.id = ru.site_id) and (rs.enabled is true)
 where
-  hu.id in (
-       select
-         max(id)
-       from
-         hist_url
-       where
-         url_id = any (array[{{aUrlIds}}])
-       group by
-         url_id
-    )
+  (hu.url_id = {{aUrlId}})
 order by
-    array_position(array[{{aUrlIds}}], hu.url_id)
+  hu.id desc
+limit
+  1

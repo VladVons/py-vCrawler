@@ -36,8 +36,11 @@ class TMain(Lib.TCtrlBase):
         aLangId, aCountryId, aSearch, aPage, aLimit, aSort, aOrder = Lib.GetDictDefs(
             aData.get('query'),
             ('lang_id', 'country_id', 'q', 'page', 'limit', 'sort', 'order'),
-            (1, 1, 'dell', 1, self.GetConf('products_per_page', 10), ('create_date', 'price'), ('asc', 'desc'))
+            (1, 1, 'dell', 1, self.GetConf('products_per_page', 10), ('update_date', 'create_date', 'price'), '')
         )
+
+        if (not aOrder):
+            aOrder = Lib.GetSortOrder(aSort)
 
         aLimit = min(aLimit, self.GetConf('products_per_page_max', 100))
 

@@ -1,0 +1,48 @@
+{
+  "category": {
+    "info": {
+      "author": "user142",
+      "date": "2024-11-11 15:23",
+      "url": [
+        "https://lviv.skladova.com.ua/laptops/?page=3"
+      ]
+    },
+    "pipe": [
+      ["as_dict", {
+        "products": [
+          ["find", ["div", {"class": "products-list"}]],
+          ["find_all", ["div", {"class": "product-block"}]],
+          ["list_map", [
+            ["as_dict", {
+               "href": [
+                 ["find", ["div", {"class": "title"}]],
+                 ["find", ["a"]],
+                 ["get", ["href"]],
+                 ["url_pad"]
+               ],
+               "name": [
+                 ["find", ["div", {"class": "title"}]],
+                 ["text_strip"]
+               ],
+               "stock": [
+                 ["find", ["div", {"class": "buy"}]],
+                 ["text_strip"],
+                 ["lower"],
+                 ["search_start", ["купити"]]
+               ],
+               "price": [
+                 ["find", ["div", {"class": "price"}]],
+                 ["text_strip"],
+                 ["price"]
+               ]
+            }]
+          ]]
+       ],
+       "pager": [
+          ["find", ["ul", {"class": "pagination"}]],
+          ["find_all_get_url", ["a"], {"a_get": "href"}]
+       ]
+      }]
+    ]
+  }
+}

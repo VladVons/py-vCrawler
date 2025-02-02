@@ -105,7 +105,18 @@ def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
         Site = UrlToDict(Rec.url)['host']
         aDbl.RecMerge([Href, HrefExt, Site])
 
+def GetSortOrder(aSort: str) -> str:
+    SortOrder = {
+        'update_date': 'desc',
+        'create_date': 'desc',
+        'price': 'asc'
+    }
+    return SortOrder.get(aSort, 'asc')
+
 def GetProductsSort(aHref: str, aCur: str) -> TDbList:
+    def SortQuery(aUrlQuery: dict, aSort: str) -> dict:
+        return aUrlQuery | {'sort': aSort, 'order': GetSortOrder(aSort)}
+
     def UrlUdate(aUrlDict: dict, aQuery: dict) -> str:
         QueryStr = QueryToStr(aQuery)
         return UrlToStr(aUrlDict | {'query': QueryStr})
@@ -116,8 +127,9 @@ def GetProductsSort(aHref: str, aCur: str) -> TDbList:
         'head': ['href', 'title', 'selected'],
         'data': [
             [f'{aHref}', 'default', ''],
-            [UrlUdate(UrlDict, UrlQuery | {'sort': 'create_date', 'order': 'desc'}), 'creation date',  ''],
-            [UrlUdate(UrlDict, UrlQuery | {'sort': 'price', 'order': 'asc'}), 'price', ''],
+            [UrlUdate(UrlDict, SortQuery(UrlQuery, 'update_date')), 'update date',  ''],
+            [UrlUdate(UrlDict, SortQuery(UrlQuery, 'create_date')), 'creation date',  ''],
+            [UrlUdate(UrlDict, SortQuery(UrlQuery, 'price')), 'price', ''],
         ]
     })
 

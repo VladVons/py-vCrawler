@@ -239,7 +239,9 @@ async def Main():
     #Url = 'https://1x1.com.ua/product/dell_optiplex_3020_mt_i5-4590_4gb_500gb_hdd_t1'
     #q1 = await UrlGetData_PW(Url)
 
-    await TSchemer('trium.com.ua').Test('product')
+
+    #await TSchemer('trium.com.ua').Test('product')
+    await TSchemer('lviv.skladova.com.ua').Test('category')
     #await TSchemer('olx_shop.ua').Test('category')
     #await TSchemer('recorder.com.ua').Test('product')
     #
