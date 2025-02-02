@@ -23,7 +23,7 @@ with wt1 as(
     (rs.country_id = {{aCountryId}}) and
     (rp.stock is true) and
     (rp.price > 0) and
-    (rp.title ilike all (values {{FilterRe}}))
+    {{ExtWhere}}
   order by
     {{aOrder}}
   limit

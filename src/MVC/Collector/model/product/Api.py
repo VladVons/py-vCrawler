@@ -21,12 +21,26 @@ class TMain(Lib.TDbModel):
         )
 
     async def Get_Products_Search1(self, aFilter: str, aCountryId: int, aOrder: str, aLimit: int = 100, aOffset: int = 0) -> dict:
-        FilterRe = [f"('%{x}%')" for x in re.split(r'\s+', aFilter)]
+        reSite = re.compile(r'\b[a-z0-9.-]+\.[a-z]{2,3}(?:\.[a-z]{2,3})?\b')
+
+        ArrAnd = []
+        Words = re.split(r'\s+', aFilter)
+        if (len(Words) == 1) and (re.search(r'\b\d{4,8}\b', Words[0])):
+            ArrAnd.append(f'rp.url_id = {Words[0]}')
+        else:
+            for xWord in Words:
+                Match = reSite.findall(xWord)
+                if (Match):
+                    ArrAnd.append(f"rs.url like '%{xWord}%'")
+                else:
+                    ArrAnd.append(f"rp.title ilike '%{xWord}%'")
+        ExtWhere = 'and '.join(ArrAnd)
+
         return await self.ExecQuery(
             'fmtGet_Products_Search1.sql',
             {
                 'aFilter': aFilter,
-                'FilterRe': ', '.join(FilterRe),
+                'ExtWhere': ExtWhere,
                 'aCountryId': aCountryId,
                 'aOrder': aOrder,
                 'aLimit': aLimit,

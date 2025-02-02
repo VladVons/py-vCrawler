@@ -8,9 +8,9 @@
         "https://www.gekko-computer.de",
         ["product", "category"],
         [
-          "/c/Server", 
-          "/c/Workstations", 
-          "/c/Storage", 
+          "/c/Server",
+          "/c/Workstations",
+          "/c/Storage",
           "/c/Netzwerk"
         ],
         ""

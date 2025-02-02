@@ -1,0 +1,54 @@
+{
+  "product": {
+    "info": {
+      "author": "vladvons",
+      "date": "2024.08.28 09:00:00",
+      "url": [
+        "-https://pc.com.ua/ua/hp-probook-4540s-core-i5-156",
+        "https://pc.com.ua/ua/noutbuk-lenovo-thinkpad-e565-156-1366x768-tn-amd-a10-8700p-4-yadra-po-18-32-ghz-16-gb-ddr3-256-gb-ssd-amd-radeon-r5-m330-2-gb-ddr3-64-bit-webcam-25463",
+        "-https://pc.com.ua/ua/noutbuk-156-dell-inspiron-3501-intel-core-i5-1135g7-16gb-ram-240gb-ssd-fullhd-b-class"
+      ]
+    },
+    "pipe_microdata": [
+      ["product_ldjson"]
+    ],
+    "pipe_product": [
+      ["find", ["div", {"class": "product-page"}]],
+      ["as_dict", {
+        "price_old": [
+          ["find", ["div", {"class": "card-price-box"}]],
+          ["find", ["div", {"class": "price-old"}]],
+          ["text_strip"],
+          ["price"]
+        ],
+        "stock": [
+          ["find", ["div", {"class": "page-stock"}]],
+          ["text_strip"],
+          ["lower"],
+          ["search_eq", ["в наявності"]]
+        ],
+        "images": [
+          ["find", ["div", {"id": "productGallery"}]],
+          ["find_all_get", ["a"], {"a_get": "href"}]
+        ],
+        "features": [
+          ["find", ["div", {"class": "characteristics-wrap"}]],
+          ["find_all", ["div", {"class": "characteristics-item"}]],
+          ["list_map", [
+            ["text"],
+            ["split_cr"]
+          ]],
+          ["keyval2dict"]
+        ],
+        "description": [
+          ["find", ["section", {"class": "page-content"}]],
+          ["text_strip"]
+        ]
+      }]
+    ],
+    "-pipe_root": [
+      ["as_dict", {
+      }]
+    ]
+  }
+}
