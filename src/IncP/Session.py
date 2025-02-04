@@ -20,7 +20,7 @@ def GetIpLocation(aRequest: web.Request) -> dict:
         Remote = aRequest.headers.get('X-FORWARDED-FOR', Remote)
 
     if (Remote == LocalHost):
-        Location = None
+        Location = {}
     else:
         Location = TGeoIp().GetCity(Remote)
 
@@ -58,6 +58,7 @@ class TSession():
             self.Set('session_id', Dbl.Rec.id)
             self.Set('start', int(time.time()))
 
+
     def Export(self) -> dict:
         Res = {
             'keys': self.GetAsDict(),
@@ -66,7 +67,6 @@ class TSession():
             'cookies': dict(self.Request.cookies)
         }
         return Res
-
     def Get(self, aKey: str) -> object:
         return self.Session.get(aKey)
 
