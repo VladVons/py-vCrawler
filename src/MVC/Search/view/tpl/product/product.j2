@@ -19,12 +19,12 @@
       <div class="col-md-6 text-center vBgMaster">
         <div class="vProductImg">
           <button class="arrow" onclick="slideImage(-1)">←</button>
-          <img class="img-fluid border mt-2" src="{{product.image}}" id="viMainImg" alt="{{product.name}}">
+          <img class="img-fluid border mt-2" src="{{product.image}}" id="viMainImg" alt="{{product.name | escape}}">
           <button class="arrow" onclick="slideImage(1)">→</button>
         </div>
         <div class="border-top mt-3 vProductThumbs_X">
         {% for xImage in product.images %}
-          <img src="{{xImage}}" class="img-thumbnail" onclick="changeImage(this, 'viMainImg', true)" alt="{{product.name}}">
+          <img src="{{xImage}}" class="img-thumbnail" onclick="changeImage(this, 'viMainImg', true)" alt1="{{product.name | escape}}">
         {% endfor %}
         </div>
       </div>

@@ -21,11 +21,11 @@
         <div class="col-2">
           <div>{{Rec.site}}</div>
           <a href="{{Rec.href}}" title="{{Rec.update_date.strftime('%Y-%m-%d')}} {{Rec.href_ext}}">
-            <img src="{{Rec.image}}" alt="{{Rec.title |truncate(32, True, '...')}}" class="thumb">
+            <img src="{{Rec.image}}" alt="{{Rec.title | escape | truncate(32, True, '...')}}" class="thumb">
           </a>
         </div>
         <div class="col-5" >
-          <a href="{{Rec.href}}" title="{{Rec.title}}">{{Rec.title |truncate(100, True, '...')}}</a>
+          <a href="{{Rec.href}}" title="{{Rec.title | escape}}">{{Rec.title |truncate(100, True, '...')}}</a>
         </div>
         <div class="col-2">
           <div>{{"{:,}".format(Rec.price|int)}}</div>
