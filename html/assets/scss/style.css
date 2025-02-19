@@ -191,12 +191,12 @@ header .lang ul a {
   display: flex;
   align-items: center;
   gap: 5px;
-  color: var(--black);
+  color: #25292C;
   padding: 7px 0;
   font-size: 16px;
 }
 header .lang ul a:hover {
-  color: var(--green);
+  color: #7DD017;
 }
 header .actions {
   display: flex;
@@ -208,7 +208,7 @@ header .actions {
 .form__search {
   position: relative;
   overflow: hidden;
-  background: var(--white);
+  background: #ffffff;
   border-radius: 50px;
   padding: 0 8px 0 25px;
 }
@@ -226,7 +226,7 @@ header .actions {
   background: url("../images/search.svg") 0 50% no-repeat;
   font-size: 16px;
   font-weight: normal;
-  color: var(--black);
+  color: #25292C;
   border: none;
   border-right: 1px solid #B8BDD0;
 }
@@ -255,27 +255,27 @@ header .actions {
   height: 100px;
   margin: 0 auto 22px;
   border-radius: 30px;
-  background: var(--white);
+  background: #ffffff;
   transition: all 0.2s;
 }
 .categories .item a {
-  color: var(--black);
+  color: #25292C;
 }
 .categories .item:hover .icon {
-  background: var(--green);
+  background: #7DD017;
   background: rgba(125, 208, 23, 0.2);
 }
 .categories .item:hover path {
-  stroke: var(--white);
+  stroke: #ffffff;
 }
 .categories .item:hover rect {
-  stroke: var(--white);
+  stroke: #ffffff;
 }
 .categories .item:hover circle {
-  fill: var(--white);
+  fill: #ffffff;
 }
 .categories .item:hover:nth-child(7) path {
-  fill: var(--white);
+  fill: #ffffff;
   stroke: transparent;
 }
 .categories .item span {
@@ -501,9 +501,9 @@ header .actions {
 #sidebar select {
   border-radius: 30px;
   background: url("../images/arrow-down-green.svg") calc(100% - 20px) 50% no-repeat;
-  border: 1px solid var(--green);
+  border: 1px solid #7DD017;
   padding: 0 40px 0 20px;
-  color: var(--green);
+  color: #7DD017;
   font-size: 16px;
   font-weight: 600;
   width: 100%;
@@ -640,7 +640,7 @@ header .actions {
 }
 #page__card .information .from strong {
   font-weight: normal;
-  color: var(--black);
+  color: #25292C;
 }
 #page__card .information .detail {
   margin-bottom: 50px;
@@ -665,7 +665,7 @@ header .actions {
   font-size: 20px;
   text-decoration: line-through;
   opacity: 0.4;
-  color: var(--black);
+  color: #25292C;
 }
 #page__card .information .detail .actions {
   display: flex;
@@ -677,7 +677,7 @@ header .actions {
   font-size: 14px;
 }
 #page__card .information .tth {
-  background: var(--white);
+  background: #ffffff;
   border-radius: 30px;
   padding: 15px 25px;
   line-height: 160%;
@@ -698,10 +698,10 @@ header .actions {
 }
 #page__card .information .tth strong, #page__card .information .tth a {
   font-weight: normal;
-  color: var(--green);
+  color: #7DD017;
 }
 #page__card .information .tth a {
-  border-bottom: 1px solid var(--green);
+  border-bottom: 1px solid #7DD017;
 }
 #page__card .information .tth a:hover {
   border-color: transparent;
@@ -713,7 +713,7 @@ header .actions {
   border-radius: 30px;
 }
 #page__card .full__tth {
-  background: var(--white);
+  background: #ffffff;
   border-radius: 30px;
   overflow: hidden;
   display: flex;
@@ -804,7 +804,7 @@ header .actions {
   background: #F4F6F9;
 }
 .page__compare .list__items {
-  background: var(--white);
+  background: #ffffff;
   border-radius: 30px;
   overflow: hidden;
   position: relative;
@@ -870,9 +870,9 @@ header .actions {
 }
 
 footer {
-  color: var(--white);
+  color: #ffffff;
   padding: 30px 0 0;
-  background: var(--black);
+  background: #25292C;
 }
 footer .container {
   display: flex;
@@ -903,7 +903,7 @@ footer .container .logo {
 }
 footer .container .form__subscribe {
   position: relative;
-  background: var(--white);
+  background: #ffffff;
   width: 380px;
   max-width: 100%;
   border-radius: 30px;
@@ -1044,7 +1044,7 @@ footer .copyright .container {
 }
 
 .rs-container .rs-selected {
-  background-color: var(--green);
+  background-color: #7DD017;
   transition: all 0.2s linear;
   width: 0;
 }
@@ -1055,7 +1055,7 @@ footer .copyright .container {
 }
 
 .rs-container .rs-pointer {
-  background-color: var(--green);
+  background-color: #7DD017;
   border-radius: 10px;
   cursor: pointer;
   height: 18px;
@@ -1686,7 +1686,7 @@ select {
     align-items: center;
     justify-content: flex-start;
     width: calc(100% - 240px);
-    border: 1px solid var(--black);
+    border: 1px solid #25292C;
     margin-bottom: 20px;
     height: 50px;
     padding: 0 20px;

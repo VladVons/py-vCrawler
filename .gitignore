@@ -1,8 +1,7 @@
 *.pyc
 *.log
 *.dat
-*.map
-modu;es/*.css
+scss/*.{css,map}
 *.html.json
 __pycache__
 .idea
