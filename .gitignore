@@ -1,7 +1,8 @@
 *.pyc
 *.log
 *.dat
-*.html
+*.map
+modu;es/*.css
 *.html.json
 __pycache__
 .idea

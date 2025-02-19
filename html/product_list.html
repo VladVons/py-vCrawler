@@ -1,0 +1,553 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>ProductList</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body id="startpage">
+    <header>
+        <div class="container">
+            <div class="logo"><a href="#"><img src="assets/images/logo.svg" alt="logo"></a></div>
+            <div class="lang">
+                <div class="current">
+                    <img src="assets/images/flag-ua.svg" alt="title">
+                    Ukranian
+                </div>
+                <ul>
+                    <li><a href="#"><img src="assets/images/flag-ua.svg" alt="title"> Ukranian</a></li>
+                    <li><a href="#"><img src="assets/images/flag-ua.svg" alt="title"> Ukranian</a></li>
+                </ul>
+            </div>
+            <div class="actions">
+                <a href="#" class="btn btn-action">
+                    <img src="assets/images/icon-history.svg" alt="title">
+                </a>
+                <a href="#" class="btn btn-action">
+                    <img src="assets/images/icon-heart.svg" alt="title">
+                </a>
+                <a href="#" class="btn btn-action">
+                    <img src="assets/images/icon-compare.svg" alt="title">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="promo__page">
+        <div class="container">
+            <div class="form__search">
+                <form>
+                    <input type="text" name="s" placeholder="Write title or keyword">
+                    <select>
+                        <option selected="true" disabled="disabled">Select location for search</option>
+                        <option>location 1</option>
+                        <option>location 2</option>
+                        <option>location 3</option>
+                    </select>
+                    <button class="btn btn-green">Search</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="breadcrumbs">
+        <div class="container">
+            <ul>
+                <li><a href="#">Home</a><span> / </span></li>
+                <li>Laptops</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="products__list__page">
+        <div class="container">
+            <div class="sidebar__mobile">
+                Filters
+            </div>
+            <div id="sidebar">
+                <div class="box">
+                    <select>
+                        <option>Laptops</option>
+                        <option>Laptops</option>
+                        <option>Laptops</option>
+                    </select>
+                </div>
+                <div class="box">
+                    <div class="price">
+                        <input type="text" name="" placeholder="0" class="minprice">
+                        <input type="text" name="" placeholder="1000" class="maxprice">
+                        <button class="btn btn-green">OK</button>
+                    </div>
+                    <input type="text" id="price__range">
+                </div>
+                <div class="box">
+                    <div class="item">
+                        <div class="title">Condition</div>
+                        <div class="data">
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 240 GB <i>(12)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 512 GB <i>(547)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 1 TB <i>(1200)</i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">Disk capacity GB</div>
+                        <div class="data">
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 240 GB <i>(12)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 512 GB <i>(547)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 1 TB <i>(1200)</i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">Manufacturer</div>
+                        <div class="data">
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 240 GB <i>(12)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 512 GB <i>(547)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 1 TB <i>(1200)</i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">Memory capacity GB</div>
+                        <div class="data">
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 240 GB <i>(12)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 512 GB <i>(547)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 1 TB <i>(1200)</i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">Disk type</div>
+                        <div class="data">
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 240 GB <i>(12)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 512 GB <i>(547)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 1 TB <i>(1200)</i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">Screen resolution</div>
+                        <div class="data">
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 240 GB <i>(12)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 512 GB <i>(547)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 1 TB <i>(1200)</i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">Processor type</div>
+                        <div class="data">
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 240 GB <i>(12)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 512 GB <i>(547)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 1 TB <i>(1200)</i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">Processor generation</div>
+                        <div class="data">
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 240 GB <i>(12)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 512 GB <i>(547)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 1 TB <i>(1200)</i></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="title">Screen size</div>
+                        <div class="data">
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 240 GB <i>(12)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 512 GB <i>(547)</i></span>
+                            </label>
+                            <label class="checkbox">
+                                <input type="checkbox" name="" hidden>
+                                <span>More than 1 TB <i>(1200)</i></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product__data">
+                <div class="filters">
+                    <div class="views">
+                        <button class="btn btn-action active" data-view="list"><img src="assets/images/icon-list.svg" alt="list"></button>
+                        <button class="btn btn-action" data-view="box"><img src="assets/images/icon-box.svg" alt="list"></button>
+                    </div>
+                    <div class="sorting">
+                        <select>
+                            <option>Featured</option>
+                            <option>Featured</option>
+                            <option>Featured</option>
+                            <option>Featured</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="products__list">
+                    <div class="product__item">
+                        <div class="image">
+                            <a href="#"><img src="assets/images/product1.png" alt="title"></a>
+                        </div>
+                        <div class="data">
+                            <div class="title">
+                                <a href="#">Apple MacBook Air 13,6" M2 Midnight 2022 (MLY33)</a>
+                            </div>
+                            <div class="tth">
+                                <p><strong>Display:</strong> 13.6/IPS/2560x1664/60 Hz;</p>
+                                <p><strong>Processor:</strong> Apple M2;</p>
+                                <p><strong>Graphics card:</strong> 8 core GPU</p>
+                                <p><strong>RAM:</strong> 8 GB;</p>
+                                <p><strong>SSD:</strong> 256 GB</p>
+                                <p><strong>OS:</strong> macOS Monterey</p>
+                                <p><strong>Weight:</strong> 1.24 kg</p>
+                                <p><strong>Year:</strong> 06.2022</p>
+                            </div>
+
+                            <div class="more">
+                                <p><strong>Date:</strong> 25 | 04 | 2025</p>
+                                <p><strong>Location:</strong> Poland</p>
+                                <p><strong>Code:</strong> 95511</p>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <div class="price">
+                                <div class="old">1 200$</div>
+                                700$
+                            </div>
+                            <div class="actions">
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-compare.svg" alt="title">
+                                </a>
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-heart.svg" alt="title">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__item">
+                        <div class="image">
+                            <a href="#"><img src="assets/images/product2.png" alt="title"></a>
+                        </div>
+                        <div class="data">
+                            <div class="title">
+                                <a href="#">Apple MacBook Air 13,6" M2 Midnight 2022 (MLY33)</a>
+                            </div>
+                            <div class="tth">
+                                <p><strong>Display:</strong> 13.6/IPS/2560x1664/60 Hz;</p>
+                                <p><strong>Processor:</strong> Apple M2;</p>
+                                <p><strong>Graphics card:</strong> 8 core GPU</p>
+                                <p><strong>RAM:</strong> 8 GB;</p>
+                            </div>
+
+                            <div class="more">
+                                <p><strong>Date:</strong> 25 | 04 | 2025</p>
+                                <p><strong>Location:</strong> Poland</p>
+                                <p><strong>Code:</strong> 95511</p>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <div class="price">545$</div>
+                            <div class="actions">
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-compare.svg" alt="title">
+                                </a>
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-heart.svg" alt="title">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__item">
+                        <div class="image">
+                            <a href="#"><img src="assets/images/product3.png" alt="title"></a>
+                        </div>
+                        <div class="data">
+                            <div class="title">
+                                <a href="#">Apple MacBook Air 13,6" M2 Midnight 2022 (MLY33)</a>
+                            </div>
+                            <div class="tth">
+                                <p><strong>Display:</strong> 13.6/IPS/2560x1664/60 Hz;</p>
+                                <p><strong>Processor:</strong> Apple M2;</p>
+                                <p><strong>Graphics card:</strong> 8 core GPU</p>
+                                <p><strong>RAM:</strong> 8 GB;</p>
+                                <p><strong>SSD:</strong> 256 GB</p>
+                                <p><strong>OS:</strong> macOS Monterey</p>
+                                <p><strong>Weight:</strong> 1.24 kg</p>
+                                <p><strong>Year:</strong> 06.2022</p>
+                            </div>
+
+                            <div class="more">
+                                <p><strong>Date:</strong> 25 | 04 | 2025</p>
+                                <p><strong>Location:</strong> Poland</p>
+                                <p><strong>Code:</strong> 95511</p>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <div class="price">
+                                <div class="old">320$</div>
+                                100$
+                            </div>
+                            <div class="actions">
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-compare.svg" alt="title">
+                                </a>
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-heart.svg" alt="title">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__item">
+                        <div class="image">
+                            <a href="#"><img src="assets/images/product1.png" alt="title"></a>
+                        </div>
+                        <div class="data">
+                            <div class="title">
+                                <a href="#">Apple MacBook Air 13,6" M2 Midnight 2022 (MLY33)</a>
+                            </div>
+                            <div class="tth">
+                                <p><strong>Display:</strong> 13.6/IPS/2560x1664/60 Hz;</p>
+                                <p><strong>Processor:</strong> Apple M2;</p>
+                                <p><strong>Graphics card:</strong> 8 core GPU</p>
+                                <p><strong>RAM:</strong> 8 GB;</p>
+                                <p><strong>SSD:</strong> 256 GB</p>
+                                <p><strong>OS:</strong> macOS Monterey</p>
+                                <p><strong>Weight:</strong> 1.24 kg</p>
+                                <p><strong>Year:</strong> 06.2022</p>
+                            </div>
+
+                            <div class="more">
+                                <p><strong>Date:</strong> 25 | 04 | 2025</p>
+                                <p><strong>Location:</strong> Poland</p>
+                                <p><strong>Code:</strong> 95511</p>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <div class="price">700$</div>
+                            <div class="actions">
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-compare.svg" alt="title">
+                                </a>
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-heart.svg" alt="title">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__item">
+                        <div class="image">
+                            <a href="#"><img src="assets/images/product2.png" alt="title"></a>
+                        </div>
+                        <div class="data">
+                            <div class="title">
+                                <a href="#">Apple MacBook Air 13,6" M2 Midnight 2022 (MLY33)</a>
+                            </div>
+                            <div class="tth">
+                                <p><strong>Display:</strong> 13.6/IPS/2560x1664/60 Hz;</p>
+                                <p><strong>Processor:</strong> Apple M2;</p>
+                                <p><strong>Graphics card:</strong> 8 core GPU</p>
+                                <p><strong>RAM:</strong> 8 GB;</p>
+                                <p><strong>SSD:</strong> 256 GB</p>
+                                <p><strong>OS:</strong> macOS Monterey</p>
+                                <p><strong>Weight:</strong> 1.24 kg</p>
+                                <p><strong>Year:</strong> 06.2022</p>
+                            </div>
+
+                            <div class="more">
+                                <p><strong>Date:</strong> 25 | 04 | 2025</p>
+                                <p><strong>Location:</strong> Poland</p>
+                                <p><strong>Code:</strong> 95511</p>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <div class="price">545$</div>
+                            <div class="actions">
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-compare.svg" alt="title">
+                                </a>
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-heart.svg" alt="title">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product__item">
+                        <div class="image">
+                            <a href="#"><img src="assets/images/product3.png" alt="title"></a>
+                        </div>
+                        <div class="data">
+                            <div class="title">
+                                <a href="#">Apple MacBook Air 13,6" M2 Midnight 2022 (MLY33)</a>
+                            </div>
+                            <div class="tth">
+                                <p><strong>Display:</strong> 13.6/IPS/2560x1664/60 Hz;</p>
+                                <p><strong>Processor:</strong> Apple M2;</p>
+                                <p><strong>Graphics card:</strong> 8 core GPU</p>
+                                <p><strong>RAM:</strong> 8 GB;</p>
+                                <p><strong>SSD:</strong> 256 GB</p>
+                                <p><strong>OS:</strong> macOS Monterey</p>
+                                <p><strong>Weight:</strong> 1.24 kg</p>
+                                <p><strong>Year:</strong> 06.2022</p>
+                            </div>
+
+                            <div class="more">
+                                <p><strong>Date:</strong> 25 | 04 | 2025</p>
+                                <p><strong>Location:</strong> Poland</p>
+                                <p><strong>Code:</strong> 95511</p>
+                            </div>
+                        </div>
+
+                        <div class="info">
+                            <div class="price">100$</div>
+                            <div class="actions">
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-compare.svg" alt="title">
+                                </a>
+                                <a href="#" class="btn btn-action">
+                                    <img src="assets/images/icon-heart.svg" alt="title">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pagination">
+                    <div class="pagination__items">
+                        <span>1</span>
+                        <a href="#">2</a>
+                        <a href="#">3</a>
+                        <a href="#">4</a>
+                    </div>
+                    <a href="#" class="btn btn-green">Load more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="col">
+                <div class="logo"><img src="assets/images/logo-footer.svg" alt="logo"></div>
+                <div class="form__subscribe">
+                    <form>
+                        <input type="email" name="email" placeholder="Your Email">
+                        <button class="btn btn-green-text">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col">
+                <div class="col__title">For users</div>
+                <ul>
+                    <li><a href="#">FAQ for users</a></li>
+                    <li><a href="#">User agreement</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Contacts</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <div class="col__title">For partners</div>
+                <ul>
+                    <li><a href="#">Connect a store</a></li>
+                    <li><a href="#">About the project.</a></li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Place an advert</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <div class="col__title">Feedback</div>
+                <ul>
+                    <li><a href="#">For users</a></li>
+                    <li><a href="#">For online stores</a></li>
+                    <li><a href="#">For manufacturers</a></li>
+                    <li><a href="#">For brand owners</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <div class="container">
+                © 2024-2025 copyright
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="assets/js/main.min.js"></script>
+</body>
+</html>

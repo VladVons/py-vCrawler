@@ -1,0 +1,81 @@
+.sidebar__mobile {
+  display: none;
+}
+
+#sidebar {
+  background: #F4F6F9;
+  padding: 15px 24px 24px;
+  border-radius: 30px;
+  box-sizing: border-box;
+}
+#sidebar .box {
+  margin-bottom: 20px;
+}
+#sidebar .box:last-child {
+  margin-bottom: 0;
+}
+#sidebar .item {
+  margin-bottom: 30px;
+}
+#sidebar .item:last-child {
+  margin-bottom: 0;
+}
+#sidebar .item .title {
+  font-size: 16px;
+  color: #B8BDD0;
+  line-height: 1.2;
+  padding-right: 30px;
+  position: relative;
+  cursor: pointer;
+}
+#sidebar .item .title.open:after {
+  transform: rotate(180deg);
+}
+#sidebar .item .title:after {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  background: url("../images/arrow-down-grey.svg") 100% 50% no-repeat;
+  content: "";
+  transition: all 0.2s;
+  width: 12px;
+  height: 6px;
+}
+#sidebar .item .data {
+  display: none;
+  padding: 20px 14px 0;
+}
+#sidebar select {
+  border-radius: 30px;
+  background: url("../images/arrow-down-green.svg") calc(100% - 20px) 50% no-repeat;
+  border: 1px solid var(--green);
+  padding: 0 40px 0 20px;
+  color: var(--green);
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  height: 50px;
+  cursor: pointer;
+}
+#sidebar .price {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+#sidebar .price input {
+  width: 76px;
+  height: 35px;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  border: none;
+}
+#sidebar .price .btn {
+  height: 35px;
+  width: 48px;
+  padding: 0;
+  border-radius: 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+}/*# sourceMappingURL=sidebar.css.map */
