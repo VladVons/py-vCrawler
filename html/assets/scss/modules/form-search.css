@@ -1,7 +1,7 @@
 .form__search {
   position: relative;
   overflow: hidden;
-  background: var(--white);
+  background: #ffffff;
   border-radius: 50px;
   padding: 0 8px 0 25px;
 }
@@ -19,7 +19,7 @@
   background: url("../images/search.svg") 0 50% no-repeat;
   font-size: 16px;
   font-weight: normal;
-  color: var(--black);
+  color: #25292C;
   border: none;
   border-right: 1px solid #B8BDD0;
 }
@@ -48,27 +48,27 @@
   height: 100px;
   margin: 0 auto 22px;
   border-radius: 30px;
-  background: var(--white);
+  background: #ffffff;
   transition: all 0.2s;
 }
 .categories .item a {
-  color: var(--black);
+  color: #25292C;
 }
 .categories .item:hover .icon {
-  background: var(--green);
+  background: #7DD017;
   background: rgba(125, 208, 23, 0.2);
 }
 .categories .item:hover path {
-  stroke: var(--white);
+  stroke: #ffffff;
 }
 .categories .item:hover rect {
-  stroke: var(--white);
+  stroke: #ffffff;
 }
 .categories .item:hover circle {
-  fill: var(--white);
+  fill: #ffffff;
 }
 .categories .item:hover:nth-child(7) path {
-  fill: var(--white);
+  fill: #ffffff;
   stroke: transparent;
 }
 .categories .item span {

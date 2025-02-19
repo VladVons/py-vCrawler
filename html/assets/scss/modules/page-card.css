@@ -105,7 +105,7 @@
 }
 #page__card .information .from strong {
   font-weight: normal;
-  color: var(--black);
+  color: #25292C;
 }
 #page__card .information .detail {
   margin-bottom: 50px;
@@ -120,17 +120,17 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  color: var(--red);
+  color: #fd3733;
   gap: 10px;
-  font-size: 30px;
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 500;
   line-height: 120%;
 }
 #page__card .information .detail .price .old {
   font-size: 20px;
   text-decoration: line-through;
   opacity: 0.4;
-  color: var(--black);
+  color: #25292C;
 }
 #page__card .information .detail .actions {
   display: flex;
@@ -142,7 +142,7 @@
   font-size: 14px;
 }
 #page__card .information .tth {
-  background: var(--white);
+  background: #ffffff;
   border-radius: 30px;
   padding: 15px 25px;
   line-height: 160%;
@@ -163,10 +163,10 @@
 }
 #page__card .information .tth strong, #page__card .information .tth a {
   font-weight: normal;
-  color: var(--green);
+  color: #7DD017;
 }
 #page__card .information .tth a {
-  border-bottom: 1px solid var(--green);
+  border-bottom: 1px solid #7DD017;
 }
 #page__card .information .tth a:hover {
   border-color: transparent;
@@ -178,7 +178,7 @@
   border-radius: 30px;
 }
 #page__card .full__tth {
-  background: var(--white);
+  background: #ffffff;
   border-radius: 30px;
   overflow: hidden;
   display: flex;

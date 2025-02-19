@@ -1,3 +1,6 @@
+@import '../modules/const.scss';
+
+
 @media screen and (max-width: 1180px){
 	.categories{
 		grid-template-columns: repeat(4, 1fr);
@@ -51,7 +54,7 @@
 		align-items: center;
 		justify-content: flex-start;
 		width: calc(100% - 240px);
-		border: 1px solid var(--black);
+		border: 1px solid $color_black;
 		margin-bottom: 20px;
 		height: 50px;
 		padding: 0 20px;

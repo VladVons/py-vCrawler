@@ -1,10 +1,12 @@
+@import '../modules/const.scss';
+
 .page__compare{
   padding: 30px;
   border-radius: 30px;
   background: #F4F6F9;
 
   .list__items{
-    background: var(--white);
+    background: $color_white;
     border-radius: 30px;
     overflow: hidden;
     position: relative;

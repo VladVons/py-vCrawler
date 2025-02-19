@@ -16,7 +16,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 30px;
-  background: var(--white);
+  background: #ffffff;
   overflow: hidden;
 }
 .products__list .product__item .image img {
@@ -35,10 +35,10 @@
   font-weight: 500;
 }
 .products__list .product__item .data .title a {
-  color: var(--black);
+  color: #25292C;
 }
 .products__list .product__item .data .title a:hover {
-  color: var(--green);
+  color: #7DD017;
 }
 .products__list .product__item .data .tth, .products__list .product__item .data .more {
   display: flex;
@@ -53,7 +53,7 @@
 }
 .products__list .product__item .data .tth strong, .products__list .product__item .data .more strong {
   font-weight: normal;
-  color: var(--black);
+  color: #25292C;
 }
 .products__list .product__item .data .more {
   position: absolute;
@@ -66,15 +66,15 @@
   position: relative;
 }
 .products__list .product__item .info .price {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--red);
+  font-size: 20px;
+  font-weight: 500;
+  color: #fd3733;
   padding: 8px 0 0;
   line-height: 1.2;
 }
 .products__list .product__item .info .price .old {
   text-decoration: line-through;
-  color: var(--green);
+  color: #7DD017;
 }
 .products__list .product__item .info .actions {
   position: absolute;
@@ -91,20 +91,20 @@
   justify-content: center;
   width: 30px;
   height: 30px;
-  background: var(--white);
+  background: #ffffff;
   border-radius: 10px;
 }
 .products__list .product__item .info .actions a img {
   width: 18px;
 }
 .products__list .product__item .info .actions a:hover {
-  background: var(--green);
+  background: #7DD017;
 }
 .products__list .product__item .info .actions a:hover path {
-  stroke: var(--white);
+  stroke: #ffffff;
 }
 .products__list .product__item .info .actions a:first-child:hover path {
-  fill: var(--white);
+  fill: #ffffff;
   stroke: transparent;
 }
 .products__list .product__item:last-child {

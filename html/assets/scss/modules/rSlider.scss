@@ -1,3 +1,6 @@
+@import '../modules/const.scss';
+
+
 .rs-container * {
     box-sizing: border-box;
     -webkit-touch-callout: none;
@@ -21,7 +24,7 @@
     border-radius: 0px;
 }
 .rs-container .rs-selected {
-    background-color: var(--green);
+    background-color: $color_green;
     transition: all 0.2s linear;
     width: 0;
 }
@@ -30,7 +33,7 @@
     border-color: #bbb;
 }
 .rs-container .rs-pointer {
-    background-color: var(--green);
+    background-color: $color_green;
     border-radius: 10px;
     cursor: pointer;
     height: 18px;

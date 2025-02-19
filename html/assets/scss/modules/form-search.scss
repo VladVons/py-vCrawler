@@ -1,7 +1,9 @@
+@import '../modules/const.scss';
+
 .form__search{
 	position: relative;
 	overflow: hidden;
-	background: var(--white);
+	background: $color_white;
 	border-radius: 50px;
 	padding: 0 8px 0 25px;
 
@@ -21,7 +23,7 @@
 		background: url("../images/search.svg") 0 50% no-repeat;
 		font-size: 16px;
 		font-weight: normal;
-		color: var(--black);
+		color: $color_black;
 		border: none;
 		border-right: 1px solid #B8BDD0;
 	}
@@ -55,31 +57,31 @@
 			height: 100px;
 			margin: 0 auto 22px;
 			border-radius: 30px;
-			background: var(--white);
+			background: $color_white;
 			transition: all 0.2s;
 		}
 
 		a{
-			color: var(--black);
+			color: $color_black;
 		}
 
 		&:hover{
 			.icon{
-				background: var(--green);
+				background: $color_green;
 				background: rgba(125, 208, 23, 0.2);
 			}
 			path{
-				stroke: var(--white);
+				stroke: $color_white;
 			}
 			rect{
-				stroke: var(--white);
+				stroke: $color_white;
 			}
 			circle{
-				fill: var(--white);
+				fill: $color_white;
 			}
 			&:nth-child(7){
 				path{
-					fill: var(--white);
+					fill: $color_white;
 					stroke: transparent;
 				}
 			}

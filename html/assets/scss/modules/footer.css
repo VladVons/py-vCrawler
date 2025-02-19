@@ -1,7 +1,7 @@
 footer {
-  color: var(--white);
+  color: #ffffff;
   padding: 30px 0 0;
-  background: var(--black);
+  background: #25292C;
 }
 footer .container {
   display: flex;
@@ -32,7 +32,7 @@ footer .container .logo {
 }
 footer .container .form__subscribe {
   position: relative;
-  background: var(--white);
+  background: #ffffff;
   width: 380px;
   max-width: 100%;
   border-radius: 30px;

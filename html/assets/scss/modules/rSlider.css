@@ -22,7 +22,7 @@
 }
 
 .rs-container .rs-selected {
-  background-color: var(--green);
+  background-color: #7DD017;
   transition: all 0.2s linear;
   width: 0;
 }
@@ -33,7 +33,7 @@
 }
 
 .rs-container .rs-pointer {
-  background-color: var(--green);
+  background-color: #7DD017;
   border-radius: 10px;
   cursor: pointer;
   height: 18px;

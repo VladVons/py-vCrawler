@@ -4,7 +4,7 @@
   background: #F4F6F9;
 }
 .page__compare .list__items {
-  background: var(--white);
+  background: #ffffff;
   border-radius: 30px;
   overflow: hidden;
   position: relative;

@@ -1,3 +1,6 @@
+@import '../modules/const.scss';
+
+
 #page__card{
 	.mobile__title{
 		width: 100%;
@@ -118,7 +121,7 @@
 
 			strong{
 				font-weight: normal;
-				color: var(--black);
+				color: $color_black;
 			}
 		}
 
@@ -135,17 +138,17 @@
 				align-items: center;
 				justify-content: space-between;
 				flex-wrap: wrap;
-				color: var(--red);
+				color: $color_red;
 				gap: 10px;
-				font-size: 30px;
-				font-weight: 600;
+				font-size: $font_size_price;
+				font-weight: $font_weight_price;
 				line-height: 120%;
 
 				.old{
 					font-size: 20px;
 					text-decoration: line-through;
 					opacity: 0.4;
-					color: var(--black);
+					color: $color_black;
 				}
 			}
 
@@ -163,7 +166,7 @@
 
 
 		.tth{
-			background: var(--white);
+			background: $color_white;
 			border-radius: 30px;
 			padding: 15px 25px;
 			line-height: 160%;
@@ -186,11 +189,11 @@
 
 			strong,a{
 				font-weight: normal;
-				color: var(--green);
+				color: $color_green;
 			}
 
 			a{
-				border-bottom: 1px solid var(--green);
+				border-bottom: 1px solid $color_green;
 				&:hover{
 					border-color: transparent;
 				}
@@ -207,7 +210,7 @@
 
 
 	.full__tth{
-		background: var(--white);
+		background: $color_white;
 		border-radius: 30px;
 		overflow: hidden;
 		display: flex;

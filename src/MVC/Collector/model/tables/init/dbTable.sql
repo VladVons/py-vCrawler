@@ -222,6 +222,12 @@ create table if not exists ref_site_category (
 );
 
 
+create table if not exists ref_site_to_user (
+    site_id             integer not null references ref_site(id) on delete cascade,
+    user_id             integer not null references ref_user(id) on delete cascade,
+    primary key (site_id, user_id)
+);
+
 -- url --
 create table if not exists ref_url (
     id                  serial primary key,

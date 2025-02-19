@@ -56,12 +56,12 @@ header .lang ul a {
   display: flex;
   align-items: center;
   gap: 5px;
-  color: var(--black);
+  color: #25292C;
   padding: 7px 0;
   font-size: 16px;
 }
 header .lang ul a:hover {
-  color: var(--green);
+  color: #7DD017;
 }
 header .actions {
   display: flex;

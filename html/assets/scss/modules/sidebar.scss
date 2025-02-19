@@ -1,3 +1,6 @@
+@import '../modules/const.scss';
+
+
 .sidebar__mobile{
   display: none;
 }
@@ -25,7 +28,8 @@
 
     .title{
       font-size: 16px;
-      color: #B8BDD0;
+      //color: #B8BDD0;
+      color: black;
       line-height: 1.2;
       padding-right: 30px;
       position: relative;
@@ -58,9 +62,9 @@
   select{
     border-radius: 30px;
     background: url("../images/arrow-down-green.svg") calc(100% - 20px) 50% no-repeat;
-    border: 1px solid var(--green);
+    border: 1px solid $color_green;
     padding: 0 40px 0 20px;
-    color: var(--green);
+    color: $color_green;
     font-size: 16px;
     font-weight: 600;
     width: 100%;
