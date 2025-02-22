@@ -2,7 +2,7 @@
 
 {% block head %}
 <meta name="robots" content="index,follow">
-<meta property="og:image" content="{{product.image}}">
+<meta property="og:image" content="{{meta_image}}">
 <meta property="og:type" content="product">
 
 <script type="application/ld+json">
@@ -12,104 +12,103 @@
 
 {% block content %}
 <!-- product + -->
-<div class="container pb-2">
-    <div class="breadcrumbs">
-    </div>
-    <div class="row vProduct mt-2">
-      <div class="col-md-6 text-center vBgMaster">
-        <div class="vProductImg">
-          <button class="arrow" onclick="slideImage(-1)">←</button>
-          <img class="img-fluid border mt-2" src="{{product.image}}" id="viMainImg" alt="{{product.name | escape}}">
-          <button class="arrow" onclick="slideImage(1)">→</button>
-        </div>
-        <div class="border-top mt-3 vProductThumbs_X">
-        {% for xImage in product.images %}
-          <img src="{{xImage}}" class="img-thumbnail" onclick="changeImage(this, 'viMainImg', true)" alt1="{{product.name | escape}}">
-        {% endfor %}
-        </div>
-      </div>
-
-      <div class="col-md-6 p-3 vBgSlave">
-        <div class="d-flex justify-content-between p-2">
-          <div>
-            <a class="btn" id="vTo_favorite" title="{{Translate(lang, 'favorite')}}" data-key="favorite"><i class="fa fa-heart"></i></a>
-            <a class="btn" id="vTo_compare" title="{{Translate(lang, 'compare')}}" data-key="compare"><i class="fa fa-balance-scale"></i></a>
-          </div>
-          <span>{{Translate(lang, 'code')}}: {{url_id}}</span>
-        </div>
-
-        <h1>{{product.name}}</h1>
-        <div class="pt-2">{{Translate(lang, 'site')}}: <a href="{{href.site}}">{{host}}</a></div>
-        <div class="pt-2 pb-2 product-attr-short">
-          {% for Rec in TDbList().Import(dbl_attr) %}
-            <div>{{Translate(lang, Rec.key)}}: <a href="{{Rec.href}}">{{Rec.val}}</a></div>
-          {% endfor %}
-          <div class="pt-2">{{Translate(lang, 'available')}}: {{product.stock}}</div>
-        </div>
-
-        {%- if product.price_old -%}
-        <p>
-          <span class="h3 text-danger">{{product.price[0]}} {{product.price[1]}}</span>
-          {{ "%.1f" | format((product.price_old[0] / product.price[0] * 100) - 100) }}%
-        </p>
-        <p class="h3 text-decoration-line-through price-old">{{product.price_old[0]}} {{product.price_old[1]}}</p>
-        {%- else -%}
-          <p class="h4">{{Translate(lang, 'price')}}: {{product.price[0]}} {{product.price[1]}}</p>
-        {%- endif %}
-
-        {% if product.stock %}
-          <button type="button" class="btn btn-primary mt-3 viAddToCart" id="viAddToCart2" data-product=''>
-            <i class="fa fa-shopping-cart m-1"></i>{{Translate(lang, 'buy')}}
-          </button>
-        {% else %}
-          <button type="button" class="btn buyButtonOff mt-3" disabled>{{Translate(lang, 'not_available')}}</button>
-        {% endif%}
-      </div>
-    </div>
-
-    <div class="row vBgMaster mt-1">
-      <!-- tab_header + -->
-      <ul class="nav nav-tabs pt-3" id="productTabs" role="tablist">
-        <li class="nav-item">
-          <a class="nav-link active" id="features-tab" data-bs-toggle="tab" href="#features" role="tab" aria-controls="features" aria-selected="true">
-            {{Translate(lang, 'features')}} ({{product.features | length}})
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">
-            {{Translate(lang, 'description')}} ({{Iif(product.description, '+', '-')}})
-          </a>
-        </li>
+<section id="breadcrumbs">
+  <div class="container">
+      <ul>
+          <li><a href="#">Home</a><span> / </span></li>
+          <li><a href="#">Laptops</a><span> / </span></li>
+          <li>{{parsed_data.name}}</li>
       </ul>
-      <!-- tab_header - -->
-
-      <div class="tab-content mt-1">
-        <!-- tab_features + -->
-        <div class="tab-pane fade show active m-3" id="features" role="tabpanel" aria-labelledby="features-tab">
-          <div class="accordion">
-          {%- for xKey, xVal in product.features.items() %}
-            <div class="vItemOdd">{{xKey}}: {{xVal}}</div>
-          {%- endfor %}
-          </div>
-        </div>
-        <!-- tab_features - -->
-
-        <!-- tab_descr + -->
-        <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
-          {{Text2Html(product.description)}}
-        </div>
-        <!-- tab_descr - -->
-
-      </div>
-    </div>
   </div>
+</section>
 
-  <script src="/assets/jsExt/product.js"></script>
-  <script>
-    // document.cookie = 'key2=val2;';
-    AddHistory('{{url_id}}');
-    OnCompareFavorite('{{url_id}}');
-    OnAddToCart('{{url_ext}}')
-  </script>
-  <!-- product - -->
+<section id="page__card">
+  <div class="container">
+      <div class="main__data">
+          <div class="mobile__title">
+            {{parsed_data.name}}
+          </div>
+
+          <div class="gallery">
+              <div class="gallery__main">
+                <div class="slider__main">
+                {% for xImage in parsed_data.images %}
+                  <div><img src="{{xImage}}" alt="title"></div>
+                {% endfor %}
+                </div>
+              </div>
+              <div class="gallery__thumbs">
+                  <div class="slider__thumbs">
+                    {% for xImage in parsed_data.images %}
+                    <div><img src="{{xImage}}" alt="title"></div>
+                    {% endfor %}
+                  </div>
+              </div>
+          </div>
+
+          <div class="information">
+              <h1>{{parsed_data.name}}</h1>
+              <div class="from">
+                  <p><strong>{{Translate(lang, 'date')}}:</strong> {{update_date.date()}}</p>
+                  <p><strong>Location:</strong> Poland</p>
+                  <p><strong>{{Translate(lang, 'code')}}:</strong> {{url_id}}</p>
+              </div>
+              <div class="detail">
+                  <div class="price">
+                    {{parsed_data.price[0]}}
+                    {% if parsed_data.price_old %}
+                      <div class="old">{{parsed_data.price_old[0]}}</div>
+                    {% endif %}
+                  </div>
+                  <div class="actions">
+                      <a href="#" class="btn btn-action">
+                          <img src="/assets/images/icon-compare.svg" alt="title">
+                      </a>
+                      <a href="#" class="btn btn-action">
+                          <img src="/assets/images/icon-heart.svg" alt="title">
+                      </a>
+                  </div>
+                  <div class="buy">
+                      <a href="#" class="btn btn-green">{{Translate(lang, 'buy')}}</a>
+                  </div>
+              </div>
+              <div class="tth">
+                  <div class="item">
+                    {% for Rec in TDbList().Import(attr) %}
+                      <div class="row">
+                        <p>{{Translate(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val}}</a></strong>
+                      </div>
+                    {% endfor %}
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="other__data">
+          <div class="tab__filters">
+              <a href="#" class="active" data-tab="tab1">{{Translate(lang, 'features')}} ({{parsed_data.features | length}})</a>
+              <a href="#" data-tab="tab2">{{Translate(lang, 'description')}} ({{Iif(parsed_data.description, '+', '-')}})</a>
+          </div>
+
+          <div class="tabs">
+              <div class="tab tab1">
+                  <div class="full__tth">
+                    <div class="item">
+                    {%- for xKey, xVal in parsed_data.features.items() %}
+                      <div class="row">{{xKey}}: {{xVal}}</div>
+                    {%- endfor %}
+                    </div>
+                  </div>
+              </div>
+              <div class="tab tab2">
+                  <div class="content">
+                    {{Text2Html(parsed_data.description)}}
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<!-- product - -->
 {% endblock %}

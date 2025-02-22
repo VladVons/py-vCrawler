@@ -1,101 +1,42 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  {% if meta_title %}
-   <title>{{ meta_title }}</title>
-   <meta property="og:title" content="{{meta_title}}">
-  {% endif %}
-  {% if meta_descr %}
-   <meta name="description" content="{{meta_descr}}">
-   <meta property="og:description" content="{{meta_descr}}">
-  {% endif %}
-  {% if meta_image %}
-   <meta property="og:image" content="{{meta_image}}">
-  {% endif %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  {% block head %}{% endblock %}
-  <link rel="stylesheet" href="/assets/vendor/css/bootstrap.css">
-  <link rel="stylesheet" href="/assets/vendor/css/fontawesome.css">
-  <link rel="stylesheet" href="/assets/css/styles.css">
-  <script src="/assets/js/lib.js"></script>
-  <script src="/assets/js/app.js"></script>
-  <script src="/assets/js/search1.js"></script>
-  <style>
-    body {
-      padding-top: 60px;
-      padding-bottom: 60px;
-    }
-    .fixed-top, .fixed-bottom {
-      background-color: #f8f9fa;
-      z-index: 1030;
-    }
-    .header-container {
-      display: flex;
-      align-items: center;
-      justify-content: start;
-      gap: 0.5rem;
-    }
-    .search-group {
-      display: flex;
-      align-items: center;
-      flex-grow: 1;
-    }
-    .search-input {
-      flex: 0 0 40%;
-    }
-    .search-icon {
-      background: none;
-      border: none;
-      padding: 0.375rem 0.75rem;
-    }
-    .form-select {
-      width: auto;
-    }
+    <title>HomePage</title>
 
-    /* Responsive styles for mobile */
-    @media (max-width: 768px) {
-      .header-container {
-        flex-direction: column;
-        align-items: start;
-      }
-      .search-group {
-        width: 100%;
-      }
-      .logo-and-select {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        justify-content: space-between;
-      }
-      .search-input {
-        flex: 1; /* Full width for search input on mobile */
-      }
-      .search-icon {
-        margin-left: auto;
-      }
-    }
-  </style>
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    {% block head %}{% endblock %}
 </head>
 
-<body>
-  <header class="fixed-top">
-    <div class="container header-container">
-      {% include './header.j2' %}
-    </div>
-  </header>
+<body id="startpage">
+    {% include './header.j2' %}
 
-  <main class="container mt-3">
+    <section id="promo">
+        <div class="container">
+            <h1>Find your <strong>dream wares</strong> here!</h1>
+
+            <div class="form__search">
+                <form>
+                    <input type="text" name="s" placeholder="Write title or keyword">
+                    <select>
+                        <option selected="true" disabled="disabled">{{Translate(lang, 'location')}}</option>
+                        {% for Rec in TDbList().Import(dbl_country) %}
+                        <option value="{{Rec.id}}" data-lang="{{Rec.lang_id}}" {{Iif(Rec.id == country_id, 'selected', '')}}>{{Rec.title}} ({{Rec.alias}})</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-green">{{Translate(lang, 'search')}}</button>
+                </form>
+            </div>
+            {% block promo %}{% endblock %}
+        </div>
+    </section>
+
     {% block content %}{% endblock %}
-  </main>
+    {% include './footer.j2' %}
 
-  <footer class="fixed-bottom text-center py-2">
-    <div class="container vFooter">
-      {% include './footer.j2' %}
-    </div>
-  </footer>
-
-  <script src="/assets/vendor/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/assets/jsExt/main.min.js"></script>
 </body>
 </html>

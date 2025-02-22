@@ -1,39 +1,44 @@
-  <div>
-    {% if dbl_products_sort %}
-    <div class="row pb-1">
-      <div class="col-3">
-        <label class="control-label" for="input-sort">{{Translate(lang, 'sorting')}}</label>
-        <select class="form-control" id="input-sort" onchange="location=this.value">
-        {% for Rec in TDbList().Import(dbl_products_sort) %}
-          <option value="{{Rec.href}}" {{Rec.selected}}>{{Translate(lang, Rec.title)}}</option>
+<div class="products__list">
+  {% for Rec in TDbList().Import(dbl_products) %}
+  <div class="product__item">
+    <div class="image">
+      <a href="{{Rec.href}}"><img src="{{Rec.image}}" alt="{{Rec.title}}"></a>
+    </div>
+    <div class="data">
+      <div class="title">
+        <a href="{{Rec.href}}">{{Rec.title |truncate(100, True, '...')}}</a>
+      </div>
+
+      {% if Rec.attr %}
+        <div class="tth">
+        {% for xKey, xVal in Rec.attr.items() %}
+          <p><strong>{{xKey}}: </strong>{{xVal}}</p>
         {% endfor %}
-        </select>
+        </div>
+      {% endif %}
+
+      <div class="more">
+        <p><strong>Date: </strong>{{Rec.update_date.strftime('%Y-%m-%d')}}</p>
+        <p><strong>Code: </strong>{{Rec.url_id}}</p>
       </div>
     </div>
-    {% endif %}
-  </div>
 
-  <div>
-    {% set DblProducts = TDbList().Import(dbl_products) %}
-    {% if DblProducts %}
-      {% for Rec in DblProducts %}
-      <div class="row mt-2">
-        <div class="col-2">
-          <div>{{Rec.site}}</div>
-          <a href="{{Rec.href}}" title="{{Rec.update_date.strftime('%Y-%m-%d')}} {{Rec.href_ext}}">
-            <img src="{{Rec.image}}" alt="{{Rec.title | escape | truncate(32, True, '...')}}" class="thumb">
-          </a>
-        </div>
-        <div class="col-5" >
-          <a href="{{Rec.href}}" title="{{Rec.title | escape}}">{{Rec.title |truncate(100, True, '...')}}</a>
-        </div>
-        <div class="col-2">
-          <div>{{"{:,}".format(Rec.price|int)}}</div>
-          <div class="text-decoration-line-through">{{Iif(Rec.price_old, "{:,}".format(Rec.price_old|int), '')}}</div>
-        </div>
+    <div class="info">
+      <div class="price">
+        {% if Rec.price_old %}
+          <div class="old">{{"{:,}".format(Rec.price_old|int)}}</div>
+        {% endif %}
+        {{"{:,}".format(Rec.price|int)}}
       </div>
-      {% endfor %}
-    {% else %}
-      <div>{{Translate(lang, 'not found')}}</div>
-    {% endif %}
+      <div class="actions">
+        <a href="#" class="btn btn-action">
+          <img src="/assets/images/icon-compare.svg" alt="title">
+        </a>
+        <a href="#" class="btn btn-action">
+          <img src="/assets/images/icon-heart.svg" alt="title">
+        </a>
+      </div>
+    </div>
   </div>
+  {% endfor %}
+</div>

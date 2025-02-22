@@ -28,8 +28,8 @@ class TMain(Lib.TCtrlBase):
         if (not DblProduct):
             return {'status_code': 404}
 
-        Res = {}
-        Product = DblProduct.Rec.parsed_data
+        Res = DblProduct.Rec.GetAsDict()
+        ParsedData = DblProduct.Rec.parsed_data
 
         CountryId = DblProduct.Rec.country_id
         Attr = DblProduct.Rec.GetField('attr', {})
@@ -42,23 +42,23 @@ class TMain(Lib.TCtrlBase):
             Href = f'/?route=product/category&lang_id={aLangId}&country_id={CountryId}&{Filter}'
             DblAttr.RecAdd([xKey, xVal, Href])
 
-        if ('brand' not in Product):
-            Product['brand'] = ''
+        if ('brand' not in ParsedData):
+            ParsedData['brand'] = ''
 
-        if ('features' not in Product):
-            Product['features'] = {}
+        if ('features' not in ParsedData):
+            ParsedData['features'] = {}
 
-        if ('image' not in Product):
-            Product['image'] = 'http://someurl.img'
+        if ('image' not in ParsedData):
+            ParsedData['image'] = 'http://someurl.img'
 
-        if ('images' not in Product):
-            Product['images'] = []
+        if ('images' not in ParsedData):
+            ParsedData['images'] = []
 
-        if ('price' not in Product):
-            Product['price'] = [0, '']
+        if ('price' not in ParsedData):
+            ParsedData['price'] = [0, '']
 
-        if ('stock' not in Product):
-            Product['stock'] = False
+        if ('stock' not in ParsedData):
+            ParsedData['stock'] = False
 
         AttrSchema = [
             {
@@ -72,43 +72,44 @@ class TMain(Lib.TCtrlBase):
         Schema = {
             '@context': 'https://schema.org',
             '@type': 'Product',
-            'image': Product.get('images'),
-            'name': Product.get('name'),
-            'description': Product.get('description'),
+            'image': ParsedData.get('images'),
+            'name': ParsedData.get('name'),
+            'description': ParsedData.get('description'),
             'category': Attr.get('category'),
             'model': Attr.get('model'),
             'brand': Attr.get('brand'),
             'offers': {
                 '@type': 'Offer',
-                'availability': 'https://schema.org/' + Lib.Iif(Product.get('stock'), 'InStock', 'OutOfStock'),
-                'price': Product.get('price')[0],
-                'priceCurrency': Product.get('price')[1]
+                'availability': 'https://schema.org/' + Lib.Iif(ParsedData.get('stock'), 'InStock', 'OutOfStock'),
+                'price': ParsedData.get('price')[0],
+                'priceCurrency': ParsedData.get('price')[1]
             },
             'additionalProperty': AttrSchema
         }
         Lib.DelValues(Schema, ['', [], {}, None])
 
         Tabs = {
-            'features': bool(Product.get('features')),
-            'details': bool(Product.get('description'))
+            'features': bool(ParsedData.get('features')),
+            'details': bool(ParsedData.get('description'))
         }
         TabActive = Lib.DictFindVal(Tabs, True, 'features')
 
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblAttr, ['href'])
 
-        Res = {
-            'dbl_attr': DblAttr.Export(),
-            'product': Product,
+        Res['attr'] = DblAttr.Export()
+        Res['parsed_data'] = ParsedData
+
+        ResExt = {
             'schema': json.dumps(Schema, ensure_ascii=False, indent=1),
-            'meta_title': Product['name'],
-            'meta_image': Product['image'],
+            'meta_title': ParsedData['name'],
+            'meta_image': ParsedData['image'],
             'url_id': aUrlId,
-            'url_ext': DblProduct.Rec.url,
             'host': Lib.UrlToDict(DblProduct.Rec.site_url)['host'],
             'tab_active': TabActive,
             'href': {
                 'site': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}'
             }
         }
+        Res.update(ResExt)
         return Res

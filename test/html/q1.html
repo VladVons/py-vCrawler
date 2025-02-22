@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image with Badge</title>
+  <style>
+    .badge-container {
+      position: relative; /* Sets the anchor as the positioning context */
+      display: inline-block;
+    }
+    .badge {
+      position: absolute;
+      top: 5px;      /* Adjust as needed */
+      right: 5px;    /* Adjust as needed */
+      background: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 5px;
+      font-size: 10px;
+    }
+  </style>
+</head>
+<body>
+  <a href="#" class="btn btn-action badge-container">
+    <img src="icon-history.svg" alt="History Icon">
+    <span class="badge">5</span>
+  </a>
+</body>
+</html>

@@ -1,0 +1,18 @@
+/* === common === */
+
+.badge {
+    --bs-badge-padding-x: 0.5em;
+    --bs-badge-padding-y: 0.3em;
+    display: inline-block;
+    padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
+    font-size: 0.70em;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    border-radius: 0.375rem;
+    background: green;
+}
+
+.badge:empty {
+    display: none
+}
