@@ -20,7 +20,7 @@
 <div class="container pb-2">
   <div class="grid-container">
     {% for xFields in Fields %}
-      <div class="grid-item fw-bold">{{Translate(lang, xFields)}}</div>
+      <div class="grid-item fw-bold">{{Trans(lang, xFields)}}</div>
     {% endfor %}
 
     {% for Rec in TDbList().Import(dbl_countries) %}

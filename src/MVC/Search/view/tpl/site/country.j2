@@ -20,12 +20,12 @@
 <div class="container pb-2">
   <div class="pb-2">
     <form method="get">
-      <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn}}')">{{Translate(lang, 'add site')}}</button>
+      <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn}}')">{{(lang, 'add site')}}</button>
     </form>
   </div>
   <div class="grid-container">
     {% for xField in Fields %}
-      <div class="grid-item fw-bold">{{Translate(lang, xField)}}</div>
+      <div class="grid-item fw-bold">{{Trans(lang, xField)}}</div>
     {% endfor %}
 
     <div class="gitem">{{cnt_all}}</div>

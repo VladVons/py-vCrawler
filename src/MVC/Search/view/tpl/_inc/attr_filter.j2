@@ -1,4 +1,4 @@
-  <h2 id="idCategory" data-value="{{category}}">{{Translate(lang, 'category')}}: {{Translate(lang, category)}}</h2>
+  <h2 id="idCategory" data-value="{{category}}">{{Trans(lang, 'category')}}: {{Trans(lang, category)}}</h2>
   <div class="row">
     <div class="col-6">
       <form method="get" id="formAttrFilter">
@@ -7,7 +7,7 @@
         {% for Rec in TDbList().Import(dbl_attr) %}
         <div class="row">
           <div class="col-2">
-            <label for="{{Rec.key}}">{{Translate(lang, Rec.key)}}</label>
+            <label for="{{Rec.key}}">{{Trans(lang, Rec.key)}}</label>
           </div>
           <div class="col-3">
             <select class="form-select w-100" id="{{Rec.key}}" name="f_{{Rec.key}}">
@@ -19,13 +19,13 @@
           </div>
         </div>
         {% endfor %}
-        <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn_attr}}')">{{Translate(lang, 'filter')}}</button>
-        <button class="btn btn-primary" id="btnFilterClear">{{Translate(lang, 'clear_it')}}</button>
+        <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn_attr}}')">{{Trans(lang, 'filter')}}</button>
+        <button class="btn btn-primary" id="btnFilterClear">{{Trans(lang, 'clear_it')}}</button>
       </form>
     </div>
     <div class="col-6">
       <img src="{{image}}" class="card-img-top vGrayscale" alt="{{category}}" style="width: 250px;">
-      <div>{{Translate(lang, category)}} ({{category_cnt}})</div>
+      <div>{{Trans(lang, category)}} ({{category_cnt}})</div>
     </div>
   </div>
 

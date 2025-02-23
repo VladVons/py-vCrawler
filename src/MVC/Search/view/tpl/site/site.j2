@@ -7,7 +7,7 @@
   </div>
   {% for Rec in TDbList().Import(dbl_categories) %}
   <div>
-    <a href="{{Rec.href}}">{{Translate(lang, Rec.category)}} ({{Rec.cnt}})</a>
+    <a href="{{Rec.href}}">{{Trans(lang, Rec.category)}} ({{Rec.cnt}})</a>
   </div>
   {% endfor %}
 </div>

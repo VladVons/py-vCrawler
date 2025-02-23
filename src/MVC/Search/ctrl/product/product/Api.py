@@ -21,7 +21,8 @@ class TMain(Lib.TCtrlBase):
             {
                 'method': 'GetProductByUrlId',
                 'param': {
-                    'aUrlId': aUrlId
+                    'aUrlId': aUrlId,
+                    'aLangId': aLangId
                 }
             }
         )

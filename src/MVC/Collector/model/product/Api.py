@@ -100,11 +100,12 @@ class TMain(Lib.TDbModel):
             }
         )
 
-    async def GetProductByUrlId(self, aUrlId: int) -> dict:
+    async def GetProductByUrlId(self, aUrlId: int, aLangId: int) -> dict:
         return await self.ExecQuery(
             'fmtGet_ProductByUrlId.sql',
             {
-                'aUrlId': aUrlId
+                'aUrlId': aUrlId,
+                'aLangId': aLangId
             }
         )
 

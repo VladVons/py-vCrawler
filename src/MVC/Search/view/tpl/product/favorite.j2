@@ -2,24 +2,25 @@
 
 {% block content %}
 <!-- favorite + -->
-<div class="container pb-2">
-  <div id="viForm_favorite">
-    <h2 class="text-center">{{ Translate(lang, 'favorite') }}</h2>
+<section id="products__list">
+  <div class="container pb-2">
+    <div class="section__title">
+      <h2 class="bt">{{ Trans(lang, 'favorite') }}</h2>
+      <a href="#">View all</a>
+    </div>
+
+    <div class="products__list">
     {% include '../_inc/products_a.j2' %}
+    </div>
+
+    <div class="pagination">
+      <a href="#" class="btn btn-green" id="viBtn_Clear">{{Trans(lang, 'clear_it')}}</a>
+    </div>
   </div>
-  <button type="button" class="btn btn-primary mt-3" id="viBtn_Clear">
-    <i class="fa fa-trash m-1"></i>{{Translate(lang, 'clear_it')}}
-  </button>
-</div>
+</section>
 
 <script>
-  document.getElementById('viBtn_Clear').addEventListener('click', function (event) {
-      const key = 'favorite'
-      LStorage = new TLocalStorage('products_' + key)
-      LStorage.remove()
-      document.getElementById('viCount_' + key).innerHTML = null
-      document.getElementById('viForm_' + key).innerHTML = null
-  })
+  btnClear('favorite');
 </script>
 <!-- favorite - -->
 {% endblock %}

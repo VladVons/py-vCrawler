@@ -8,6 +8,9 @@
 
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <script src="/assets/js/lib.js"></script>
+    <script src="/assets/js/app.js"></script>
+    <script src="/assets/jsExt/app.js"></script>
     {% block head %}{% endblock %}
 </head>
 
@@ -21,13 +24,13 @@
             <div class="form__search">
                 <form>
                     <input type="text" name="s" placeholder="Write title or keyword">
-                    <select>
-                        <option selected="true" disabled="disabled">{{Translate(lang, 'location')}}</option>
+                    <select name="country_id" id="viCountry">
+                        <option selected="true" disabled="disabled">{{Trans(lang, 'location')}}</option>
                         {% for Rec in TDbList().Import(dbl_country) %}
                         <option value="{{Rec.id}}" data-lang="{{Rec.lang_id}}" {{Iif(Rec.id == country_id, 'selected', '')}}>{{Rec.title}} ({{Rec.alias}})</option>
                         {% endfor %}
                     </select>
-                    <button class="btn btn-green">{{Translate(lang, 'search')}}</button>
+                    <button class="btn btn-green">{{Trans(lang, 'search')}}</button>
                 </form>
             </div>
             {% block promo %}{% endblock %}

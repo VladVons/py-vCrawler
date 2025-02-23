@@ -1,4 +1,4 @@
-{% extends '_inc/layout1.j2' %}
+f{% extends '_inc/layout1.j2' %}
 
 {% block head %}
 <meta name="robots" content="index,follow">
@@ -49,9 +49,9 @@
           <div class="information">
               <h1>{{parsed_data.name}}</h1>
               <div class="from">
-                  <p><strong>{{Translate(lang, 'date')}}:</strong> {{update_date.date()}}</p>
-                  <p><strong>Location:</strong> Poland</p>
-                  <p><strong>{{Translate(lang, 'code')}}:</strong> {{url_id}}</p>
+                  <p><strong>{{Trans(lang, 'date')}}:</strong> {{update_date.date()}}</p>
+                  <p><strong>{{Trans(lang, 'location')}}:</strong> {{country_title}}</p>
+                  <p><strong>{{Trans(lang, 'code')}}:</strong> {{url_id}}</p>
               </div>
               <div class="detail">
                   <div class="price">
@@ -61,22 +61,22 @@
                     {% endif %}
                   </div>
                   <div class="actions">
-                      <a href="#" class="btn btn-action">
-                          <img src="/assets/images/icon-compare.svg" alt="title">
+                      <a href="#" class="btn btn-action" id="vTo_compare" title="{{Trans(lang, 'compare')}}" data-key="compare">
+                          <img src="/assets/images/icon-compare.svg" alt="compare">
                       </a>
-                      <a href="#" class="btn btn-action">
-                          <img src="/assets/images/icon-heart.svg" alt="title">
+                      <a href="#" class="btn btn-action" id="vTo_favorite" title="{{Trans(lang, 'favorite')}}" data-key="favorite">
+                          <img src="/assets/images/icon-heart.svg" alt="favorite">
                       </a>
                   </div>
                   <div class="buy">
-                      <a href="#" class="btn btn-green">{{Translate(lang, 'buy')}}</a>
+                      <a href="#" class="btn btn-green" id="viAddToCart2">{{Trans(lang, 'buy')}}</a>
                   </div>
               </div>
               <div class="tth">
                   <div class="item">
                     {% for Rec in TDbList().Import(attr) %}
                       <div class="row">
-                        <p>{{Translate(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val}}</a></strong>
+                        <p>{{Trans(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val}}</a></strong>
                       </div>
                     {% endfor %}
                   </div>
@@ -86,8 +86,8 @@
 
       <div class="other__data">
           <div class="tab__filters">
-              <a href="#" class="active" data-tab="tab1">{{Translate(lang, 'features')}} ({{parsed_data.features | length}})</a>
-              <a href="#" data-tab="tab2">{{Translate(lang, 'description')}} ({{Iif(parsed_data.description, '+', '-')}})</a>
+              <a href="#" class="active" data-tab="tab1">{{Trans(lang, 'features')}} ({{parsed_data.features | length}})</a>
+              <a href="#" data-tab="tab2">{{Trans(lang, 'description')}} ({{Iif(parsed_data.description, '+', '-')}})</a>
           </div>
 
           <div class="tabs">
@@ -109,6 +109,13 @@
       </div>
   </div>
 </section>
+
+<script src="/assets/jsExt/product.js"></script>
+<script>
+  AddHistory('{{url_id}}');
+  //OnCompareFavorite('{{url_id}}');
+  //OnAddToCart('{{url}}')
+</script>
 
 <!-- product - -->
 {% endblock %}

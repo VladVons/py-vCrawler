@@ -26,7 +26,7 @@
   <h1>Visit statistics</h1>
   <div class="grid-container">
     {% for xField in Fields %}
-      <div class="grid-item fw-bold">{{Translate(lang, xField)}}</div>
+      <div class="grid-item fw-bold">{{Trans(lang, xField)}}</div>
     {% endfor %}
 
     {% set ns = namespace(Prev=None) %}
