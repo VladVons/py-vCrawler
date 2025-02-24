@@ -3,89 +3,19 @@
   <div class="container">
       <div class="logo"><a href="{{href.root}}"><img src="/assets/images/logo.svg" alt="logo"></a></div>
       <div class="actions">
-          <a href="{{href.history}}" class="btn btn-action">
+          <a class="btn btn-action" id="viBtnOn_history">
               <img src="/assets/images/icon-history.svg" alt="{{Trans(lang, 'history')}}">
               <span class="badge" id="viCount_history"></span>
           </a>
-          <a href="{{href.favorite}}" class="btn btn-action">
+          <a class="btn btn-action" id="viBtnOn_favorite">
               <img src="/assets/images/icon-heart.svg" alt="{{Trans(lang, 'favorite')}}">
               <span class="badge" id="viCount_favorite"></span>
             </a>
-          <a href="{{href.compare}}" class="btn btn-action">
+          <a class="btn btn-action" id="viBtnOn_compare">
               <img src="/assets/images/icon-compare.svg" alt="{{Trans(lang, 'compare')}}">
               <span class="badge" id="viCount_compare"></span>
           </a>
       </div>
   </div>
 </header>
-
-<script type="text/javascript">
-    function OnCountry() {
-      const elForm = document.getElementById('viSearchForm');
-
-      document.getElementById('viCountry').addEventListener('change', (event) => {
-        const Element = event.target;
-        const Selected = Element.options[Element.selectedIndex];
-        const CountryId = Selected.value;
-        const LangId = Selected.getAttribute('data-lang');
-
-        // localStorage.setItem('country_id', CountryId);
-        // localStorage.setItem('lang_id', LangId);
-
-        let Path = window.location.pathname;
-        let Query = {'country_id': CountryId, 'lang_id': LangId};
-        const Search = elForm.elements['q'].value;
-        if (Search) {
-          Query = {...{'route': 'product/search', 'q': Search}, ...Query};
-        }else{
-          Path += window.location.search;
-        }
-
-        const res = new TSend().exec(
-          '/api/?route=seo',
-          {
-            'method': 'Update',
-            'param': {
-              'aPath': Path,
-              'aQuery': Query
-            }
-          }
-        )
-        window.location.href = res;
-      });
-    }
-
-    const Hrefs = {
-      'history': '{{href.history}}',
-      'compare': '{{href.compare}}',
-      'favorite': '{{href.favorite}}'
-    }
-
-    function OnHeadCompareFavorite() {
-      for (const key of ['history', 'compare', 'favorite']) {
-        const LStorage = new TLocalStorage('products_' + key)
-        if (LStorage.items) {
-          document.getElementById('viCount_' + key).innerHTML = LStorage.items.length
-        }
-
-        document.getElementById('viBtnOn_' + key).addEventListener('click', function (event) {
-          const value = (event.target.value ? event.target.value : event.target.parentElement.value)
-          const LStorage = new TLocalStorage('products_' + value)
-          if (LStorage.items && LStorage.items.length > 0) {
-            const Url = `${Hrefs[value]}${Hrefs[value].includes('?') ? '&' : '/?'}url_ids=${LStorage.items.join(',')}`;
-            window.location.href = Url
-          }else{
-            showTooltip("{{Trans(lang, 'no_data')}}")
-          }
-        });
-      }
-    }
-
-    OnCountry();
-    OnHeadCompareFavorite();
-
-    const search_ajax = '{{href_search_ajax}}';
-    const search_query = {'method': 'ajax', 'lang_id': '{{lang_id}}', 'country_id': '{{country_id}}'}
-    //searchNavbar(search_ajax, search_query);
-  </script>
 <!-- header - -->

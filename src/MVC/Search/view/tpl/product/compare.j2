@@ -1,12 +1,13 @@
 {% extends '_inc/layout1.j2' %}
 
 {% block content %}
+{% set Dbl = TDbList().Import(dbl_compare) %}
 <!-- compare + -->
 <section id="breadcrumbs">
     <div class="container">
         <ul>
             <li><a href="{{href.root}}">Home</a><span> / </span></li>
-            <li>Trans(lang, 'compare')</li>
+            <li>{{Trans(lang, 'compare')}}</li>
         </ul>
     </div>
 </section>
@@ -16,206 +17,31 @@
         <div class="page__compare">
             <div class="list__items">
                 <div class="tth">
-                    <div class="image">Product Photo:</div>
-                    <div class="row">Brand:</div>
-                    <div class="row">Condition:</div>
-                    <div class="row">Color: </div>
-                    <div class="row">Processor model:</div>
-                    <div class="row">Number of cores:</div>
-                    <div class="row">Frequency:</div>
-                    <div class="row">Diagonal:</div>
-                    <div class="row">Resolution:</div>
-                    <div class="row">Matrix type:</div>
-                    <div class="row">Coating:</div>
-                    <div class="row">Format:</div>
-                    <div class="row">Memory capacity:</div>
-                    <div class="row">Storage type:</div>
-                    <div class="row">Memory type:</div>
-                    <div class="row">Maximum memory capacity:</div>
-                    <div class="row">Type: </div>
-                    <div class="row">Video card manufacturer:</div>
-                    <div class="row">Video card model:</div>
-                    <div class="row">Video memory capacity:</div>
-                    <div class="row">LAN:</div>
-                    <div class="row">WLAN frequency:</div>
-                    <div class="row">USB 3.0:</div>
+                {% for xRow in rows %}
+                    <div class="{{Iif(xRow == 'image', 'image', 'row')}}">{{Trans(lang, xRow)}}:</div>
+                {% endfor %}
                 </div>
                 <div class="items">
                     <div class="items__full">
+                    {% for Rec in Dbl %}
                         <div class="item">
+                        {% for xRow in rows %}
+                            {% if xRow == 'image' %}
                             <div class="image">
-                                <a href="#"><img src="assets/images/product1.png" alt="title"></a>
-                                <a href="#" class="remove"><img src="assets/images/icon-remove-red.svg" alt="remove"></a>
+                                <a href="{{Rec.href}}"><img src="{{Rec.image}}"></a>
                             </div>
-                            <div class="row">Apple MacBook Air 13,6" M2 Midnight</div>
-                            <div class="row">A</div>
-                            <div class="row">Black</div>
-                            <div class="row">Intel® Core™ i5-8350U</div>
-                            <div class="row">2 (4 threads)</div>
-                            <div class="row">1.7-3.3 GHz</div>
-                            <div class="row">14 inches</div>
-                            <div class="row">1920x1080</div>
-                            <div class="row">IPS</div>
-                            <div class="row">Matte</div>
-                            <div class="row">16:9</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">SSD</div>
-                            <div class="row">DDR 4</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">Integrated</div>
-                            <div class="row">Intel</div>
-                            <div class="row">Intel® UHD Graphics 620</div>
-                            <div class="row">Up to 8Gb</div>
-                            <div class="row">1000 Mb/s</div>
-                            <div class="row">yes</div>
-                            <div class="row">3</div>
+                            {% else %}
+                            <div class="row">{{Rec.GetField(xRow)}}</div>
+                            {% endif %}
+                        {% endfor %}
                         </div>
-                        <div class="item">
-                            <div class="image">
-                                <a href="#"><img src="assets/images/product2.png" alt="title"></a>
-                                <a href="#" class="remove"><img src="assets/images/icon-remove-red.svg" alt="remove"></a>
-                            </div>
-                            <div class="row">Apple MacBook Air 13,6" M2 Midnight</div>
-                            <div class="row">A</div>
-                            <div class="row">Black</div>
-                            <div class="row">Intel® Core™ i5-8350U</div>
-                            <div class="row">2 (4 threads)</div>
-                            <div class="row">1.7-3.3 GHz</div>
-                            <div class="row">14 inches</div>
-                            <div class="row">1920x1080</div>
-                            <div class="row">IPS</div>
-                            <div class="row">Matte</div>
-                            <div class="row">16:9</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">SSD</div>
-                            <div class="row">DDR 4</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">Integrated</div>
-                            <div class="row">Intel</div>
-                            <div class="row">Intel® UHD Graphics 620</div>
-                            <div class="row">Up to 8Gb</div>
-                            <div class="row">1000 Mb/s</div>
-                            <div class="row">yes</div>
-                            <div class="row">3</div>
-                        </div>
-                        <div class="item">
-                            <div class="image">
-                                <a href="#"><img src="assets/images/product2.png" alt="title"></a>
-                                <a href="#" class="remove"><img src="assets/images/icon-remove-red.svg" alt="remove"></a>
-                            </div>
-                            <div class="row">Apple MacBook Air 13,6" M2 Midnight</div>
-                            <div class="row">A</div>
-                            <div class="row">Black</div>
-                            <div class="row">Intel® Core™ i5-8350U</div>
-                            <div class="row">2 (4 threads)</div>
-                            <div class="row">1.7-3.3 GHz</div>
-                            <div class="row">14 inches</div>
-                            <div class="row">1920x1080</div>
-                            <div class="row">IPS</div>
-                            <div class="row">Matte</div>
-                            <div class="row">16:9</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">SSD</div>
-                            <div class="row">DDR 4</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">Integrated</div>
-                            <div class="row">Intel</div>
-                            <div class="row">Intel® UHD Graphics 620</div>
-                            <div class="row">Up to 8Gb</div>
-                            <div class="row">1000 Mb/s</div>
-                            <div class="row">yes</div>
-                            <div class="row">3</div>
-                        </div>
-                        <div class="item">
-                            <div class="image">
-                                <a href="#"><img src="assets/images/product1.png" alt="title"></a>
-                                <a href="#" class="remove"><img src="assets/images/icon-remove-red.svg" alt="remove"></a>
-                            </div>
-                            <div class="row">Apple MacBook Air 13,6" M2 Midnight</div>
-                            <div class="row">A</div>
-                            <div class="row">Black</div>
-                            <div class="row">Intel® Core™ i5-8350U</div>
-                            <div class="row">2 (4 threads)</div>
-                            <div class="row">1.7-3.3 GHz</div>
-                            <div class="row">14 inches</div>
-                            <div class="row">1920x1080</div>
-                            <div class="row">IPS</div>
-                            <div class="row">Matte</div>
-                            <div class="row">16:9</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">SSD</div>
-                            <div class="row">DDR 4</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">Integrated</div>
-                            <div class="row">Intel</div>
-                            <div class="row">Intel® UHD Graphics 620</div>
-                            <div class="row">Up to 8Gb</div>
-                            <div class="row">1000 Mb/s</div>
-                            <div class="row">yes</div>
-                            <div class="row">3</div>
-                        </div>
-                        <div class="item">
-                            <div class="image">
-                                <a href="#"><img src="assets/images/product2.png" alt="title"></a>
-                                <a href="#" class="remove"><img src="assets/images/icon-remove-red.svg" alt="remove"></a>
-                            </div>
-                            <div class="row">Apple MacBook Air 13,6" M2 Midnight</div>
-                            <div class="row">A</div>
-                            <div class="row">Black</div>
-                            <div class="row">Intel® Core™ i5-8350U</div>
-                            <div class="row">2 (4 threads)</div>
-                            <div class="row">1.7-3.3 GHz</div>
-                            <div class="row">14 inches</div>
-                            <div class="row">1920x1080</div>
-                            <div class="row">IPS</div>
-                            <div class="row">Matte</div>
-                            <div class="row">16:9</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">SSD</div>
-                            <div class="row">DDR 4</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">Integrated</div>
-                            <div class="row">Intel</div>
-                            <div class="row">Intel® UHD Graphics 620</div>
-                            <div class="row">Up to 8Gb</div>
-                            <div class="row">1000 Mb/s</div>
-                            <div class="row">yes</div>
-                            <div class="row">3</div>
-                        </div>
-                        <div class="item">
-                            <div class="image">
-                                <a href="#"><img src="assets/images/product2.png" alt="title"></a>
-                                <a href="#" class="remove"><img src="assets/images/icon-remove-red.svg" alt="remove"></a>
-                            </div>
-                            <div class="row">Apple MacBook Air 13,6" M2 Midnight</div>
-                            <div class="row">A</div>
-                            <div class="row">Black</div>
-                            <div class="row">Intel® Core™ i5-8350U</div>
-                            <div class="row">2 (4 threads)</div>
-                            <div class="row">1.7-3.3 GHz</div>
-                            <div class="row">14 inches</div>
-                            <div class="row">1920x1080</div>
-                            <div class="row">IPS</div>
-                            <div class="row">Matte</div>
-                            <div class="row">16:9</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">SSD</div>
-                            <div class="row">DDR 4</div>
-                            <div class="row">32 Gb</div>
-                            <div class="row">Integrated</div>
-                            <div class="row">Intel</div>
-                            <div class="row">Intel® UHD Graphics 620</div>
-                            <div class="row">Up to 8Gb</div>
-                            <div class="row">1000 Mb/s</div>
-                            <div class="row">yes</div>
-                            <div class="row">3</div>
-                        </div>
+                    {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="pagination">
-            <a href="#" class="btn btn-green">Clear all <img src="assets/images/icon-trash.svg" alt="Clear all"></a>
+            <a href="#" class="btn btn-green">Clear all <img src="/assets/images/icon-trash.svg" alt="Clear all"></a>
         </div>
     </div>
 </section>

@@ -41,5 +41,22 @@
     {% include './footer.j2' %}
 
     <script type="text/javascript" src="/assets/jsExt/main.min.js"></script>
+
+    <script type="text/javascript">
+        OnCountry();
+
+        OnHeadCompareFavorite(
+          {
+            'history': '{{href.history}}',
+            'compare': '{{href.compare}}',
+            'favorite': '{{href.favorite}}'
+          }
+        );
+
+        const search_ajax = '{{href_search_ajax}}';
+        const search_query = {'method': 'ajax', 'lang_id': '{{lang_id}}', 'country_id': '{{country_id}}'}
+        //searchNavbar(search_ajax, search_query);
+    </script>
+
 </body>
 </html>

@@ -36,7 +36,7 @@ class TMain(Lib.TCtrlBase):
         for Rec in Dbl:
             if (Rec.attr):
                 AttrKeys += Rec.attr.keys()
-        ProductKeys = ['url_id', 'image', 'title', 'price']
+        ProductKeys = ['image', 'url_id', 'title', 'price']
         Fields = ProductKeys + sorted(set(AttrKeys))
 
         DblCompare = Lib.TDbList(['href'] + Fields)

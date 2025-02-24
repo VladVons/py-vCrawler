@@ -879,13 +879,13 @@ header .actions {
   padding-left: 35px;
 }
 .page__compare .list__items .tth .row {
-  height: 30px;
+  height: 50px;
   box-sizing: border-box;
   overflow: hidden;
 }
 .page__compare .list__items .row {
   padding: 5px 0;
-  height: 30px;
+  height: 50px;
   box-sizing: border-box;
 }
 .page__compare .list__items .row:nth-child(2n) {
