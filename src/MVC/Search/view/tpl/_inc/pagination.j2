@@ -1,18 +1,16 @@
 <!-- pagination + -->
-<div class="container mt-1">
-  <div class="p-0">
-    <ul class="pagination justify-content-center">
+<div class="pagination">
+  <div class="pagination__items">
     {%set Dbl = TDbList().Import(dbl_pagenation) %}
     {% if (Dbl.GetSize() > 1) %}
       {% for Rec in Dbl %}
         {% if Rec.current %}
-          <li class="page-item"><a class="page-link active">{{Rec.title}}</a></li>
+          <span>{{Rec.title}}</span>
         {% else %}
-          <li class="page-item"><a class="page-link" href="{{Rec.href}}">{{Rec.title}}</a></li>
+          <a href="{{Rec.href}}">{{Rec.title}}</a>
         {% endif %}
       {% endfor %}
     {% endif %}
-    </ul>
   </div>
 </div>
 <!-- pagination - -->

@@ -1,7 +1,26 @@
 {% extends '_inc/layout1.j2' %}
 
 {% block content %}
-{% include '../_inc/pagination.j2' %}
-{% include '../_inc/products_a.j2' %}
-{% include '../_inc/pagination.j2' %}
+<section id="products__list">
+    <div class="container pb-2">
+      <div class="section__title">
+        <h2 class="bt">{{ Trans(lang, 'search') }}</h2>
+        <a href="#">View all</a>
+      </div>
+
+      <div class="pagination">
+        {% include '../_inc/pagination.j2' %}
+      </div>
+
+      <div id="viProducts">
+        <div class="products__list">
+          {% include '../_inc/products_a.j2' %}
+        </div>
+
+        <div class="pagination">
+          {% include '../_inc/pagination.j2' %}
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
