@@ -9,18 +9,18 @@
       <a href="#">View all</a>
     </div>
 
-    <div class="products__list">
-    {% include '../_inc/products_a.j2' %}
-    </div>
+    <div id="viProducts">
+      <div class="products__list">
+      {% include '../_inc/products_a.j2' %}
+      </div>
 
-    <div class="pagination">
-      <a href="#" class="btn btn-green" id="viBtn_Clear">{{Trans(lang, 'clear_it')}}</a>
+      <div class="pagination">
+        <button class="btn btn-green" onclick="btnClear('history')">
+          {{Trans(lang, 'clear_it')}} <img src="/assets/images/icon-trash.svg" alt="Clear all">
+        </button>
+      </div>
     </div>
   </div>
 </section>
-
-<script>
-  btnClear('history');
-</script>
 <!-- history - -->
 {% endblock %}
