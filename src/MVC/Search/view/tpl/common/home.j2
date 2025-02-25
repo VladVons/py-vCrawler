@@ -3,13 +3,14 @@
 {% block promo %}
 <!-- home + -->
 <div class="categories">
-  {% for Rec in TDbList().Import(dbl_category) %}
+  {% for Rec in TDbList().Import(dbl_categories) %}
   <div class="item">
-    <a href="#">
+    <a href="{{Rec.href}}">
       <div class="icon">
         <img src="/assets/images/category/{{Rec.category}}.svg" alt="{{Rec.category}}">
       </div>
       <span>{{Rec.lang}}</span>
+      <p>({{Rec.count}})</p>
     </a>
   </div>
   {% endfor %}
@@ -23,16 +24,19 @@
   <div class="container">
       <div class="section__title">
           <h2 class="bt">{{Trans(lang, 'last added')}}</h2>
-          <a href="#">View all</a>
       </div>
 
       <div class="products__list">
         {% include '../_inc/products_a.j2' %}
       </div>
+  </div>
+</section>
 
-      <div class="pagination">
-          <a href="#" class="btn btn-green">{{Trans(lang, 'show all')}}</a>
-      </div>
+<section id="page__content">
+  <div class="container">
+    <div class="content">
+      {{Trans(lang, 'about')}}
+    </div>
   </div>
 </section>
 <!-- home - -->

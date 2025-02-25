@@ -95,6 +95,19 @@ async def Model_GetCategoriesCountry(self, aCountryId: int) -> dict:
         }
     )
 
+async def DblGetCountryCategories(self, aLangId: int, aCountryId: int) -> dict:
+    DblCategory = await Model_GetCategoriesCountry(self, aCountryId)
+    Categories = DblCategory.ExportList('category')
+    ImageUrls = await Img_GetCategory(self, Categories)
+    Translate = await self.Translate(aLangId, Categories)
+    DblCategory.AddFieldsFill(['lang', 'href', 'image'], False)
+    for xImage, Rec in zip(ImageUrls, DblCategory):
+        Category = Rec.category
+        Lang = Translate.get(Category, Category)
+        Href = f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
+        DblCategory.RecMerge([Lang, Href, xImage])
+    return DblCategory
+
 def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
     Marker = 'findwares.com'
     Hash = quote(b64encode(Marker.encode()).decode('utf-8'))

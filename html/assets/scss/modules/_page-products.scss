@@ -133,7 +133,7 @@
 
 	&.box{
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 		gap: 20px;
 		.product__item{
 			padding: 15px 15px 120px;
@@ -141,6 +141,7 @@
 			align-items: flex-start;
 			display: block;
 			margin: 0;
+			min-width: 190px;
 
 			.image{
 				width: 100%;
@@ -184,6 +185,9 @@
 				.actions{
 					right: 15px;
 				}
+			}
+			.tth{
+				display: none;
 			}
 		}
 	}

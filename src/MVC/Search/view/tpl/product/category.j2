@@ -1,8 +1,215 @@
 {% extends '_inc/layout1.j2' %}
 
 {% block content %}
-{% include '../_inc/attr_filter.j2' %}
-{% include '../_inc/pagination.j2' %}
-{% include '../_inc/products_a.j2' %}
-{% include '../_inc/pagination.j2' %}
+<section id="breadcrumbs">
+    <div class="container">
+        <ul>
+            <li><a href="#">Home</a><span> / </span></li>
+            <li>Laptops</li>
+        </ul>
+    </div>
+</section>
+
+<section id="products__list__page">
+    <div class="container">
+        <div class="sidebar__mobile">
+            Filters
+        </div>
+        <div id="sidebar">
+            <div class="box">
+                <select>
+                    {% for Rec in TDbList().Import(dbl_categories) %}
+                    <option>{{Rec.lang}} ({{Rec.count}})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="box">
+                <div class="price">
+                    <input type="text" name="" placeholder="0" class="minprice">
+                    <input type="text" name="" placeholder="1000" class="maxprice">
+                    <button class="btn btn-green">OK</button>
+                </div>
+                <input type="text" id="price__range">
+            </div>
+            <div class="box">
+                <div class="item">
+                    <div class="title">Condition</div>
+                    <div class="data">
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 240 GB <i>(12)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 512 GB <i>(547)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 1 TB <i>(1200)</i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title">Disk capacity GB</div>
+                    <div class="data">
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 240 GB <i>(12)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 512 GB <i>(547)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 1 TB <i>(1200)</i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title">Manufacturer</div>
+                    <div class="data">
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 240 GB <i>(12)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 512 GB <i>(547)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 1 TB <i>(1200)</i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title">Memory capacity GB</div>
+                    <div class="data">
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 240 GB <i>(12)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 512 GB <i>(547)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 1 TB <i>(1200)</i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title">Disk type</div>
+                    <div class="data">
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 240 GB <i>(12)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 512 GB <i>(547)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 1 TB <i>(1200)</i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title">Screen resolution</div>
+                    <div class="data">
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 240 GB <i>(12)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 512 GB <i>(547)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 1 TB <i>(1200)</i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title">Processor type</div>
+                    <div class="data">
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 240 GB <i>(12)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 512 GB <i>(547)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 1 TB <i>(1200)</i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title">Processor generation</div>
+                    <div class="data">
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 240 GB <i>(12)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 512 GB <i>(547)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 1 TB <i>(1200)</i></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title">Screen size</div>
+                    <div class="data">
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 240 GB <i>(12)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 512 GB <i>(547)</i></span>
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="" hidden>
+                            <span>More than 1 TB <i>(1200)</i></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="product__data">
+            <div class="filters">
+                <div class="views">
+                    <button class="btn btn-action active" data-view="list"><img src="/assets/images/icon-list.svg" alt="list"></button>
+                    <button class="btn btn-action" data-view="box"><img src="/assets/images/icon-box.svg" alt="list"></button>
+                </div>
+                <div class="sorting">
+                    <select>
+                        {% for Rec in TDbList().Import(dbl_products_sort) %}
+                        <option value="{{Rec.href}}" {{Rec.selected}}>{{Trans(lang, Rec.title)}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="products__list">
+                {% include '../_inc/products_a.j2' %}
+            </div>
+
+            <div class="pagination">
+                {% include '../_inc/pagination.j2' %}
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

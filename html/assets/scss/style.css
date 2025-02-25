@@ -422,7 +422,7 @@ header .actions {
 }
 .products__list.box {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
 .products__list.box .product__item {
@@ -431,6 +431,7 @@ header .actions {
   align-items: flex-start;
   display: block;
   margin: 0;
+  min-width: 180px;
 }
 .products__list.box .product__item .image {
   width: 100%;
@@ -470,6 +471,9 @@ header .actions {
 }
 .products__list.box .product__item .info .actions {
   right: 15px;
+}
+.products__list.box .product__item .tth {
+  display: none;
 }
 
 .sidebar__mobile {

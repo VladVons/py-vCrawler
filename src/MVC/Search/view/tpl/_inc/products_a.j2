@@ -12,7 +12,7 @@
       {% if Rec.attr %}
         <div class="tth">
         {% for xKey, xVal in Rec.attr.items() %}
-          <p><strong>{{xKey}}: </strong>{{xVal}}</p>
+          <p><strong>{{Trans(lang, xKey)}}: </strong>{{xVal}}</p>
         {% endfor %}
         </div>
       {% endif %}
@@ -31,11 +31,11 @@
         {{"{:,}".format(Rec.price|int)}}
       </div>
       <div class="actions">
-        <a href="#" class="btn btn-action">
-          <img src="/assets/images/icon-compare.svg" alt="title">
+        <a href="#" class="btn btn-action" title="{{Trans(lang, 'favorite')}}">
+          <img src="/assets/images/icon-heart.svg" alt="favorite">
         </a>
-        <a href="#" class="btn btn-action">
-          <img src="/assets/images/icon-heart.svg" alt="title">
+        <a href="#" class="btn btn-action" title="{{Trans(lang, 'compare')}}">
+          <img src="/assets/images/icon-compare.svg" alt="compare">
         </a>
       </div>
     </div>
