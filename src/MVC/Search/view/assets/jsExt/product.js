@@ -33,8 +33,6 @@ function slideImage(aStep) {
 }
 
 function OnAddToCart(aUrl) {
-  document.getElementById("viAddToCart2").addEventListener('click', function () {
     //window.location.href = aUrl;
     window.open(aUrl, '_blank');
-  });
 }

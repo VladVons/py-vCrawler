@@ -1,4 +1,4 @@
-f{% extends '_inc/layout1.j2' %}
+{% extends '_inc/layout1.j2' %}
 
 {% block head %}
 <meta name="robots" content="index,follow">
@@ -69,7 +69,7 @@ f{% extends '_inc/layout1.j2' %}
                       </a>
                   </div>
                   <div class="buy">
-                      <a href="#" class="btn btn-green" id="viAddToCart2">{{Trans(lang, 'buy')}}</a>
+                      <button class="btn btn-green" onclick="OnAddToCart('{{url}}')">{{Trans(lang, 'buy')}}</buttton>
                   </div>
               </div>
               <div class="tth">
@@ -113,8 +113,7 @@ f{% extends '_inc/layout1.j2' %}
 <script src="/assets/jsExt/product.js"></script>
 <script>
   AddHistory('{{url_id}}');
-  //OnCompareFavorite('{{url_id}}');
-  //OnAddToCart('{{url}}')
+  OnCompareFavorite('{{url_id}}');
 </script>
 
 <!-- product - -->

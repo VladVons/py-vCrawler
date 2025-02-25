@@ -12,7 +12,22 @@
         {% include '../_inc/pagination.j2' %}
       </div>
 
-      <div id="viProducts">
+      <div class="product__data" id="viProducts">
+        <div class="filters">
+          <div class="views">
+              <button class="btn btn-action active" data-view="list"><img src="/assets/images/icon-list.svg" alt="list"></button>
+              <button class="btn btn-action" data-view="box"><img src="/assets/images/icon-box.svg" alt="list"></button>
+          </div>
+          <div class="sorting">
+              <select>
+                  <option>Featured</option>
+                  <option>Featured</option>
+                  <option>Featured</option>
+                  <option>Featured</option>
+              </select>
+          </div>
+        </div>
+
         <div class="products__list">
           {% include '../_inc/products_a.j2' %}
         </div>

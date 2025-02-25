@@ -11,6 +11,7 @@
     <script src="/assets/js/lib.js"></script>
     <script src="/assets/js/app.js"></script>
     <script src="/assets/jsExt/app.js"></script>
+    <script src="/assets/js/search1.js"></script>
     {% block head %}{% endblock %}
 </head>
 
@@ -20,12 +21,13 @@
     <section id="promo">
         <div class="container">
             <h1>Find your <strong>dream wares</strong> here!</h1>
-
             <div class="form__search">
-                <form>
-                    <input type="text" name="s" placeholder="Write title or keyword">
+                <form method="get" autocomplete="off" id="viSearchForm">
+                    <input type="hidden" name="route" value="product/search"/>
+                    <input type="text" id="viSearchInput" name="q" value="{{search}}" placeholder="{{Trans(lang, 'search')}}">
+                    <div class="autocomplete-items" id="viSearchSuggest"><!-- JS --></div>
                     <select name="country_id" id="viCountry">
-                        <option selected="true" disabled="disabled">{{Trans(lang, 'location')}}</option>
+                        <option disabled="disabled">{{Trans(lang, 'location')}}</option>
                         {% for Rec in TDbList().Import(dbl_country) %}
                         <option value="{{Rec.id}}" data-lang="{{Rec.lang_id}}" {{Iif(Rec.id == country_id, 'selected', '')}}>{{Rec.title}} ({{Rec.alias}})</option>
                         {% endfor %}
