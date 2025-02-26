@@ -4,6 +4,8 @@
 @import 'modules/reset.scss';
 @import 'modules/const.scss';
 @import 'modules/common.scss';
+@import 'modules/button.scss';
+@import 'modules/grid.scss';
 @import 'modules/header.scss';
 @import 'modules/form-search.scss';
 @import 'modules/page-products.scss';
@@ -35,6 +37,7 @@ body{
 }
 
 
+/*
 .container{
 	max-width: 1180px;
 	padding: 0 20px;
@@ -42,9 +45,7 @@ body{
 	width: 100%;
 	box-sizing: border-box;
 }
-
-
-
+*/
 
 
 #promo{
@@ -54,14 +55,14 @@ body{
 	background-size: cover;
 
 
-	h1{
-		font-size: 43px;
-		font-weight: 500;
+	.motto{
+		font-size: 20px;
+		font-weight: 400;
 		line-height: 75%;
-		margin-bottom: 45px;
+		margin-bottom: 15px;
 
 		strong{
-			font-weight: 500;
+			font-weight: 400;
 			color: $color_green;
 		}
 	}
@@ -438,18 +439,6 @@ body{
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 .section__title{
 	display: flex;
 	justify-content: space-between;
@@ -477,65 +466,6 @@ body{
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 }
-
-
-
-
-.btn-green{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
-	width: 130px;
-	height: 50px;
-	background: $color_green;
-	color: $color_white;
-	border-radius: 30px;
-	font-size: 16px;
-	font-weight: 600;
-
-	&:hover{
-		background: $color_black;
-	}
-}
-
-
-.btn-green-text{
-	color: $color_green;
-	font-size: 13px;
-	font-weight: 600;
-	border-bottom: 1px solid transparent;
-
-	&:hover{
-		border-color: $color_green;
-	}
-}
-
-
-.btn-action{
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 40px;
-	height: 40px;
-	background: $color_white;
-	border-radius: 10px;
-
-	&:hover,&.active{
-		background: $color_green;
-
-		path{stroke: $color_white;}
-	}
-
-	&:last-child{
-		&:hover{
-			path{fill: $color_white; stroke: transparent;}
-		}
-	}
-}
-
-
-
 
 
 label.checkbox {

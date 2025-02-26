@@ -6,3 +6,21 @@ $color_grey: #B8BDD0;
 
 $font_weight_price: 500;
 $font_size_price: 20px;
+
+$grid-columns: 12;
+$gutter-width: 16px;
+
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+$spacings: (
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1.0rem,
+  4: 1.5rem,
+  5: 2.0rem
+);

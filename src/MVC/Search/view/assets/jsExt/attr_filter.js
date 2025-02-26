@@ -21,7 +21,7 @@ class TAttrSelect {
     }
 
     OnBtnClear(aId) {
-      this.Form.querySelector('#' + aId).addEventListener('click', (event) => {
+      document.getElementById(aId).addEventListener('click', (event) => {
         this.Clear(event);
         this.OnSelect(null);
       });

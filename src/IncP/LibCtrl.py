@@ -140,8 +140,8 @@ def GetProductsSort(aHref: str, aCur: str) -> TDbList:
         'head': ['href', 'title', 'selected'],
         'data': [
             [f'{aHref}', 'default', ''],
-            [UrlUdate(UrlDict, SortQuery(UrlQuery, 'update_date')), 'update date',  ''],
-            [UrlUdate(UrlDict, SortQuery(UrlQuery, 'create_date')), 'creation date',  ''],
+            [UrlUdate(UrlDict, SortQuery(UrlQuery, 'update_date')), 'updated',  ''],
+            [UrlUdate(UrlDict, SortQuery(UrlQuery, 'create_date')), 'created',  ''],
             [UrlUdate(UrlDict, SortQuery(UrlQuery, 'price')), 'price', ''],
         ]
     })

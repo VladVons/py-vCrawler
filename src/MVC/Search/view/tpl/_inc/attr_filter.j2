@@ -1,37 +1,40 @@
-  <h2 id="idCategory" data-value="{{category}}">{{Trans(lang, 'category')}}: {{Trans(lang, category)}}</h2>
-  <div class="row">
-    <div class="col-6">
-      <form method="get" id="formAttrFilter">
-        <input type="hidden" name="country_id" value="{{country_id}}">
-        <input type="hidden" name="site_id" value="{{site_id}}">
-        {% for Rec in TDbList().Import(dbl_attr) %}
-        <div class="row">
-          <div class="col-2">
-            <label for="{{Rec.key}}">{{Trans(lang, Rec.key)}}</label>
-          </div>
-          <div class="col-3">
-            <select class="form-select w-100" id="{{Rec.key}}" name="f_{{Rec.key}}">
-              <option value="">--- ({{Rec.total}})</option>
-              {% for xKey, xVal in Rec.stat.items() %}
-              <option value="{{xKey}}" {{ Iif(Rec.active == xKey, 'selected', '') }}>{{xKey}} ({{xVal}})</option>
-              {% endfor %}
-            </select>
+<div id="sidebar">
+  <div class="box">
+    <h2 id="idCategory" data-value="{{category}}">{{Trans(lang, 'category')}}</h2>
+    <select onchange="window.location.href=this.value">
+    {% for Rec in TDbList().Import(dbl_categories) %}
+      <option value="{{Rec.href}}" {{ Iif(Rec.category == category, 'selected', '') }}>{{Rec.lang}} ({{Rec.count}})</option>
+    {% endfor %}
+    </select>
+  </div>
+  <div class="box mt-5">
+    <form method="get" id="formAttrFilter">
+      <input type="hidden" name="country_id" value="{{country_id}}">
+      <input type="hidden" name="site_id" value="{{site_id}}">
+      {% for Rec in TDbList().Import(dbl_attr) %}
+        <div class="mt-2">
+          <label for="{{Rec.key}}">{{Trans(lang, Rec.key)}} ({{Rec.total}})</label>
+          <div>
+              <select id="{{Rec.key}}" name="f_{{Rec.key}}">
+                <option value="">--- ({{Rec.total}})</option>
+                {% for xKey, xVal in Rec.stat.items() %}
+                <option value="{{xKey}}" {{ Iif(Rec.active == xKey, 'selected', '') }}>{{xKey}} ({{xVal}})</option>
+                {% endfor %}
+              </select>
           </div>
         </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn_attr}}')">{{Trans(lang, 'filter')}}</button>
-        <button class="btn btn-primary" id="btnFilterClear">{{Trans(lang, 'clear_it')}}</button>
-      </form>
-    </div>
-    <div class="col-6">
-      <img src="{{image}}" class="card-img-top vGrayscale" alt="{{category}}" style="width: 250px;">
-      <div>{{Trans(lang, category)}} ({{category_cnt}})</div>
-    </div>
+      {% endfor %}
+      <div class="mt-3 d-flex gap-3">
+        <button class="btn btn-green-base" onclick="seoSubmit(event, '{{href.btn_attr}}')">OK</button>
+        <button class="btn btn-green-base" id="btnFilterClear">{{Trans(lang, 'clear_it')}}</button>
+      </div>
+    </form>
   </div>
+</div>
 
-  <script src="/assets/js/TDbList.js"></script>
-  <script src="/assets/jsExt/attr_filter.js"></script>
-  <script>
-    const AttrSelect = new TAttrSelect(document.getElementById('formAttrFilter'));
-    AttrSelect.OnBtnClear('btnFilterClear')
-  </script>
+<script src="/assets/js/TDbList.js"></script>
+<script src="/assets/jsExt/attr_filter.js"></script>
+<script>
+  const AttrSelect = new TAttrSelect(document.getElementById('formAttrFilter'));
+  AttrSelect.OnBtnClear('btnFilterClear');
+</script>

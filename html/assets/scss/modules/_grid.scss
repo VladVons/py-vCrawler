@@ -1,0 +1,46 @@
+/* === grid VladVons === */
+
+// Container
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: $gutter-width / 2;
+  padding-left: $gutter-width / 2;
+
+  @each $breakpoint, $size in $breakpoints {
+    @media (min-width: $size) {
+      max-width: $size;
+    }
+  }
+}
+
+// Row
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -($gutter-width / 2);
+  margin-left: -($gutter-width / 2);
+}
+
+// Columns
+@for $i from 1 through $grid-columns {
+  .col-#{$i} {
+    flex: 0 0 percentage($i / $grid-columns);
+    max-width: percentage($i / $grid-columns);
+    padding-right: $gutter-width / 2;
+    padding-left: $gutter-width / 2;
+  }
+}
+
+// Responsive Columns
+@each $breakpoint, $size in $breakpoints {
+  @media (min-width: $size) {
+    @for $i from 1 through $grid-columns {
+      .col-#{$breakpoint}-#{$i} {
+        flex: 0 0 percentage($i / $grid-columns);
+        max-width: percentage($i / $grid-columns);
+      }
+    }
+  }
+}

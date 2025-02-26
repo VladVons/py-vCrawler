@@ -35,8 +35,9 @@ class TMain(Lib.TCtrlBase):
         CountryId = DblProduct.Rec.country_id
         Attr = DblProduct.Rec.GetField('attr', {})
         DblAttr = Lib.TDbList(['key', 'val', 'href'])
+        Category = Attr.get('category')
         for xKey, xVal in sorted(Attr.items()):
-            Filter = f"f_category={Attr.get('category')}"
+            Filter = f"f_category={Category}"
             if (xKey != 'category'):
                 Filter += f'&f_{xKey}={xVal}'
 
@@ -106,10 +107,12 @@ class TMain(Lib.TCtrlBase):
             'meta_title': ParsedData['name'],
             'meta_image': ParsedData['image'],
             'url_id': aUrlId,
+            'category': Category,
             'host': Lib.UrlToDict(DblProduct.Rec.site_url)['host'],
             'tab_active': TabActive,
             'href': {
-                'site': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}'
+                'site': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}',
+                'category': f'/?route=product/category&lang_id={aLangId}&country_id={CountryId}&f_category={Category}'
             }
         }
         Res.update(ResExt)

@@ -1,4 +1,4 @@
-/* === common === */
+/* === common VladVons === */
 
 .badge {
     --bs-badge-padding-x: 0.5em;
@@ -15,4 +15,20 @@
 
 .badge:empty {
     display: none
+}
+
+.d-flex {
+    display: flex !important
+}
+
+@each $key, $value in $spacings {
+    .mt-#{$key} {
+        margin-top: $value !important;
+    }
+    .mb-#{$key} {
+        margin-bottom: $value !important;
+    }
+    .gap-#{$key} {
+        gap: $value !important;
+    }
 }
