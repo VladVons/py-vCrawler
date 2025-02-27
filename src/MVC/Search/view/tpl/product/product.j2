@@ -61,12 +61,12 @@
                     {% endif %}
                   </div>
                   <div class="actions">
-                      <a href="#" class="btn btn-action" id="vTo_compare" title="{{Trans(lang, 'compare')}}" data-key="compare">
+                    <button class="btn btn-action" id="vTo_favorite" title="{{Trans(lang, 'favorite')}}" data-key="favorite">
+                      <img src="/assets/images/icon-heart.svg" alt="favorite">
+                    </button>
+                    <button class="btn btn-action" id="vTo_compare" title="{{Trans(lang, 'compare')}}" data-key="compare">
                           <img src="/assets/images/icon-compare.svg" alt="compare">
-                      </a>
-                      <a href="#" class="btn btn-action" id="vTo_favorite" title="{{Trans(lang, 'favorite')}}" data-key="favorite">
-                          <img src="/assets/images/icon-heart.svg" alt="favorite">
-                      </a>
+                      </button>
                   </div>
                   <div class="buy">
                       <button class="btn btn-green" onclick="OnAddToCart('{{url}}')">{{Trans(lang, 'buy')}}</buttton>
@@ -113,7 +113,14 @@
 <script src="/assets/jsExt/product.js"></script>
 <script>
   AddHistory('{{url_id}}');
-  OnCompareFavorite('{{url_id}}');
+
+  OnProductCompareFavorite(
+    '{{url_id}}',
+    {
+      'compare': '{{href.compare}}',
+      'favorite': '{{href.favorite}}'
+    }
+  );
 </script>
 
 <!-- product - -->

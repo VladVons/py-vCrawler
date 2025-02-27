@@ -1,6 +1,6 @@
 <div class="products__list">
   {% for Rec in TDbList().Import(dbl_products) %}
-  <div class="product__item">
+  <div class="product__item" data-id="{{Rec.url_id}}">
     <div class="image">
       <a href="{{Rec.href}}"><img src="{{Rec.image}}" alt="{{Rec.title}}"></a>
     </div>
@@ -31,12 +31,15 @@
         {{"{:,}".format(Rec.price|int)}}
       </div>
       <div class="actions">
-        <a href="#" class="btn btn-action" title="{{Trans(lang, 'favorite')}}">
+        <button class="btn btn-action" data-key="history" title="{{Trans(lang, 'history')}}">
+          <img src="/assets/images/icon-history.svg" alt="history">
+        </button>
+        <button class="btn btn-action" data-key="favorite" title="{{Trans(lang, 'favorite')}}">
           <img src="/assets/images/icon-heart.svg" alt="favorite">
-        </a>
-        <a href="#" class="btn btn-action" title="{{Trans(lang, 'compare')}}">
+        </button>
+        <button class="btn btn-action" data-key="compare" title="{{Trans(lang, 'compare')}}">
           <img src="/assets/images/icon-compare.svg" alt="compare">
-        </a>
+        </button>
       </div>
     </div>
   </div>

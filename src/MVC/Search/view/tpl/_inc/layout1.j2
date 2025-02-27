@@ -51,12 +51,14 @@
 
     {% block content %}{% endblock %}
     {% include './footer.j2' %}
+    <button class="btn btn-green" id="viBtnGoTop" onclick="goToTop()">{{Trans(lang, 'gotop')}}</button>
 
     <script type="text/javascript" src="/assets/jsExt/main.js"></script>
+    <script src="/assets/js/gotop.js"></script>
 
     <script type="text/javascript">
+        ProductListActionMark();
         OnCountry();
-
         OnHeadCompareFavorite(
           {
             'history': '{{href.history}}',

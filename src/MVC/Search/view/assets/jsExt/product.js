@@ -6,15 +6,15 @@ function AddHistory(aUrlId) {
   document.getElementById('viCount_' + key).innerHTML = LStorage.items.length;
 }
 
-function OnCompareFavorite(aUrlId) {
-  for (const key of ['compare', 'favorite']) {
-    const Element = document.getElementById('vTo_' + key);
+function OnProductCompareFavorite(aUrlId, aHrefs) {
+  for (const xKey in aHrefs) {
+    const Element = document.getElementById('vTo_' + xKey);
     Element.addEventListener('click', function (event) {
-      const LStorage = new TLocalStorage('products_' + key);
+      const LStorage = new TLocalStorage('products_' + xKey);
       LStorage.addItemToListUniq(aUrlId);
       LStorage.save();
-      document.getElementById('viCount_' + key).innerHTML = LStorage.items.length;
-      window.location.href = UrlConcat(Hrefs[key], 'url_ids=' + LStorage.items.join(','));
+      document.getElementById('viCount_' + xKey).innerHTML = LStorage.items.length;
+      window.location.href = UrlConcat(aHrefs[xKey], 'url_ids=' + LStorage.items.join(','));
     })
   }
 }
@@ -36,3 +36,4 @@ function OnAddToCart(aUrl) {
     //window.location.href = aUrl;
     window.open(aUrl, '_blank');
 }
+

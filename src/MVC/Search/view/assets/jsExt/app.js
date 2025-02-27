@@ -56,3 +56,23 @@ function OnCountry() {
       });
     }
   }
+
+  function ProductListActionMark() {
+    let Keys = {'history': null, 'favorite': null, 'compare': null};
+    for (const xKey in Keys) {
+      Keys[xKey] = new TLocalStorage('products_' + xKey).items;
+    }
+
+    const Products = document.querySelectorAll('.product__item');
+    Products.forEach(xProduct => {
+      for (const xKey in Keys) {
+        const id = xProduct.dataset.id.toString();
+        if ((Keys[xKey]) && (Keys[xKey].includes(id))) {
+            const Button = xProduct.querySelector(`button[data-key="${xKey}"]`);
+            if (Button) {
+              Button.classList.add('active');
+            }
+        }
+      }
+    });
+  }
