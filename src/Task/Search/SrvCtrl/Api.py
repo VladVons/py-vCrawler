@@ -121,10 +121,16 @@ class TApiCtrl(TApiBase):
                     R = await super().Exec(xRoute, aData)
                     Lib.DictUpdate(Res, R)
 
+                # must be after super().Exec()
                 LangId = Lib.DeepGetByList(aData, ['query', 'lang_id'], 1)
                 Res['lang'] = await self.GetLang(Routes, LangId)
 
                 await self.SeoUrl(Res)
+
+                if ('exec' in Res):
+                    Exec = Res['exec']
+                    R = await super().Exec(Exec.get('route', aRoute), aData | {'method': Exec['method']})
+                    Lib.DictUpdate(Res, R)
             case 'api':
                 Res = await super().Exec(aRoute, aData)
                 #Res = Encode(Res)

@@ -16,13 +16,14 @@
     <meta property="og:image" content="{{meta_image}}">
     {% endif %}
 
+    {% block head %}{% endblock %}
+
     <link rel="icon" type="image/png" href="/assets/images/favicon.png">
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <script src="/assets/js/lib.js"></script>
     <script src="/assets/js/app.js"></script>
     <script src="/assets/jsExt/app.js"></script>
     <script src="/assets/js/search1.js"></script>
-    {% block head %}{% endblock %}
 </head>
 
 <body id="startpage">

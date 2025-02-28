@@ -1,5 +1,9 @@
 {% extends '_inc/layout1.j2' %}
 
+{% block head %}
+<meta property="og:image" content="/assets/images/category/{{category}}.svg">
+{% endblock %}
+
 {% block content %}
 <section id="breadcrumbs">
     <div class="container">
