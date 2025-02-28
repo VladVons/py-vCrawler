@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
   margin: 0;
   padding: 0;
@@ -23,13 +23,6 @@ nav ul {
 
 blockquote, q {
   quotes: none;
-}
-
-#viBtnGoTop {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: none;
 }
 
 blockquote:before, blockquote:after, q:before, q:after {
@@ -155,6 +148,13 @@ a, svg path {
 }
 
 .badge:empty {
+  display: none;
+}
+
+#viBtnGoTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   display: none;
 }
 
@@ -1648,7 +1648,7 @@ footer .copyright .container {
 
 body {
   background: #ffffff;
-  font-family: "Poppins", serif;
+  font-family: "Roboto", serif;
   color: #25292C;
   font-size: 14px;
   line-height: 21px;
@@ -1671,14 +1671,14 @@ body {
   background: url("../images/promo-image.png") 50% 0% no-repeat;
   background-size: cover;
 }
-#promo .motto {
-  font-size: 20px;
-  font-weight: 400;
+#promo h1 {
+  font-size: 43px;
+  font-weight: 500;
   line-height: 75%;
   margin-bottom: 15px;
 }
-#promo .motto strong {
-  font-weight: 400;
+#promo h1 strong {
+  font-weight: 500;
   color: #7DD017;
 }
 
@@ -2054,7 +2054,7 @@ label.checkbox input:checked + span:after {
 }
 
 input, button, select, textarea {
-  font-family: "Poppins", serif;
+  font-family: "Roboto", serif;
   -webkit-appearance: none;
 }
 

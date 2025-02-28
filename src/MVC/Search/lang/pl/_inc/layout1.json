@@ -1,7 +1,6 @@
 {
    "tpl": {
-        "status_code_404": "сторінку не знайдено",
-        "status_code_410": "сторінка заблокована",
-        "search_motto": "znajdź towary <strong>swoje wymarzone</strong> tutaj!"
+        "status_code_404": "strona nie została znaleziona",
+        "status_code_410": "strona jest zablokowana"
     }
 }
