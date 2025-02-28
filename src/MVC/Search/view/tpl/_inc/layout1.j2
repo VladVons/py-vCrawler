@@ -14,6 +14,8 @@
     {% endif %}
     {% if meta_image %}
     <meta property="og:image" content="{{meta_image}}">
+    {% else %}
+    <meta property="og:image" content="/assets/images/logo.png">
     {% endif %}
 
     {% block head %}{% endblock %}

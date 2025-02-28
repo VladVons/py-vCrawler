@@ -121,7 +121,7 @@ class TApiCtrl(TApiBase):
                     R = await super().Exec(xRoute, aData)
                     Lib.DictUpdate(Res, R)
 
-                # must be after super().Exec()
+                # lang must be after super().Exec()
                 LangId = Lib.DeepGetByList(aData, ['query', 'lang_id'], 1)
                 Res['lang'] = await self.GetLang(Routes, LangId)
 
