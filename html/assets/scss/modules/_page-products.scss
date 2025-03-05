@@ -99,7 +99,7 @@
 				justify-content: flex-start;
 				gap: 10px;
 
-				a{
+				.a, .btn{
 					display: flex;
 					align-items: center;
 					justify-content: center;
@@ -112,15 +112,21 @@
 						width: 18px;
 					}
 
-					&:hover{
-						background: $color_green;
-						path{stroke: $color_white;}
-					}
-					&:first-child{
-						&:hover{
-							path{fill: $color_white; stroke: transparent;}
-						}
-					}
+					// &:hover{
+					// 	background: $color_green;
+					// 	path{stroke: $color_white;}
+					// }
+
+					// &:first-child{
+					// 	&:hover{
+					// 		path{fill: $color_white; stroke: transparent;}
+					// 	}
+					// }
+				}
+
+				.selected{
+					background: $color_green;
+					path{stroke: $color_white;}
 				}
 			}
 		}

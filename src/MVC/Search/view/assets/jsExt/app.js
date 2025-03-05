@@ -69,7 +69,7 @@ function OnCountry() {
         const id = xProduct.dataset.id.toString();
         const Button = xProduct.querySelector(`button[data-key="${xKey}"]`);
         if (Button && Keys[xKey].hasItem(id)) {
-          Button.classList.add('active');
+          Button.classList.add('selected');
         }
 
         Button.addEventListener('click', function (event) {
@@ -79,7 +79,7 @@ function OnCountry() {
             Keys[xKey].addItemToListCycle(id, 15);
           }
           Keys[xKey].save();
-          Button.classList.toggle('active');
+          Button.classList.toggle('selected');
         });
       }
     });

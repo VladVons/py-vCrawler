@@ -892,7 +892,7 @@ header .actions {
   justify-content: flex-start;
   gap: 10px;
 }
-.products__list .product__item .info .actions a {
+.products__list .product__item .info .actions .a, .products__list .product__item .info .actions .btn {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -901,18 +901,14 @@ header .actions {
   background: #ffffff;
   border-radius: 10px;
 }
-.products__list .product__item .info .actions a img {
+.products__list .product__item .info .actions .a img, .products__list .product__item .info .actions .btn img {
   width: 18px;
 }
-.products__list .product__item .info .actions a:hover {
+.products__list .product__item .info .actions .selected {
   background: #7DD017;
 }
-.products__list .product__item .info .actions a:hover path {
+.products__list .product__item .info .actions .selected path {
   stroke: #ffffff;
-}
-.products__list .product__item .info .actions a:first-child:hover path {
-  fill: #ffffff;
-  stroke: transparent;
 }
 .products__list .product__item:last-child {
   margin-bottom: 0;

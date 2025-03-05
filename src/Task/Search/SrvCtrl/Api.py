@@ -73,8 +73,8 @@ class TApiCtrl(TApiBase):
 
         Lang = self.Langs.get(aLangId, 'en')
         for xRoute in aRoutes:
-            await self.Lang.Add(Lang, xRoute, 'tpl')
-        Res.update(self.Lang.Join())
+            R = await self.Lang.Add(Lang, xRoute, 'tpl')
+            Res.update(R)
         return Res
 
     async def SeoEncodeList(self, aPaths: list[str]) -> list[str]:
