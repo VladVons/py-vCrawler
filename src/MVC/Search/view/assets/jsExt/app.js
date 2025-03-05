@@ -66,21 +66,23 @@ function OnCountry() {
     const Products = document.querySelectorAll('.product__item');
     Products.forEach(xProduct => {
       for (const xKey in Keys) {
-        const id = xProduct.dataset.id.toString();
         const Button = xProduct.querySelector(`button[data-key="${xKey}"]`);
-        if (Button && Keys[xKey].hasItem(id)) {
-          Button.classList.add('selected');
-        }
-
-        Button.addEventListener('click', function (event) {
+        if (Button) {
+          const id = xProduct.dataset.id.toString();
           if (Keys[xKey].hasItem(id)) {
-            Keys[xKey].delItem(id);
-          }else{
-            Keys[xKey].addItemToListCycle(id, 15);
+            Button.classList.add('selected');
           }
-          Keys[xKey].save();
-          Button.classList.toggle('selected');
-        });
+
+          Button.addEventListener('click', function (event) {
+            if (Keys[xKey].hasItem(id)) {
+              Keys[xKey].delItem(id);
+            }else{
+              Keys[xKey].addItemToListCycle(id, 15);
+            }
+            Keys[xKey].save();
+            Button.classList.toggle('selected');
+          });
+        }
       }
     });
   }

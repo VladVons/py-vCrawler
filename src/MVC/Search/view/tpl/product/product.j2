@@ -14,7 +14,7 @@
 <!-- product + -->
 <section id="page__card">
   <div class="container">
-    <div class="main__data">
+    <div class="main__data product__item" data-id="{{url_id}}">
       <div class="mobile__title">
         {{parsed_data.name}}
       </div>
@@ -51,10 +51,10 @@
             {% endif %}
           </div>
           <div class="actions">
-            <button class="btn btn-action" id="vTo_favorite" title="{{Trans(lang, 'favorite')}}" data-key="favorite">
+            <button class="btn btn-action" data-key="favorite" id="vTo_favorite" title="{{Trans(lang, 'favorite')}}" data-key="favorite">
               <img src="/assets/images/icon-heart.svg" alt="favorite">
             </button>
-            <button class="btn btn-action" id="vTo_compare" title="{{Trans(lang, 'compare')}}" data-key="compare">
+            <button class="btn btn-action" data-key="compare" id="vTo_compare" title="{{Trans(lang, 'compare')}}" data-key="compare">
                 <img src="/assets/images/icon-compare.svg" alt="compare">
             </button>
           </div>
@@ -104,13 +104,13 @@
 <script>
   AddHistory('{{url_id}}');
 
-  OnProductCompareFavorite(
-    '{{url_id}}',
-    {
-      'compare': '{{href.compare}}',
-      'favorite': '{{href.favorite}}'
-    }
-  );
+  // OnProductCompareFavorite(
+  //   '{{url_id}}',
+  //   {
+  //     'compare': '{{href.compare}}',
+  //     'favorite': '{{href.favorite}}'
+  //   }
+  // );
 </script>
 
 <!-- product - -->

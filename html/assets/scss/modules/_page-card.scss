@@ -160,6 +160,11 @@
 				gap: 10px;
 			}
 
+			.selected{
+				background: $color_green;
+				path{stroke: $color_white;}
+			}
+
 			.btn-green{
 				height: 40px;
 				font-size: 14px;

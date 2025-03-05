@@ -1194,6 +1194,12 @@ header .actions {
   justify-content: flex-start;
   gap: 10px;
 }
+#page__card .information .detail .selected {
+  background: #7DD017;
+}
+#page__card .information .detail .selected path {
+  stroke: #ffffff;
+}
 #page__card .information .detail .btn-green {
   height: 40px;
   font-size: 14px;
