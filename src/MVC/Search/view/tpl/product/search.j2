@@ -18,14 +18,13 @@
               <button class="btn btn-action" data-view="box"><img src="/assets/images/icon-box.svg" alt="list"></button>
           </div>
           <div class="sorting">
-              <select>
-                  <option>Featured</option>
-                  <option>Featured</option>
-                  <option>Featured</option>
-                  <option>Featured</option>
-              </select>
-          </div>
+            <select onchange="location=this.value">
+                {% for Rec in TDbList().Import(dbl_products_sort) %}
+                <option value="{{Rec.href}}" {{Rec.selected}}>{{Trans(lang, Rec.title)}}</option>
+                {% endfor %}
+            </select>
         </div>
+</div>
 
         <div class="products__list">
           {% include '../_inc/products_a.j2' %}

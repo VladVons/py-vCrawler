@@ -6,6 +6,7 @@
   <div class="container">
     <div class="content">
       <h1 class="mb-4">{{title}}</h1>
+      <h2 class="mb-4 bt">{{Trans(lang, msg)}} {{id}}</h2>
       <div>{{Text2Html(descr)}}</div>
       <form method="post">
         <div>
@@ -14,11 +15,11 @@
         </div>
         <div>
           <label class="form-label">{{Trans(lang, 'subject')}}</label>
-          <input type="text" class="form-control" name="phone" required>
+          <input type="text" class="form-control" name="subject" required>
         </div>
         <div>
           <label class="form-label">{{Trans(lang, 'message')}}</label>
-          <textarea class="form-control" name="category" rows="10" required></textarea>
+          <textarea class="form-control" name="message" rows="10" required></textarea>
         </div>
 
         <button type="submit" class="btn btn-green">{{Trans(lang, 'send')}}</button>

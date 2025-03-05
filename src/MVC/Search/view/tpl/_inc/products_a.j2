@@ -18,8 +18,8 @@
       {% endif %}
 
       <div class="more">
-        <p><strong>Date: </strong>{{Rec.update_date.strftime('%Y-%m-%d')}}</p>
-        <p><strong>Code: </strong>{{Rec.url_id}}</p>
+        <p><strong>{{Trans(lang, 'site')}}: </strong>{{Rec.site}}</p>
+        <p><strong>{{Trans(lang, 'updated')}}: </strong>{{Rec.update_date.strftime('%Y-%m-%d')}}</p>
       </div>
     </div>
 

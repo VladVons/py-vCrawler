@@ -57,6 +57,7 @@ class TMain(Lib.TCtrlBase):
         Res = {
             'href_search_ajax': '/api/?route=product/search',
             'href': {
+                'about_us': f'/?route=info/about_us&lang_id={aLangId}',
                 'add_site': f'/?route=common/add_site&lang_id={aLangId}',
                 'compare':  f'/?route=product/compare&lang_id={aLangId}',
                 'contact_us': f'/?route=common/contact_us&lang_id={aLangId}',

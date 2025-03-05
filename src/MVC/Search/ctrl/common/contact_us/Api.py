@@ -3,22 +3,14 @@
 # License: GNU, see LICENSE for more details
 
 
-import json
-#
-from Inc.Misc.Mail import TMail, TMailSend, TMailSmtp
 import IncP.LibCtrl as Lib
-
+from ..._inc.email import SendMail
 
 class TMain(Lib.TCtrlBase):
     async def Main(self, **aData):
-        aLangId, CountryId = Lib.GetDictDefs(
-            aData.get('query'),
-            ('lang_id', 'country_id'),
-            (1, 1)
-        )
-
+        Subject = 'contact us'
         Res = {
-            'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([['add site', '']])
+            'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Subject, '']])
         }
 
         Post = aData.get('post')
@@ -26,48 +18,9 @@ class TMain(Lib.TCtrlBase):
             return Res
 
         Body = {
-            'country_id': CountryId,
-            'site': Post['site'],
-            'phone': Post['phone'],
-            'category': Post['category']
+            'subject': Post['subject'],
+            'message': Post['message']
         }
-
-        Subject = 'add site to catalog'
-        Dbl = await self.ExecModelImport(
-            'inbox',
-            {
-                'method': 'InsMail',
-                'param': {
-                    'aMail': Post['email'],
-                    'aSubject': Subject,
-                    'aBody': json.dumps(Body, indent=2, ensure_ascii=False),
-                    'aIp': Lib.DeepGetByList(aData, ['session', 'ip']),
-                    'aInboxEn': 'in'
-                }
-            }
-        )
-
-        Arr = Lib.ResLang(aData, 'body', ['no value'])
-        Body['message'] = '\n'.join(Arr)
-
-        ConfSmtp = self.GetConf('mail_smtp')
-        Smtp = TMailSmtp(**ConfSmtp)
-        Data = TMailSend(
-            mail_from = ConfSmtp['username'],
-            mail_to = [Post['email']] + self.GetConf('mail_admin'),
-            mail_subject = f'{Subject} findwares.com',
-            mail_body = json.dumps(Body, indent=2, ensure_ascii=False)
-        )
-
-        try:
-            await TMail(Smtp).Send(Data)
-            Msg = 'your request is sent'
-        except Exception as E:
-            Msg = 'error'
-            Lib.Log.Print(1, 'x', 'TMail error', aE=E)
-
-        ResExt = {
-            'id': Dbl.Rec.id,
-            'msg': Msg,
-        }
-        return Res | ResExt
+        Ip = Lib.DeepGetByList(aData, ['session', 'ip'])
+        R = await SendMail(self, Post['email'], f'{Subject}. {Post['subject']}', Body, Ip)
+        return Res | R
