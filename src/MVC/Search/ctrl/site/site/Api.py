@@ -50,7 +50,7 @@ class TMain(Lib.TCtrlBase):
             await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
 
         Res['host'] = Lib.UrlToDict(Res['url'])['host']
-        Res['dbl_categories'] = DblCategories.Export()
+        Res['dbl_categories'] = DblCategories
         Res['href'] = {
             'host': f'/?route=redirect&{Lib.GetRedirectHref(Res['url'])}'
         }

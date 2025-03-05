@@ -27,7 +27,7 @@
 		font-weight: normal;
 		color: $color_black;
 		border: none;
-		border-right: 1px solid #B8BDD0;
+		border-right: 1px solid $color_grey;
 	}
 
 	select{
@@ -37,6 +37,7 @@
 		background: url("../images/arrow-down.svg") 100% 50% no-repeat;
 		font-size: 16px;
 		padding: 0 10px;
+		color: $color_grey;
 	}
 }
 

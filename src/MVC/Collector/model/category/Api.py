@@ -18,12 +18,18 @@ class TMain(Lib.TDbModel):
         )
 
     async def GetAttrCountFilter(self, aCountryId: int, aFilter: dict) -> dict:
-        Filter = json.dumps(aFilter)
+        Filter = aFilter.copy()
+        PriceMin = Filter.pop('price_min', 0)
+        PriceMax = Filter.pop('price_max', 10**10)
+
+        Attr = json.dumps(Filter)
         return await self.ExecQuery(
             'fmtGet_AttrCountFilter.sql',
             {
                 'aCountryId': aCountryId,
-                'aFilter': Filter
+                'aAttr': Attr,
+                'aPriceMin': PriceMin,
+                'aPriceMax': PriceMax
             }
         )
 

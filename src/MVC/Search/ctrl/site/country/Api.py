@@ -42,7 +42,7 @@ class TMain(Lib.TCtrlBase):
             await Lib.SeoEncodeDbl(self, DblSites, ['href'])
 
         Res = {
-            'dbl_sites': DblSites.Export(),
+            'dbl_sites': DblSites,
             'cnt_parsed': cntParsed,
             'cnt_products': cntProducts,
             'cnt_onstock': cntOnStock,

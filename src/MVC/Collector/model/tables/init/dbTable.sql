@@ -271,5 +271,22 @@ alter table ref_product add column tsv_title tsvector generated always as (to_ts
 create index ref_product_tvs_idx on ref_product using gin (tsv_title);
 create index ref_product_attr_idx on ref_product using gin (attr);
 
---
+-- layout ---
 
+create table if not exists ref_layout (
+    id                  smallserial primary key,
+    enabled             boolean default true,
+    sitemap             boolean default true,
+    route               varchar(32) not null unique
+);
+    
+create table if not exists ref_layout_lang (
+    title               varchar(128) not null,
+    descr               text,
+    meta_title          varchar(160),
+    meta_key            varchar(128),
+    meta_descr          varchar(160),
+    layout_id           smallint not null references ref_layout(id) on delete cascade,
+    lang_id             smallint not null references ref_lang(id),
+    primary key (layout_id, lang_id)
+);

@@ -32,5 +32,5 @@ async def List(self, aLangId: int, aUrlIds: str, aReverse = False) -> dict:
         await Lib.SeoEncodeDbl(self, DblProducts, ['href'])
 
     return {
-        'dbl_products': DblProducts.Export()
+        'dbl_products': DblProducts
     }

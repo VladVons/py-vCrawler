@@ -1,36 +1,38 @@
 <!-- footer + -->
 <footer>
+  <div class="container">
+    <div class="col">
+      <div class="logo">
+        <a href="{{href.root}}"><img src="/assets/images/logo-footer.svg" alt="logo"></a>
+      </div>
+      <div class="form__subscribe">
+        <form>
+          <input type="email" name="email" placeholder="Your Email">
+          <button class="btn btn-green-text">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <div class="col">
+      <div class="col__title">For users</div>
+      <ul>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="{{href.privacy_policy}}">{{Trans(lang, 'privacy policy')}}</a></li>
+        <li><a href="#">User agreement</a></li>
+        <li><a href="#">About us</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <div class="col__title">For partners</div>
+      <ul>
+        <li><a href="{{href.add_site}}">{{Trans(lang, 'add site')}}</a></li>
+        <li><a href="{{href.contact_us}}">{{Trans(lang, 'contacts')}}</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copyright">
     <div class="container">
-        <div class="col">
-            <div class="logo">
-                <a href="{{href.root}}"><img src="/assets/images/logo-footer.svg" alt="logo"></a></div>
-            <div class="form__subscribe">
-                <form>
-                    <input type="email" name="email" placeholder="Your Email">
-                    <button class="btn btn-green-text">Subscribe</button>
-                </form>
-            </div>
-        </div>
-        <div class="col">
-            <div class="col__title">For users</div>
-            <ul>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">User agreement</a></li>
-                <li><a href="#">About us</a></li>
-                <li><a href="#">Contacts</a></li>
-            </ul>
-        </div>
-        <div class="col">
-            <div class="col__title">For partners</div>
-            <ul>
-                <li><a href="#">Add site</a></li>
-            </ul>
-        </div>
+      © 2024-{{now_year}} FindWares Group
     </div>
-    <div class="copyright">
-        <div class="container">
-            © 2024-{{now_year}} FindWares Group
-        </div>
-    </div>
+  </div>
 </footer>
 <!-- footer - -->

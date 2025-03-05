@@ -57,17 +57,18 @@ class TMain(Lib.TCtrlBase):
         Res = {
             'href_search_ajax': '/api/?route=product/search',
             'href': {
-                'countries': f'/?route=site/countries&lang_id={aLangId}',
+                'add_site': f'/?route=common/add_site&lang_id={aLangId}',
                 'compare':  f'/?route=product/compare&lang_id={aLangId}',
+                'contact_us': f'/?route=common/contact_us&lang_id={aLangId}',
+                'countries': f'/?route=site/countries&lang_id={aLangId}',
                 'history':  f'/?route=product/history&lang_id={aLangId}',
                 'favorite': f'/?route=product/favorite&lang_id={aLangId}',
+                'privacy_policy': f'/?route=info/privacy_policy&lang_id={aLangId}',
                 'root': f'/?lang_id={aLangId}&country_id={aCountryId}'
             },
-            'search': aSearch,
-            'lang_id': aLangId,
-            'country_id': aCountryId,
+            'query': aData.get('query'),
             'country': Country,
-            'dbl_country': DblCountry.Export(),
+            'dbl_country': DblCountry,
             'now_year': datetime.now().year
         }
         return Res

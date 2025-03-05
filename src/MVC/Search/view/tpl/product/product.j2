@@ -12,77 +12,67 @@
 
 {% block content %}
 <!-- product + -->
-<section id="breadcrumbs">
-  <div class="container">
-      <ul>
-          <li><a href="{{href.root}}">{{Trans(lang, 'home')}}</a><span> / </span></li>
-          <li><a href="{{href.category}}">{{Trans(lang, category)}}</a><span> / </span></li>
-          <li>{{parsed_data.name}}</li>
-      </ul>
-  </div>
-</section>
-
 <section id="page__card">
   <div class="container">
-      <div class="main__data">
-          <div class="mobile__title">
-            {{parsed_data.name}}
-          </div>
-
-          <div class="gallery">
-              <div class="gallery__main">
-                <div class="slider__main">
-                {% for xImage in parsed_data.images %}
-                  <div><img src="{{xImage}}" alt="title"></div>
-                {% endfor %}
-                </div>
-              </div>
-              <div class="gallery__thumbs">
-                  <div class="slider__thumbs">
-                    {% for xImage in parsed_data.images %}
-                    <div><img src="{{xImage}}" alt="title"></div>
-                    {% endfor %}
-                  </div>
-              </div>
-          </div>
-
-          <div class="information">
-              <h1>{{parsed_data.name}}</h1>
-              <div class="from">
-                  <p><strong>{{Trans(lang, 'date')}}:</strong> {{update_date.date()}}</p>
-                  <p><strong>{{Trans(lang, 'location')}}:</strong> {{country_title}}</p>
-                  <p><strong>{{Trans(lang, 'code')}}:</strong> {{url_id}}</p>
-              </div>
-              <div class="detail">
-                  <div class="price">
-                    {{parsed_data.price[0]}}
-                    {% if parsed_data.price_old %}
-                      <div class="old">{{parsed_data.price_old[0]}}</div>
-                    {% endif %}
-                  </div>
-                  <div class="actions">
-                    <button class="btn btn-action" id="vTo_favorite" title="{{Trans(lang, 'favorite')}}" data-key="favorite">
-                      <img src="/assets/images/icon-heart.svg" alt="favorite">
-                    </button>
-                    <button class="btn btn-action" id="vTo_compare" title="{{Trans(lang, 'compare')}}" data-key="compare">
-                          <img src="/assets/images/icon-compare.svg" alt="compare">
-                      </button>
-                  </div>
-                  <div class="buy">
-                      <button class="btn btn-green" onclick="OnAddToCart('{{url}}')">{{Trans(lang, 'buy')}}</buttton>
-                  </div>
-              </div>
-              <div class="tth">
-                  <div class="item">
-                    {% for Rec in TDbList().Import(attr) %}
-                      <div class="row">
-                        <p>{{Trans(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val}}</a></strong>
-                      </div>
-                    {% endfor %}
-                  </div>
-              </div>
-          </div>
+    <div class="main__data">
+      <div class="mobile__title">
+        {{parsed_data.name}}
       </div>
+
+      <div class="gallery">
+        <div class="gallery__main">
+          <div class="slider__main">
+          {% for xImage in parsed_data.images %}
+            <div><img src="{{xImage}}" alt="title"></div>
+          {% endfor %}
+          </div>
+        </div>
+        <div class="gallery__thumbs">
+          <div class="slider__thumbs">
+            {% for xImage in parsed_data.images %}
+            <div><img src="{{xImage}}" alt="title"></div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="information">
+        <h1>{{parsed_data.name}}</h1>
+        <div class="from">
+          <p><strong>{{Trans(lang, 'date')}}:</strong> {{update_date.date()}}</p>
+          <p><strong>{{Trans(lang, 'location')}}:</strong> {{country_title}}</p>
+          <p><strong>{{Trans(lang, 'code')}}:</strong> {{url_id}}</p>
+        </div>
+        <div class="detail">
+          <div class="price">
+            {{parsed_data.price[0]}}
+            {% if parsed_data.price_old %}
+              <div class="old">{{parsed_data.price_old[0]}}</div>
+            {% endif %}
+          </div>
+          <div class="actions">
+            <button class="btn btn-action" id="vTo_favorite" title="{{Trans(lang, 'favorite')}}" data-key="favorite">
+              <img src="/assets/images/icon-heart.svg" alt="favorite">
+            </button>
+            <button class="btn btn-action" id="vTo_compare" title="{{Trans(lang, 'compare')}}" data-key="compare">
+                <img src="/assets/images/icon-compare.svg" alt="compare">
+            </button>
+          </div>
+          <div class="buy">
+              <button class="btn btn-green" onclick="OnAddToCart('{{url}}')">{{Trans(lang, 'buy')}}</buttton>
+          </div>
+        </div>
+        <div class="tth">
+            <div class="item">
+              {% for Rec in TDbList().Import(dbl_attr) %}
+                <div class="row">
+                  <p>{{Trans(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val}}</a></strong>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+      </div>
+    </div>
 
       <div class="other__data">
           <div class="tab__filters">

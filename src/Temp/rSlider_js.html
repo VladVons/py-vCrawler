@@ -1,0 +1,22 @@
+<script type="text/javascript">
+    const Min = {{price_min}};
+    const Max = {{price_max}};
+    const Values = splitNear(Min, Max, 50);
+
+    var mySlider = new rSlider({
+        target: '#price__range',
+        values: Values,
+        //set: [0, 400],
+        range: true,
+        labels: false,
+        onChange: function (aVals) {
+            const [minPrice, maxPrice] = aVals.split(',');
+            // prevent on start event
+            if ((Values[0].toString() != minPrice) || (Values[Values.length - 1].toString() != maxPrice)) {
+                document.querySelector(".minprice").value = minPrice;
+                document.querySelector(".maxprice").value = maxPrice;
+                AttrSelect.OnSelect();
+            }
+        }
+    });
+</script>

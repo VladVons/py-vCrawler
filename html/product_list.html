@@ -77,14 +77,26 @@
                     </select>
                 </div>
                 <div class="box">
-                    <div class="price">
-                        <input type="text" name="" placeholder="0" class="minprice">
-                        <input type="text" name="" placeholder="1000" class="maxprice">
-                        <button class="btn btn-green">OK</button>
+                    <div class="price mb-5">
+                        <input type="number" name="" step="100" placeholder="0" class="minprice">
+                        <input type="number" name="" step="100" placeholder="123456" class="maxprice">
+                        <button class="btn btn-green-base">OK</button>
                     </div>
-                    <input type="text" id="price__range">
+                    <!--<input type="text" class="mt-5" id="price__range">-->
                 </div>
                 <div class="box">
+                    <div class="mt-2">
+                        <label for="brand">Виробник (12463)</label>
+                        <div>
+                            <select id="brand" name="f_brand">
+                              <option value="">--- (12463)</option>
+                              <option value="hp">hp (3685)</option>
+                              <option value="lg">lg (6)</option>
+                              <option value="msi">msi (120)</option>
+                              <option value="acer">acer (319)</option>
+                            </select>
+                        </div>
+                    </div>
                     <div class="item">
                         <div class="title">Condition</div>
                         <div class="data">
@@ -552,6 +564,6 @@
         </div>
     </footer>
 
-    <script type="text/javascript" src="assets/js/main.min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
 </body>
 </html>

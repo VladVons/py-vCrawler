@@ -204,11 +204,11 @@
 		input[type="text"]{
 			width: 100%;
 			border: none;
-			border-bottom: 1px solid #b8bdd0;
+			border-bottom: 1px solid $color_grey;
 		}
 		select{
 			width: 100%;
-			border-bottom: 1px solid #b8bdd0;
+			border-bottom: 1px solid $color_grey;
 			margin-bottom: 10px;
 		}
 

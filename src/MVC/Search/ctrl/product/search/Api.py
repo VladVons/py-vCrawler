@@ -84,13 +84,14 @@ class TMain(Lib.TCtrlBase):
             Pagination.Visible = self.GetConf('pagination_cnt', 5)
             PData = Pagination.Get(DblProducts.Rec.total, aPage)
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
-            Res['dbl_pagenation'] = DblPagination.Export()
+            Res['dbl_pagenation'] = DblPagination
 
             DblProductsSort = Lib.GetProductsSort(Pagination.Href, f'&sort={aSort}&order={aOrder}')
-            Res['dbl_products_sort'] = DblProductsSort.Export()
+            Res['dbl_products_sort'] = DblProductsSort
 
             if (self.GetConf('seo_url')):
                 await Lib.SeoEncodeDbl(self, DblProducts, ['href'])
 
-        Res['dbl_products'] = DblProducts.Export()
+        Res['dbl_products'] = DblProducts
+        Res['dbl_breadcrumbs'] = Lib.DblGetBreadcrumbs([['search', '']])
         return Res

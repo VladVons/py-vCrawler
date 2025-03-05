@@ -7,6 +7,15 @@ import IncP.LibModel as Lib
 
 
 class TMain(Lib.TDbModel):
+    async def GetLayoutLang(self, aLangId: int, aRoute: str) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_LayoutLang.sql',
+            {
+              'aLangId': aLangId,
+              'aRoute': aRoute
+            }
+        )
+
     async def GetAliasLangByList(self, aLangId: int, aText: list[str]) -> dict:
         Arr = [f"('{xText}')" for xText in aText]
         return await self.ExecQuery(

@@ -3,7 +3,9 @@
 
 select
   attr->>'category' as category,
-  count(*) as count
+  count(*) as count,
+  min(rp.price)::int as price_min,
+  max(rp.price)::int as price_max
 from
   ref_product rp
 join
@@ -16,6 +18,6 @@ where
 group by
   attr->>'category'
 having
-  count(*) >= 5
+  count(*) >= 3
 order by
   category

@@ -6,7 +6,7 @@
 .products__list{
 	.product__item{
 		padding: 12px 24px;
-		background: #F4F6F9;
+		background: $color_bkg;
 		margin-bottom: 15px;
 		display: flex;
 		align-items: stretch;
@@ -55,13 +55,13 @@
 				flex-wrap: wrap;
 				font-size: 14px;
 				line-height: normal;
-				color: #B8BDD0;
+				color: $color_attr_val;
 
 				p{margin-right: 7px}
 
 				strong{
 					font-weight: normal;
-					color: $color_black;
+					color: $color_attr_key;
 				}
 			}
 

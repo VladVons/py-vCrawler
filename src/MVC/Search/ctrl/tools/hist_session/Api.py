@@ -50,8 +50,8 @@ class TMain(Lib.TCtrlBase):
         )
 
         Res = {
-            'dbl_main': DblMain.Export(),
-            'dbl_pagenation': DblPagination.Export(),
+            'dbl_main': DblMain,
+            'dbl_pagenation': DblPagination,
             'day_inf': DblDay.ExportPairs('create_day', ['count', 'count_id', 'count_url', 'count_ip', 'count_location'], True)
         }
         return Res

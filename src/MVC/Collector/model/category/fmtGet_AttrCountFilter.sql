@@ -1,5 +1,5 @@
 -- mtGet_AttrCountInCategoryFilter.sql
--- in: aCountryId, aFilter
+-- in: aCountryId, aAttr, aPriceMin, aPriceMax
 
 with
 wt1 as (
@@ -18,12 +18,13 @@ wt1 as (
   where
     (rs.country_id = {{aCountryId}}) and
     (rp.stock is true) and
+    (rp.price between {{aPriceMin}} and {{aPriceMax}}) and
     (key not in ('category', 'model')) and
-    (rp.attr @> '{{aFilter}}')
+    (rp.attr @> '{{aAttr}}')
   group by
       key, val
   having
-      count(*) > 5
+      count(*) > 3
 )
 select
   key,

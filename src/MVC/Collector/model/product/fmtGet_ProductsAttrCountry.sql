@@ -1,5 +1,6 @@
 -- fmtGet_ProductsAttrCountry.sql
--- in: aCountryId, aLimit, aOffset, aFilter
+-- in: aCountryId,aFilter, aPriceMin, aPriceMax, aLimit, aOffset
+
 
 select
   count(*) over() as total,
@@ -21,6 +22,7 @@ join
   ref_site rs on (rs.id = ru.site_id) and (rs.country_id = {{aCountryId}}) and (rs.enabled is true)
 where
   (rp.stock is true) and
+  (rp.price between {{aPriceMin}} and {{aPriceMax}}) and
   (rp.attr @> '{{aFilter}}')
 order by
   {{aOrder}}

@@ -104,6 +104,22 @@ class TApiCtrl(TApiBase):
             )
             aRes['href'] = dict(zip(Href.keys(), Seo))
 
+    async def LoadLayout(self, aRoute: str, aLangId: int) -> dict:
+        Data = await self.ApiModel(
+            'system',
+            {
+                'method': 'GetLayoutLang',
+                'param': {
+                    'aLangId': aLangId,
+                    'aRoute': aRoute
+                },
+                'cache_age': -1
+            }
+        )
+
+        Dbl = Lib.TDbList().Import(Data)
+        return Dbl
+
     async def Exec(self, aRoute: str, aData: dict) -> dict:
         self.ConfDb = await self.GetConfDb()
 
@@ -127,10 +143,18 @@ class TApiCtrl(TApiBase):
 
                 await self.SeoUrl(Res)
 
+                Dbl = await self.LoadLayout(aRoute, LangId)
+                Lib.DictUpdate(Res, Dbl.Rec.GetAsDict())
+
                 if ('exec' in Res):
                     Exec = Res['exec']
                     R = await super().Exec(Exec.get('route', aRoute), aData | {'method': Exec['method']})
                     Lib.DictUpdate(Res, R)
+
+                # TDbList object serialization
+                for xKey, xVal in Res.items():
+                    if (xKey.startswith('dbl_')) and (isinstance(xVal, Lib.TDbList)):
+                        Res[xKey] = xVal.Export()
             case 'api':
                 Res = await super().Exec(aRoute, aData)
                 #Res = Encode(Res)

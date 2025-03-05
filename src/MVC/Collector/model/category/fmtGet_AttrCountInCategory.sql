@@ -23,7 +23,7 @@ wt1 as (
   group by
       key, val
   having
-      count(*) > 5
+      count(*) > 3
 )
 select
   key,

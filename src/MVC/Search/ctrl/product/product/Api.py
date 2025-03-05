@@ -99,7 +99,7 @@ class TMain(Lib.TCtrlBase):
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblAttr, ['href'])
 
-        Res['attr'] = DblAttr.Export()
+        Res['dbl_attr'] = DblAttr
         Res['parsed_data'] = ParsedData
 
         ResExt = {

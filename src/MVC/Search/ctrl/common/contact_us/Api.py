@@ -1,4 +1,4 @@
-# Created: 2024.12.22
+# Created: 2025.03.04
 # Author: Vladimir Vons <VladVons@gmail.com>
 # License: GNU, see LICENSE for more details
 
@@ -17,9 +17,13 @@ class TMain(Lib.TCtrlBase):
             (1, 1)
         )
 
+        Res = {
+            'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([['add site', '']])
+        }
+
         Post = aData.get('post')
         if (not Post):
-            return
+            return Res
 
         Body = {
             'country_id': CountryId,
@@ -62,8 +66,8 @@ class TMain(Lib.TCtrlBase):
             Msg = 'error'
             Lib.Log.Print(1, 'x', 'TMail error', aE=E)
 
-        Res = {
+        ResExt = {
             'id': Dbl.Rec.id,
-            'msg': Msg
+            'msg': Msg,
         }
-        return Res
+        return Res | ResExt

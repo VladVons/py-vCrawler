@@ -1,67 +1,82 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    {% if meta_title %}
-    <title>{{ meta_title }}</title>
-    <meta property="og:title" content="{{meta_title}}">
-    {% endif %}
-    {% if meta_descr %}
-    <meta name="description" content="{{meta_descr}}">
-    <meta property="og:description" content="{{meta_descr}}">
-    {% endif %}
-    {% if meta_image %}
-    <meta property="og:image" content="{{meta_image}}">
-    {% else %}
-    <meta property="og:image" content="/assets/images/logo-big.png">
-    {% endif %}
+  {% if meta_title %}
+  <title>{{ meta_title }}</title>
+  <meta property="og:title" content="{{meta_title}}">
+  {% endif %}
+  {% if meta_descr %}
+  <meta name="description" content="{{meta_descr}}">
+  <meta property="og:description" content="{{meta_descr}}">
+  {% endif %}
+  {% if meta_image %}
+  <meta property="og:image" content="{{meta_image}}">
+  {% else %}
+  <meta property="og:image" content="/assets/images/logo-big.png">
+  {% endif %}
 
-    {% block head %}{% endblock %}
+  {% block head %}{% endblock %}
 
-    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-    <script src="/assets/js/lib.js"></script>
-    <script src="/assets/js/app.js"></script>
-    <script src="/assets/jsExt/app.js"></script>
-    <script src="/assets/js/search1.js"></script>
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+  <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <script src="/assets/js/lib.js"></script>
+  <script src="/assets/js/app.js"></script>
+  <script src="/assets/jsExt/app.js"></script>
+  <script src="/assets/js/search1.js"></script>
 </head>
 
 <body id="startpage">
-    {% include './header.j2' %}
+  {% include './header.j2' %}
 
-    <section id="promo">
-        <div class="container">
-            {% if lang.search_motto %}
-            <h1>{{Trans(lang, 'search_motto')}}</h1>
-            {% endif %}
-            <div class="form__search">
-                <form method="get" autocomplete="off" id="viSearchForm">
-                    <input type="hidden" name="route" value="product/search"/>
-                    <input type="text" id="viSearchInput" name="q" value="{{search}}" placeholder="{{Trans(lang, 'search')}}">
-                    <div class="autocomplete-items" id="viSearchSuggest"><!-- JS --></div>
-                    <select name="country_id" id="viCountry">
-                        <option disabled="disabled">{{Trans(lang, 'location')}}</option>
-                        {% for Rec in TDbList().Import(dbl_country) %}
-                        <option value="{{Rec.id}}" data-lang="{{Rec.lang_id}}" {{Iif(Rec.id == country_id, 'selected', '')}}>{{Rec.title}} ({{Rec.alias}})</option>
-                        {% endfor %}
-                    </select>
-                    <button class="btn btn-green">{{Trans(lang, 'search')}}</button>
-                </form>
-            </div>
-            {% block promo %}{% endblock %}
-        </div>
-    </section>
+  <section id="promo">
+    <div class="container">
+      {% if lang.search_motto %}
+      <h1>{{Trans(lang, 'search_motto')}}</h1>
+      {% endif %}
+      <div class="form__search">
+        <form method="get" autocomplete="off" id="viSearchForm">
+          <input type="hidden" name="route" value="product/search"/>
+          <input type="text" id="viSearchInput" name="q" value="{{query.q}}" placeholder="{{Trans(lang, 'search')}}">
+          <div class="autocomplete-items" id="viSearchSuggest"><!-- JS --></div>
+          <select name="country_id" id="viCountry">
+            <option disabled="disabled">{{Trans(lang, 'location')}}</option>
+            {% for Rec in TDbList().Import(dbl_country) %}
+            <option value="{{Rec.id}}" data-lang="{{Rec.lang_id}}" {{Iif(Rec.id == query.country_id, 'selected', '')}}>{{Rec.title}} ({{Rec.alias}})</option>
+            {% endfor %}
+          </select>
+          <button class="btn btn-green">{{Trans(lang, 'search')}}</button>
+        </form>
+      </div>
+      {% block promo %}{% endblock %}
+    </div>
+  </section>
 
-    {% block content %}{% endblock %}
-    {% include './footer.j2' %}
-    <button class="btn btn-green" id="viBtnGoTop" onclick="goToTop()">{{Trans(lang, 'up')}}</button>
+  <section id="breadcrumbs">
+    <div class="container">
+      <ul>
+        <li><a href="{{href.root}}">{{Trans(lang, 'home')}}</a><span> / </span></li>
+        {% for Rec in TDbList().Import(dbl_breadcrumbs) %}
+        {% if Rec.href %}
+          <li><a href="{{href[Rec.href]}}">{{Trans(lang, Rec.title)}}</a><span> / </span></li>
+        {% else %}
+          <li>{{Trans(lang, Rec.title)}}</li>
+        {% endif %}
+      {% endfor %}
+      </ul>
+    </div>
+  </section>
 
-    <script type="text/javascript" src="/assets/jsExt/main.js"></script>
-    <script src="/assets/js/gotop.js"></script>
+  {% block content %}{% endblock %}
+  {% include './footer.j2' %}
+  <button class="btn btn-green-base" id="viBtnGoTop" onclick="goToTop()">{{Trans(lang, 'up')}}</button>
 
-    <script type="text/javascript">
+  <script type="text/javascript" src="/assets/jsExt/main.js"></script>
+  <script src="/assets/js/gotop.js"></script>
+
+   <script type="text/javascript">
         ProductListActionMark();
         OnCountry();
         OnHeadCompareFavorite(
@@ -73,9 +88,9 @@
         );
 
         //const search_ajax = '{{href_search_ajax}}';
-        //const search_query = {'method': 'ajax', 'lang_id': '{{lang_id}}', 'country_id': '{{country_id}}'}
+        //const search_query = {'method': 'ajax', 'lang_id': '{{query.lang_id}}', '': '{{query.country_id}}'}
         //searchNavbar(search_ajax, search_query);
     </script>
-
+    {% block bottom %}{% endblock %}
 </body>
 </html>

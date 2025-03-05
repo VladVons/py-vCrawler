@@ -39,7 +39,7 @@ class TMain(Lib.TCtrlBase):
             await Lib.SeoEncodeDbl(self, DblLast, ['href'])
 
         return {
-            'dbl_categories': DblCategories.Export(),
-            'dbl_products': DblLast.Export(),
+            'dbl_categories': DblCategories,
+            'dbl_products': DblLast,
             'exec': {'method': 'OnFinal'}
         }

@@ -108,7 +108,7 @@ class TMain(Lib.TCtrlBase):
         for Rec in DblAttr:
             Filtered = Filter.get(Rec.key)
             DblAttr.RecMerge([str(Filtered)])
-        Res['dbl_attr'] = DblAttr.Export()
+        Res['dbl_attr'] = DblAttr
 
         DblProducts = await self.ExecModelImport(
             'product',
@@ -131,12 +131,12 @@ class TMain(Lib.TCtrlBase):
             Pagination.Visible = self.GetConf('pagination_cnt', 5)
             PData = Pagination.Get(DblProducts.Rec.total, aPage)
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
-            Res['dbl_pagenation'] = DblPagination.Export()
+            Res['dbl_pagenation'] = DblPagination
 
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblProducts, ['href'])
 
-        Res['dbl_products'] = DblProducts.Export()
+        Res['dbl_products'] = DblProducts
         Res['category'] = Category
         Res['site_id'] = aSiteId
         Res['href'] = {

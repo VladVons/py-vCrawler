@@ -1,0 +1,35 @@
+{% extends '_inc/layout1.j2' %}
+
+{% block content %}
+<!-- add_site + -->
+<section class="page">
+  <div class="container">
+    <div class="content">
+      <h1 class="mb-4">{{title}}</h1>
+      <h2 class="mb-4">{{Trans(lang, msg)}} {{id}}</h2>
+      <div>{{Text2Html(descr)}}</div>
+      <form method="post">
+        <div class="mb-3">
+          <label class="form-label">{{Trans(lang, 'url')}}</label>
+          <input type="text" class="form-control" name="site" required>
+        </div>
+        <div>
+          <label class="form-label">{{Trans(lang, 'email')}}</label>
+          <input type="email" class="form-control" name="email" required>
+        </div>
+        <div>
+          <label class="form-label">{{Trans(lang, 'phone')}}</label>
+          <input type="tel" class="form-control" name="phone" required>
+        </div>
+        <div>
+          <label class="form-label">{{Trans(lang, 'category')}}</label>
+          <textarea class="form-control" name="category" rows="10" placeholder="yoursite.com/used_laptops etc" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-green">{{Trans(lang, 'send')}}</button>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- add_site - -->
+{% endblock %}

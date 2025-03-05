@@ -24,7 +24,7 @@ def DblTranslate(aDbl: TDbList, aField: str, aTrans: dict):
         Val = aTrans.get(Find, Find)
         aDbl.RecMerge([Val])
 
-def GetFilterFromQuery(aQuery: dict, aPrefix: str = 'f_'):
+def GetFilterFromQuery(aQuery: dict, aPrefix: str = 'f_') -> dict:
     Res = {}
     for xKey, xVal in aQuery.items():
         if (xKey.startswith(aPrefix)):
@@ -83,7 +83,7 @@ async def Img_GetCategory(self, aNames: list[str]) -> list[str]:
         }
     )
 
-async def Model_GetCategoriesCountry(self, aCountryId: int) -> dict:
+async def Model_GetCategoriesCountry(self, aCountryId: int) -> TDbList:
     return await self.ExecModelImport(
         'category',
         {
@@ -95,7 +95,7 @@ async def Model_GetCategoriesCountry(self, aCountryId: int) -> dict:
         }
     )
 
-async def DblGetCountryCategories(self, aLangId: int, aCountryId: int) -> dict:
+async def DblGetCountryCategories(self, aLangId: int, aCountryId: int) -> TDbList:
     DblCategory = await Model_GetCategoriesCountry(self, aCountryId)
     Categories = DblCategory.ExportList('category')
     ImageUrls = await Img_GetCategory(self, Categories)
@@ -117,6 +117,10 @@ def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
         HrefExt = Rec.url + Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
         Site = UrlToDict(Rec.url)['host']
         aDbl.RecMerge([Href, HrefExt, Site])
+
+
+def DblGetBreadcrumbs(aData: list) -> TDbList:
+    return TDbList(['title', 'href'], aData)
 
 def GetSortOrder(aSort: str) -> str:
     SortOrder = {

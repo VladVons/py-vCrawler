@@ -15,4 +15,5 @@ class TMain(Lib.TCtrlBase):
         )
 
         Res = await List(self, aLangId, aUrlIds, True)
+        Res['dbl_breadcrumbs'] = Lib.DblGetBreadcrumbs([['history', '']])
         return Res

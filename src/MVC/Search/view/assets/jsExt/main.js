@@ -48,21 +48,6 @@ $(document).ready(function(){
 		$(".products__list").addClass($(this).attr('data-view'));
 	});
 
-	var mySlider = new rSlider({
-		target: '#price__range',
-		values: {min: 0, max: 1000},
-		step: 10,
-		range: true,
-		set: [0, 400],
-		scale: false,
-		labels: false,
-		onChange: function (val) {
-			val = val.split(',')
-			$(".minprice").val(val[0]);
-			$(".maxprice").val(val[1]);
-		}
-	});
-
 	$('.similar__products').slick({
 		infinite: true,
 		slidesToShow: 4,

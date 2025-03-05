@@ -52,7 +52,8 @@ class TMain(Lib.TCtrlBase):
             await Lib.SeoEncodeDbl(self, DblCompare, ['href'])
 
         Res = {
-            'dbl_compare': DblCompare.Export(),
+            'dbl_compare': DblCompare,
+            'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([['compare', '']]),
             'rows': Fields
         }
         return Res

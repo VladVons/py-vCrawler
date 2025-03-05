@@ -1,0 +1,145 @@
+/* === control VladVons === */
+
+// === heading ===
+// h1, h2, h3, h4, h5 {
+//     margin-top: 0;
+//     margin-bottom: 0.5rem;
+//     font-weight: 500;
+//     line-height: 1.2;
+//     color: $color_black;
+// }
+
+// @each $heading, $size in $headings {
+//     #{$heading} {
+//         font-size: $size;
+//     }
+// }
+
+// === button ===
+.btn-green-base{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 20px;
+	background: $color_green;
+	color: $color_white;
+	border-radius: 40px;
+	font-size: 16px;
+	font-weight: 600;
+
+	&:hover{
+		background: $color_black;
+	}
+}
+
+.btn-green{
+	@extend .btn-green-base;
+	min-width: 130px;
+	//height: 50px;
+}
+
+.btn-green-text{
+	color: $color_green;
+	font-size: 13px;
+	font-weight: 600;
+	border-bottom: 1px solid transparent;
+
+	&:hover{
+		border-color: $color_green;
+	}
+}
+
+.btn-action{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 40px;
+	height: 40px;
+	background: $color_white;
+	border-radius: 10px;
+
+	&:hover,&.active{
+		background: $color_green;
+
+		path{stroke: $color_white;}
+	}
+
+	&:last-child{
+		&:hover{
+			path{fill: $color_white; stroke: transparent;}
+		}
+	}
+}
+
+
+// === input ===
+.input-style {
+	width: calc(100% - 440px);
+	padding-left: 10px;
+	font-size: 16px;
+	color: $color_black;
+	border-right: 2px solid $color_grey;
+	border-radius: 20px;
+	transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+	&:focus {
+	  border-color: #007bff;
+	  box-shadow: 2px 2px 8px $color_green;
+	  outline: none;
+	}
+
+	&:disabled {
+	  background-color: #e9ecef;
+	  opacity: 1;
+	}
+}
+
+input {
+	@extend .input-style;
+	height: 44px;
+}
+
+textarea {
+	@extend .input-style;
+	min-height: 120px;
+	resize: vertical;
+}
+
+select {
+    border-radius: 30px;
+    background: url("../images/arrow-down-green.svg") calc(100% - 20px) 50% no-repeat;
+    border: 1px solid $color_green;
+    padding: 0 40px 0 20px;
+    color: $color_attr_val;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+}
+
+.form-label {
+	display: block;
+	margin-top: 0.5rem;
+	font-weight: 700;
+	color: $color_black;
+}
+
+// === badge ===
+.badge {
+    --bs-badge-padding-x: 0.5em;
+    --bs-badge-padding-y: 0.3em;
+    display: inline-block;
+    padding: var(--bs-badge-padding-y) var(--bs-badge-padding-x);
+    font-size: 0.70em;
+    font-weight: 700;
+    line-height: 1;
+    color: white;
+    border-radius: 0.375rem;
+    background: green;
+}
+
+.badge:empty {
+    display: none
+}
+

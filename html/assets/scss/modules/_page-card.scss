@@ -17,7 +17,7 @@
 		width: 610px;
 		box-sizing: border-box;
 		padding: 24px 30px;
-		background: #F4F6F9;
+		background: $color_bkg;
 		border-radius: 30px;
 		display: flex;
 		justify-content: space-between;
@@ -104,7 +104,7 @@
 		width: 515px;
 		box-sizing: border-box;
 		padding: 24px 30px;
-		background: #F4F6F9;
+		background: $color_bkg;
 		border-radius: 30px;
 
 		h1{
@@ -119,11 +119,11 @@
 			display: flex;
 			justify-content: space-between;
 			flex-wrap: wrap;
-			color: #B8BDD0;
+			color: $color_attr_val;
 
 			strong{
 				font-weight: normal;
-				color: $color_black;
+				color: $color_attr_key;
 			}
 		}
 
@@ -171,8 +171,8 @@
 			background: $color_white;
 			border-radius: 30px;
 			padding: 15px 25px;
-			line-height: 160%;
-			color: #B8BDD0;
+			line-height: 180%;
+			color: $color_attr_key;
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
@@ -191,7 +191,7 @@
 
 			strong,a{
 				font-weight: normal;
-				color: $color_green;
+				color: $color_attr_val;
 			}
 
 			a{
@@ -206,7 +206,7 @@
 	.other__data{
 		box-sizing: border-box;
 		padding: 24px 30px;
-		background: #F4F6F9;
+		background: $color_bkg;
 		border-radius: 30px;
 	}
 

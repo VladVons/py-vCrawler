@@ -4,6 +4,11 @@ $color_green: #7DD017;
 $color_red: #fd3733;
 $color_grey: #B8BDD0;
 
+$color_bkg: #F4F6F9;
+
+$color_attr_key: black;
+$color_attr_val: green;
+
 $font_weight_price: 500;
 $font_size_price: 20px;
 
@@ -23,4 +28,12 @@ $spacings: (
   3: 1.0rem,
   4: 1.5rem,
   5: 2.0rem
+);
+
+$headings: (
+  h1: 2.0rem,
+  h2: 1.75rem,
+  h3: 1.5rem,
+  h4: 1.25rem,
+  h5: 1.0rem
 );

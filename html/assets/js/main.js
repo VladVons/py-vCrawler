@@ -50,10 +50,10 @@ $(document).ready(function(){
 
 	var mySlider = new rSlider({
 		target: '#price__range',
-		values: {min: 0, max: 1000},
-		step: 10,
+		values: {min: 0, max: 10000},
+		step: 100,
 		range: true,
-		set: [0, 400],
+		set: [0, 4000],
 		scale: false,
 		labels: false,
 		onChange: function (val) {

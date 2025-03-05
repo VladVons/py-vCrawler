@@ -1,0 +1,30 @@
+{% extends '_inc/layout1.j2' %}
+
+{% block content %}
+<!-- contact_us + -->
+<section class="page">
+  <div class="container">
+    <div class="content">
+      <h1 class="mb-4">{{title}}</h1>
+      <div>{{Text2Html(descr)}}</div>
+      <form method="post">
+        <div>
+          <label class="form-label">{{Trans(lang, 'email')}}</label>
+          <input type="email" class="form-control" name="email" required>
+        </div>
+        <div>
+          <label class="form-label">{{Trans(lang, 'subject')}}</label>
+          <input type="text" class="form-control" name="phone" required>
+        </div>
+        <div>
+          <label class="form-label">{{Trans(lang, 'message')}}</label>
+          <textarea class="form-control" name="category" rows="10" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-green">{{Trans(lang, 'send')}}</button>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- contact_us - -->
+{% endblock %}

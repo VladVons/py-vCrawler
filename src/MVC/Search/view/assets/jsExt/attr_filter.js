@@ -11,6 +11,12 @@ class TAttrSelect {
           this.OnSelect(element);
         });
       });
+
+      this.elCategory = document.getElementById('idCategory');
+      this.elCountry = aForm.querySelector('input[name="country_id"]');
+      this.elPriceMin = aForm.querySelector('input[name="f_price_min"]');
+      this.elPriceMax = aForm.querySelector('input[name="f_price_max"]');
+      asserts({'Category': this.elCategory, 'Country': this.elCountry, 'PriceMin': this.elPriceMin, 'PriceMax': this.elPriceMax});
     }
 
     Clear(event) {
@@ -18,6 +24,9 @@ class TAttrSelect {
       this.Form.querySelectorAll('select').forEach(function(element) {
         element.selectedIndex = 0;
       });
+
+      this.elPriceMin.value = null;
+      this.elPriceMax.value = null;
     }
 
     OnBtnClear(aId) {
@@ -27,8 +36,8 @@ class TAttrSelect {
       });
     }
 
-    OnSelect(aElement) {
-      const Category = document.getElementById('idCategory').getAttribute('data-value');
+    OnSelect() {
+      const Category = this.elCategory.getAttribute('data-value');
       let Filter = {'category': Category};
       this.Form.querySelectorAll('select').forEach((element) => {
         if (element.value) {
@@ -37,17 +46,23 @@ class TAttrSelect {
         }
       });
 
-      const CountryId = this.Form.querySelector('input[name="country_id"]').value;
+      if (this.elPriceMin.value)
+        Filter['price_min'] = this.elPriceMin.value;
+
+      if (this.elPriceMax.value)
+        Filter['price_max'] = this.elPriceMax.value;
+
       const res = new TSend().exec(
         '/api/?route=product/category',
         {
           'method': 'Api_GetAttrCountFilter',
           'param': {
-            'aCountryId': CountryId,
+            'aCountryId': this.elCountry.value,
             'aFilter': Filter
           }
         }
       );
+
 
       const Dbl = new TDbList(res);
       for (const Rec of Dbl) {
