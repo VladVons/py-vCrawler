@@ -2,19 +2,7 @@
 
 {% block promo %}
 <!-- home + -->
-<div class="categories">
-  {% for Rec in TDbList().Import(dbl_categories) %}
-  <div class="item">
-    <a href="{{Rec.href}}">
-      <div class="icon">
-        <img src="/assets/images/category/{{Rec.category}}.svg" alt="{{Rec.category}}">
-      </div>
-      <span>{{Rec.lang}}</span>
-      <p>({{Rec.count}})</p>
-    </a>
-  </div>
-  {% endfor %}
-</div>
+{% include '../_inc/categories.j2' %}
 <!-- home - -->
 {% endblock %}
 

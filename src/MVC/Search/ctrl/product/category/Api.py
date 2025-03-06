@@ -127,7 +127,7 @@ class TMain(Lib.TCtrlBase):
             DblProductsSort = Lib.GetProductsSort(Pagination.Href, f'&sort={aSort}&order={aOrder}')
             Res['dbl_products_sort'] = DblProductsSort
 
-        DblCategories = await Lib.DblGetCountryCategories(self, aLangId, aCountryId)
+        DblCategories = await Lib.DblGetCategories(self, aLangId, aCountryId, 'country')
 
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblProducts, ['href'])

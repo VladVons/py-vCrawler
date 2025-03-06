@@ -1,14 +1,12 @@
 {% extends '_inc/layout1.j2' %}
 
+{% block promo %}
+<!-- site + -->
+{% include '../_inc/categories.j2' %}
+<!-- site - -->
+{% endblock %}
+
 {% block content %}
-<div class="container pb-2">
-  <div class="pb-2">
-    <h1><a href="{{href.host}}" rel="nofollow" target="_blank">{{host}}</a></h1>
-  </div>
-  {% for Rec in TDbList().Import(dbl_categories) %}
-  <div>
-    <a href="{{Rec.href}}">{{Trans(lang, Rec.category)}} ({{Rec.cnt}})</a>
-  </div>
-  {% endfor %}
-</div>
+<!-- site + -->
+<!-- site - -->
 {% endblock %}

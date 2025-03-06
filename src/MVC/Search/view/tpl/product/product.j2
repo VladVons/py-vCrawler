@@ -64,6 +64,9 @@
         </div>
         <div class="tth">
             <div class="item">
+              <div class="row">
+                <p>{{Trans(lang, 'site')}}:</p><strong><a href="{{href.site}}">{{host}}</a></strong>
+              </div>
               {% for Rec in TDbList().Import(dbl_attr) %}
                 <div class="row">
                   <p>{{Trans(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val}}</a></strong>

@@ -18,7 +18,7 @@ class TMain(Lib.TCtrlBase):
             (1, 1)
         )
 
-        DblCategories = await Lib.DblGetCountryCategories(self, aLangId, aCountryId)
+        DblCategories = await Lib.DblGetCategories(self, aLangId, aCountryId, 'country')
 
         DblLast = await self.ExecModelImport(
             'product',

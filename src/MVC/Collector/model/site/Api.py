@@ -146,14 +146,6 @@ class TMain(Lib.TDbModel):
             }
         )
 
-    async def GetSiteCategories(self, aSiteId: int) -> dict:
-        return await self.ExecQuery(
-            'fmtGet_SiteCategories.sql',
-            {
-                'aSiteId': aSiteId
-            }
-        )
-
     async def GetSiteInfo(self, aLangId: int, aSiteId: int) -> dict:
         return await self.ExecQuery(
             'fmtGet_SiteInfo.sql',

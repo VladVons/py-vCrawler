@@ -1215,18 +1215,10 @@ header .actions {
   justify-content: space-between;
   flex-wrap: wrap;
 }
-#page__card .information .tth .item {
-  width: 49%;
-}
-#page__card .information .tth .row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 5px;
-}
 #page__card .information .tth strong, #page__card .information .tth a {
-  font-weight: normal;
   color: green;
+  font-size: 16px;
+  padding-left: 5px;
 }
 #page__card .information .tth a {
   border-bottom: 1px solid #7DD017;

@@ -30,20 +30,7 @@ class TMain(Lib.TCtrlBase):
         if (not DblInfo):
             return {'status_code': 404}
 
-        DblCategories = await self.ExecModelImport(
-            'site',
-            {
-                'method': 'GetSiteCategories',
-                'param': {
-                    'aSiteId': aSiteId
-                }
-           }
-        )
-
-        DblCategories.AddFieldsFill(['href'], False)
-        for Rec in DblCategories:
-            Href = f'/?route=product/site&lang_id={aLangId}&site_id={aSiteId}&f_category={Rec.category}'
-            DblCategories.RecMerge([Href])
+        DblCategories = await Lib.DblGetCategories(self, aLangId, aSiteId, 'site')
 
         Res = DblInfo.Rec.GetAsDict()
         if (self.GetConf('seo_url')):

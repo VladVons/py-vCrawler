@@ -83,6 +83,18 @@ async def Img_GetCategory(self, aNames: list[str]) -> list[str]:
         }
     )
 
+async def Model_GetCategoriesSite(self, aSiteId: int) -> TDbList:
+    return await self.ExecModelImport(
+        'category',
+        {
+            'method': 'GetCategoriesSite',
+            'param': {
+                'aSiteId': aSiteId
+            },
+            'cache_age': -1
+        }
+    )
+
 async def Model_GetCategoriesCountry(self, aCountryId: int) -> TDbList:
     return await self.ExecModelImport(
         'category',
@@ -95,18 +107,26 @@ async def Model_GetCategoriesCountry(self, aCountryId: int) -> TDbList:
         }
     )
 
-async def DblGetCountryCategories(self, aLangId: int, aCountryId: int) -> TDbList:
-    DblCategory = await Model_GetCategoriesCountry(self, aCountryId)
-    Categories = DblCategory.ExportList('category')
+async def DblGetCategories(self, aLangId: int, aId: int, aType: str) -> TDbList:
+    if (aType == 'country'):
+        Dbl = await Model_GetCategoriesCountry(self, aId)
+        HrefFmt = '/?route=product/category&lang_id={LangId}&country_id={Id}&f_category={Category}'
+    elif (aType == 'site'):
+        Dbl = await Model_GetCategoriesSite(self, aId)
+        HrefFmt = '/?route=product/site&lang_id={LangId}&site_id={Id}&f_category={Category}'
+    else:
+        raise ValueError(f'unknown type {aType}')
+
+    Categories = Dbl.ExportList('category')
     ImageUrls = await Img_GetCategory(self, Categories)
     Translate = await self.Translate(aLangId, Categories)
-    DblCategory.AddFieldsFill(['lang', 'href', 'image'], False)
-    for xImage, Rec in zip(ImageUrls, DblCategory):
+    Dbl.AddFieldsFill(['lang', 'href', 'image'], False)
+    for xImage, Rec in zip(ImageUrls, Dbl):
         Category = Rec.category
         Lang = Translate.get(Category, Category)
-        Href = f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
-        DblCategory.RecMerge([Lang, Href, xImage])
-    return DblCategory
+        Href = HrefFmt.format(LangId=aLangId, Id=aId, Category=Category)
+        Dbl.RecMerge([Lang, Href, xImage])
+    return Dbl
 
 def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
     Marker = 'findwares.com'
