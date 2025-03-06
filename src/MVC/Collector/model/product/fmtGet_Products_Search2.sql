@@ -4,6 +4,7 @@
 with wt1 as(
   select
     count(*) over() as total,
+    rs.id as site_id,
     rp.url_id,
     rp.update_date,
     rp.title,
@@ -18,9 +19,8 @@ with wt1 as(
   join
     ref_url ru on (ru.id = rp.url_id)
   join
-    ref_site rs on (rs.id = ru.site_id) and (rs.enabled is true)
+    ref_site rs on (rs.id = ru.site_id) and (rs.enabled is true) and (rs.country_id = {{aCountryId}})
   where
-    (rs.country_id = {{aCountryId}}) and
     (rp.stock is true) and
     (rp.price > 0) and
     (tsv_title @@ to_tsquery('simple', '{{aFilter}}'))

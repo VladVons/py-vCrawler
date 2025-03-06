@@ -131,12 +131,13 @@ async def DblGetCategories(self, aLangId: int, aId: int, aType: str) -> TDbList:
 def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
     Marker = 'findwares.com'
     Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
-    aDbl.AddFieldsFill(['href', 'href_ext', 'site'], False)
+    aDbl.AddFieldsFill(['href', 'href_int', 'href_ext', 'site'], False)
     for Rec in aDbl:
         Href = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
+        HrefInt = f'/?route=site/site&lang_id={aLangId}&site_id={Rec.site_id}'
         HrefExt = Rec.url + Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
         Site = UrlToDict(Rec.url)['host']
-        aDbl.RecMerge([Href, HrefExt, Site])
+        aDbl.RecMerge([Href, HrefInt, HrefExt, Site])
 
 
 def DblGetBreadcrumbs(aData: list) -> TDbList:

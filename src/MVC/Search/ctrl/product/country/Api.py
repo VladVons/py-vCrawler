@@ -128,7 +128,7 @@ class TMain(Lib.TCtrlBase):
         DblCategories = await Lib.DblGetCategories(self, aLangId, aCountryId, 'country')
 
         if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblProducts, ['href'])
+            await Lib.SeoEncodeDbl(self, DblProducts, ['href', 'href_int'])
             await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
 
         Res['type'] = 'country'
