@@ -110,7 +110,7 @@ async def Model_GetCategoriesCountry(self, aCountryId: int) -> TDbList:
 async def DblGetCategories(self, aLangId: int, aId: int, aType: str) -> TDbList:
     if (aType == 'country'):
         Dbl = await Model_GetCategoriesCountry(self, aId)
-        HrefFmt = '/?route=product/category&lang_id={LangId}&country_id={Id}&f_category={Category}'
+        HrefFmt = '/?route=product/country&lang_id={LangId}&country_id={Id}&f_category={Category}'
     elif (aType == 'site'):
         Dbl = await Model_GetCategoriesSite(self, aId)
         HrefFmt = '/?route=product/site&lang_id={LangId}&site_id={Id}&f_category={Category}'

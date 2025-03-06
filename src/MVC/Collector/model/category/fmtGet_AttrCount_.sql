@@ -1,5 +1,4 @@
--- mtGet_AttrCountInCategoryFilter.sql
--- in: aCountryId, aAttr, aPriceMin, aPriceMax
+-- fmtGet_AttrCountFilter.sql
 
 with
 wt1 as (
@@ -13,18 +12,16 @@ wt1 as (
       ref_url ru on (ru.id = rp.url_id)
   join
     ref_site rs on (rs.id = ru.site_id)
+    {% block _ref_site_join %}{% endblock %}
   cross join lateral
       jsonb_each_text(rp.attr) as data(key, val)
   where
-    (rs.country_id = {{aCountryId}}) and
     (rp.stock is true) and
-    (rp.price between {{aPriceMin}} and {{aPriceMax}}) and
-    (key not in ('category', 'model')) and
-    (rp.attr @> '{{aAttr}}')
+    (key not in ('category', 'model'))
+    {% block _where %}{% endblock %}
   group by
       key, val
-  having
-      count(*) > 3
+  {% block _having %}{% endblock %}
 )
 select
   key,

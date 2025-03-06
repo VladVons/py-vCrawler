@@ -6,6 +6,7 @@
 from datetime import datetime
 #
 import IncP.LibCtrl as Lib
+from IncP import GetAppVer
 
 class TMain(Lib.TCtrlBase):
     async def Main(self, **aData) -> dict:
@@ -53,6 +54,7 @@ class TMain(Lib.TCtrlBase):
 
         RecNo = DblCountry.FindField('id', aCountryId)
         Country = '' if (RecNo == -1) else DblCountry.RecGo(RecNo).title
+        AppVer = GetAppVer()
 
         Res = {
             'href_search_ajax': '/api/?route=product/search',
@@ -70,6 +72,7 @@ class TMain(Lib.TCtrlBase):
             'query': aData.get('query'),
             'country': Country,
             'dbl_country': DblCountry,
-            'now_year': datetime.now().year
+            'now_year': datetime.now().year,
+            'ver': f"ver:{AppVer['app_ver']} ({AppVer['app_date']})"
         }
         return Res

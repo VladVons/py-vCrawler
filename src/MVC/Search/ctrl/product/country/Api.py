@@ -10,7 +10,7 @@ class TMain(Lib.TCtrlBase):
         return await self.ExecModelImport(
             'category',
             {
-                'method': 'GetAttrCountInCategory',
+                'method': 'GetAttrCountCategoryCountry',
                 'param': {
                     'aCountryId': aCountryId,
                     'aCategory': aCategory
@@ -28,7 +28,7 @@ class TMain(Lib.TCtrlBase):
             DblAttr = await self.ExecModelImport(
                 'category',
                 {
-                    'method': 'GetAttrCountFilter',
+                    'method': 'GetAttrCountFilterCountry',
                     'param': {
                         'aCountryId': aCountryId,
                         'aFilter': aFilter
@@ -77,8 +77,6 @@ class TMain(Lib.TCtrlBase):
         Category = Filter.get('category')
         ImageUrl = await Lib.Img_GetCategory(self, [Category])
         Res = {
-            'country_id': aCountryId,
-            'lang_id': aLangId,
             'category': Category,
             'image': ImageUrl[0],
             'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Category, '']])
@@ -133,10 +131,11 @@ class TMain(Lib.TCtrlBase):
             await Lib.SeoEncodeDbl(self, DblProducts, ['href'])
             await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
 
+        Res['type'] = 'country'
         Res['dbl_products'] = DblProducts
         Res['dbl_categories'] = DblCategories
         Res['category'] = Category
         Res['href'] = {
-            'btn_attr': f'/?route=product/category&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
+            'btn_attr': f'/?route=product/country&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'
         }
         return Res

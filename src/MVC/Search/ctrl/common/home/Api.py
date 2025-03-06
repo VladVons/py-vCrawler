@@ -23,7 +23,7 @@ class TMain(Lib.TCtrlBase):
         DblLast = await self.ExecModelImport(
             'product',
             {
-                'method': 'GetProductsLastAdded',
+                'method': 'GetProductsLastCountry',
                 'param': {
                     'aCountryId': aCountryId,
                     'aLimit': 5

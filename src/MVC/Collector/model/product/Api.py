@@ -124,11 +124,20 @@ class TMain(Lib.TDbModel):
             }
         )
 
-    async def GetProductsLastAdded(self, aCountryId: int, aLimit: int = 25) -> dict:
+    async def GetProductsLastCountry(self, aCountryId: int, aLimit: int = 25) -> dict:
         return await self.ExecQuery(
-            'fmtGet_ProductsLastAdded.sql',
+            'fmtGet_ProductsLastCountry.sql',
             {
                 'aCountryId': aCountryId,
+                'aLimit': aLimit
+            }
+        )
+
+    async def GetProductsLastSite(self, aSiteId: int, aLimit: int = 25) -> dict:
+        return await self.ExecQuery(
+            'fmtGet_ProductsLastSite.sql',
+            {
+                'aSiteId': aSiteId,
                 'aLimit': aLimit
             }
         )

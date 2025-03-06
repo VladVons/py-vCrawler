@@ -3,8 +3,9 @@
 // License: GNU, see LICENSE for more details
 
 class TAttrSelect {
-    constructor(aForm) {
+    constructor(aForm, aType) {
       this.Form = aForm;
+      this.Type = aType
 
       this.Form.querySelectorAll('select').forEach((element) => {
         element.addEventListener('change', (event) => {
@@ -13,10 +14,10 @@ class TAttrSelect {
       });
 
       this.elCategory = document.getElementById('idCategory');
-      this.elCountry = aForm.querySelector('input[name="country_id"]');
+      this.elTypeId = aForm.querySelector(`input[name="${aType}_id"]`);
       this.elPriceMin = aForm.querySelector('input[name="f_price_min"]');
       this.elPriceMax = aForm.querySelector('input[name="f_price_max"]');
-      asserts({'Category': this.elCategory, 'Country': this.elCountry, 'PriceMin': this.elPriceMin, 'PriceMax': this.elPriceMax});
+      asserts({'Category': this.elCategory, 'Country': this.elTypeId, 'PriceMin': this.elPriceMin, 'PriceMax': this.elPriceMax});
     }
 
     Clear(event) {
@@ -52,12 +53,13 @@ class TAttrSelect {
       if (this.elPriceMax.value)
         Filter['price_max'] = this.elPriceMax.value;
 
+      const TypeName = 'a' + this.Type.charAt(0).toUpperCase() + this.Type.slice(1) + 'Id';
       const res = new TSend().exec(
-        '/api/?route=product/category',
+        `/api/?route=product/${this.Type}`,
         {
           'method': 'Api_GetAttrCountFilter',
           'param': {
-            'aCountryId': this.elCountry.value,
+            [TypeName]: this.elTypeId.value,
             'aFilter': Filter
           }
         }

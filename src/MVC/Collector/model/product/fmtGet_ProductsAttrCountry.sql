@@ -19,7 +19,7 @@ from
 join
   ref_url ru on (ru.id = rp.url_id)
 join
-  ref_site rs on (rs.id = ru.site_id) and (rs.country_id = {{aCountryId}}) and (rs.enabled is true)
+  ref_site rs on (rs.id = ru.site_id) and (rs.enabled is true) and (rs.country_id = {{aCountryId}})
 where
   (rp.stock is true) and
   (rp.price between {{aPriceMin}} and {{aPriceMax}}) and

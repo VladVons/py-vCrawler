@@ -33,11 +33,27 @@ class TMain(Lib.TCtrlBase):
         DblCategories = await Lib.DblGetCategories(self, aLangId, aSiteId, 'site')
 
         Res = DblInfo.Rec.GetAsDict()
+
+        DblLast = await self.ExecModelImport(
+            'product',
+            {
+                'method': 'GetProductsLastSite',
+                'param': {
+                    'aSiteId': aSiteId,
+                    'aLimit': 5
+                },
+                'cache_age': -1
+            }
+        )
+        Lib.DblProducts_Adjust(DblLast, aLangId)
+
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
+            await Lib.SeoEncodeDbl(self, DblLast, ['href'])
 
         Res['host'] = Lib.UrlToDict(Res['url'])['host']
         Res['dbl_categories'] = DblCategories
+        Res['dbl_products'] = DblLast
         Res['href'] = {
             'host': f'/?route=redirect&{Lib.GetRedirectHref(Res['url'])}'
         }

@@ -1,9 +1,34 @@
 {% extends '_inc/layout1.j2' %}
 
 {% block content %}
-<h2>{{Trans(lang, 'site')}} - <a href="{{href.site}}">{{host}}</a></h2>
-{% include '../_inc/attr_filter.j2' %}
-{% include '../_inc/pagination.j2' %}
-{% include '../_inc/products_a.j2' %}
-{% include '../_inc/pagination.j2' %}
+<section id="products__list__page">
+    <div class="container">
+        <div class="sidebar__mobile">
+            Filters
+        </div>
+        {% include '../_inc/attr_filter.j2' %}
+        <div class="product__data">
+            <div class="filters">
+                <div class="views">
+                    <button class="btn btn-action active" data-view="list"><img src="/assets/images/icon-list.svg" alt="list"></button>
+                    <button class="btn btn-action" data-view="box"><img src="/assets/images/icon-box.svg" alt="list"></button>
+                </div>
+                <div class="sorting">
+                    <select onchange="location=this.value">
+                        {% for Rec in TDbList().Import(dbl_products_sort) %}
+                        <option value="{{Rec.href}}" {{Rec.selected}}>{{Trans(lang, Rec.title)}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="products__list">
+                {% include '../_inc/products_a.j2' %}
+            </div>
+
+            <div class="pagination">
+                {% include '../_inc/pagination.j2' %}
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

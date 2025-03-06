@@ -5,28 +5,31 @@
 import IncP.LibCtrl as Lib
 
 class TMain(Lib.TCtrlBase):
-    async def _GetAttrCountFilter(self, aCountryId: int, aFilter: dict) -> dict:
-        Category = aFilter.get('category')
-        DblAttrAll = await self.ExecModelImport(
+    async def _GetAttrCount(self, aSiteId: int, aCategory: str) -> Lib.TDbList:
+        return await self.ExecModelImport(
             'category',
             {
-                'method': 'GetAttrCountInCategorySite',
+                'method': 'GetAttrCountCategorySite',
                 'param': {
-                    'aCountryId': aCountryId,
-                    'aCategory': Category
+                    'aSiteId': aSiteId,
+                    'aCategory': aCategory
                 },
                 'cache_age': -1
             }
         )
+
+    async def _GetAttrCountFilter(self, aSiteId: int, aFilter: dict) -> dict:
+        Category = aFilter.get('category')
+        DblAttrAll = await self._GetAttrCount(aSiteId, Category)
 
         # not only category attr
         if (len(aFilter) > 1):
             DblAttr = await self.ExecModelImport(
                 'category',
                 {
-                    'method': 'GetAttrCountFilter',
+                    'method': 'GetAttrCountFilterSite',
                     'param': {
-                        'aCountryId': aCountryId,
+                        'aSiteId': aSiteId,
                         'aFilter': aFilter
                     }
                 }
@@ -45,23 +48,31 @@ class TMain(Lib.TCtrlBase):
                 xRec.stat = Stat
         return DblAttrAll
 
-    async def Api_GetAttrCountFilter(self, aCountryId: int, aFilter: dict) -> dict:
+    async def Api_GetAttrCountFilter(self, aSiteId: int, aFilter: dict) -> dict:
         for xKey, xVal in aFilter.items():
             if ('size' in xKey) and (xVal):
                 aFilter[xKey] = int(xVal)
 
-        Dbl = await self._GetAttrCountFilter(aCountryId, aFilter)
+        Dbl = await self._GetAttrCountFilter(aSiteId, aFilter)
         return Dbl.Export()
 
-    async def Main(self, **aData):
-        aLangId, aSiteId, aPage, aLimit = Lib.GetDictDefs(
+
+    async def Main(self, **aData) -> dict:
+        aLangId, aSiteId, aPage, aLimit, aSort, aOrder = Lib.GetDictDefs(
             aData.get('query'),
-            ('lang_id', 'site_id', 'page', 'limit'),
-            (1, 1, 1, self.GetConf('products_per_page', 10))
+            ('lang_id', 'site_id', 'page', 'limit', 'sort', 'order'),
+            (1, 1, 1, self.GetConf('products_per_page', 10), ('update_date', 'create_date', 'price'), '')
         )
 
-        aOrder = 'price'
+        if (not aOrder):
+            aOrder = Lib.GetSortOrder(aSort)
+
         aLimit = min(aLimit, self.GetConf('products_per_page_max', 100))
+
+        Res = {}
+        Filter = Lib.GetFilterFromQuery(aData.get('query'))
+        if (not Filter):
+            return Res
 
         DblInfo = await self.ExecModelImport(
             'site',
@@ -84,24 +95,27 @@ class TMain(Lib.TCtrlBase):
         Res = {
             'info': Info,
             'host': Lib.UrlToDict(Info['url'])['host'],
-            'lang_id': aLangId,
             'category': Category,
             'image': ImageUrl[0]
         }
 
-        if (not Filter):
-            return Res
+        Category = Filter.get('category')
+        ImageUrl = await Lib.Img_GetCategory(self, [Category])
+        Res = {
+            'category': Category,
+            'image': ImageUrl[0],
+            'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Category, '']])
+        }
 
-        DblAttr = await self.ExecModelImport(
-            'category',
-            {
-                'method': 'GetAttrCountInCategorySite',
-                'param': {
-                    'aSiteId': aSiteId,
-                    'aCategory': Category
-                }
-            }
-        )
+        Dbl = await Lib.Model_GetCategoriesSite(self, aSiteId)
+        Rec = Dbl.FindFieldGo('category', Category)
+        if (Rec):
+            Res['category_cnt'] = Rec.count
+            Res['price_min'] = Rec.price_min
+            Res['price_max'] = Rec.price_max
+
+        Dbl = await self._GetAttrCount(aSiteId, Category)
+        Res['attr_cnt'] = Dbl.ExportPair('key', 'total')
 
         DblAttr = await self._GetAttrCountFilter(aSiteId, Filter)
         DblAttr.AddFieldsFill(['active'], False)
@@ -117,7 +131,7 @@ class TMain(Lib.TCtrlBase):
                 'param': {
                     'aSiteId': aSiteId,
                     'aFilter': Filter,
-                    'aOrder': f'{aOrder}',
+                    'aOrder': f'{aSort} {aOrder}',
                     'aLimit': aLimit,
                     'aOffset': (aPage - 1) * aLimit
                 }
@@ -133,14 +147,20 @@ class TMain(Lib.TCtrlBase):
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
             Res['dbl_pagenation'] = DblPagination
 
+            DblProductsSort = Lib.GetProductsSort(Pagination.Href, f'&sort={aSort}&order={aOrder}')
+            Res['dbl_products_sort'] = DblProductsSort
+
+        DblCategories = await Lib.DblGetCategories(self, aLangId, aSiteId, 'site')
+
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblProducts, ['href'])
+            await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
 
+        Res['type'] = 'site'
         Res['dbl_products'] = DblProducts
+        Res['dbl_categories'] = DblCategories
         Res['category'] = Category
-        Res['site_id'] = aSiteId
         Res['href'] = {
-            'site': f'/?route=site/site&lang_id={aLangId}&site_id={aSiteId}',
-            'btn_attr': f'/?route=product/site&lang_id={aLangId}&f_category={Category}'
+            'btn_attr': f'/?route=product/site&lang_id={aLangId}&site_id={aSiteId}&f_category={Category}'
         }
         return Res
