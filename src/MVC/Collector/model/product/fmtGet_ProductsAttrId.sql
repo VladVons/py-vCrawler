@@ -3,6 +3,7 @@
 
 select
   count(*) over() as total,
+  rs.id as site_id,
   rp.url_id,
   rp.update_date,
   rp.title,

@@ -2,16 +2,16 @@
 # Author:  Vladimir Vons <VladVons@gmail.com>
 # License: GNU, see LICENSE for more details
 
-
+import re
 from base64 import b64encode
 from urllib.parse import quote
 
 # pylint: skip-file
 from Inc.DbList import TDbList
 from Inc.Http.HttpUrl import UrlToDict, UrlToStr, QueryToDict, QueryToStr
-from Inc.Misc.Pagination import TPagination
 from Inc.Misc.Crypt import GetCRC
-from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, DictUpdateDef, Filter, DictFindVal, DelValues, GetNotNone
+from Inc.Misc.Pagination import TPagination
+from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, DictUpdateDef, DictUpdate, Filter, DictFindVal, DelValues, GetNotNone, GetDictKey
 from Inc.Var.Obj import Iif, IsDigits
 from IncP.CtrlBase import TCtrlBase
 from .Log import Log
@@ -31,6 +31,14 @@ def GetFilterFromQuery(aQuery: dict, aPrefix: str = 'f_') -> dict:
             Key = xKey.replace(aPrefix, '')
             Res[Key] = int(xVal) if ('size' in Key and xVal) else xVal
     return Res
+
+def GetFilterStr(aLangs: dict, aFilter: dict, aFilterExt: dict) -> str:
+    Arr = [
+        f'{GetDictKey(aLangs, xKey)}: {GetDictKey(aLangs, xVal)}'
+        for xKey, xVal
+        in (aFilterExt | aFilter).items()
+    ]
+    return ', '.join(Arr)
 
 def ResGetItem(aData: dict, aName: str) -> str:
     return aData['res'].get(aName, '')

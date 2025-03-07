@@ -41,7 +41,7 @@ class TMain(Lib.TCtrlBase):
             if (xKey != 'category'):
                 Filter += f'&f_{xKey}={xVal}'
 
-            Href = f'/?route=product/category&lang_id={aLangId}&country_id={CountryId}&{Filter}'
+            Href = f'/?route=product/country&lang_id={aLangId}&country_id={CountryId}&{Filter}'
             DblAttr.RecAdd([xKey, xVal, Href])
 
         if ('brand' not in ParsedData):
@@ -108,11 +108,12 @@ class TMain(Lib.TCtrlBase):
             'meta_image': ParsedData['image'],
             'url_id': aUrlId,
             'category': Category,
+            'price': ParsedData.get('price')[0],
             'host': Lib.UrlToDict(DblProduct.Rec.site_url)['host'],
             'tab_active': TabActive,
             'href': {
                 'site': f'/?route=site/site&lang_id={aLangId}&site_id={DblProduct.Rec.site_id}',
-                'category': f'/?route=product/category&lang_id={aLangId}&country_id={CountryId}&f_category={Category}'
+                'category': f'/?route=product/country&lang_id={aLangId}&country_id={CountryId}&f_category={Category}'
             }
         }
         Res.update(ResExt)

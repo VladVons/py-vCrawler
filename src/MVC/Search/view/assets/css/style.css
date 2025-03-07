@@ -213,6 +213,33 @@ a, svg path {
 }
 
 /* === control VladVons === */
+h1, h2, h3, h4, h5 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 1.75rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 0.75rem;
+}
+
 .btn-green-base, .btn-green {
   display: flex;
   align-items: center;

@@ -55,8 +55,8 @@ class TMain(Lib.TCtrlBase):
 
     async def Encode(self, aPath: list[str]) -> dict:
         # aPath = [
-        #     '/?route=product0/tenant&tenant_id=1',
-        #     'route=product0/category&category_id=2&page=2&order=2',
+        #     '/?route=product/tenant&tenant_id=1',
+        #     'route=product/category&category_id=2&page=2&order=2',
         # ]
         if (not self.GetConf('seo_url')) or (not aPath):
             return aPath

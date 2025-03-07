@@ -3,11 +3,29 @@
 # License: GNU, see LICENSE for more details
 
 
+import re
+#
 from Inc.Loader.Lang import TLoaderLangFs
-from Inc.Misc.Serialize import Encode
+from Inc.Var.Str import ToInt
 from IncP.ApiBase import TApiBase
 from IncP.Plugins import TCtrls
-import IncP.LibModel as Lib
+
+#import IncP.LibCtrl as Lib # recursion!
+from Inc.DbList.DbList import TDbList
+from Inc.Misc.Template import TDictRepl
+from Inc.Var.Dict import GetDictDef, DictUpdate, DeepGet, DeepGetByList
+
+class TDictReplDeep(TDictRepl):
+    def _VarTpl(self):
+        # example = 'this is a {{macros}}'
+        self.ReVar = re.compile(r'(\{\{[a-zA-Z0-9_.]+\}\})')
+
+    def _Get(self, aFind: str) -> str:
+        aFind = aFind.strip('{}')
+        Res = DeepGet(self.Dict, aFind)
+        if (not isinstance(Res, (str, int, float))):
+            Res = f'-{aFind}-'
+        return Res
 
 
 class TApiCtrl(TApiBase):
@@ -26,7 +44,7 @@ class TApiCtrl(TApiBase):
         self.Langs = {}
         Section = Conf['lang']
         if (Section['type'] == 'fs'):
-            Def = Lib.GetDictDef(Section, ['dir'], ['MVC/Search/lang'])
+            Def = GetDictDef(Section, ['dir'], ['MVC/Search/lang'])
             self.Lang = TLoaderLangFs(*Def)
         else:
             raise ValueError()
@@ -42,7 +60,7 @@ class TApiCtrl(TApiBase):
                 'cache_age': -1
             }
         )
-        Dbl = Lib.TDbList().Import(Data)
+        Dbl = TDbList().Import(Data)
         return Dbl.Rec.val
 
     async def GetLang(self, aRoutes: list, aLangId: int) -> dict:
@@ -56,7 +74,7 @@ class TApiCtrl(TApiBase):
                     }
                 }
             )
-            DblLang = Lib.TDbList().Import(Data)
+            DblLang = TDbList().Import(Data)
             self.Langs = DblLang.ExportPair('id', 'alias')
 
         Data = await self.ApiModel(
@@ -117,7 +135,7 @@ class TApiCtrl(TApiBase):
             }
         )
 
-        Dbl = Lib.TDbList().Import(Data)
+        Dbl = TDbList().Import(Data)
         return Dbl
 
     async def Exec(self, aRoute: str, aData: dict) -> dict:
@@ -129,32 +147,41 @@ class TApiCtrl(TApiBase):
                 await super().Exec('system', aData | {'method': 'OnExec'})
 
                 Res = {}
+                # access Res from aData
+                aData['res'] = Res
+
                 Routes = aData.get('extends', [])
                 Routes.append(aRoute)
 
-                aData['res'] = Res
+                # language
+                LangId = ToInt(DeepGetByList(aData, ['query', 'lang_id'], '1'))
+                aData['query']['lang_id'] = ToInt(LangId)
+                Res['lang'] = await self.GetLang(Routes, LangId)
+                Res['lang_alias'] = self.Langs[LangId]
+
+                # get misc page language. title, descr, meta etc
+                Dbl = await self.LoadLayout(aRoute, LangId)
+                DictUpdate(Res, Dbl.Rec.GetAsDict())
+
                 for xRoute in Routes:
                     R = await super().Exec(xRoute, aData)
-                    Lib.DictUpdate(Res, R)
-
-                # lang must be after super().Exec()
-                LangId = Lib.DeepGetByList(aData, ['query', 'lang_id'], 1)
-                Res['lang'] = await self.GetLang(Routes, LangId)
+                    DictUpdate(Res, R)
 
                 await self.SeoUrl(Res)
 
-                Dbl = await self.LoadLayout(aRoute, LangId)
-                Lib.DictUpdate(Res, Dbl.Rec.GetAsDict())
-
+                # next exec chain if available
                 if ('exec' in Res):
                     Exec = Res['exec']
                     R = await super().Exec(Exec.get('route', aRoute), aData | {'method': Exec['method']})
-                    Lib.DictUpdate(Res, R)
+                    DictUpdate(Res, R)
 
-                # TDbList object serialization
+                # serialize all dbl_.* keys
                 for xKey, xVal in Res.items():
-                    if (xKey.startswith('dbl_')) and (isinstance(xVal, Lib.TDbList)):
+                    if (xKey.startswith('dbl_')) and (isinstance(xVal, TDbList)):
                         Res[xKey] = xVal.Export()
+
+                DictRepl = TDictReplDeep(Res)
+                DictRepl.InPlace(['title', 'meta_title', 'meta_descr'])
             case 'api':
                 Res = await super().Exec(aRoute, aData)
                 #Res = Encode(Res)

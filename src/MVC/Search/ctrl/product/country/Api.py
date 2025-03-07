@@ -74,12 +74,17 @@ class TMain(Lib.TCtrlBase):
         if (not Filter):
             return Res
 
+        Langs = Lib.DeepGetByList(aData, ['res', 'lang'])
+        FilterExt = {'country': Lib.DeepGetByList(aData, ['res', 'country'])}
+        FilterStr = Lib.GetFilterStr(Langs, Filter, FilterExt)
+
         Category = Filter.get('category')
         ImageUrl = await Lib.Img_GetCategory(self, [Category])
         Res = {
             'category': Category,
             'image': ImageUrl[0],
-            'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Category, '']])
+            'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Category, '']]),
+            'filter': FilterStr
         }
 
         Dbl = await Lib.Model_GetCategoriesCountry(self, aCountryId)

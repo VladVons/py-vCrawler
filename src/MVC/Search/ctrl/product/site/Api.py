@@ -87,17 +87,23 @@ class TMain(Lib.TCtrlBase):
         if (not DblInfo):
             return {'status_code': 404}
 
-        Filter = Lib.GetFilterFromQuery(aData.get('query'))
-        Category = Filter.get('category')
-
-        ImageUrl = await Lib.Img_GetCategory(self, [Category])
         Info = DblInfo.Rec.GetAsDict()
+        Host = Lib.UrlToDict(Info['url'])['host']
+
+        Filter = Lib.GetFilterFromQuery(aData.get('query'))
+        Langs = Lib.DeepGetByList(aData, ['res', 'lang'])
+        FilterExt = {'site': Host}
+        FilterStr = Lib.GetFilterStr(Langs, Filter, FilterExt)
+
+        Category = Filter.get('category')
+        ImageUrl = await Lib.Img_GetCategory(self, [Category])
         Res = {
             'info': Info,
-            'host': Lib.UrlToDict(Info['url'])['host'],
+            'host': Host,
             'category': Category,
             'image': ImageUrl[0],
-            'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Category, '']])
+            'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Category, '']]),
+            'filter': FilterStr
         }
 
         ImageUrl = await Lib.Img_GetCategory(self, [Category])

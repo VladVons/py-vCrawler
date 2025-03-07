@@ -6,11 +6,6 @@
 import IncP.LibCtrl as Lib
 
 class TMain(Lib.TCtrlBase):
-    async def OnFinal(self, **aData):
-        return {
-            'meta_descr': Lib.DeepGetByList(aData, ['res', 'lang', 'about_short'])
-        }
-
     async def Main(self, **aData):
         aLangId, aCountryId = Lib.GetDictDefs(
             aData.get('query'),
@@ -38,8 +33,9 @@ class TMain(Lib.TCtrlBase):
             await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
             await Lib.SeoEncodeDbl(self, DblLast, ['href'])
 
-        return {
+        Res = {
             'dbl_categories': DblCategories,
             'dbl_products': DblLast,
-            'exec': {'method': 'OnFinal'}
+            'meta_descr': Lib.DeepGetByList(aData, ['res', 'lang', 'about_short'])
         }
+        return Res

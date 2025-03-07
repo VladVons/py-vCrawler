@@ -36,10 +36,7 @@ class TMain(Lib.TCtrlBase):
 
         # ToDo
         aCountryId = Lib.Iif(aCountryId == -1, 1, aCountryId)
-        aLangId = Lib.Iif(aLangId == -1, 1, aLangId)
-
         aData['query']['country_id'] = aCountryId
-        aData['query']['lang_id'] = aLangId
 
         DblCountry = await self.ExecModelImport(
             'site',
