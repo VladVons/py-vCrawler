@@ -96,16 +96,11 @@ class TMain(Lib.TCtrlBase):
             'info': Info,
             'host': Lib.UrlToDict(Info['url'])['host'],
             'category': Category,
-            'image': ImageUrl[0]
-        }
-
-        Category = Filter.get('category')
-        ImageUrl = await Lib.Img_GetCategory(self, [Category])
-        Res = {
-            'category': Category,
             'image': ImageUrl[0],
             'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Category, '']])
         }
+
+        ImageUrl = await Lib.Img_GetCategory(self, [Category])
 
         Dbl = await Lib.Model_GetCategoriesSite(self, aSiteId)
         Rec = Dbl.FindFieldGo('category', Category)
@@ -161,6 +156,7 @@ class TMain(Lib.TCtrlBase):
         Res['dbl_categories'] = DblCategories
         Res['category'] = Category
         Res['href'] = {
-            'btn_attr': f'/?route=product/site&lang_id={aLangId}&site_id={aSiteId}&f_category={Category}'
+            'btn_attr': f'/?route=product/site&lang_id={aLangId}&site_id={aSiteId}&f_category={Category}',
+            'site': f'/?route=site/site&lang_id={aLangId}&site_id={aSiteId}'
         }
         return Res

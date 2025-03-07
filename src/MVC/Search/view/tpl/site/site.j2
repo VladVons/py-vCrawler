@@ -10,16 +10,15 @@
 <!-- site + -->
 <section id="products__list">
   <div class="container">
-    <div class="content">
-      <h2 class="bt">{{Trans(lang, 'site')}}: {{host}}</h2>
-      {{Text2Html(descr)}}
-    </div>
-
     <div class="section__title">
       <h2 class="bt">{{Trans(lang, 'last added')}}</h2>
     </div>
 
     <div class="products__list">
+      <div class="content">
+        <h2 class="bt">{{Trans(lang, 'site')}}: {{host}}</h2>
+        {{Text2Html(descr)}}
+      </div>
       {% include '../_inc/products_a.j2' %}
     </div>
   </div>

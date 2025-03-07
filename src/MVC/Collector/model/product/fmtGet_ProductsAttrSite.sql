@@ -1,4 +1,4 @@
-{% extends './fmtGet_ProductsLast_.sql' %}
+{% extends './fmtGet_ProductsAttr_.sql' %}
 -- fmtGet_ProductsAttrSite.sql
 -- in: aFilter, aPriceMin, aPriceMax, aLimit, aOffset, aSiteId
 

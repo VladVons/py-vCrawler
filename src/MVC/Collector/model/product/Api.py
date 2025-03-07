@@ -83,12 +83,18 @@ class TMain(Lib.TDbModel):
         )
 
     async def GetProductsAttrSite(self, aFilter: dict, aSiteId: int, aOrder: str, aLimit: int = 25, aOffset: int = 0) -> dict:
+        Filter = aFilter.copy()
+        PriceMin = Filter.pop('price_min', 0)
+        PriceMax = Filter.pop('price_max', 10**10)
+
         Filter = json.dumps(aFilter, ensure_ascii=False)
         return await self.ExecQuery(
             'fmtGet_ProductsAttrSite.sql',
             {
                 'aFilter': Filter,
                 'aSiteId': aSiteId,
+                'aPriceMin': PriceMin,
+                'aPriceMax': PriceMax,
                 'aOrder': aOrder,
                 'aLimit': aLimit,
                 'aOffset': aOffset
