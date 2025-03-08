@@ -16,7 +16,7 @@ class TMain(Lib.TCtrlBase):
             (-1, -1, '')
         )
 
-        if (aCountryId == -1) and (aLangId == -1):
+        if (aCountryId == -1):
             Country = Lib.DeepGetByList(aData, ['session', 'location', 'country'])
             #Country = 'poland'
             if (Country):
@@ -53,19 +53,21 @@ class TMain(Lib.TCtrlBase):
         Country = '' if (RecNo == -1) else DblCountry.RecGo(RecNo).title
         AppVer = GetAppVer()
 
+        Href = {
+            'about_us': f'/?route=info/about_us&lang_id={aLangId}',
+            'add_site': f'/?route=common/add_site&lang_id={aLangId}',
+            'compare':  f'/?route=product/compare&lang_id={aLangId}',
+            'contact_us': f'/?route=common/contact_us&lang_id={aLangId}',
+            'countries': f'/?route=site/countries&lang_id={aLangId}',
+            'history':  f'/?route=product/history&lang_id={aLangId}',
+            'favorite': f'/?route=product/favorite&lang_id={aLangId}',
+            'privacy_policy': f'/?route=info/privacy_policy&lang_id={aLangId}',
+            'root': f'/?lang_id={aLangId}&country_id={aCountryId}'
+        }
+
         Res = {
             'href_search_ajax': '/api/?route=product/search',
-            'href': {
-                'about_us': f'/?route=info/about_us&lang_id={aLangId}',
-                'add_site': f'/?route=common/add_site&lang_id={aLangId}',
-                'compare':  f'/?route=product/compare&lang_id={aLangId}',
-                'contact_us': f'/?route=common/contact_us&lang_id={aLangId}',
-                'countries': f'/?route=site/countries&lang_id={aLangId}',
-                'history':  f'/?route=product/history&lang_id={aLangId}',
-                'favorite': f'/?route=product/favorite&lang_id={aLangId}',
-                'privacy_policy': f'/?route=info/privacy_policy&lang_id={aLangId}',
-                'root': f'/?lang_id={aLangId}&country_id={aCountryId}'
-            },
+            'href': Href,
             'query': aData.get('query'),
             'country': Country,
             'dbl_country': DblCountry,

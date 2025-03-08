@@ -67,6 +67,7 @@ class TSession():
             'cookies': dict(self.Request.cookies)
         }
         return Res
+
     def Get(self, aKey: str) -> object:
         return self.Session.get(aKey)
 
