@@ -83,4 +83,5 @@ class TMain(Lib.TCtrlBase):
         return {
             'country': Country,
             'dbl_country': DblCountry,
+            'query': aData.get('query')
         }
