@@ -144,9 +144,10 @@ class TApiCtrl(TApiBase):
         Type = aData.get('type')
         match Type:
             case 'form':
-                await super().Exec('system', aData | {'method': 'OnExec'})
-
                 Res = {}
+                R = await super().Exec('system', aData | {'method': 'OnExec'})
+                DictUpdate(Res, R)
+
                 # access Res from aData
                 aData['res'] = Res
 
