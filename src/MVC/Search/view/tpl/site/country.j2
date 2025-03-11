@@ -17,10 +17,11 @@
 {% endblock %}
 
 {% block content %}
+<!-- country + -->
 <div class="container pb-2">
   <div class="pb-2">
     <form method="get">
-      <button type="submit" class="btn btn-primary" onclick="seoSubmit(event, '{{href.btn}}')">{{(lang, 'add site')}}</button>
+      <button type="submit" class="btn btn-green" onclick="seoSubmit(event, '{{href.btn}}')">{{Trans(lang, 'add site')}}</button>
     </form>
   </div>
   <div class="grid-container">
@@ -39,4 +40,5 @@
     {% endfor %}
   </div>
 </div>
+<!-- country - -->
 {% endblock %}

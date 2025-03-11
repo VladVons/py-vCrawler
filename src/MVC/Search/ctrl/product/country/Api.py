@@ -74,25 +74,23 @@ class TMain(Lib.TCtrlBase):
         if (not Filter):
             return Res
 
-        Langs = Lib.DeepGetByList(aData, ['res', 'lang'])
         FilterExt = {'country': Lib.DeepGetByList(aData, ['res', 'country'])}
-        FilterStr = Lib.GetFilterStr(Langs, Filter, FilterExt)
-
         Category = Filter.get('category')
         ImageUrl = await Lib.Img_GetCategory(self, [Category])
         Res = {
             'category': Category,
             'image': ImageUrl[0],
             'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Category, '']]),
-            'filter': FilterStr
+            'filter': Lib.TransDict(aData, FilterExt | Filter),
+            'd_filter': FilterExt | Filter
         }
 
         Dbl = await Lib.Model_GetCategoriesCountry(self, aCountryId)
         Rec = Dbl.FindFieldGo('category', Category)
         if (Rec):
             Res['category_cnt'] = Rec.count
-            Res['price_min'] = Rec.price_min
-            Res['price_max'] = Rec.price_max
+            Res['price_min'] = Rec.price_min_pct
+            Res['price_max'] = Rec.price_max_pct
 
         Dbl = await self._GetAttrCount(aCountryId, Category)
         Res['attr_cnt'] = Dbl.ExportPair('key', 'total')

@@ -20,7 +20,7 @@ where
     --(hpv.url ~'route=') and
     (hs.uagent !~*'(bot|facebook)') and
     (hs.location ilike '%ukraine%') and
-    (hs.ip  !~'127.0.0.1|5.58.222.201|5.58.78.170')
+    (hs.ip  !~'127.0.0.1|5.58.222.201|5.58.78.170|46.173.175.188')
 group by
     hpv.create_date::date
 order by

@@ -17,12 +17,12 @@
 {% endblock %}
 
 {% block content %}
+<!-- countries + -->
 <div class="container pb-2">
   <div class="grid-container">
-    {% for xFields in Fields %}
-      <div class="grid-item fw-bold">{{Trans(lang, xFields)}}</div>
+    {% for xField in Fields %}
+      <div class="grid-item fw-bold">{{Trans(lang, xField)}}</div>
     {% endfor %}
-
     {% for Rec in TDbList().Import(dbl_countries) %}
       <div class="gitem">
         <a href="{{Rec.href}}">{{Rec.country}}</a>
@@ -32,4 +32,5 @@
     {% endfor %}
   </div>
 </div>
+<!-- countries - -->
 {% endblock %}

@@ -32,11 +32,12 @@ def GetFilterFromQuery(aQuery: dict, aPrefix: str = 'f_') -> dict:
             Res[Key] = int(xVal) if ('size' in Key and xVal) else xVal
     return Res
 
-def GetFilterStr(aLangs: dict, aFilter: dict, aFilterExt: dict) -> str:
+def TransDict(aData: dict, aTrans: dict) -> str:
+    Langs = DeepGetByList(aData, ['res', 'lang'])
     Arr = [
-        f'{GetDictKey(aLangs, xKey)}: {GetDictKey(aLangs, xVal)}'
+        f'{GetDictKey(Langs, xKey)}: {GetDictKey(Langs, xVal)}'
         for xKey, xVal
-        in (aFilterExt | aFilter).items()
+        in aTrans.items()
     ]
     return ', '.join(Arr)
 

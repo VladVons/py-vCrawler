@@ -55,6 +55,8 @@ class TMain(Lib.TCtrlBase):
 
         if ('images' not in ParsedData):
             ParsedData['images'] = []
+            if ('image' in ParsedData):
+                ParsedData['images'].append(ParsedData['image'])
 
         if ('price' not in ParsedData):
             ParsedData['price'] = [0, '']

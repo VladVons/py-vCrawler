@@ -91,9 +91,7 @@ class TMain(Lib.TCtrlBase):
         Host = Lib.UrlToDict(Info['url'])['host']
 
         Filter = Lib.GetFilterFromQuery(aData.get('query'))
-        Langs = Lib.DeepGetByList(aData, ['res', 'lang'])
         FilterExt = {'site': Host}
-        FilterStr = Lib.GetFilterStr(Langs, Filter, FilterExt)
 
         Category = Filter.get('category')
         ImageUrl = await Lib.Img_GetCategory(self, [Category])
@@ -103,7 +101,8 @@ class TMain(Lib.TCtrlBase):
             'category': Category,
             'image': ImageUrl[0],
             'dbl_breadcrumbs': Lib.DblGetBreadcrumbs([[Category, '']]),
-            'filter': FilterStr
+            'filter': Lib.TransDict(aData, FilterExt | Filter),
+            'd_filter': FilterExt | Filter,
         }
 
         ImageUrl = await Lib.Img_GetCategory(self, [Category])
