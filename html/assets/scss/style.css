@@ -212,6 +212,17 @@ a, svg path {
   line-height: 200%;
 }
 
+.anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
 /* === control VladVons === */
 h1, h2, h3, h4, h5 {
   margin-top: 0;

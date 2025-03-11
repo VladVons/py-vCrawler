@@ -1,72 +1,93 @@
 # Created: 2025.03.11
 # Author: Vladimir Vons <VladVons@gmail.com>
+#
+# Tester: https://messente.com/sms-length-calculator
 
+import os
 import asyncio
 #
 from Inc.Misc.SmsGW import TSmsGW
 from Inc.DbList import TDbList
+from Inc.Log import TLog, TEchoConsole, TEchoFile
+from Inc.Var.Dict import DeepGet
 
-Connect = {
-    'aUrl': 'http://192.168.2.208:8080',
-    'aUser': 'sms',
-    'aPassw': 'F63VRxdn'
-}
+
+LogFile = 'SmsGW.log'
+Log = TLog([TEchoConsole(), TEchoFile(LogFile)])
 
 FmtText = '''
 {Name},
-В Україні створено каталог вживаних комп’ютерів.
-Тут ви знайдете найкращі пропозиції.
-https://it.findwares.com/uk
+В Україні створено великий каталог вживаних комп’ютерів.
+https://it.findwares.com/uk/?xid=1-{Id}#a-content
 '''
 
 # FmtText = '''
 # {Name},
-# Повний каталог бу комп’ютерів.
-# https://it.findwares.com'''
+# В Україні створено великий каталог вживаних комп’ютерів.
+# Весь товар продавців зібрано в одну базу.
+# Обирай кращі пропозиції!
+# https://it.findwares.com/uk/?xid=1-{Id}#a-content
+# '''
 
 # FmtText = '''
-# {Name},
-# Для Вас каталог вживаних комп’ютерів.
-# https://it.findwares.com'''
+# Name: {Name},
+# Id: {Id}
+# https://it.findwares.com/uk
+# '''
 
+class TAdver():
+    def __init__(self):
+        self.Sleep = 30
+        Connect = {
+            'aUrl': 'http://192.168.2.208:8080',
+            'aUser': 'sms',
+            'aPassw': 'F63VRxdn'
+        }
+        self.SmsGW = TSmsGW(**Connect)
 
-async def Main1():
-    Connect = {
-        'aUrl': 'http://192.168.2.208:8080',
-        'aUser': 'sms',
-        'aPassw': 'F63VRxdn'
-    }
-    SmsGW = TSmsGW(**Connect)
+    def LogPhones(self) -> set:
+        Res = set()
+        if (os.path.exists(LogFile)):
+            with open(LogFile, 'r', encoding='utf8') as F:
+                for xLine in F.readlines():
+                    Parts = [xPart.strip() for xPart in xLine.split(',')]
+                    _Day, _Hour, _No, _Level, _Type, Phone, Status, _SmsId = Parts
+                    if (Phone) and (Status in ('200', '202')):
+                        Res.add(Phone)
+        return Res
 
-    Dbl = TDbList(
-        ['phone', 'name'],
-        [
-            ['-+380974274859', 'Ольга'],
-            ['+380635107383', 'Віктор'],
-            ['-+380976646510', 'Володимир'],
-            ['-+380677697216', 'Богдан'],
-        ]
-    )
+    async def SendDict(self, aData: dict):
+        Text = FmtText.format(Id=aData['id'], Name=aData['name']).strip()
+        Res = await self.SmsGW.Send(aData['phones'], Text)
+        Log.Print(1, 'i', f"{aData['phones'][0]}, {Res['status']}, {DeepGet(Res, 'data.id')}")
+        await asyncio.sleep(self.Sleep)
 
-    for Rec in Dbl:
-        Text = FmtText.format(Name=Rec.name)
-        Phone = Rec.phone
-        if (not Rec.phone.startswith('-')):
-            Res= await SmsGW.Send([Phone], Text)
-            print(f'Phone: {Phone}, Status: {Res["status"]}, Data: {Res["data"]}')
-            await asyncio.sleep(1)
+    async def SendDbl(self, aName: str):
+        Sent = self.LogPhones()
 
-async def Main2():
-    SmsGW = TSmsGW(**Connect)
+        Dbl = TDbList()
+        Dbl.Load(aName)
+        for Rec in Dbl:
+            Phone = Rec.phone.replace('+38', '')
+            if (not Phone.startswith('-')) and (Phone not in Sent):
+                Data = {
+                    'id': Rec.id,
+                    'phones': [Phone],
+                    'name': Rec.GetField('name', 'Привіт'),
+                }
+                await self.SendDict(Data)
 
-    # Text = FmtText.format(Name='Володимир')
-    # Phones = ['0976646510']
-    # await SmsGW.Send(Phone, Text)
+    async def Test(self):
+        #Text = FmtText.format(Name='Володимир')
+        Text = 'Hello'
+        Phones = ['0976646510']
+        Res = await self.SmsGW.Send(Phones, Text)
+        #Res = await self.SmsGW.Status('KeYuIsLPEq7sLl-5ro1BF')
+        #Res = await self.SmsGW.Logs()
+        #Res = await self.SmsGW.Health()
+        print(f'Status: {Res["status"]}, Data: {Res["data"]}')
 
-    #Res = await SmsGW.Status('KeYuIsLPEq7sLl-5ro1BF')
-    #Res = await SmsGW.Logs()
-    Res = await SmsGW.Health()
-    print(f'Status: {Res["status"]}, Data: {Res["data"]}')
-
-
-asyncio.run(Main2())
+Adver = TAdver()
+Task = Adver.SendDbl('test.dbl.json')
+#Task = Adver.Test()
+asyncio.run(Task)

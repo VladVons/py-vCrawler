@@ -31,7 +31,6 @@
 
 <body id="startpage">
   {% include './header.j2' %}
-
   <section id="promo">
     <div class="container">
       {% if lang.search_motto %}
@@ -55,6 +54,7 @@
     </div>
   </section>
 
+  <div id="a-breadcrumbs" class="anchor"></div>
   <section id="breadcrumbs">
     <div class="container">
       <ul>
@@ -70,7 +70,9 @@
     </div>
   </section>
 
+  <div id="a-content" class="anchor"></div>
   {% block content %}{% endblock %}
+  <div id="a-footer" class="anchor"></div>
   {% include './footer.j2' %}
   <button class="btn btn-green-base" id="viBtnGoTop" onclick="goToTop()">
     <img src="/assets/images/arrow-up-white.svg">

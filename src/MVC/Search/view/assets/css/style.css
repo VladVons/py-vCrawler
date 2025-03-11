@@ -212,6 +212,11 @@ a, svg path {
   line-height: 200%;
 }
 
+.anchor {
+  height: 0; 
+  visibility: hidden;
+}
+
 /* === control VladVons === */
 h1, h2, h3, h4, h5 {
   margin-top: 0;
