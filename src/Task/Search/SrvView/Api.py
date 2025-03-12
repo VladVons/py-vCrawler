@@ -9,6 +9,7 @@ from aiohttp import web
 #
 from Inc.DataClass import DDataClass
 from Inc.Misc.Jinja import TTemplate
+from Inc.SrvWeb.DDos import TIpLog
 from IncP.ApiBase import TApiBase
 from IncP.FormBase import TFormBase
 from IncP.Log import Log
@@ -45,6 +46,7 @@ class TApiView(TApiBase):
         self.Viewes = TViewes(self.Conf.dir_route)
         self.InitLoader(self.Conf.loader)
         self.Tpl = TTemplate([f'{self.Conf.dir_root}/tpl'])
+        self.IpLog = TIpLog(0.5, 5)
 
     def GetForm(self, aRequest: web.Request, aRoute: str) -> TFormBase:
         if (aRoute.startswith('/')):
@@ -90,7 +92,17 @@ class TApiView(TApiBase):
         return Res
 
     async def ResponseForm(self, aRequest: web.Request, aQuery: dict) -> web.Response:
-        Data = await self.GetFormData(aRequest, aQuery)
+        RemoteIp = aRequest.remote
+        if (RemoteIp == '127.0.0.1'):
+            RemoteIp = aRequest.headers.get('X-FORWARDED-FOR', '127.0.0.1')
+
+        if (self.IpLog.Update(RemoteIp)):
+            Data = await self.GetFormData(aRequest, aQuery)
+        else:
+            Msg = f'Too many connections. ip: {RemoteIp}'
+            Log.Print(1, 'i', Msg)
+            Data = {'status_code': 429, 'data': Msg}
+
         if ('err' in Data):
             if (Data['status_code'] in [301, 302]):
                 raise web.HTTPFound(location = Data['status_value'])
