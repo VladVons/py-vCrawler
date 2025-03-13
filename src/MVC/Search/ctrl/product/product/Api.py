@@ -44,6 +44,32 @@ class TMain(Lib.TCtrlBase):
             Href = f'/?route=product/country&lang_id={aLangId}&country_id={CountryId}&{Filter}'
             DblAttr.RecAdd([xKey, xVal, Href])
 
+
+        # Similar products
+        AttrSimilar = Attr.copy()
+        Lib.DelKeys(AttrSimilar, ['model', 'brand', 'storage/type'])
+        DblProducts = await self.ExecModelImport(
+            'product',
+            {
+                'method': 'GetProductsAttrCountry',
+                'param': {
+                    'aCountryId': CountryId,
+                    'aFilter': AttrSimilar,
+                    'aOrder': 'random()',
+                    'aLimit': 10,
+                    'aOffset': 0
+                }
+            }
+        )
+
+        if (DblProducts):
+            Lib.DblProducts_Adjust(DblProducts, aLangId)
+
+            if (self.GetConf('seo_url')):
+                await Lib.SeoEncodeDbl(self, DblProducts, ['href', 'href_int'])
+            Res['dbl_products'] = DblProducts
+
+
         if ('brand' not in ParsedData):
             ParsedData['brand'] = ''
 

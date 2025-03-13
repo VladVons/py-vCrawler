@@ -1,0 +1,43 @@
+<div class="products__list">
+  <div class="similar__products">
+    {% for Rec in TDbList().Import(dbl_products) %}
+    <div>
+      <div class="product__item" data-id="{{Rec.url_id}}">
+        <div class="image">
+          <a href="{{Rec.href}}"><img src="{{Rec.image}}" alt="{{Rec.title}}"></a>
+        </div>
+        <div class="data">
+          <div class="title">
+            <a href="{{Rec.href}}">{{Rec.title |truncate(100, True, '...')}}</a>
+          </div>
+
+          <div class="more">
+            <p><strong>{{Trans(lang, 'site')}}: </strong><a href="{{Rec.href_int}}">{{Rec.site}}</a></p>
+            <p><strong>{{Trans(lang, 'updated')}}: </strong>{{Rec.update_date.strftime('%Y-%m-%d')}}</p>
+          </div>
+        </div>
+
+        <div class="info">
+          <div class="price">
+            {% if Rec.price_old %}
+              <div class="old">{{"{:,}".format(Rec.price_old|int)}}</div>
+            {% endif %}
+            {{"{:,}".format(Rec.price|int)}}
+          </div>
+          <div class="actions">
+            <button class="btn" data-key="history" title="{{Trans(lang, 'history')}}">
+              <img src="/assets/images/icon-history.svg" alt="history">
+            </button>
+            <button class="btn" data-key="favorite" title="{{Trans(lang, 'favorite')}}">
+              <img src="/assets/images/icon-heart.svg" alt="favorite">
+            </button>
+            <button class="btn" data-key="compare" title="{{Trans(lang, 'compare')}}">
+              <img src="/assets/images/icon-compare.svg" alt="compare">
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

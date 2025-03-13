@@ -11,7 +11,7 @@ from Inc.DbList import TDbList
 from Inc.Http.HttpUrl import UrlToDict, UrlToStr, QueryToDict, QueryToStr
 from Inc.Misc.Crypt import GetCRC
 from Inc.Misc.Pagination import TPagination
-from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, DictUpdateDef, DictUpdate, Filter, DictFindVal, DelValues, GetNotNone, GetDictKey
+from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, DictUpdateDef, DictUpdate, Filter, DictFindVal, DelValues, GetNotNone, GetDictKey, DelKeys
 from Inc.Var.Obj import Iif, IsDigits
 from IncP.CtrlBase import TCtrlBase
 from .Log import Log

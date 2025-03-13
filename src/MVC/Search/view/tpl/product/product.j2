@@ -63,43 +63,52 @@
           </div>
         </div>
         <div class="tth">
-            <div class="item">
-              <div class="row">
-                <p>{{Trans(lang, 'site')}}:</p><strong><a href="{{href.site}}">{{host}}</a></strong>
-              </div>
-              {% for Rec in TDbList().Import(dbl_attr) %}
-                <div class="row">
-                  <p>{{Trans(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val}}</a></strong>
-                </div>
-              {% endfor %}
+          <div class="item">
+            <div class="row">
+              <p>{{Trans(lang, 'site')}}:</p><strong><a href="{{href.site}}">{{host}}</a></strong>
             </div>
+            {% for Rec in TDbList().Import(dbl_attr) %}
+              <div class="row">
+                <p>{{Trans(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val}}</a></strong>
+              </div>
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
 
-      <div class="other__data">
-          <div class="tab__filters">
-              <a href="#" class="active" data-tab="tab1">{{Trans(lang, 'features')}} ({{parsed_data.features | length}})</a>
-              <a href="#" data-tab="tab2">{{Trans(lang, 'description')}} ({{Iif(parsed_data.description, '+', '-')}})</a>
-          </div>
-
-          <div class="tabs">
-              <div class="tab tab1">
-                  <div class="full__tth">
-                    <div class="item">
-                    {%- for xKey, xVal in parsed_data.features.items() %}
-                      <div class="row">{{xKey}}: {{xVal}}</div>
-                    {%- endfor %}
-                    </div>
-                  </div>
-              </div>
-              <div class="tab tab2">
-                  <div class="content">
-                    {{Text2Html(parsed_data.description)}}
-                  </div>
-              </div>
-          </div>
+    <div class="other__data">
+      <div class="tab__filters">
+        <a href="#" class="active" data-tab="tab1">{{Trans(lang, 'features')}} ({{parsed_data.features | length}})</a>
+        <a href="#" data-tab="tab2">{{Trans(lang, 'description')}} ({{Iif(parsed_data.description, '+', '-')}})</a>
       </div>
+
+      <div class="tabs">
+        <div class="tab tab1">
+          <div class="full__tth">
+            <div class="item">
+            {%- for xKey, xVal in parsed_data.features.items() %}
+              <div class="row">{{xKey}}: {{xVal}}</div>
+            {%- endfor %}
+            </div>
+          </div>
+        </div>
+        <div class="tab tab2">
+          <div class="content">
+            {{Text2Html(parsed_data.description)}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="similar__products">
+  <div class="container">
+    <div class="section__title">
+      <h2 class="bt">{{Trans(lang, 'similar products')}}</h2>
+    </div>
+    {% include '../_inc/products_b.j2' %}
   </div>
 </section>
 
