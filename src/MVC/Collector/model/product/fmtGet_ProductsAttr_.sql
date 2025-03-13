@@ -25,6 +25,7 @@ where
   (rp.stock is true) and
   (rp.price between {{aPriceMin}} and {{aPriceMax}}) and
   (rp.attr @> '{{aFilter}}')
+  {% block _where %}{% endblock %}
 order by
   {{aOrder}}
 limit

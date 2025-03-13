@@ -17,14 +17,15 @@ class TMain(Lib.TDbModel):
         )
 
     async def GetAliasLangByList(self, aLangId: int, aText: list[str]) -> dict:
-        Arr = [f"('{xText}')" for xText in aText]
-        return await self.ExecQuery(
-            'fmtGet_AliasLangByList.sql',
-            {
-              'aLangId': aLangId,
-              'aValues': ', '.join(Arr)
-            }
-        )
+        if (aText):
+            Arr = [f"('{xText}')" for xText in aText]
+            return await self.ExecQuery(
+                'fmtGet_AliasLangByList.sql',
+                {
+                'aLangId': aLangId,
+                'aValues': ', '.join(Arr)
+                }
+            )
 
     async def GetAliasLang(self, aLangId: int) -> dict:
         return await self.ExecQuery(

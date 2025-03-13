@@ -36,6 +36,9 @@ class TMain(Lib.TCtrlBase):
         Res = {
             'dbl_categories': DblCategories,
             'dbl_products': DblLast,
-            'meta_descr': Lib.DeepGetByList(aData, ['res', 'lang', 'about_short'])
+            'meta_descr': Lib.DeepGetByList(aData, ['res', 'lang', 'about_short']),
+            'href': {
+                'btn_category': f'/?route=product/country&lang_id={aLangId}&country_id={aCountryId}'
+            }
         }
         return Res

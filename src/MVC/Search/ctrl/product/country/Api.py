@@ -72,7 +72,8 @@ class TMain(Lib.TCtrlBase):
         Res = {}
         Filter = Lib.GetFilterFromQuery(aData.get('query'))
         if (not Filter):
-            return Res
+            # return Res
+            Filter['category'] = 'laptop'
 
         FilterExt = {'country': Lib.DeepGetByList(aData, ['res', 'country'])}
         Category = Filter.get('category')

@@ -3,7 +3,7 @@
     <h2 id="idCategory" data-value="{{category}}">{{Trans(lang, 'category')}}</h2>
     <select onchange="window.location.href=this.value">
     {% for Rec in TDbList().Import(dbl_categories) %}
-      <option value="{{Rec.href}}" {{ Iif(Rec.category == category, 'selected', '') }}>{{Rec.lang}} ({{Rec.count}})</option>
+      <option value="{{Rec.href}}" {{ Iif(Rec.category == category, 'selected', '') }}>{{Trans(lang, Rec.category)}} ({{Rec.count}})</option>
     {% endfor %}
     </select>
   </div>

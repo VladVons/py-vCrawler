@@ -47,7 +47,7 @@ class TMain(Lib.TCtrlBase):
 
         # Similar products
         AttrSimilar = Attr.copy()
-        Lib.DelKeys(AttrSimilar, ['model', 'brand', 'storage/type'])
+        Lib.DelKeys(AttrSimilar, ['model', 'brand', 'grade', 'storage/type', 'cpu/gen_short']) # 'screen_resol'
         DblProducts = await self.ExecModelImport(
             'product',
             {

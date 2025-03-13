@@ -129,12 +129,11 @@ async def DblGetCategories(self, aLangId: int, aId: int, aType: str) -> TDbList:
     Categories = Dbl.ExportList('category')
     ImageUrls = await Img_GetCategory(self, Categories)
     Translate = await self.Translate(aLangId, Categories)
-    Dbl.AddFieldsFill(['lang', 'href', 'image'], False)
+    Dbl.AddFieldsFill(['href', 'image'], False)
     for xImage, Rec in zip(ImageUrls, Dbl):
         Category = Rec.category
-        Lang = Translate.get(Category, Category)
         Href = HrefFmt.format(LangId=aLangId, Id=aId, Category=Category)
-        Dbl.RecMerge([Lang, Href, xImage])
+        Dbl.RecMerge([Href, xImage])
     return Dbl
 
 def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
