@@ -9,9 +9,12 @@ from aiohttp import web
 #
 from Inc.DataClass import DDataClass
 from Inc.Misc.Crypt import GetCRC
+from Inc.Misc.aiohttpClient import DownloadChunks
 from Inc.SrvWeb import TSrvBase, TSrvConf
 from Inc.SrvWeb.Common import UrlDecode
+from Inc.Var.Str import DecryptXor
 from IncP.Log import Log
+from IncP.Common import gImgProxy
 from .Api import ApiView, TApiView
 
 
@@ -48,6 +51,25 @@ class TSrvView(TSrvBase):
         return Res
 
     @staticmethod
+    async def ReadImageProxy(aRequest: web.Request, aUrl: str) -> web.Response:
+        ExtToMime = {
+            'jpg': 'jpeg',
+            'jpeg': 'jpeg',
+            'png': 'png',
+            'gif': 'gif',
+            'webp': 'webp'
+        }
+        Ext = aUrl.rsplit('.', maxsplit=1)[-1]
+        Mime = ExtToMime.get(Ext, 'jpeg')
+        Res = web.StreamResponse(status=200, reason='OK', headers={'Content-Type': f'image/{Mime}'})
+
+        await Res.prepare(aRequest)
+        async for xChunk, _ in DownloadChunks(aUrl, 65536):
+            await Res.write(xChunk)
+        await Res.write_eof()
+        return Res
+
+    @staticmethod
     async def _Err_404(aRequest: web.Request) -> web.Response:
         Path = aRequest.match_info.get('name')
         return await ApiView.ResponseFormInfo(aRequest, f'Path not found {Path}', 404)
@@ -62,6 +84,10 @@ class TSrvView(TSrvBase):
         Ext = Name.rsplit('.', maxsplit=1)
         if (len(Ext) == 2) and (2 <= len(Ext[1]) <= 5):
             Res = await self._LoadFile(aRequest, ApiView)
+        elif (Name.startswith(gImgProxy)):
+            Image = Name.split('/', maxsplit=1)[1]
+            Url = DecryptXor(Image)
+            Res = await self.ReadImageProxy(aRequest, Url)
         else:
             if (Name):
                 Url = await ApiView.GetSeoUrl('Decode', Name)

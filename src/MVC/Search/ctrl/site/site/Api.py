@@ -45,7 +45,7 @@ class TMain(Lib.TCtrlBase):
                 'cache_age': -1
             }
         )
-        Lib.DblProducts_Adjust(DblLast, aLangId)
+        Lib.DblProducts_Adjust(DblLast, aLangId, self.GetConf('image_encrypt'))
 
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCategories, ['href'])

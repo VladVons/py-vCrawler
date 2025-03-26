@@ -78,7 +78,7 @@ class TMain(Lib.TCtrlBase):
 
         Res = {}
         if (DblProducts):
-            Lib.DblProducts_Adjust(DblProducts, aLangId)
+            Lib.DblProducts_Adjust(DblProducts, aLangId, self.GetConf('image_encrypt'))
 
             Pagination = Lib.TPagination(aLimit, aData['path_qs'])
             Pagination.Visible = self.GetConf('pagination_cnt', 5)

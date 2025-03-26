@@ -13,7 +13,7 @@ class TMain(Lib.TCtrlBase):
             (1, 1)
         )
 
-        DblCategories = await Lib.DblGetCategories(self, aLangId, aCountryId, 'country')
+        #DblCategories = await Lib.DblGetCategories(self, aLangId, aCountryId, 'country')
 
         DblLast = await self.ExecModelImport(
             'product',
@@ -26,19 +26,21 @@ class TMain(Lib.TCtrlBase):
                 'cache_age': -1
             }
         )
-        Lib.DblProducts_Adjust(DblLast, aLangId)
+        Lib.DblProducts_Adjust(DblLast, aLangId, self.GetConf('image_encrypt'))
 
 
         if (self.GetConf('seo_url')):
-            await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
+            #await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
             await Lib.SeoEncodeDbl(self, DblLast, ['href'])
 
+        DefCategory = 'laptop'
         Res = {
-            'dbl_categories': DblCategories,
+            #'dbl_categories': DblCategories,
             'dbl_products': DblLast,
             'meta_descr': Lib.DeepGetByList(aData, ['res', 'lang', 'about_short']),
+            'def_category': DefCategory,
             'href': {
-                'btn_category': f'/?route=product/country&lang_id={aLangId}&country_id={aCountryId}'
+                'btn_category': f'/?route=product/country&lang_id={aLangId}&country_id={aCountryId}&f_category={DefCategory}'
             }
         }
         return Res

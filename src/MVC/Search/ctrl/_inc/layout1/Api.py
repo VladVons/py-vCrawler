@@ -16,6 +16,10 @@ class TMain(Lib.TCtrlBase):
             (1, 1)
         )
 
+        DblCategories = await Lib.DblGetCategories(self, aLangId, aCountryId, 'country')
+        if (self.GetConf('seo_url')):
+            await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
+
         Href = {
             'about_us': f'/?route=info/about_us&lang_id={aLangId}',
             'add_site': f'/?route=common/add_site&lang_id={aLangId}',
@@ -30,6 +34,7 @@ class TMain(Lib.TCtrlBase):
 
         AppVer = GetAppVer()
         Res = {
+            'dbl_categories': DblCategories,
             'href_search_ajax': '/api/?route=product/search',
             'href': Href,
             'now_year': datetime.now().year,

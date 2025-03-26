@@ -13,9 +13,22 @@ from Inc.Misc.Crypt import GetCRC
 from Inc.Misc.Pagination import TPagination
 from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, DictUpdateDef, DictUpdate, Filter, DictFindVal, DelValues, GetNotNone, GetDictKey, DelKeys
 from Inc.Var.Obj import Iif, IsDigits
+from Inc.Var.Str import EncryptXor
 from IncP.CtrlBase import TCtrlBase
+from IncP.Common import gImgProxy
 from .Log import Log
 
+
+def ImgProxy(aUrl: str) -> str:
+    if (aUrl) and (aUrl.startswith('http')):
+        aUrl = f'/{gImgProxy}/{EncryptXor(aUrl)}'
+    return aUrl
+
+def IsBot(aUserAgent: str) -> bool:
+    #Pattern = r'(Amazon|Yandex|SemrushBot|AhrefsBot|bingbot|DotBot|DataForSeoBot|Crawler|MJ12bot|ImagesiftBot|ZoominfoBot|GeedoBot|ClaudeBot|Applebot|DuckBot|DuckGo|Barkrowler)'
+    Pattern = r'(bot|crawl|spider|slurp|archiver|indexer|fetch|scanner|analyzer)'
+    Res = bool(re.search(Pattern, aUserAgent, re.IGNORECASE))
+    return Res
 
 def DblTranslate(aDbl: TDbList, aField: str, aTrans: dict):
     aDbl.AddFieldsFill([aField + '_t'], False)
@@ -136,7 +149,7 @@ async def DblGetCategories(self, aLangId: int, aId: int, aType: str) -> TDbList:
         Dbl.RecMerge([Href, xImage])
     return Dbl
 
-def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
+def DblProducts_Adjust(aDbl: TDbList, aLangId: int, aImageEncrypt: bool = False):
     Marker = 'findwares.com'
     Hash = quote(b64encode(Marker.encode()).decode('utf-8'))
     aDbl.AddFieldsFill(['href', 'href_int', 'href_ext', 'site'], False)
@@ -146,6 +159,9 @@ def DblProducts_Adjust(aDbl: TDbList, aLangId: int):
         HrefExt = Rec.url + Iif('?' in Rec.url, '&', '?') + f'srsltid={Hash}'
         Site = UrlToDict(Rec.url)['host']
         aDbl.RecMerge([Href, HrefInt, HrefExt, Site])
+
+        if (aImageEncrypt):
+            Rec.image = ImgProxy(Rec.image)
 
 
 def DblGetBreadcrumbs(aData: list) -> TDbList:

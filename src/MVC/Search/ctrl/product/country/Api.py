@@ -72,7 +72,7 @@ class TMain(Lib.TCtrlBase):
         Res = {}
         Filter = Lib.GetFilterFromQuery(aData.get('query'))
         if (not Filter):
-            # return Res
+            #return Res
             Filter['category'] = 'laptop'
 
         FilterExt = {'country': Lib.DeepGetByList(aData, ['res', 'country'])}
@@ -118,26 +118,29 @@ class TMain(Lib.TCtrlBase):
         )
 
         if (DblProducts):
-            Lib.DblProducts_Adjust(DblProducts, aLangId)
+            Lib.DblProducts_Adjust(DblProducts, aLangId, self.GetConf('image_encrypt'))
+
+            Bot = Lib.IsBot(aData['user_agent'])
+            TotalProducts = Lib.Iif(Bot, 10, DblProducts.Rec.total)
 
             Pagination = Lib.TPagination(aLimit, aData['path_qs'])
             Pagination.Visible = self.GetConf('pagination_cnt', 5)
-            PData = Pagination.Get(DblProducts.Rec.total, aPage)
+            PData = Pagination.Get(TotalProducts, aPage)
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
             Res['dbl_pagenation'] = DblPagination
 
             DblProductsSort = Lib.GetProductsSort(Pagination.Href, f'&sort={aSort}&order={aOrder}')
             Res['dbl_products_sort'] = DblProductsSort
 
-        DblCategories = await Lib.DblGetCategories(self, aLangId, aCountryId, 'country')
+        #DblCategories = await Lib.DblGetCategories(self, aLangId, aCountryId, 'country')
 
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblProducts, ['href', 'href_int'])
-            await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
+            #await Lib.SeoEncodeDbl(self, DblCategories, ['href'])
 
         Res['type'] = 'country'
         Res['dbl_products'] = DblProducts
-        Res['dbl_categories'] = DblCategories
+        #Res['dbl_categories'] = DblCategories
         Res['category'] = Category
         Res['href'] = {
             'btn_attr': f'/?route=product/country&lang_id={aLangId}&country_id={aCountryId}&f_category={Category}'

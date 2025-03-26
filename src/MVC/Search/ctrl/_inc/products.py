@@ -26,7 +26,7 @@ async def List(self, aLangId: int, aUrlIds: str, aReverse = False) -> dict:
     if (not DblProducts):
         return {'status_code': 404}
 
-    Lib.DblProducts_Adjust(DblProducts, aLangId)
+    Lib.DblProducts_Adjust(DblProducts, aLangId, self.GetConf('image_encrypt'))
 
     if (self.GetConf('seo_url')):
         await Lib.SeoEncodeDbl(self, DblProducts, ['href'])

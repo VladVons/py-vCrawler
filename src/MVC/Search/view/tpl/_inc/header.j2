@@ -1,21 +1,30 @@
 <!-- header + -->
 <header>
   <div class="container">
-      <div class="logo"><a href="{{href.root}}"><img src="/assets/images/logo.svg" alt="logo"></a></div>
-      <div class="actions">
-          <a class="btn btn-action" id="viBtnOn_history" title="{{Trans(lang, 'history')}}">
-              <img src="/assets/images/icon-history.svg" alt="history">
-              <span class="badge" id="viCount_history"></span>
-          </a>
-          <a class="btn btn-action" id="viBtnOn_favorite" title="{{Trans(lang, 'favorite')}}">
-              <img src="/assets/images/icon-heart.svg" alt="favorite">
-              <span class="badge" id="viCount_favorite"></span>
-            </a>
-          <a class="btn btn-action" id="viBtnOn_compare" title="{{Trans(lang, 'compare')}}">
-              <img src="/assets/images/icon-compare.svg" alt="compare">
-              <span class="badge" id="viCount_compare"></span>
-          </a>
-      </div>
+    <div class="logo"><a href="{{href.root}}"><img src="/assets/images/logo.svg" alt="logo"></a></div>
+    <div>
+    {% if category %}
+      <select onchange="window.location.href=this.value">
+      {% for Rec in TDbList().Import(dbl_categories) %}
+        <option value="{{Rec.href}}" {{ Iif(Rec.category == category, 'selected', '') }}>{{Trans(lang, Rec.category)}}</option>
+      {% endfor %}
+      </select>
+    {% endif %}
+    </div>
+    <div class="actions">
+        <a class="btn btn-action" id="viBtnOn_history" title="{{Trans(lang, 'history')}}">
+            <img src="/assets/images/icon-history.svg" alt="history">
+            <span class="badge" id="viCount_history"></span>
+        </a>
+        <a class="btn btn-action" id="viBtnOn_favorite" title="{{Trans(lang, 'favorite')}}">
+            <img src="/assets/images/icon-heart.svg" alt="favorite">
+            <span class="badge" id="viCount_favorite"></span>
+        </a>
+        <a class="btn btn-action" id="viBtnOn_compare" title="{{Trans(lang, 'compare')}}">
+            <img src="/assets/images/icon-compare.svg" alt="compare">
+            <span class="badge" id="viCount_compare"></span>
+        </a>
+    </div>
   </div>
 </header>
 <!-- header - -->

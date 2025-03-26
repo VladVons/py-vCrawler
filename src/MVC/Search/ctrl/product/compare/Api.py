@@ -39,6 +39,7 @@ class TMain(Lib.TCtrlBase):
         ProductKeys = ['image', 'url_id', 'title', 'price']
         Fields = ProductKeys + sorted(set(AttrKeys))
 
+        ImageEncrypt = self.GetConf('image_encrypt')
         DblCompare = Lib.TDbList(['href'] + Fields)
         for Rec in Dbl:
             RecNew = DblCompare.RecAdd()
@@ -47,6 +48,9 @@ class TMain(Lib.TCtrlBase):
 
             Href = f'/?route=product/product&lang_id={aLangId}&url_id={Rec.url_id}'
             RecNew.SetField('href', Href)
+
+            if (ImageEncrypt):
+                RecNew.image = Lib.ImgProxy(RecNew.image)
 
         if (self.GetConf('seo_url')):
             await Lib.SeoEncodeDbl(self, DblCompare, ['href'])

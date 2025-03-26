@@ -16,7 +16,7 @@ def GetIpLocation(aRequest: web.Request) -> dict:
     LocalHost = '127.0.0.1'
     if (Remote == LocalHost):
         # try to get remote ip from nginx proxy (proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;)
-        #Remote = '5.58.222.201'
+        Remote = '5.58.222.201'
         Remote = aRequest.headers.get('X-FORWARDED-FOR', Remote)
 
     if (Remote == LocalHost):

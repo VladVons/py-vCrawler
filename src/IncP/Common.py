@@ -6,6 +6,7 @@
 # pylint: skip-file
 from Inc.Var.Dict import DictToPath
 
+gImgProxy = 'img-pxy'
 
 def AdjustAttr(aAttr: dict) -> dict:
     if (aAttr):

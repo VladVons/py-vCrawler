@@ -38,6 +38,7 @@
       {% endif %}
       <div class="form__search">
         <form method="get" autocomplete="off" id="viSearchForm">
+          <input type="hidden" name="lang_id" value="{{query.lang_id}}"/>
           <input type="hidden" name="route" value="product/search"/>
           <input type="text" id="viSearchInput" name="q" value="{{query.q}}" placeholder="{{Trans(lang, 'search')}}">
           <div class="autocomplete-items" id="viSearchSuggest"><!-- JS --></div>

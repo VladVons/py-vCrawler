@@ -69,6 +69,7 @@ class TFormBase(Form):
             'post': self.out.data,
             'query': dict(self.Request.query) | self.out.query,
             'path_qs': self.Request.path_qs,
+            'user_agent': self.Request.headers.get('User-Agent', ''),
             'extends': self._GetTplExtends(aRoute),
             'session': self.Session.Export()
         }

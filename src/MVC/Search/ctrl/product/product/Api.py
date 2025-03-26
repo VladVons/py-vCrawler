@@ -62,8 +62,8 @@ class TMain(Lib.TCtrlBase):
             }
         )
 
-        if (DblProducts):
-            Lib.DblProducts_Adjust(DblProducts, aLangId)
+        if (DblProducts) and (not Lib.IsBot(aData['user_agent'])):
+            Lib.DblProducts_Adjust(DblProducts, aLangId, self.GetConf('image_encrypt'))
 
             if (self.GetConf('seo_url')):
                 await Lib.SeoEncodeDbl(self, DblProducts, ['href', 'href_int'])
@@ -89,6 +89,11 @@ class TMain(Lib.TCtrlBase):
 
         if ('stock' not in ParsedData):
             ParsedData['stock'] = False
+
+        if (self.GetConf('image_encrypt')):
+            ParsedData['image'] = Lib.ImgProxy(ParsedData['image'])
+            for Idx, xImage in enumerate(ParsedData['images']):
+                ParsedData['images'][Idx] = Lib.ImgProxy(xImage)
 
         AttrSchema = [
             {

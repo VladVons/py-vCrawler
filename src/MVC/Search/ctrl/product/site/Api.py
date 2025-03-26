@@ -139,11 +139,14 @@ class TMain(Lib.TCtrlBase):
         )
 
         if (DblProducts):
-            Lib.DblProducts_Adjust(DblProducts, aLangId)
+            Lib.DblProducts_Adjust(DblProducts, aLangId, self.GetConf('image_encrypt'))
+
+            Bot = Lib.IsBot(aData['user_agent'])
+            TotalProducts = Lib.Iif(Bot, 10, DblProducts.Rec.total)
 
             Pagination = Lib.TPagination(aLimit, aData['path_qs'])
             Pagination.Visible = self.GetConf('pagination_cnt', 5)
-            PData = Pagination.Get(DblProducts.Rec.total, aPage)
+            PData = Pagination.Get(TotalProducts, aPage)
             DblPagination = Lib.TDbList(['page', 'title', 'href', 'current'], PData)
             Res['dbl_pagenation'] = DblPagination
 
