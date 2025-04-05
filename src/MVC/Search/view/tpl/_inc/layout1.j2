@@ -23,6 +23,7 @@
 
   <link rel="icon" type="image/png" href="/assets/images/favicon.png">
   <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/assets/css/chat.css">
   <script src="/assets/js/lib.js"></script>
   <script src="/assets/js/app.js"></script>
   <script src="/assets/jsExt/app.js"></script>
@@ -75,12 +76,14 @@
   {% block content %}{% endblock %}
   <div id="a-footer" class="anchor"></div>
   {% include './footer.j2' %}
+  {% include './chat.j2' %}
   <button class="btn btn-green-base" id="viBtnGoTop" onclick="goToTop()">
     <img src="/assets/images/arrow-up-white.svg">
   </button>
 
   <script type="text/javascript" src="/assets/jsExt/main.js"></script>
   <script src="/assets/js/gotop.js"></script>
+  <script src="/assets/js/chat.js"></script>
 
    <script type="text/javascript">
         ProductListActionMark();

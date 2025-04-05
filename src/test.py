@@ -61,8 +61,11 @@ async def Test3():
     print('done')
 
 async def Download():
-    url = "https://recorder.com.ua/image/cache/catalog/oc_6341202044408332b85dfe909d05a8fbc4f425-592x343.jpg"
-    url = "https://midis.zp.ua/img/good/116364"
+    #url = "https://recorder.com.ua/image/cache/catalog/oc_6341202044408332b85dfe909d05a8fbc4f425-592x343.jpg"
+    #url = "https://midis.zp.ua/img/good/116364"
+    #url = "https://nosta.com.ua/image/cache/catalog/nosta/PC%20%D0%BA%D1%83%D0%BF%D0%B8%D1%82%D1%8C/lenovo-tiny-desktop-thinkcentre-m73-front-18-700x500.png"
+    url = "https://setka.ua/upload/resize_cache/iblock/ccf/450_450_140cd750bba9870f18aada2478b24840a/ldmhqjbyl31z90n0nh4xod404bwqlslr.jpg"
+
     filename = "downloaded_image.jpg"
     headers = {
         'User-Agent': 'python-requests/2.32.3',
@@ -72,11 +75,11 @@ async def Download():
     }
 
     # method 1 - status 200
-    response = requests.get(url)
-    headers = response.request.headers
-    if response.status_code == 200:
-        with open(filename, "wb") as file:
-                file.write(response.content)
+    # response = requests.get(url)
+    # headers = response.request.headers
+    # if response.status_code == 200:
+    #     with open(filename, "wb") as file:
+    #             file.write(response.content)
 
     # session = requests.Session()
     # response = session.get(url)
@@ -86,7 +89,13 @@ async def Download():
     ssl_context = ssl.create_default_context()
     #ssl_context.set_ciphers("DEFAULT@SECLEVEL=1")  # Зниження рівня безпеки TLS
     ssl_context.check_hostname = False
-    ssl_context.options |= ssl.OP_NO_TLSv1_2  # Відключення TLS 1.3
+    #ssl_context.verify_mode = ssl.CERT_NONE
+    # ssl_context.options |= ssl.OP_NO_TLSv1_1
+    # ssl_context.options |= ssl.OP_NO_TLSv1_2
+    # ssl_context.options |= ssl.OP_NO_TLSv1_3
+    ssl_context.options = 0
+
+    #print(ssl_context.options)
 
     # method 2 - status 403
     async with aiohttp.ClientSession(headers=headers) as Session:

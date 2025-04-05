@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Telegram Bot</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        .chat-container { width: 300px; margin: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px; }
+        .chat-box { height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 5px; }
+        .message { padding: 5px; margin: 5px 0; border-radius: 5px; }
+        .user { background-color: #0084ff; color: white; text-align: right; }
+        .bot { background-color: #f1f1f1; text-align: left; }
+        .input-container { margin-top: 10px; display: flex; }
+        input { flex: 1; padding: 5px; }
+        button { padding: 5px; background: #28a745; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>Chat with Telegram Bot</h2>
+    <div class="chat-container">
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-container">
+            <input type="text" id="message" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = "YOUR_BOT_TOKEN";  // 🔹 Вставте токен вашого бота
+        const CHAT_ID = "YOUR_CHAT_ID";  // 🔹 Вставте ваш chat ID (можна отримати через @userinfobot)
+
+        function sendMessage() {
+            let message = document.getElementById("message").value;
+            if (message.trim() === "") return;
+
+            // Відобразити повідомлення користувача
+            addMessage(message, "user");
+
+            // Надіслати повідомлення до Telegram API
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    addMessage("Message sent to bot!", "bot");
+                } else {
+                    addMessage("Error sending message!", "bot");
+                }
+            });
+
+            document.getElementById("message").value = "";
+        }
+
+        function addMessage(text, sender) {
+            let chatBox = document.getElementById("chat-box");
+            let messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", sender);
+            messageDiv.textContent = text;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>

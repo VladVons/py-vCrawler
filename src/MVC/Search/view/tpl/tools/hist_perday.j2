@@ -1,6 +1,6 @@
 {% extends '_inc/layout1.j2' %}
 
-{% set Fields = ['create_date', 'dow', 'id', 'url', 'ip', 'location'] %}
+{% set Fields = ['create_date', 'ip', 'location'] %}
 
 {% block head %}
 <style>
@@ -28,9 +28,6 @@
 
     {% for Rec in TDbList().Import(dbl_day) %}
       <div class="gitem">{{Rec.create_day}}</div>
-      <div class="gitem">{{Rec.dow}}</div>
-      <div class="gitem">{{Rec.count_id}}</div>
-      <div class="gitem">{{Rec.count_url}}</div>
       <div class="gitem">{{Rec.count_ip}}</div>
       <div class="gitem">{{Rec.count_location}}</div>
     {% endfor %}

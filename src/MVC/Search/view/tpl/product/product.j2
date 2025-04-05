@@ -23,14 +23,14 @@
         <div class="gallery__main">
           <div class="slider__main">
           {% for xImage in parsed_data.images %}
-            <div><img src="{{xImage}}" alt="title"></div>
+            <div><img src="{{xImage}}" alt="{{Trans(lang, category)}}"></div>
           {% endfor %}
           </div>
         </div>
         <div class="gallery__thumbs">
           <div class="slider__thumbs">
             {% for xImage in parsed_data.images %}
-            <div><img src="{{xImage}}" alt="title"></div>
+            <div><img src="{{xImage}}" alt="{{Trans(lang, category)}}"></div>
             {% endfor %}
           </div>
         </div>
