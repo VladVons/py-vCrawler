@@ -1,0 +1,5 @@
+{
+  "id" : "{% env  CRAWLER_API_ID %}",
+  "hash" : "{% env  CRAWLER_API_HASH %}",
+  "session": "Data/Chat/vlad"
+}

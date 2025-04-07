@@ -23,7 +23,7 @@
         class TChatTelegram {
             constructor(aUrl) {
                 this.Url = aUrl;
-                this.RetryInterval = 3000;
+                this.RetryInterval = 5000;
                 this.Socket = null;
                 this.UserChat = null;
 
@@ -123,16 +123,16 @@
             };
 
             addMessage(text, sender) {
-                let chatBox = document.getElementById('chat-box');
-                let messageDiv = document.createElement('div');
-                messageDiv.classList.add("message", sender);
+                const chatBox = document.getElementById('chat-box');
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', sender);
                 messageDiv.textContent = text;
                 chatBox.appendChild(messageDiv);
                 chatBox.scrollTop = chatBox.scrollHeight;
             };
         }
 
-        const Chat = new TChatTelegram('ws://localhost:8080/ws')
+        const Chat = new TChatTelegram('ws://localhost:8184/ws')
         Chat.Connect();
 
         function sendMessage() {

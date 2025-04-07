@@ -16,6 +16,7 @@ pylint
 aiohttp_session
 cryptography
 wtforms
+telethon
 
 #-- JS emulators
 ### py_mini_racer
