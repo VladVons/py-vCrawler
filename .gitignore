@@ -3,6 +3,8 @@
 *.dat
 scss/*.{css,map}
 *.html.json
+*.session
+
 __pycache__
 .idea
 #Task.py
