@@ -85,21 +85,35 @@
   <script src="/assets/js/gotop.js"></script>
   <script src="/assets/js/chat.js"></script>
 
-   <script type="text/javascript">
-        ProductListActionMark();
-        OnCountry();
-        OnHeadCompareFavorite(
-          {
-            'history': '{{href.history}}',
-            'compare': '{{href.compare}}',
-            'favorite': '{{href.favorite}}'
-          }
-        );
+  <script type="text/javascript">
+    ProductListActionMark();
+    OnCountry();
+    OnHeadCompareFavorite(
+      {
+        'history': '{{href.history}}',
+        'compare': '{{href.compare}}',
+        'favorite': '{{href.favorite}}'
+      }
+    );
 
-        //const search_ajax = '{{href_search_ajax}}';
-        //const search_query = {'method': 'ajax', 'lang_id': '{{query.lang_id}}', '': '{{query.country_id}}'}
-        //searchNavbar(search_ajax, search_query);
-    </script>
+    //const search_ajax = '{{href_search_ajax}}';
+    //const search_query = {'method': 'ajax', 'lang_id': '{{query.lang_id}}', '': '{{query.country_id}}'}
+    //searchNavbar(search_ajax, search_query);
+
+    //const Url = 'ws://localhost:8184/ws';
+    const Url = 'wss://it.findwares.com/ws';
+    const Chat = new TChatTelegram(Url);
+    Chat.Connect();
+
+    function ChatSendMessage(aEvent) {
+      Chat.sendMessage(aEvent);
+    }
+
+    function ChatToggle() {
+      Chat.Toggle();
+    }
+
+  </script>
     {% block bottom %}{% endblock %}
 </body>
 </html>

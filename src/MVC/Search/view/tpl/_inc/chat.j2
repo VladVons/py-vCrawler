@@ -1,15 +1,23 @@
 <!-- chat+ -->
-<button class="chat-btn-toggle" onclick="toggleChat()">💬</button>
+<button class="chat-btn-toggle" onclick="ChatToggle()">💬</button>
 
 <div class="chat-container" id="chat-container">
     <div class="chat-header">
-        <span>Chat with Bot</span>
-        <button class="btn-close" onclick="toggleChat()">❌</button>
+        <span>{{Trans(lang, 'chat')}}</span>
+        <button class="btn-close" onclick="ChatToggle()">x</button>
     </div>
-    <div class="chat-box" id="chat-box"></div>
-    <div class="chat-input-container">
-        <textarea class="chat-textarea" id="message" placeholder="Type your message..." rows="2"></textarea>
-        <button class="chat-btn" onclick="sendMessage()">Send</button>
-    </div>
+    <form id="chat-form" onsubmit="ChatSendMessage(event)" autocomplete="off">
+        <div class="chat-input-container">
+            <input type="text" id="chat-name" class="chat-input" placeholder="*{{Trans(lang, 'first name')}}" minlength="4" required/>
+            <input type="tel" id="chat-phone" class="chat-input" placeholder="*{{Trans(lang, 'phone')}}" minlength="10" required/>
+        </div>
+
+        <div class="chat-box" id="chat-box"></div>
+
+        <div class="chat-input-container">
+            <textarea class="chat-textarea" id="message" placeholder="{{Trans(lang, 'message')}}" rows="2" required></textarea>
+        </div>
+        <button type="submit" class="chat-btn">{{Trans(lang, 'send')}}</button>
+    </form>
 </div>
 <!-- chat- -->

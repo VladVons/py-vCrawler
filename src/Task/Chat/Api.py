@@ -9,10 +9,10 @@ from telethon import TelegramClient, events
 from telethon.tl.functions.channels import CreateChannelRequest
 from telethon.tl.functions.messages import GetDialogFiltersRequest, UpdateDialogFilterRequest
 from telethon.tl.types import DialogFilter
-#
+from telethon.errors import ChannelPrivateError
 from Inc.DataClass import DDataClass
 from IncP.ApiBase import TApiBase
-
+from IncP.Log import Log
 
 @DDataClass
 class TApiChatConf():
@@ -37,22 +37,44 @@ class TApiChat(TApiBase):
         return f'fw_chat_{aId}'
 
     async def InitA(self):
+        Log.Print(1, 'i', f'TelegramClient(). id: {self.Conf.id}, hash: ...{self.Conf.hash[-8:]}')
+
         self.Client = TelegramClient(self.Conf.session, self.Conf.id, self.Conf.hash)
         await self.Client.start()
-        if not self.Client.is_connected():
+        if (not self.Client.is_connected()):
             await self.Client.connect()
+
+        Me = await self.Client.get_me()
+        Log.Print(1, 'i', f'Session phone: {Me.phone}')
+
+    async def GetMessages(self, aGroupId: int) -> list:
+        Res = [
+            {
+                'date': xMessage.date.astimezone().strftime('%Y-%m-%d %H:%M:%S'),
+                'text': xMessage.text
+            }
+            async for xMessage in self.Client.iter_messages(aGroupId, limit=100)
+            if xMessage.text
+        ]
+        Res.reverse()
+        return Res
 
     async def HandleReply(self, event):
         user_id = next((uid for uid, gid in self.user_groups.items() if gid == event.chat_id), None)
         if (user_id) and (user_id in self.clients):
             await self.clients[user_id].send_json({
                 'type': 'handled',
-                'message': event.message.text
+                'text': event.message.text,
+                'date': event.message.date.astimezone().strftime('%Y-%m-%d %H:%M:%S')
             })
 
     async def Handle(self, aRequest):
         ws = web.WebSocketResponse()
-        await ws.prepare(aRequest)
+        try:
+            await ws.prepare(aRequest)
+        except Exception as E:
+            Log.Print(1, 'e', f'prepare() {E}')
+            return web.Response(text="Unexpected error", status=500)
 
         user_id = None
         async for xMsg in ws:
@@ -67,16 +89,17 @@ class TApiChat(TApiBase):
                     if (not group_id):
                         Name = self.GetChannelName(user_id)
                         group_id = await self.ChannelFind(Name)
-                        if (group_id):
-                            Messages = [
-                                xMessage.text
-                                async for xMessage in self.Client.iter_messages(group_id)
-                                if xMessage.text
-                            ]
+                        self.user_groups[user_id] = group_id
+
+                    if (group_id):
+                        try:
+                            Messages = await self.GetMessages(group_id)
                             await ws.send_json({
                                 'type': 'onopen',
                                 'messages': Messages
                             })
+                        except ChannelPrivateError: # possible deleted
+                            del self.user_groups[user_id]
 
                 elif (data['type'] == 'message') and user_id:
                     message = data['message']
@@ -97,6 +120,7 @@ class TApiChat(TApiBase):
 
                     await self.Client.send_message(group_id, f'~{message}')
                     print(f'got {message}')
+                pass
 
         if (user_id) and (user_id in self.clients):
             del self.clients[user_id]
