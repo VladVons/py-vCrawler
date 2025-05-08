@@ -19,11 +19,10 @@
 
         <div class="info">
           <div class="price">
-            {% if Rec.price_old %}
-              <div class="old">{{"{:,}".format(Rec.price_old|int)}}</div>
+            {% if Rec.price_old_a %}
+              <div class="old">{{Price(Rec.price_old_a)}}</div>
             {% endif %}
-            {{"{:,}".format(Rec.price|int)}}
-          </div>
+            {{Price(Rec.price_a)}}          </div>
           <div class="actions">
             <button class="btn" data-key="history" title="{{Trans(lang, 'history')}}">
               <img src="/assets/images/icon-history.svg" alt="history">

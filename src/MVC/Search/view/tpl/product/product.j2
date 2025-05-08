@@ -40,14 +40,14 @@
         <h1>{{parsed_data.name}}</h1>
         <div class="from">
           <p><strong>{{Trans(lang, 'date')}}:</strong> {{update_date.date()}}</p>
-          <p><strong>{{Trans(lang, 'location')}}:</strong> {{country_title}}</p>
+          <p><strong>{{Trans(lang, 'location')}}:</strong> {{country_title|capitalize}}</p>
           <p><strong>{{Trans(lang, 'code')}}:</strong> {{url_id}}</p>
         </div>
         <div class="detail">
           <div class="price">
-            {{parsed_data.price[0]}}
+            {{Price(parsed_data.price)}}
             {% if parsed_data.price_old %}
-              <div class="old">{{parsed_data.price_old[0]}}</div>
+              <div class="old">{{Price(parsed_data.price_old)}}</div>
             {% endif %}
           </div>
           <div class="actions">
@@ -69,7 +69,7 @@
             </div>
             {% for Rec in TDbList().Import(dbl_attr) %}
               <div class="row">
-                <p>{{Trans(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val}}</a></strong>
+                <p>{{Trans(lang, Rec.key)}}:</p><strong><a href="{{Rec.href}}">{{Rec.val|capitalize}}</a></strong>
               </div>
             {% endfor %}
           </div>

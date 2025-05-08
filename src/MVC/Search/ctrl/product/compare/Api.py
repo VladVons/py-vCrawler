@@ -36,7 +36,7 @@ class TMain(Lib.TCtrlBase):
         for Rec in Dbl:
             if (Rec.attr):
                 AttrKeys += Rec.attr.keys()
-        ProductKeys = ['image', 'url_id', 'title', 'price']
+        ProductKeys = ['image', 'url_id', 'title', 'price_a']
         Fields = ProductKeys + sorted(set(AttrKeys))
 
         ImageEncrypt = self.GetConf('image_encrypt')

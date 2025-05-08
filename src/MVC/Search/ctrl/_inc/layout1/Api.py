@@ -38,6 +38,7 @@ class TMain(Lib.TCtrlBase):
             'href_search_ajax': '/api/?route=product/search',
             'href': Href,
             'now_year': datetime.now().year,
-            'ver': f"ver:{AppVer['app_ver']} ({AppVer['app_date']})"
+            'ver': f"ver:{AppVer['app_ver']} ({AppVer['app_date']})",
+            'country_id': aCountryId
         }
         return Res

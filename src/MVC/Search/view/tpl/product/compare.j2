@@ -22,8 +22,10 @@
                                 <div class="image">
                                     <a href="{{Rec.href}}"><img src="{{Rec.image}}"></a>
                                 </div>
+                                {% elif xRow == 'price_a' %}
+                                  <div class="row">{{Price(Rec.price_a)}}</div>
                                 {% else %}
-                                <div class="row">{{Rec.GetField(xRow)}}</div>
+                                  <div class="row">{{Rec.GetField(xRow)}}</div>
                                 {% endif %}
                             {% endfor %}
                             </div>

@@ -10,8 +10,9 @@ select
   rp.attr,
   rp.stock,
   rp.price,
-  (rp.parsed_data->'price_old'->>0)::decimal as price_old,
-  (rp.parsed_data->>'image') as image,
+  rp.parsed_data->'price' as price_a,
+  rp.parsed_data->'price_old' as price_old_a,
+  rp.parsed_data->'image' as image,
   ru.url,
   ru.create_date
 from

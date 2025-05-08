@@ -76,6 +76,7 @@ class TAttrSelect {
             const Option = Select.querySelector(`option[value="${xKey}"]`);
             if (Option) {
               Option.textContent = `${xKey} (${xVal})`;
+              Option.disabled = (xVal == 0);
             }
           }
         }

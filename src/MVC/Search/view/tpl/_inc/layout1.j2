@@ -44,9 +44,9 @@
           <input type="text" id="viSearchInput" name="q" value="{{query.q}}" placeholder="{{Trans(lang, 'search')}}">
           <div class="autocomplete-items" id="viSearchSuggest"><!-- JS --></div>
           <select name="country_id" id="viCountry">
-            <option disabled="disabled">{{Trans(lang, 'location')}}</option>
+            <option disabled>{{Trans(lang, 'location')}}</option>
             {% for Rec in TDbList().Import(dbl_country) %}
-            <option value="{{Rec.id}}" data-lang="{{Rec.lang_id}}" {{Iif(Rec.id == query.country_id, 'selected', '')}}>{{Rec.title}} ({{Rec.alias}})</option>
+            <option value="{{Rec.id}}" data-lang="{{Rec.lang_id}}" {{Iif(Rec.id == query.country_id, 'selected', '')}}>{{Rec.title|capitalize}} ({{Rec.alias|upper}})</option>
             {% endfor %}
           </select>
           <button class="btn btn-green">{{Trans(lang, 'search')}}</button>

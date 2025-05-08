@@ -26,7 +26,7 @@
               <select id="{{Rec.key}}" name="f_{{Rec.key}}">
                 <option value="">--- ({{Rec.total}})</option>
                 {% for xKey, xVal in Rec.stat.items() %}
-                <option value="{{xKey}}" {{ Iif(Rec.active == xKey, 'selected', '') }}>{{xKey}} ({{xVal}})</option>
+                <option value="{{xKey}}" {{ Iif(Rec.active == xKey, 'selected', '') }}>{{xKey|capitalize}} ({{xVal}})</option>
                 {% endfor %}
               </select>
           </div>
