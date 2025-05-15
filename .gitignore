@@ -4,6 +4,7 @@
 scss/*.{css,map}
 *.html.json
 *.session
+*.session-journal
 
 __pycache__
 .idea
