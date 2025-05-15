@@ -42,6 +42,11 @@ class TMain(Lib.TCtrlBase):
             (-1, -1)
         )
 
+        if (aCountryId == -1):
+            aCountryId = Lib.DeepGetByList(aData, ['session', 'keys', 'country_id'])
+            if (aCountryId):
+                aCountryId = int(aCountryId)
+
         SessionId = Lib.DeepGetByList(aData, ['session', 'keys', 'session_id'])
         if (SessionId):
             await self.ExecModel(

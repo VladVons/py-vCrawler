@@ -126,9 +126,10 @@ class TApiView(TApiBase):
 
         Query = dict(aRequest.query)
         Post = await aRequest.post()
+        Method = Query.get('method', 'Main')
         Data = {
             'type': 'api',
-            'method': Query.get('method', 'Main'),
+            'method': Method,
             'post': dict(Post),
             'query': dict(aRequest.query),
             'session': Session.Export(),
@@ -142,6 +143,13 @@ class TApiView(TApiBase):
                 Data.update(Post)
             except ValueError as E:
                 Log.Print(1, 'i', f'ResponseApi(). {E}')
+
+        if ('route' in Query):
+            Module = f'{self.Conf.dir_route}/api/{Query["route"]}'
+            if (os.path.isfile(Module + '.py')):
+                Mod = __import__(Module.replace('/', '.'), None, None, [Method])
+                MethodObj = getattr(Mod, Method)
+                await MethodObj(Data, Session)
 
         Ctrl = self.Loader['ctrl']
         R = await Ctrl.Get(Query.get('route'), Data)
