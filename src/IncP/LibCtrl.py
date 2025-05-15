@@ -13,7 +13,7 @@ from Inc.Misc.Crypt import GetCRC
 from Inc.Misc.Pagination import TPagination
 from Inc.Var.Dict import DeepGetByList, GetDictDef, GetDictDefs, DictUpdateDef, DictUpdate, Filter, DictFindVal, DelValues, GetNotNone, GetDictKey, DelKeys
 from Inc.Var.Obj import Iif, IsDigits
-from Inc.Var.Str import EncryptXor
+from Inc.Var.Str import EncryptXor, SterileSQL
 from IncP.CtrlBase import TCtrlBase
 from IncP.Common import gImgProxy
 from .Log import Log

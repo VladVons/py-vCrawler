@@ -40,6 +40,12 @@ class TCtrlBase():
         return Res
 
     async def ExecModelImport(self, aMethod: str, aData: dict) -> Lib.TDbList:
+        # clear SQL injection
+        if ('param' in aData):
+            for xKey, xVal in aData['param'].items():
+                if (isinstance(xVal, str)) and (xVal):
+                    aData['param'][xKey] = Lib.SterileSQL(xVal)
+
         Res = await self.ApiModel(aMethod, aData)
         if (isinstance(Res, dict) and ('tag' in Res) and ('head' in Res)):
             Res = Lib.TDbList().Import(Res)
