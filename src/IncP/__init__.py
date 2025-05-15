@@ -3,8 +3,8 @@
 #License:     GNU, see LICENSE for more details
 
 
-__version__ = '1.1.9'
-__date__ =  '2025.04.30'
+__version__ = '1.1.10'
+__date__ =  '2025.05.15'
 __author__ = 'Vladimir Vons'
 __email__ = 'VladVons@gmail.com'
 __url__ = 'http://oster.com.ua'
